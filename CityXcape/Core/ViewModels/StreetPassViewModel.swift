@@ -60,6 +60,7 @@ class StreetPassViewModel: NSObject, ObservableObject {
     @Published var editDetails: String = ""
     @Published var longitude: String = ""
     @Published var latitude: String = ""
+    @Published var isDeleted: Bool = false
     
     @Published var showImagePicker: Bool = false
     @Published var thumbcase: ImageCase = .one
@@ -284,7 +285,6 @@ class StreetPassViewModel: NSObject, ObservableObject {
                 showAlert.toggle()
             }
         }
-        
     }
     
     func changeSpotImageUrl(id: String, spoturl: String) {
@@ -293,6 +293,7 @@ class StreetPassViewModel: NSObject, ObservableObject {
                 try await DataService.shared.updateSpotImageUrl(spotId: id, imageUrl: spoturl)
                 alertMessage = "Image Changed Successfully!"
                 showAlert.toggle()
+                isDeleted = true 
             } catch {
                 alertMessage = error.localizedDescription
                 showAlert.toggle()
@@ -300,7 +301,19 @@ class StreetPassViewModel: NSObject, ObservableObject {
         }
     }
     
-    
+    //MARK: DELETE FUNCTIONS
+    func deleteLocation(spotId: String) {
+        Task {
+            do {
+                try await DataService.shared.deleteLocation(spotId: spotId)
+                alertMessage = "Spot Successfully Deleted"
+                showAlert.toggle()
+            } catch {
+                alertMessage = error.localizedDescription
+                showAlert.toggle()
+            }
+        }
+    }
     
     
     

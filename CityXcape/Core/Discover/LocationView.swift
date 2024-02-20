@@ -13,7 +13,6 @@ struct LocationView: View {
     
     @EnvironmentObject private var vm: LocationsViewModel
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var spM: StreetPassViewModel
 
 
     let spot: Location
@@ -55,12 +54,9 @@ struct LocationView: View {
                     vm.extraImages.insert(spot.imageUrl, at: 0)
                     vm.extraImages.append(contentsOf: spot.extraImages)
                     vm.updateViewCount(spot: spot)
-                    vm.printImageName(spot: spot)
                 }
                 .onDisappear {
                     vm.showStamp = false
-                    vm.statuses[2] = false
-                    vm.user = nil
                     vm.extraImages = []
                     vm.showExtraImage = false
                 }
@@ -107,7 +103,7 @@ struct LocationView: View {
                
                 CheckInButton()
             
-            if vm.showDetails {
+            if vm.option == .showInfo {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(spot.description)
                         .font(.callout)
@@ -184,23 +180,15 @@ struct LocationView: View {
     @ViewBuilder
     func ownerDetails() -> some View {
         HStack {
-       
-
-            
-            Button {
-                vm.getOwnerInfo(uid: spot.ownerId)
-            } label: {
-                VStack(alignment: .leading, spacing: 2) {
-                    UserDot(width: 50, imageUrl: spot.ownerImageUrl)
-                    Text("Posted by")
-                        .foregroundColor(.white)
-                        .fontWeight(.thin)
-                        .font(.caption)
-                }
+               
+            VStack(alignment: .leading, spacing: 2) {
+                UserDot(width: 50, imageUrl: spot.ownerImageUrl)
+                Text("Posted by")
+                    .foregroundColor(.white)
+                    .fontWeight(.thin)
+                    .font(.caption)
             }
-            .sheet(item: $vm.user) { user in
-                PublicStreetPass(user: user)
-            }
+           
             
             Spacer()
 
@@ -229,17 +217,17 @@ struct LocationView: View {
             } label: {
                 Image(systemName: "info.circle.fill")
                     .font(.title2)
-                    .foregroundColor(vm.statuses[0] ? .purple : .white)
+                    .foregroundColor(vm.option == .showInfo ? .purple : .white)
                     .particleEffect(
                         systemName: "plus.circle.fill",
                         font: .title2,
-                        status: vm.statuses[0],
+                        status: vm.option == .showInfo,
                         activeTint: .purple,
                         inactiveTint: .blue)
                     .frame(width: 55, height: 55)
-                    .background(vm.statuses[0] ? .purple.opacity(0.25) : .blue)
+                    .background(vm.option == .showInfo ? .purple.opacity(0.25) : .blue)
                     .clipShape(Circle())
-                    .scaleEffect(vm.statuses[0] ? 0.9 : 1)
+                    .scaleEffect(vm.option == .showInfo ? 0.9 : 1)
 
             }
             .alert(isPresented: $vm.showAlert) {
@@ -248,7 +236,7 @@ struct LocationView: View {
                     vm.showSignUp.toggle()
                 }, secondaryButton: .cancel {
                     withAnimation {
-                        vm.statuses[1] = false; vm.statuses[2] = false
+                        vm.option = .none
                     }
                 })
             }
@@ -260,17 +248,17 @@ struct LocationView: View {
             } label: {
                 Image(systemName: "heart.fill")
                     .font(.title2)
-                    .foregroundColor(vm.statuses[1] ? .red : .white)
+                    .foregroundColor(vm.option == .like ? .red : .white)
                     .particleEffect(
                         systemName: "person.2.fill",
                         font: .title2,
-                        status: vm.statuses[1],
+                        status: vm.option == .like,
                         activeTint: .red,
                         inactiveTint: .pink)
                     .frame(width: 55, height: 55)
-                    .background(vm.statuses[1] ? .red.opacity(0.25) : .pink.opacity(0.75))
+                    .background(vm.option == .like ? .red.opacity(0.25) : .pink.opacity(0.75))
                     .clipShape(Circle())
-                    .scaleEffect(vm.statuses[1] ? 0.9 : 1)
+                    .scaleEffect(vm.option == .like ? 0.9 : 1)
 
             }
             
@@ -279,17 +267,17 @@ struct LocationView: View {
             } label: {
                 Image(systemName: "bookmark.fill")
                     .font(.title2)
-                    .foregroundColor(vm.statuses[2] ? .orange : .white)
+                    .foregroundColor(vm.option == .bookmark ? .orange : .white)
                     .particleEffect(
                         systemName: "checkmark.seal.fill",
                         font: .title2,
-                        status: vm.statuses[2],
+                        status: vm.option == .bookmark,
                         activeTint: .orange,
                         inactiveTint: .yellow)
                     .frame(width: 55, height: 55)
-                    .background(vm.statuses[2] ? .orange.opacity(0.25) : .yellow.opacity(0.8))
+                    .background(vm.option == .bookmark ? .orange.opacity(0.25) : .yellow.opacity(0.8))
                     .clipShape(Circle())
-                    .scaleEffect(vm.statuses[2] ? 0.9 : 1)
+                    .scaleEffect(vm.option == .bookmark ? 0.9 : 1)
 
             }
             
@@ -306,17 +294,17 @@ struct LocationView: View {
             } label: {
                 Image(systemName: "car.fill")
                     .font(.title2)
-                    .foregroundColor(vm.statuses[2] ? .white : .white)
+                    .foregroundColor(vm.option == .showMap ? .white : .white)
                     .particleEffect(
-                        systemName: "figure.walk",
+                        systemName: "car.fill",
                         font: .title2,
-                        status: vm.statuses[2],
+                        status: vm.option == .showMap,
                         activeTint: .white,
                         inactiveTint: .gray)
                     .frame(width: 55, height: 55)
-                    .background(vm.statuses[2] ? .cyan.opacity(0.25) : .green.opacity(1))
+                    .background(vm.option == .showMap ? .cyan.opacity(0.25) : .green.opacity(1))
                     .clipShape(Circle())
-                    .scaleEffect(vm.statuses[2] ? 0.9 : 1)
+                    .scaleEffect(vm.option == .showMap ? 0.9 : 1)
 
             }
             
@@ -325,36 +313,35 @@ struct LocationView: View {
             } label: {
                 Image(systemName: "photo.fill")
                     .font(.title2)
-                    .foregroundColor(vm.statuses[2] ? .white : .white)
+                    .foregroundColor(.white)
                     .particleEffect(
                         systemName: "xmark",
                         font: .title2,
-                        status: vm.statuses[2],
+                        status: vm.option == .gallery,
                         activeTint: .white,
                         inactiveTint: .gray)
                     .frame(width: 55, height: 55)
-                    .background(vm.statuses[2] ? .purple.opacity(0.25) : .purple.opacity(1))
+                    .background(.purple.opacity(1))
                     .clipShape(Circle())
-                    .scaleEffect(vm.statuses[2] ? 0.9 : 1)
 
             }
             
             Button {
+               vm.option = .none
                dismiss()
             } label: {
                 Image(systemName: "arrow.uturn.down.circle.fill")
                     .font(.title2)
-                    .foregroundColor(vm.statuses[2] ? .white : .white)
+                    .foregroundColor(.white)
                     .particleEffect(
-                        systemName: "xmark",
+                        systemName: "arrow.uturn.down.circle.fill",
                         font: .title2,
-                        status: vm.statuses[2],
+                        status: false,
                         activeTint: .white,
                         inactiveTint: .gray)
                     .frame(width: 55, height: 55)
-                    .background(vm.statuses[2] ? .black.opacity(0.25) : .black.opacity(1))
+                    .background(.black)
                     .clipShape(Circle())
-                    .scaleEffect(vm.statuses[2] ? 0.9 : 1)
 
             }
             
@@ -366,12 +353,12 @@ struct LocationView: View {
         Button {
             vm.checkinLocation(spot: spot)
         } label: {
-            Text(vm.isCheckedIn ? "Check Out": "CHECK IN")
+            Text("CHECK IN")
                 .font(.subheadline)
                 .fontWeight(.thin)
                 .foregroundColor(.white)
                 .background(Capsule()
-                    .fill(vm.showCheckinList ? .purple : .black)
+                    .fill(.black)
                     .frame(width: 150, height: 40))
                 .padding(.top, 25)
         }

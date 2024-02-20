@@ -13,6 +13,7 @@ import SDWebImageSwiftUI
 struct SpotAnalytics: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var vm: StreetPassViewModel
+    @State private var showDeleteAction: Bool = false
 
     let spot: Location
     
@@ -163,10 +164,38 @@ struct SpotAnalytics: View {
                 TextField("Enter latitude", text: $vm.latitude)
             }
             
-            
             Section {
                 finishButton()
             }
+            
+            Section {
+                Button {
+                    showDeleteAction.toggle()
+                } label: {
+                    HStack {
+                        Image(systemName: "trash.circle.fill")
+                            .font(.title2)
+                            .foregroundColor(.red)
+                        Text("Delete Location")
+                            .foregroundColor(.red)
+                            .fontWeight(.thin)
+                            .actionSheet(isPresented: $showDeleteAction) {
+                                return ActionSheet(title: Text("Are sure you want to delete"), buttons: [
+                                    .destructive(Text("Yes"), action: {
+                                        vm.deleteLocation(spotId: spot.id)
+                                        if vm.isDeleted {
+                                            dismiss()
+                                            vm.isDeleted = false
+                                        }
+                                    }),
+                                    .cancel(Text("Cancel"))
+                                ])
+                            }
+                    }
+                }
+            }
+            
+            
             
         }
         .colorScheme(.dark)

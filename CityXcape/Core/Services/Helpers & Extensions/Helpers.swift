@@ -42,6 +42,22 @@ struct AppUserDefaults {
     static let fcmToken = "fcmtoken"
 }
 
+enum SpotOptions: String, CaseIterable, Identifiable {
+    case showInfo
+    case like
+    case bookmark
+    case checkin
+    case dismiss
+    case showMap
+    case showOwner
+    case none
+    case gallery
+    
+    var id: Self {
+        return self 
+    }
+}
+
 enum Product: String, CaseIterable, Identifiable {
     case streetcred = "com.cityportal.CityXcape0.streetcred"
     case streetcred_50 = "com.cityportal.CityXcape0.streetcred50"

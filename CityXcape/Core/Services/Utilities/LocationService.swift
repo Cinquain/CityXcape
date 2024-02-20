@@ -25,6 +25,10 @@ class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
         checkAuthorizationStatus()
     }
     
+    var city: String?
+    var loadMessage: String {
+        return UserDefaults.standard.value(forKey: AppUserDefaults.loadMessage)  as? String ?? "Loading"
+    }
     
     @Published var userLocation: CLLocationCoordinate2D?
     @Published var region: MKCoordinateRegion = MKCoordinateRegion()
@@ -60,6 +64,8 @@ class LocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
         
         if let city = userLocation?.getCity() {
             let message = "Loading \(city)"
+            print("The city is:", city)
+            self.city = city
             UserDefaults.standard.set(message, forKey: AppUserDefaults.loadMessage)
             UserDefaults.standard.set(city, forKey: AppUserDefaults.city)
         }

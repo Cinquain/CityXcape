@@ -14,15 +14,29 @@ import FirebaseMessaging
 @main
 struct CityXcapeApp: App {
     
+    
+    @State private var showLaunchView: Bool = true 
     @ObservedObject private var store = Store()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var vm = LocationsViewModel()
+    let gpsManager = LocationService.shared
     
     var body: some Scene {
         WindowGroup {
-            HomeView()
-                .environmentObject(vm)
-                .environmentObject(store)
+            
+            ZStack {
+                HomeView()
+                    .environmentObject(vm)
+                    .environmentObject(store)
+                ZStack {
+                    if showLaunchView {
+                        LaunchView(message: gpsManager.loadMessage, showView: $showLaunchView)
+                            .transition(.move(edge: .leading))
+                    }
+                }
+                .zIndex(2)
+                
+            }
         }
     }
 }

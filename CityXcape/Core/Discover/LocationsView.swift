@@ -11,14 +11,13 @@ struct LocationsView: View {
     @EnvironmentObject private var vm: LocationsViewModel
 
     @State var currentSpot: Location?
-
+   
     var body: some View {
         VStack(spacing: 0) {
             HeaderView()
                 .zIndex(0)
             
             GeometryReader { mainView in
-                
                 ScrollView {
                     VStack(spacing: 15) {
                         ForEach(vm.locations) { location in
@@ -26,6 +25,7 @@ struct LocationsView: View {
                             GeometryReader { item in
                                 
                                 SpotThumbnail(spot: location)
+                                    .padding(.bottom, 10)
                                     .scaleEffect(scaleValue(mainView.frame(in: .global).minY, item.frame(in: .global).minY), anchor: .bottom)
                                     .opacity(Double(scaleValue(mainView.frame(in: .global).minY, item.frame(in: .global).minY)))
                                     .onTapGesture {
@@ -74,21 +74,22 @@ struct LocationsView: View {
     func HeaderView() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             
+            HStack {
                 Image("Logo White")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 150)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150)
+                
+                Spacer()
+                
+               
+
+            }
             
             Divider()
                 .background(Color.white)
                 .frame(height: 0.5)
-            
-            Text("Spots Near You")
-            .font(.callout)
-            .foregroundColor(.white)
-            .fontWeight(.thin)
-            .padding(.leading, 10)
-    
+           
         }
     }
 }

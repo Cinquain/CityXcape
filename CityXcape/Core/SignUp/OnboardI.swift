@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OnboardI: View {
     var body: some View {
-        var worlds: [World] = []
+
         GeometryReader {
             let size = $0.size
             

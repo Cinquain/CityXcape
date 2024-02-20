@@ -30,10 +30,10 @@ final class DataService {
     //MARK: DATABASE REFERENCES
     var usersRef = DB.collection(Server.users)
     var locationsRef = DB.collection(Server.locations)
-    var worldsRef = DB.collection(Server.worlds)
     var privatesRef = DB.collection(Server.privates)
+    var worldRef = DB.collection(Server.worlds)
     var messageRef = DB.collection(Server.messages)
-    
+
     var chatListener: ListenerRegistration?
     var recentMessageListener: ListenerRegistration?
     var checkinListener: ListenerRegistration?
@@ -60,8 +60,6 @@ final class DataService {
     func fetchAllLocations() async throws -> [Location] {
         let ref = locationsRef
         var locations: [Location] = []
-        print("Fetching all locations")
-        
         let snapshot = try await ref.limit(to: 50).getDocuments()
         
          snapshot.documents.forEach {
@@ -105,7 +103,7 @@ final class DataService {
             Location.CodingKeys.city.rawValue: city,
             Location.CodingKeys.ownerId.rawValue: userId,
             Location.CodingKeys.ownerImageUrl.rawValue: profileUrl ?? "",
-            Location.CodingKeys.ownerUsername.rawValue: username ?? ""
+            Location.CodingKeys.ownerUsername.rawValue: username ?? "",
         ]
         
         try await spotRef.setData(data)
@@ -214,18 +212,30 @@ final class DataService {
         guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.uidNotFound}
         let spotRef = locationsRef.document(spotId)
         let userRef = usersRef.document(uid)
-        let userRecordsRef = privatesRef.document(uid).collection(Server.uploads).document(spotId)
-        
+        let privateRef = privatesRef.document(uid)
         let data: [String: Any] = [
             User.CodingKeys.spotsFound.rawValue: FieldValue.increment(Double(-1))
         ]
         
         try await spotRef.delete()
-        try await userRecordsRef.delete()
         try await userRef.updateData(data)
+        
+        //DELETE LIKE
+        let userLike = privateRef.collection(Server.likes).document(spotId)
+        if try await userLike.getDocument().exists {
+            try await userLike.delete()
+        }
+        //DELETE STAMP
+        let userStamp = privateRef.collection(Server.stamps).document(spotId)
+        if try await userStamp.getDocument().exists {
+            try await userStamp.delete()
+        }
+        //DELETE ANALYTICS
+        let userUploads = privateRef.collection(Server.uploads).document(spotId)
+        try await userUploads.delete()
     }
     
-    func saveLocation(spot: Location) async throws {
+    func saveOrUnsaveLocation(spot: Location) async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let increment: Double = 1
 
@@ -255,10 +265,14 @@ final class DataService {
                                 .document(spot.id)
         let spotsRef = locationsRef.document(spot.id)
         
-        try await spotsRef.updateData(countData)
-        try await userSavesRef.setData(spotData)
-        try await spotsRef.collection(Server.saves).document(uid).setData(userData)
-        Analytic.shared.savedLocation()
+        if try await spotsRef.collection(Server.saves).document(uid).getDocument().exists {
+            try await unsaveLocation(spotId: spot.id)
+        } else {
+            try await spotsRef.updateData(countData)
+            try await userSavesRef.setData(spotData)
+            try await spotsRef.collection(Server.saves).document(uid).setData(userData)
+            Analytic.shared.savedLocation()
+        }
     }
     
     func unsaveLocation(spotId: String) async throws {
@@ -296,32 +310,37 @@ final class DataService {
         return ids
     }
     
-    func like(spot: Location) async throws {
+    func likeOrUnlike(spot: Location) async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let increment: Double = 1
         let data: [String: Any] = [
             Location.CodingKeys.likeCount.rawValue: FieldValue.increment(increment)
         ]
         let spotRef = locationsRef.document(spot.id)
-        let userLikesRef = privatesRef
-                                .document(uid)
-                                .collection(Server.likes)
-                                .document(spot.id)
-        let likeData: [String: Any] = [
-            User.CodingKeys.id.rawValue: uid,
-            User.CodingKeys.timestamp.rawValue: Timestamp(),
-            User.CodingKeys.username.rawValue: username ?? "",
-            User.CodingKeys.imageUrl.rawValue: profileUrl ?? ""
-        ]
-        let spotData: [String: Any] = [
-            Location.CodingKeys.id.rawValue: spot.id,
-            Location.CodingKeys.name.rawValue: spot.name,
-            Location.CodingKeys.timestamp.rawValue: Timestamp()
-        ]
-        try await spotRef.updateData(data)
-        try await userLikesRef.setData(spotData)
-        try await spotRef.collection(Server.likes).document(uid).setData(likeData)
-        Analytic.shared.likedLocation()
+        
+        if try await spotRef.collection(Server.likes).document(uid).getDocument().exists {
+            try await dislike(spot: spot)
+        } else {
+            let userLikesRef = privatesRef
+                                    .document(uid)
+                                    .collection(Server.likes)
+                                    .document(spot.id)
+            let likeData: [String: Any] = [
+                User.CodingKeys.id.rawValue: uid,
+                User.CodingKeys.timestamp.rawValue: Timestamp(),
+                User.CodingKeys.username.rawValue: username ?? "",
+                User.CodingKeys.imageUrl.rawValue: profileUrl ?? ""
+            ]
+            let spotData: [String: Any] = [
+                Location.CodingKeys.id.rawValue: spot.id,
+                Location.CodingKeys.name.rawValue: spot.name,
+                Location.CodingKeys.timestamp.rawValue: Timestamp()
+            ]
+            try await spotRef.updateData(data)
+            try await userLikesRef.setData(spotData)
+            try await spotRef.collection(Server.likes).document(uid).setData(likeData)
+            Analytic.shared.likedLocation()
+        }
     }
     
     func dislike(spot: Location) async throws {
@@ -388,6 +407,29 @@ final class DataService {
         print("Check in listener removed!")
     }
     
+    func fetchallstamps() async throws -> [Stamp]{
+        guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.uidNotFound}
+        let ref = privatesRef.document(uid).collection(Server.stamps)
+        var stamps: [Stamp] = []
+        let snapshot = try await ref.getDocuments()
+        snapshot.documents.forEach { document in
+            let data = document.data()
+            let stamp = Stamp(data: data)
+            stamps.append(stamp)
+        }
+        return stamps
+    }
+    
+    func updateStampImage(image: UIImage, stampId: String) async throws -> String{
+        guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.uidNotFound}
+        let ref = privatesRef.document(uid).collection(Server.stamps).document(stampId)
+        let url = try await ImageManager.shared.uploadStampImage(uid: uid, spotId: stampId, image: image)
+        let data: [String: Any] = [
+            Stamp.CodingKeys.imageUrl.rawValue: url
+        ]
+        try await ref.updateData(data)
+        return url
+    }
   
     
     
@@ -549,6 +591,25 @@ final class DataService {
         UserDefaults.standard.removeObject(forKey: AppUserDefaults.location)
         UserDefaults.standard.removeObject(forKey: AppUserDefaults.fcmToken)
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     //MARK: MESSAGING FUNCTIONS
@@ -826,30 +887,7 @@ final class DataService {
     
     
     
-    //MARK: STAMP FUNCTIONS
-    func fetchallstamps() async throws -> [Stamp]{
-        guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.uidNotFound}
-        let ref = privatesRef.document(uid).collection(Server.stamps)
-        var stamps: [Stamp] = []
-        let snapshot = try await ref.getDocuments()
-        snapshot.documents.forEach { document in
-            let data = document.data()
-            let stamp = Stamp(data: data)
-            stamps.append(stamp)
-        }
-        return stamps
-    }
-    
-    func updateStampImage(image: UIImage, stampId: String) async throws -> String{
-        guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.uidNotFound}
-        let ref = privatesRef.document(uid).collection(Server.stamps).document(stampId)
-        let url = try await ImageManager.shared.uploadStampImage(uid: uid, spotId: stampId, image: image)
-        let data: [String: Any] = [
-            Stamp.CodingKeys.imageUrl.rawValue: url
-        ]
-        try await ref.updateData(data)
-        return url
-    }
+
     
     
 }

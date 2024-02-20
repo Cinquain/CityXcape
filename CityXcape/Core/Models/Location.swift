@@ -143,7 +143,6 @@ struct Location: Identifiable, Equatable, Codable, Hashable {
         case ownerImageUrl
         case ownerUsername
         case extraImages
-  
     }
     
     static let data: [String: Any] = [

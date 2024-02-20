@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		210BAC3A2B65ED450046A0B1 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210BAC392B65ED450046A0B1 /* LaunchView.swift */; };
 		21460F782AEAF83900159E39 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21460F772AEAF83900159E39 /* StoreKit.framework */; };
 		21460F7B2AEAFAB100159E39 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21460F7A2AEAFAB100159E39 /* Store.swift */; };
 		21A55A972AC0E18D00ED822B /* MatchAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A55A962AC0E18D00ED822B /* MatchAnimation.swift */; };
@@ -16,12 +17,10 @@
 		21AD9C6B2ACF235600BBECB9 /* StampDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AD9C6A2ACF235600BBECB9 /* StampDetail.swift */; };
 		21AD9C6D2ACF292B00BBECB9 /* PassPortStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AD9C6C2ACF292B00BBECB9 /* PassPortStamp.swift */; };
 		21ADEB2E2A98D73D002A24CB /* UserDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ADEB2D2A98D73D002A24CB /* UserDot.swift */; };
-		21ADEB302A98E7E1002A24CB /* DigitalLobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ADEB2F2A98E7E1002A24CB /* DigitalLobby.swift */; };
 		21ADF42C2A9A2CCB00AD2AE8 /* StampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ADF42B2A9A2CCB00AD2AE8 /* StampView.swift */; };
 		21ADF42E2A9A334500AD2AE8 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ADF42D2A9A334500AD2AE8 /* SoundManager.swift */; };
 		21AE54FB2A8BB46100CF1820 /* OnboardI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AE54FA2A8BB46100CF1820 /* OnboardI.swift */; };
 		21AE54FE2A8BBC4000CF1820 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 21AE54FD2A8BBC4000CF1820 /* SDWebImageSwiftUI */; };
-		21AE55022A8BBCB200CF1820 /* WorldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AE55012A8BBCB200CF1820 /* WorldView.swift */; };
 		21AE607A2AA7343E0001BB48 /* MessagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AE60792AA7343E0001BB48 /* MessagePreview.swift */; };
 		21AE607C2AA738600001BB48 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AE607B2AA738600001BB48 /* MessagesView.swift */; };
 		21AE607E2AA7389F0001BB48 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AE607D2AA7389F0001BB48 /* MessageViewModel.swift */; };
@@ -56,7 +55,6 @@
 		21CDB6102A82A6C900A2E1FD /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 21CDB60F2A82A6C900A2E1FD /* FirebaseStorage */; };
 		21CDB6132A82A9C500A2E1FD /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CDB6122A82A9C500A2E1FD /* Location.swift */; };
 		21CDB6152A82A9D200A2E1FD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CDB6142A82A9D200A2E1FD /* User.swift */; };
-		21CDB6172A82A9DC00A2E1FD /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CDB6162A82A9DC00A2E1FD /* World.swift */; };
 		21CDB6192A82AA8A00A2E1FD /* Stamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CDB6182A82AA8A00A2E1FD /* Stamp.swift */; };
 		21CE12532A9FACAB00D0889C /* PostForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CE12522A9FACAB00D0889C /* PostForm.swift */; };
 		21CE1A762A86F616005DAD42 /* StartScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CE1A752A86F616005DAD42 /* StartScreen.swift */; };
@@ -88,9 +86,11 @@
 		21DDCEEB2A9791570028235C /* MapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DDCEEA2A9791570028235C /* MapViewRepresentable.swift */; };
 		21F0F2A12ACDD55F002AF144 /* TravelDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F0F2A02ACDD55F002AF144 /* TravelDiary.swift */; };
 		21F0F2A32ACDD96A002AF144 /* StampThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F0F2A22ACDD96A002AF144 /* StampThumbnail.swift */; };
+		21FD6DB12B71B15300D86A1B /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FD6DB02B71B15300D86A1B /* World.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		210BAC392B65ED450046A0B1 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		21460F772AEAF83900159E39 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		21460F792AEAF8D100159E39 /* Store.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Store.storekit; sourceTree = "<group>"; };
 		21460F7A2AEAFAB100159E39 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -102,11 +102,9 @@
 		21AD9C6A2ACF235600BBECB9 /* StampDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampDetail.swift; sourceTree = "<group>"; };
 		21AD9C6C2ACF292B00BBECB9 /* PassPortStamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassPortStamp.swift; sourceTree = "<group>"; };
 		21ADEB2D2A98D73D002A24CB /* UserDot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDot.swift; sourceTree = "<group>"; };
-		21ADEB2F2A98E7E1002A24CB /* DigitalLobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalLobby.swift; sourceTree = "<group>"; };
 		21ADF42B2A9A2CCB00AD2AE8 /* StampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampView.swift; sourceTree = "<group>"; };
 		21ADF42D2A9A334500AD2AE8 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		21AE54FA2A8BB46100CF1820 /* OnboardI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardI.swift; sourceTree = "<group>"; };
-		21AE55012A8BBCB200CF1820 /* WorldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldView.swift; sourceTree = "<group>"; };
 		21AE60792AA7343E0001BB48 /* MessagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePreview.swift; sourceTree = "<group>"; };
 		21AE607B2AA738600001BB48 /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		21AE607D2AA7389F0001BB48 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
@@ -135,7 +133,6 @@
 		21CDB5FB2A82A2C900A2E1FD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		21CDB6122A82A9C500A2E1FD /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		21CDB6142A82A9D200A2E1FD /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		21CDB6162A82A9DC00A2E1FD /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		21CDB6182A82AA8A00A2E1FD /* Stamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stamp.swift; sourceTree = "<group>"; };
 		21CE12522A9FACAB00D0889C /* PostForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostForm.swift; sourceTree = "<group>"; };
 		21CE1A752A86F616005DAD42 /* StartScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreen.swift; sourceTree = "<group>"; };
@@ -166,6 +163,7 @@
 		21DDCEEA2A9791570028235C /* MapViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewRepresentable.swift; sourceTree = "<group>"; };
 		21F0F2A02ACDD55F002AF144 /* TravelDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDiary.swift; sourceTree = "<group>"; };
 		21F0F2A22ACDD96A002AF144 /* StampThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampThumbnail.swift; sourceTree = "<group>"; };
+		21FD6DB02B71B15300D86A1B /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,16 +209,16 @@
 		21AE55002A8BBC9B00CF1820 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				21AE55012A8BBCB200CF1820 /* WorldView.swift */,
+				21AED6862A8F150D000A1649 /* SpotThumbnail.swift */,
 				21D03E332A8C034800B07162 /* BlurView.swift */,
 				21D03E352A8C097100B07162 /* CustomButton.swift */,
 				21ADEB2D2A98D73D002A24CB /* UserDot.swift */,
-				21ADEB2F2A98E7E1002A24CB /* DigitalLobby.swift */,
 				21B5FF352A997BCA005DA658 /* BubbleView.swift */,
 				21BCDB4B2ACB059500E316BF /* PinView.swift */,
 				21F0F2A22ACDD96A002AF144 /* StampThumbnail.swift */,
 				21AD9C6A2ACF235600BBECB9 /* StampDetail.swift */,
 				21B17ABF2B016ADB0066DA83 /* ImagePicker.swift */,
+				210BAC392B65ED450046A0B1 /* LaunchView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -338,10 +336,10 @@
 			children = (
 				21CDB6122A82A9C500A2E1FD /* Location.swift */,
 				21CDB6142A82A9D200A2E1FD /* User.swift */,
-				21CDB6162A82A9DC00A2E1FD /* World.swift */,
 				21CDB6182A82AA8A00A2E1FD /* Stamp.swift */,
 				21AE607F2AA7430C0001BB48 /* Message.swift */,
 				21D03E372A8C0DB100B07162 /* Particle.swift */,
+				21FD6DB02B71B15300D86A1B /* World.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -409,7 +407,6 @@
 				21DDCEE52A97871A0028235C /* LocationsView.swift */,
 				21D03E312A8C026C00B07162 /* LocationView.swift */,
 				21ADF42B2A9A2CCB00AD2AE8 /* StampView.swift */,
-				21AED6862A8F150D000A1649 /* SpotThumbnail.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -557,7 +554,6 @@
 				21B790DA2AF023A300D0448E /* NotificationsManager.swift in Sources */,
 				21CF24FA2AA5FDBA009BAF90 /* StreetPassViewModel.swift in Sources */,
 				21DAF7E82A93988F00AC1C28 /* LocationService.swift in Sources */,
-				21ADEB302A98E7E1002A24CB /* DigitalLobby.swift in Sources */,
 				21D03E322A8C026C00B07162 /* LocationView.swift in Sources */,
 				21CE839B2AA3411400D86F88 /* BuyStreetCred.swift in Sources */,
 				21ACA93C2AB341EB00B62C16 /* ChatView.swift in Sources */,
@@ -590,19 +586,19 @@
 				21CDB5F52A82A2C800A2E1FD /* CityXcapeApp.swift in Sources */,
 				21B3A70C2ABB1EB40041F217 /* WaveViewModel.swift in Sources */,
 				21BB4CA22A83BFBE00A7FAD3 /* AnimationController.swift in Sources */,
+				21FD6DB12B71B15300D86A1B /* World.swift in Sources */,
 				21AE60822AA7462C0001BB48 /* MessageBubble.swift in Sources */,
 				21D4676D2A83ED2700973AB9 /* DataService.swift in Sources */,
 				21BCDB4A2ACAFEBF00E316BF /* BucketList.swift in Sources */,
 				21F0F2A32ACDD96A002AF144 /* StampThumbnail.swift in Sources */,
 				21D4676B2A83EC9800973AB9 /* Extensions.swift in Sources */,
 				21B17AC02B016ADB0066DA83 /* ImagePicker.swift in Sources */,
+				210BAC3A2B65ED450046A0B1 /* LaunchView.swift in Sources */,
 				21B5FF382A998428005DA658 /* PublicStreetPass.swift in Sources */,
-				21CDB6172A82A9DC00A2E1FD /* World.swift in Sources */,
 				21DAF7EA2A939C3600AC1C28 /* Helpers.swift in Sources */,
 				21F0F2A12ACDD55F002AF144 /* TravelDiary.swift in Sources */,
 				21DAF7ED2A93E43100AC1C28 /* LocationsViewModel.swift in Sources */,
 				21D467692A83E70800973AB9 /* Utilities.swift in Sources */,
-				21AE55022A8BBCB200CF1820 /* WorldView.swift in Sources */,
 				21CDB6192A82AA8A00A2E1FD /* Stamp.swift in Sources */,
 				21AE607A2AA7343E0001BB48 /* MessagePreview.swift in Sources */,
 				21AE607C2AA738600001BB48 /* MessagesView.swift in Sources */,
@@ -756,7 +752,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cityXcape.CityXcape0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -795,7 +791,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cityXcape.CityXcape0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

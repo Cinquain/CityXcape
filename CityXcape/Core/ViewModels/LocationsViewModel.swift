@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import SwiftUI
 
+@MainActor
 class LocationsViewModel: ObservableObject {
     @AppStorage(AppUserDefaults.streetcred) var streetcred: Int?
     @AppStorage(AppUserDefaults.uid) var uid: String?
@@ -21,12 +22,12 @@ class LocationsViewModel: ObservableObject {
     
     @Published var offset: CGFloat = 550
     @Published var showSignUp: Bool = false
-    @Published var statuses: [Bool] = [false, false, false, false, false, false,]
     @Published var extraImages: [String] = []
     
     @Published var showDetails: Bool = false
     @Published var showGallery: Bool = false 
     @Published var showCheckinList: Bool = false
+    
     @Published var showBucketList: Bool = false 
     @Published var showStamp: Bool = false
     @Published var isCheckedIn: Bool = false 
@@ -34,72 +35,36 @@ class LocationsViewModel: ObservableObject {
     @Published var opacity: Double = 0
     @Published var basicAlert: Bool = false
     
-    @Published var checkins: [Message] = []
     @Published private(set) var locations: [Location] = []
+    @Published var worlds: [World] = []
     @Published var saves: [Location] = []
-    @Published var chatInput: String = ""
-    @Published var showBuy: Bool = false 
     @Published var user: User?
     
+    @Published var option: SpotOptions = .none
+    @Published var showWorldMenu: Bool = false
+    @Published var askPasscode: Bool = false 
     
-    func getOwnerInfo(uid: String) {
-        Task {
-            do {
-                let user = try await DataService.shared.getUserFrom(id: uid)
-                self.user = user
-            } catch {
-                print("Error finding user who owns the spot", error.localizedDescription)
-            }
-        }
-    }
     
-    func checkAuth(message: String) -> Bool {
-        if AuthService.shared.uid == nil {
-            alertMessage = "You need an account to \(message) this location"
-            showAlert.toggle()
-            return false
-        } else {
-            return true
-        }
-    }
     
-    func checkDistance(spot: Location) -> Bool {
-        if spot.distanceFromUser < 100 {
-            return true
-        } else {
-            normalAlert.toggle()
-            alertMessage = "You have to be inside to checkin"
-            print("Distance from user is: \(spot.distanceFromUser)")
-            showAlert.toggle()
-            return false
-        }
-    }
 
  
     //MARK: TOP 3 BUTTONS
     func seeMoreInfo() {
-        
-        statuses[0].toggle()
-        statuses[1] = false; statuses[2] = false
-        showDetails.toggle()
-        
-        //Animation the view
-        self.opacity = showDetails ? 1 : 0
+        if option == .showInfo {option = .none}
+        else { option = .showInfo }
+        self.opacity = option == .showInfo ? 1 : 0
         Analytic.shared.viewedSpotInfo()
     }
     
     func likeLocation(spot: Location) {
         if checkAuth(message: "like") == false {return}
-        
-        statuses[1].toggle()
-        statuses[0] = false; statuses[2] = false
-        showDetails = false
-        
+        if option ==  .like {option = .none}
+        else {option = .like}
+     
         Task {
             do {
-                statuses[1] ? try await DataService.shared.like(spot: spot) :
-                              try await DataService.shared.dislike(spot: spot)
-
+                try await DataService.shared.likeOrUnlike(spot: spot)
+                if option == .like {alertMessage = "Liked \(spot.name)"; normalAlert.toggle(); showAlert.toggle();}
             } catch {
                 normalAlert.toggle()
                 alertMessage = error.localizedDescription
@@ -111,17 +76,13 @@ class LocationsViewModel: ObservableObject {
     
     func saveToBookmark(spot: Location) {
         if checkAuth(message: "bookmark") == false {return}
-        
-        statuses[2].toggle(); statuses[0] = false; statuses[1] = false
-        statuses[3] = false; statuses[4] = false; statuses[5] = false
-
-        showDetails = false
+        if option == .bookmark {option = .none}
+        else {option = .bookmark}
         
         Task {
             do {
-                statuses[2] ? try await  DataService.shared.saveLocation(spot: spot) :
-                try await  DataService.shared.unsaveLocation(spotId: spot.id)
-                if statuses[2] {
+                try await  DataService.shared.saveOrUnsaveLocation(spot: spot)
+                if option == .bookmark {
                     let savesIds = try await DataService.shared.fetchBucketlist()
                     self.saves = try await DataService.shared.getSpotsFromIds(ids: savesIds)
                     self.showBucketList.toggle()
@@ -137,9 +98,9 @@ class LocationsViewModel: ObservableObject {
     
     //MARK: BOTTOM 3 BUTTONS
     func showDirections(spot: Location) {
-        if checkAuth(message: "GPS") == false {return}
-        statuses[3].toggle();statuses[0] = false; statuses[1] = false
-        statuses[2] = false; statuses[4] = false; statuses[5] = false
+//        if checkAuth(message: "GPS") == false {return}
+        if option == .showMap {option = .none; return}
+        else {option = .showMap}
         
         if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
             if let url = URL(string: "comgooglemaps-x-callback://?saddr=&daddr=\(spot.latitude),\(spot.longitude)&directionsmode=driving") {
@@ -158,29 +119,12 @@ class LocationsViewModel: ObservableObject {
         //        if checkAuth(message: "see images of") == false {return}
         if extraImages.isEmpty || extraImages.count == 1 {return}
         showExtraImage = true
-        statuses[4].toggle();statuses[0] = false; statuses[1] = false
-        statuses[2] = false; statuses[3] = false; statuses[5] = false
         if currentIndex < extraImages.count - 1  {
             currentIndex += 1
             return
         } else {
             currentIndex = 0
             return
-        }
-        
-       
-        
-    }
-    
-    func dismissView() {
-        statuses[5].toggle();statuses[0] = false; statuses[1] = false
-        statuses[2] = false; statuses[3] = false; statuses[4] = false
-    }
-    
-    func printImageName(spot: Location) {
-        let url = URL(string: spot.imageUrl)
-        if  let name = url?.pathComponents.last {
-            print("image name from url is: \(name)")
         }
     }
    
@@ -213,18 +157,8 @@ class LocationsViewModel: ObservableObject {
         }
     }
     
-    func loadCheckin(id: String) {
-        DataService.shared.fetchUsersCheckedIn(spotId: id) { result in
-            switch result {
-            case .success(let messages):
-                self.checkins = messages
-            case .failure(let error):
-                self.alertMessage = error.localizedDescription
-                self.showAlert.toggle()
-            }
-        }
-    }
-    
+  
+    //MARK: DAEMON FUNCTIONS
     func updateViewCount(spot: Location) {
         Task {
             do {
@@ -248,38 +182,39 @@ class LocationsViewModel: ObservableObject {
         }
     }
     
-    func checkOut(spot: Location) {
-        isCheckedIn = false
-        //Make network call to remove user from checkin list
-        showStamp = false 
-        showCheckinList = false
-        statuses[2] = false; statuses[0] = false; statuses[1] = false
+    func getOwnerInfo(uid: String) {
         Task {
             do {
-                try await DataService.shared.checkoutLocation(spot: spot)
+                let user = try await DataService.shared.getUserFrom(id: uid)
+                self.user = user
             } catch {
-                alertMessage = error.localizedDescription
-                showAlert.toggle()
+                print("Error finding user who owns the spot", error.localizedDescription)
             }
         }
     }
     
-    func sendMessage(id: String) {
-        Task {
-            do {
-                try await DataService.shared.sendLobbyMessage(content: chatInput, spotId: id)
-                chatInput = ""
-            } catch {
-                alertMessage = error.localizedDescription
-                showAlert.toggle()
-            }
+    func checkAuth(message: String) -> Bool {
+        if AuthService.shared.uid == nil {
+            alertMessage = "You need an account to \(message) this location"
+            showAlert.toggle()
+            return false
+        } else {
+            return true
         }
     }
     
-    func showCheckOutAlert() {
-        alertMessage = "Please check out before closing location"
-        showAlert.toggle()
+    func checkDistance(spot: Location) -> Bool {
+        if spot.distanceFromUser < 200 {
+            return true
+        } else {
+            normalAlert.toggle()
+            alertMessage = "You have to be inside to checkin"
+            print("Distance from user is: \(spot.distanceFromUser)")
+            showAlert.toggle()
+            return false
+        }
     }
+    
     
     
     

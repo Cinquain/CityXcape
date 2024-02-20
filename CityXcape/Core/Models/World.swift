@@ -2,67 +2,64 @@
 //  World.swift
 //  CityXcape
 //
-//  Created by James Allan on 8/8/23.
+//  Created by James Allan on 2/5/24.
 //
 
 import Foundation
-import FirebaseFirestore
+
 
 struct World: Identifiable, Equatable, Codable {
     
-    let id: String
-    let name: String
-    let description: String
-    let bannerImageUrl: String
-    let symbolImageUrl: String
-    let values: [String]
-    let dateCreated: Date
+    var id: String
+    var name: String
+    var path: String
+    var coverUrl: String
+    var symbolUrl: String
     
-    let spotCount: Int
-    let memberCount: Int
+    var passcode: String
+    var ownerId: String
     
     
+    var spotCount: Int
+    var memberCount: Int
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case path
+        case passcode
+        case coverUrl = "cover_url"
+        case symbolUrl = "symbol_url"
+        case ownerId = "owner_id"
+        case spotCount = "spot_count"
+        case memberCount = "member_count"
+    }
     static func == (lhs: World, rhs: World) -> Bool {
-            return lhs.id == rhs.id
-        }
+                return lhs.id == rhs.id
+            }
     
     init(data: [String: Any]) {
         self.id = data[World.CodingKeys.id.rawValue] as? String ?? ""
         self.name = data[World.CodingKeys.name.rawValue] as? String ?? ""
-        self.description = data[World.CodingKeys.description.rawValue] as? String ?? ""
-        self.bannerImageUrl = data[World.CodingKeys.bannerImageUrl.rawValue] as? String ?? ""
-        self.symbolImageUrl = data[World.CodingKeys.symbolImageUrl.rawValue] as? String ?? ""
-        self.values = data[World.CodingKeys.id.rawValue] as? [String] ?? []
+        self.path = data[World.CodingKeys.path.rawValue] as? String ?? ""
+        self.passcode = data[World.CodingKeys.passcode.rawValue] as? String ?? ""
+        self.ownerId = data[World.CodingKeys.ownerId.rawValue] as? String ?? ""
+        self.coverUrl = data[World.CodingKeys.coverUrl.rawValue] as? String ?? ""
+        self.symbolUrl = data[World.CodingKeys.symbolUrl.rawValue] as? String ?? ""
         self.spotCount = data[World.CodingKeys.spotCount.rawValue] as? Int ?? 0
-        self.memberCount = data[World.CodingKeys.memberCount.rawValue] as? Int ?? 1
-        let timestamp = data[World.CodingKeys.dateCreated.rawValue] as? Timestamp
-        self.dateCreated = timestamp?.dateValue() ?? Date()
+        self.memberCount = data[World.CodingKeys.memberCount.rawValue] as? Int ?? 0
     }
     
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case description
-        case bannerImageUrl = "banner_imageUrl"
-        case symbolImageUrl = "symbol_imageUrl"
-        case values
-        case dateCreated = "date_created"
-        case spotCount = "spot_count"
-        case memberCount = "member_count"
-    }
+    static let data: [String: Any] = [
+        World.CodingKeys.id.rawValue: "84EGmKarmnP21T0H0E9X",
+        World.CodingKeys.name.rawValue: "Scout",
+        World.CodingKeys.path.rawValue: "scout",
+        World.CodingKeys.passcode.rawValue: "7452",
+        World.CodingKeys.ownerId.rawValue: "QF9X5uxrYESeg9YrhvkvJ1lmKYi2",
+        World.CodingKeys.coverUrl.rawValue: "file:///Users/jamesallan/Downloads/Scout%20Background-min.png",
+        World.CodingKeys.symbolUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Worlds%2FScout%2FScout%20Logo.png?alt=media&token=871712a5-4b51-4d8d-a3cf-014b43407553",
+        World.CodingKeys.memberCount.rawValue: 100000,
+        World.CodingKeys.spotCount.rawValue: 100
+    ]
     
-    init(id: String, name: String, description: String, bannerImage: String, symbolUrl: String, values: [String], Date: Date, spotCount: Int, memberCount: Int) {
-        self.id = id
-        self.name = name
-        self.description = description
-        self.bannerImageUrl = bannerImage
-        self.symbolImageUrl = symbolUrl
-        self.values = values
-        self.dateCreated = Date
-        self.spotCount = spotCount
-        self.memberCount = memberCount
-    }
-    
-    static let scout = World(id: "jlq9svz2v1wYgRWyy4a9", name: "Scout", description: "Scouts are explorers who scavenge for gems throughout the city. Many scouts also consider themselves amateur historians. Let's preserve culture and history together.", bannerImage: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Worlds%2FScout%2FBanner.jpg?alt=media&token=d29cd32f-a409-4dc2-9a2f-51aa7b34266b", symbolUrl: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Worlds%2FScout%2FSymbol.png?alt=media&token=9c80fe50-0ce7-4851-b757-de9f42057b9a", values: ["Exploration", "History", "Architecture", "Travel"], Date: Date(), spotCount: 0, memberCount: 0)
-    
+    static let demo = World(data: data)
 }

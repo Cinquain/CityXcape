@@ -25,10 +25,7 @@ struct StreetPass: View {
                 Spacer()
                     .frame(height: 70)
                 MyJourney()
-                    .fullScreenCover(isPresented: $vm.showSignUp) {
-                        SignUpView()
-                    }
-                 
+               
                 
                 Spacer()
             }

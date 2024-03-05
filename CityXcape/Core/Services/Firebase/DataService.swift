@@ -543,9 +543,9 @@ final class DataService {
         let data: [String: Any] = [
             User.CodingKeys.imageUrl.rawValue: url
         ]
-        
         let ref = usersRef.document(uid)
         try await ref.updateData(data)
+        UserDefaults.standard.setValue(AppUserDefaults.profileUrl, forKey: url)
     }
     
     func updateFcmToken(fcm: String) {
@@ -578,11 +578,6 @@ final class DataService {
     
     func deleteUser() async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        try await ImageManager.shared.deleteUserProfile(uid: uid)
-        try await usersRef.document(uid).delete()
-        try await Auth.auth().currentUser?.delete()
-        try AuthService.shared.signOut()
-
         UserDefaults.standard.removeObject(forKey: AppUserDefaults.uid)
         UserDefaults.standard.removeObject(forKey: AppUserDefaults.username)
         UserDefaults.standard.removeObject(forKey: AppUserDefaults.profileUrl)
@@ -590,6 +585,14 @@ final class DataService {
         UserDefaults.standard.removeObject(forKey: AppUserDefaults.spotId)
         UserDefaults.standard.removeObject(forKey: AppUserDefaults.location)
         UserDefaults.standard.removeObject(forKey: AppUserDefaults.fcmToken)
+        UserDefaults.standard.removeObject(forKey: AppUserDefaults.createdSP)
+        
+        try await ImageManager.shared.deleteUserProfile(uid: uid)
+        try await usersRef.document(uid).delete()
+        try await Auth.auth().currentUser?.delete()
+        try AuthService.shared.signOut()
+
+     
     }
     
     

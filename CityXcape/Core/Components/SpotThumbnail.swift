@@ -36,7 +36,7 @@ struct SpotThumbnail: View {
                         .foregroundColor(.gray)
                         .font(.callout)
                     
-                    Image(systemName: "person.2.fill")
+                    Image(systemName: "person.crop.circle.fill.badge.checkmark")
                         .font(.callout)
                         .foregroundColor(.gray)
                         .padding(.leading, 5)

@@ -43,7 +43,7 @@ class LocationsViewModel: ObservableObject {
     @Published var option: SpotOptions = .none
     @Published var showWorldMenu: Bool = false
     @Published var askPasscode: Bool = false 
-    
+    @Published var showOnboard: Bool = false
     
     
 
@@ -171,6 +171,7 @@ class LocationsViewModel: ObservableObject {
     }
     
     func getAllLocations() {
+        if AuthService.shared.uid == nil {showOnboard = true; return}
         Task {
             do {
                 self.locations = try await DataService.shared.fetchAllLocations()

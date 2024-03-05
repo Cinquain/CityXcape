@@ -21,10 +21,7 @@ struct LocationView: View {
         
             ZStack {
                    MainImage()
-                    .fullScreenCover(isPresented: $vm.showSignUp) {
-                        SignUpView()
-                    }
-                    
+                 
                     if vm.showStamp {
                         StampView(spot: spot)
                             .padding(.bottom, 20)
@@ -38,6 +35,7 @@ struct LocationView: View {
                     }
                     .cornerRadius(12)
                     .offset(y: vm.offset)
+                   
                    
                 
                         

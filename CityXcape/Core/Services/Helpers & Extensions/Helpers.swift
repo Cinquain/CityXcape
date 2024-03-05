@@ -40,6 +40,7 @@ struct AppUserDefaults {
     static let location = "location"
     static let spotId = "spotId"
     static let fcmToken = "fcmtoken"
+    static let createdSP = "createdStreetPass"
 }
 
 enum SpotOptions: String, CaseIterable, Identifiable {

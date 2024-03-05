@@ -20,14 +20,19 @@ struct CityXcapeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var vm = LocationsViewModel()
     let gpsManager = LocationService.shared
+    @AppStorage(AppUserDefaults.createdSP) var createdSP: Bool?
     
     var body: some Scene {
         WindowGroup {
             
             ZStack {
-                HomeView()
-                    .environmentObject(vm)
-                    .environmentObject(store)
+                if createdSP == nil || createdSP == false {
+                    StartScreen()
+                } else {
+                    HomeView()
+                        .environmentObject(vm)
+                        .environmentObject(store)
+                }
                 ZStack {
                     if showLaunchView {
                         LaunchView(message: gpsManager.loadMessage, showView: $showLaunchView)

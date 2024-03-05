@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		210BAC3A2B65ED450046A0B1 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210BAC392B65ED450046A0B1 /* LaunchView.swift */; };
+		212AC45B2B94575B00421A00 /* UploadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212AC45A2B94575B00421A00 /* UploadViewModel.swift */; };
 		21460F782AEAF83900159E39 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21460F772AEAF83900159E39 /* StoreKit.framework */; };
 		21460F7B2AEAFAB100159E39 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21460F7A2AEAFAB100159E39 /* Store.swift */; };
+		21A4D1932B8A4A3D00256F57 /* CreateStreetPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4D1922B8A4A3D00256F57 /* CreateStreetPass.swift */; };
 		21A55A972AC0E18D00ED822B /* MatchAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A55A962AC0E18D00ED822B /* MatchAnimation.swift */; };
 		21AB5D642A9CCBD10037FB73 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AB5D632A9CCBD10037FB73 /* MapViewModel.swift */; };
 		21AC2B062AD18DEC00B3F22B /* StreetReportCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AC2B052AD18DEC00B3F22B /* StreetReportCard.swift */; };
@@ -19,7 +21,6 @@
 		21ADEB2E2A98D73D002A24CB /* UserDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ADEB2D2A98D73D002A24CB /* UserDot.swift */; };
 		21ADF42C2A9A2CCB00AD2AE8 /* StampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ADF42B2A9A2CCB00AD2AE8 /* StampView.swift */; };
 		21ADF42E2A9A334500AD2AE8 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ADF42D2A9A334500AD2AE8 /* SoundManager.swift */; };
-		21AE54FB2A8BB46100CF1820 /* OnboardI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AE54FA2A8BB46100CF1820 /* OnboardI.swift */; };
 		21AE54FE2A8BBC4000CF1820 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 21AE54FD2A8BBC4000CF1820 /* SDWebImageSwiftUI */; };
 		21AE607A2AA7343E0001BB48 /* MessagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AE60792AA7343E0001BB48 /* MessagePreview.swift */; };
 		21AE607C2AA738600001BB48 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AE607B2AA738600001BB48 /* MessagesView.swift */; };
@@ -91,9 +92,11 @@
 
 /* Begin PBXFileReference section */
 		210BAC392B65ED450046A0B1 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		212AC45A2B94575B00421A00 /* UploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewModel.swift; sourceTree = "<group>"; };
 		21460F772AEAF83900159E39 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		21460F792AEAF8D100159E39 /* Store.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Store.storekit; sourceTree = "<group>"; };
 		21460F7A2AEAFAB100159E39 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		21A4D1922B8A4A3D00256F57 /* CreateStreetPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStreetPass.swift; sourceTree = "<group>"; };
 		21A55A962AC0E18D00ED822B /* MatchAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchAnimation.swift; sourceTree = "<group>"; };
 		21AA5D012ADF28FB006D40BC /* DS-DIGI.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DS-DIGI.TTF"; sourceTree = "<group>"; };
 		21AB5D632A9CCBD10037FB73 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -104,7 +107,6 @@
 		21ADEB2D2A98D73D002A24CB /* UserDot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDot.swift; sourceTree = "<group>"; };
 		21ADF42B2A9A2CCB00AD2AE8 /* StampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampView.swift; sourceTree = "<group>"; };
 		21ADF42D2A9A334500AD2AE8 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
-		21AE54FA2A8BB46100CF1820 /* OnboardI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardI.swift; sourceTree = "<group>"; };
 		21AE60792AA7343E0001BB48 /* MessagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagePreview.swift; sourceTree = "<group>"; };
 		21AE607B2AA738600001BB48 /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		21AE607D2AA7389F0001BB48 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
@@ -257,8 +259,8 @@
 			isa = PBXGroup;
 			children = (
 				21CE1A752A86F616005DAD42 /* StartScreen.swift */,
-				21AE54FA2A8BB46100CF1820 /* OnboardI.swift */,
 				21B52F952A8E53E300C07CAB /* SignUpView.swift */,
+				21A4D1922B8A4A3D00256F57 /* CreateStreetPass.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -397,6 +399,7 @@
 				21AE607D2AA7389F0001BB48 /* MessageViewModel.swift */,
 				21B3A7092ABB0CFC0041F217 /* CardViewModel.swift */,
 				21B3A70B2ABB1EB40041F217 /* WaveViewModel.swift */,
+				212AC45A2B94575B00421A00 /* UploadViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				21CDB6152A82A9D200A2E1FD /* User.swift in Sources */,
 				21AD9C6B2ACF235600BBECB9 /* StampDetail.swift in Sources */,
 				21D03E382A8C0DB100B07162 /* Particle.swift in Sources */,
+				21A4D1932B8A4A3D00256F57 /* CreateStreetPass.swift in Sources */,
 				21DDCEE92A978D960028235C /* MapView.swift in Sources */,
 				21D03E362A8C097100B07162 /* CustomButton.swift in Sources */,
 				21A55A972AC0E18D00ED822B /* MatchAnimation.swift in Sources */,
@@ -568,12 +572,12 @@
 				21CF24FC2AA61BE5009BAF90 /* CongratsView.swift in Sources */,
 				21DDCEE62A97871A0028235C /* LocationsView.swift in Sources */,
 				21D03E342A8C034800B07162 /* BlurView.swift in Sources */,
-				21AE54FB2A8BB46100CF1820 /* OnboardI.swift in Sources */,
 				21AE607E2AA7389F0001BB48 /* MessageViewModel.swift in Sources */,
 				21CE1A762A86F616005DAD42 /* StartScreen.swift in Sources */,
 				21AC2B062AD18DEC00B3F22B /* StreetReportCard.swift in Sources */,
 				21AED6872A8F150D000A1649 /* SpotThumbnail.swift in Sources */,
 				21D730DF2AB8B3CE00D50358 /* ConnectionView.swift in Sources */,
+				212AC45B2B94575B00421A00 /* UploadViewModel.swift in Sources */,
 				21DDCEEB2A9791570028235C /* MapViewRepresentable.swift in Sources */,
 				21ADEB2E2A98D73D002A24CB /* UserDot.swift in Sources */,
 				21B52F962A8E53E300C07CAB /* SignUpView.swift in Sources */,

@@ -26,11 +26,12 @@ final class AuthService: NSObject, ObservableObject {
     }
     
     func signOut() throws {
-        try Auth.auth().signOut()
         UserDefaults.standard.removeObject(forKey: AppUserDefaults.uid)
         UserDefaults.standard.removeObject(forKey: AppUserDefaults.username)
         UserDefaults.standard.removeObject(forKey: AppUserDefaults.streetcred)
         UserDefaults.standard.removeObject(forKey: AppUserDefaults.profileUrl)
+        UserDefaults.standard.removeObject(forKey: AppUserDefaults.createdSP)
+        try Auth.auth().signOut()
     }
     
     func signInWithGoogle(credentials: AuthCredential) async throws -> Bool {

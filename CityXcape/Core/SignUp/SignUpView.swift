@@ -11,6 +11,9 @@ import AsyncButton
 struct SignUpView: View {
     
     @Environment(\.dismiss) var dismiss
+    @Binding var isAuth: Bool
+
+    
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
     @EnvironmentObject private var spM: StreetPassViewModel
@@ -67,7 +70,8 @@ struct SignUpView: View {
                 Task {
                     do {
                         let result = try await AuthService.shared.startSignInWithGoogleFlow()
-                        if result { dismiss()}
+                        isAuth = true
+                        dismiss()
                     } catch {
                         errorMessage = error.localizedDescription
                         showError.toggle()
@@ -84,6 +88,7 @@ struct SignUpView: View {
             
             Button {
                     AuthService.shared.startSignInWithAppleFlow(view: self)
+                    isAuth = true
             } label: {
                 Image("apple-emblem")
                     .resizable()
@@ -112,7 +117,8 @@ struct SignUpView: View {
 }
 
 struct SignUpView_Previews: PreviewProvider {
+    @State static var auth: Bool = false
     static var previews: some View {
-        SignUpView()
+        SignUpView(isAuth: $auth)
     }
 }

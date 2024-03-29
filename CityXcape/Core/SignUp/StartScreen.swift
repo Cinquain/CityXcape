@@ -13,6 +13,7 @@ struct StartScreen: View {
     
     @State private var showSP: Bool = false
     @State private var showSignUp: Bool = false
+    @State var userExist: Bool = false
     @State var isAuth: Bool = false
     @State var idCreated: Bool = false 
     
@@ -53,7 +54,7 @@ struct StartScreen: View {
                       
                 }
                 .fullScreenCover(isPresented: $showSignUp) {
-                    SignUpView(isAuth: $isAuth)
+                    SignUpView(isAuth: $isAuth, userExist: $userExist)
                 }
                 
                 Button {
@@ -83,6 +84,7 @@ struct StartScreen: View {
         }
         .background(Background())
         .edgesIgnoringSafeArea(.all)
+   
         
     }
    
@@ -90,6 +92,9 @@ struct StartScreen: View {
         if AuthService.shared.uid == nil {
             error = "Please sign up before creating a StreetPass"
             showError.toggle()
+        } else if userExist {
+            idCreated = true
+            dismiss
         } else {
             showSP.toggle()
         }

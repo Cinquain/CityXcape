@@ -68,13 +68,12 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     override init() {
         super.init()
         manager.checkAuthorizationStatus()
-        setupSubscribers()
         listenForKeyboardNotification()
     }
     
     
-    func performSearch(query: String) {
-        if query == "" {
+    func performSearch() {
+        if searchQuery == "" {
             self.mapItems = []
             return
         }
@@ -82,7 +81,7 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         var results: [MKPointAnnotation] = []
         isSearching = true
         let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = query
+        request.naturalLanguageQuery = searchQuery
         
         if let region = self.region {
             request.region = region
@@ -111,17 +110,7 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
-    func setupSubscribers() {
-     
-        
-        $searchQuery
-            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
-            .sink {  search in
-                self.performSearch(query: search)
-            }
-            .store(in: &cancellables)
-        
-    }
+
     
     fileprivate func listenForKeyboardNotification() {
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { [weak self] notification in

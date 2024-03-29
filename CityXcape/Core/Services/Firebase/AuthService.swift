@@ -39,6 +39,8 @@ final class AuthService: NSObject, ObservableObject {
         let uid = authResult.user.uid
         if await DataService.shared.checkIfUserExist(uid: uid) {
             //User  already exist, set uid in User Defaults
+            UserDefaults.standard.set(uid, forKey: AppUserDefaults.uid)
+            UserDefaults.standard.set(true, forKey: AppUserDefaults.createdSP)
             return true
         } else {
             //User does not exist
@@ -48,12 +50,16 @@ final class AuthService: NSObject, ObservableObject {
         }
     }
     
+    @MainActor
     func signInWithAppe(credentials: AuthCredential) async throws -> Bool {
         
        let appleResult = try await Auth.auth().signIn(with: credentials)
        let uid = appleResult.user.uid
         if await DataService.shared.checkIfUserExist(uid: uid) {
             //User is already exist, set uid in User Defaults
+            UserDefaults.standard.set(uid, forKey: AppUserDefaults.uid)
+            UserDefaults.standard.set(true, forKey: AppUserDefaults.createdSP)
+            onboardingView.userExist = true
             return true
         } else {
             //User does not exist

@@ -12,7 +12,7 @@ struct SignUpView: View {
     
     @Environment(\.dismiss) var dismiss
     @Binding var isAuth: Bool
-
+    @Binding var userExist: Bool 
     
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
@@ -89,6 +89,7 @@ struct SignUpView: View {
             Button {
                     AuthService.shared.startSignInWithAppleFlow(view: self)
                     isAuth = true
+                    
             } label: {
                 Image("apple-emblem")
                     .resizable()
@@ -118,7 +119,9 @@ struct SignUpView: View {
 
 struct SignUpView_Previews: PreviewProvider {
     @State static var auth: Bool = false
+    @State static var exist: Bool = false
+
     static var previews: some View {
-        SignUpView(isAuth: $auth)
+        SignUpView(isAuth: $auth, userExist: $exist)
     }
 }

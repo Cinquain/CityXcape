@@ -13,7 +13,7 @@ struct MapView: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            MapViewRepresentable()
+            MapViewRepresentable(viewModel: vm)
                 .colorScheme(.dark)
                 .edgesIgnoringSafeArea(.all)
             
@@ -40,6 +40,7 @@ struct MapView: View {
         HStack {
             TextField(vm.placeHolder, text: $vm.searchQuery, onCommit: {
                 UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.endEditing(true)
+                vm.performSearch()
             })
                 .padding()
                 .background(.ultraThinMaterial)

@@ -8,20 +8,32 @@
 import SwiftUI
 
 struct Cardview: View {
-    
+    @Environment(\.dismiss) private var dismiss
+
     let request: Request
     
+    @State private var match: Bool = false
     @State private var showSP: Bool = false
     var body: some View {
-        VStack(spacing: 40) {
-            userBubble()
-            
-            messageBubble()
-            
-            TimerView(size: 150, thickness: 20, font: .title2)
-            Spacer()
+        if match {
+            withAnimation {
+                MatchAnimation()
+            }
+        } else {
+            VStack(spacing: 20) {
+                userBubble()
+                
+                messageBubble()
+                
+                TimerView(size: 150, thickness: 20, font: .title2)
+                    .padding(.top, 15)
+                ctaButton()
+                Spacer()
+                dismissButton()
+                
+            }
+            .background(background())
         }
-        .background(background())
     }
     
     @ViewBuilder
@@ -72,7 +84,34 @@ struct Cardview: View {
         .edgesIgnoringSafeArea(.all)
     }
     
-  
+    @ViewBuilder
+    func dismissButton() -> some View {
+        Button(action: {
+            dismiss()
+        }, label: {
+            Image("down-arrow")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 20)
+        })
+    }
+    
+    @ViewBuilder
+    func ctaButton() -> some View {
+        Button(action: {
+            match.toggle()
+        }, label: {
+            Text("Connect")
+                .font(.callout)
+                .foregroundStyle(.black)
+                .fontWeight(.light)
+                .tracking(3)
+                .frame(width: 140, height: 40)
+                .background(.orange)
+                .clipShape(Capsule())
+
+        })
+    }
     
     
 }

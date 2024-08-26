@@ -16,10 +16,7 @@ struct World: Identifiable, Equatable {
     let slogan: String
     let imageUrl: String
     let background: String
-    
-    var memberCount: Int
-    var locationCount: Int
-    
+        
     static func == (lhs: World, rhs: World) -> Bool {
         return lhs.id == rhs.id
     }

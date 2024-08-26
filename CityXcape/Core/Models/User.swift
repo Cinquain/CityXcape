@@ -14,17 +14,12 @@ struct User: Identifiable, Equatable {
     let username: String
     let imageUrl: String
     let goal: String
+    let streetcred: Int
     let worldId: String
     let isMale: Bool
-    
-    let checkedIn: Bool
     let timestamp: Date
     let fcmToken: String?
 
-    let streetcred: Int
-    let connections: Int
-    let spotsFound: Int
-    let stampCount: Int
  
     
     static func == (lhs: User, rhs: User) -> Bool {

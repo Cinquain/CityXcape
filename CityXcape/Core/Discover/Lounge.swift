@@ -10,6 +10,7 @@ import SwiftUI
 struct Lounge: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showSP: Bool = false
+    @State private var isShimmering: Bool = false
     
     var body: some View {
         VStack {
@@ -19,6 +20,7 @@ struct Lounge: View {
         }
         .background(background())
         .edgesIgnoringSafeArea(.bottom)
+     
     }
     
     @ViewBuilder
@@ -86,11 +88,14 @@ struct Lounge: View {
             })
             
             
-            VStack {
+            VStack(alignment: .leading) {
                 Text("Looking for Friends")
                     .fontWeight(.thin)
                 Text("Checked in at 3:45")
                     .fontWeight(.thin)
+                Divider()
+                    .background(.white)
+                    .frame(height: 0.5)
             }
             .foregroundStyle(.white)
 

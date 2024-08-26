@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct MatchAnimation: View {
-    
+    @Environment(\.dismiss) private var dismiss
+
     @State private var length: CGFloat = 120
     @State private var rotation: Double = 90
     @State private var opacity: Double = 0
@@ -52,7 +53,7 @@ struct MatchAnimation: View {
                 .background(.orange)
                 .animation(.easeOut(duration: 0.5), value: length)
 
-            UserBubble(size: 125, url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FCiara%20copy.png?alt=media&token=1a10681a-139a-4be7-9ab5-a71ef907bf10", pulse: 2)
+            UserBubble(size: 125, url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FAllison.png?alt=media&token=23e6eceb-b9b2-4a49-8b23-a11de0e2d32c", pulse: 2)
                 .rotationEffect(Angle(degrees: rotation))
                 .animation(.easeOut(duration: 0.5), value: rotation)
 
@@ -73,15 +74,16 @@ struct MatchAnimation: View {
                 .fontWeight(.thin)
                 .font(.title2)
             
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                Text("message")
+            Button(action: {
+                dismiss()
+            }, label: {
+                Text("Start Chatting")
                     .font(.callout)
                     .fontWeight(.thin)
                     .foregroundStyle(.black)
                     .frame(width: 150, height: 40)
                     .background(.orange)
                     .clipShape(Capsule())
-                    .opacity(0)
             })
         }
         .opacity(opacity)

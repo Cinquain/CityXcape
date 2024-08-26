@@ -48,17 +48,7 @@ struct TimerView: View {
                 }
         })
             
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                Text(vm.isExpired ? "Dismiss" : "Connect")
-                    .font(.callout)
-                    .foregroundStyle(.black)
-                    .fontWeight(.light)
-                    .tracking(3)
-                    .frame(width: 140, height: 40)
-                    .background(.orange)
-                    .clipShape(Capsule())
-
-            })
+           
         }
     }
     

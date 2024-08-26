@@ -13,9 +13,6 @@ struct Connection: Identifiable {
     let id: String
     let user1Id: String
     let user2Id: String
-    let locationId: String
-    
-    let longitude: Double
-    let latitude: Double
+    let spotId: String
     let timestamp: Date
 }

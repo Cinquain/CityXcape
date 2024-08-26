@@ -20,13 +20,16 @@ struct CXUserDefaults {
 }
 
 enum Tab: String, CaseIterable {
-    case locations = "Locations"
+    case locations = "Location"
     case profile = "Profile"
+    case connections = "Requests"
     
     var imageTitle: String {
         switch self {
         case .locations:
             return "location.circle.fill"
+        case .connections:
+            return "point.3.connected.trianglepath.dotted"
         case .profile:
             return "person.fill"
         }

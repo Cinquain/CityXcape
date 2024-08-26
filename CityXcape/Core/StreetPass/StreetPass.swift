@@ -20,7 +20,6 @@ struct StreetPass: View {
             VStack(alignment: .leading, spacing: 20) {
                 passport()
                 bucketList()
-                analytics()
             }
             Spacer()
         }
@@ -91,7 +90,6 @@ struct StreetPass: View {
         }
     }
     
-    
     @ViewBuilder
     func passport() -> some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -135,25 +133,7 @@ struct StreetPass: View {
         }
     }
     
-    @ViewBuilder
-    func analytics() -> some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Button(action: {
-                
-            }, label: {
-                HStack {
-                    Image(systemName: "chart.line.uptrend.xyaxis.circle.fill")
-                        .font(.title)
-                    
-                    Text("My Journey")
-                        .font(.title3)
-                        .fontWeight(.thin)
-                    
-                }
-                .foregroundStyle(.white)
-            })
-        }
-    }
+  
     
     func openCustom(url: String) {
         guard let url = URL(string: url) else {return}

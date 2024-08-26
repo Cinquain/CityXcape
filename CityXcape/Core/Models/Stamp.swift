@@ -14,8 +14,6 @@ struct Stamp: Identifiable, Equatable {
     let spotName: String
     let imageUrl: String
     let timestamp: Date
-    let longitude: Double
-    let latitude: Double
     let read: Bool
     let ownerId: String
     let spotId: String

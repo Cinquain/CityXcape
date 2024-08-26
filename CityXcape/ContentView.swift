@@ -12,9 +12,7 @@ struct ContentView: View {
     @State var selection: Int = 0
     
     var body: some View {
-        if firstOpen == nil || firstOpen == true {
-            StartScreen()
-        } else {
+    
             TabView(selection: $selection) {
                 Discover()
                     .tag(0)
@@ -22,6 +20,15 @@ struct ContentView: View {
                         Image(systemName: Tab.locations.imageTitle)
                         Text(Tab.locations.rawValue)
                     }
+                
+                RequestView()
+                    .tag(1)
+                    .tabItem {
+                        Image(systemName: Tab.connections.imageTitle)
+                        Text(Tab.connections.rawValue)
+                    }
+                    .badge(1)
+                    
                 
                 StreetPass()
                     .tag(1)
@@ -34,7 +41,7 @@ struct ContentView: View {
             }
             .colorScheme(.dark)
             .accentColor(.white)
-        }
+        
     }
 }
 

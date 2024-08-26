@@ -22,7 +22,7 @@ struct PublicStreetPass: View {
             header()
             userView()
             Spacer()
-            buttonRow()
+            ctaButton()
         }
         .background(background())
         .onAppear {
@@ -61,32 +61,37 @@ struct PublicStreetPass: View {
                 .padding(.top, 5)
             
             Spacer()
+            
+            Button(action: {
+                dismiss()
+            }, label: {
+                Image(systemName: "arrow.uturn.down.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 30)
+                    .foregroundStyle(.white)
+            })
         }
         .padding(.horizontal, 22)
     }
     
     @ViewBuilder
-    func buttonRow() -> some View {
-        HStack {
-          
-            
-            CircleButton(perform: {
+    func ctaButton() -> some View {
+            Button(action: {
                 buySTC.toggle()
-            }, systemName: "message.fill", activeTint: .pink, inactiveTint: .orange.opacity(0.8))
-            .popover(isPresented: $buySTC, content: {
+            }, label: {
+                Text("message")
+                    .font(.title3)
+                    .fontWeight(.thin)
+                    .foregroundStyle(.black)
+                    .frame(width: 200, height: 45)
+                    .background(.orange)
+                    .clipShape(Capsule())
+            })
+            .sheet(isPresented: $buySTC, content: {
                 BuySTC()
                     .presentationDetents([.height(370)])
             })
-            
-            CircleButton(perform: {
-                //TBD
-            }, systemName: "info.circle.fill", activeTint: .cyan, inactiveTint: .orange.opacity(0.8))
-            
-            CircleButton(perform: {
-                dismiss()
-            }, systemName: "arrow.uturn.down.circle.fill", activeTint: .yellow, inactiveTint: .orange.opacity(0.8))
-        }
-        .padding(.bottom, 30)
     }
     
     @ViewBuilder

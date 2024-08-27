@@ -15,5 +15,9 @@
 			</array>
 		</dict>
 	</array>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>GIDClientID</key>
+	<string>32981840497-ukicflntjo8up615rhv7nqltaqsbfk9e.apps.googleusercontent.com</string>
 </dict>
 </plist>

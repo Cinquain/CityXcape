@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct Discover: View {
+    @AppStorage(CXUserDefaults.uid) var uid: String?
     @State private var showPage: Bool = false
+    @State private var showSignUp: Bool = false
     var body: some View {
         VStack {
             headerView()
@@ -37,6 +39,9 @@ struct Discover: View {
                 .renderingMode(.template)
                 .foregroundStyle(.red)
                 .scaledToFill()
+                .fullScreenCover(isPresented: $showSignUp) {
+                    SignUp()
+                }
               
         }
     }
@@ -53,7 +58,11 @@ struct Discover: View {
     @ViewBuilder
     func ctaButton() -> some View {
         Button(action: {
-            showPage.toggle()
+            if uid == nil {
+                showSignUp.toggle()
+            } else {
+                showPage.toggle()
+            }
         }, label: {
             Text("scan")
                 .font(.title3)

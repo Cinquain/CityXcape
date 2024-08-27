@@ -58,6 +58,8 @@
 		21FC27CF2C7CAF6B0055CDCF /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 21FC27CE2C7CAF6B0055CDCF /* GoogleSignIn */; };
 		21FC27D12C7CAF6B0055CDCF /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 21FC27D02C7CAF6B0055CDCF /* GoogleSignInSwift */; };
 		21FC27D32C7CB0A30055CDCF /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FC27D22C7CB0A30055CDCF /* Utilities.swift */; };
+		21FC27D62C7CB3C80055CDCF /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FC27D52C7CB3C80055CDCF /* AuthService.swift */; };
+		21FC27D82C7CB9680055CDCF /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FC27D72C7CB9680055CDCF /* DataService.swift */; };
 		21FCE5972C5AD4B7006A86CE /* CityXcapeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FCE5962C5AD4B7006A86CE /* CityXcapeApp.swift */; };
 		21FCE5992C5AD4B7006A86CE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FCE5982C5AD4B7006A86CE /* ContentView.swift */; };
 		21FCE59B2C5AD4B9006A86CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21FCE59A2C5AD4B9006A86CE /* Assets.xcassets */; };
@@ -108,6 +110,8 @@
 		21FC27CA2C7CADEA0055CDCF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		21FC27CC2C7CAE990055CDCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		21FC27D22C7CB0A30055CDCF /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		21FC27D52C7CB3C80055CDCF /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		21FC27D72C7CB9680055CDCF /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		21FCE5932C5AD4B7006A86CE /* CityXcape.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CityXcape.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21FCE5962C5AD4B7006A86CE /* CityXcapeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityXcapeApp.swift; sourceTree = "<group>"; };
 		21FCE5982C5AD4B7006A86CE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -193,6 +197,15 @@
 			path = Discover;
 			sourceTree = "<group>";
 		};
+		21FC27D42C7CB3310055CDCF /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				21FC27D52C7CB3C80055CDCF /* AuthService.swift */,
+				21FC27D72C7CB9680055CDCF /* DataService.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
 		21FCE58A2C5AD4B7006A86CE = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +247,7 @@
 		21FCE5A42C5AD63C006A86CE /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				21FC27D42C7CB3310055CDCF /* Firebase */,
 				21DC252E2C6FD2040046FFB8 /* Connections */,
 				21F91D832C63A8610024A991 /* Discover */,
 				210A043B2C61515100CA1078 /* Authentication */,
@@ -384,6 +398,7 @@
 				21D772EC2C5D27F0004BEF31 /* StreetPass.swift in Sources */,
 				21D240AC2C6EEBE50054D048 /* Request.swift in Sources */,
 				21F91D852C63A87D0024A991 /* Discover.swift in Sources */,
+				21FC27D62C7CB3C80055CDCF /* AuthService.swift in Sources */,
 				21D4FA2B2C67A1AC00CD4F58 /* LocationView.swift in Sources */,
 				21DCDEC92C70E21800F5A468 /* Connection.swift in Sources */,
 				210A04412C61939800CA1078 /* Stc.swift in Sources */,
@@ -400,6 +415,7 @@
 				21CF8D872C5E7081006339A9 /* PassportPage.swift in Sources */,
 				21F91D822C63A0200024A991 /* SpotView.swift in Sources */,
 				21EC5AD82C5C3FD600B88812 /* StampView.swift in Sources */,
+				21FC27D82C7CB9680055CDCF /* DataService.swift in Sources */,
 				21EC5AD62C5C3CDC00B88812 /* PinView.swift in Sources */,
 				21D772E42C5D0F1C004BEF31 /* PublicStreetPass.swift in Sources */,
 				21D983C12C6640EE003FC4A6 /* LaunchView.swift in Sources */,

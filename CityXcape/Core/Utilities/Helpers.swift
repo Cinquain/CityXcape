@@ -19,6 +19,15 @@ struct CXUserDefaults {
     static let firstOpen = "firstOpen"
 }
 
+struct Server {
+    static let users = "users"
+    static let locations = "locations"
+    static let world = "worlds"
+    static let messages = "messgaes"
+    static let connections = "connections"
+    static let stamps = "stamps"
+}
+
 enum Tab: String, CaseIterable {
     case locations = "Location"
     case profile = "Profile"
@@ -34,6 +43,13 @@ enum Tab: String, CaseIterable {
             return "person.fill"
         }
     }
+}
+
+enum CustomError: Error {
+    case authFailure
+    case uidNotFound
+    case failedPurchase
+    case badUrl
 }
 
 

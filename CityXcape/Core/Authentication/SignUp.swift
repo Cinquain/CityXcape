@@ -35,6 +35,9 @@ struct SignUp: View {
             .frame(width: 300)
             .clipShape(Circle())
             .shadow(color: .orange, radius: 10)
+            .alert(isPresented: $showError, content: {
+                return Alert(title: Text(errorMessage))
+            })
         
     
     }
@@ -64,7 +67,17 @@ struct SignUp: View {
             }
             
             HStack(spacing: 25) {
-                Button(action: {}, label: {
+                Button(action: {
+                    Task {
+                        do {
+                            let result = try await AuthService.shared.startSigninWithGoogle()
+                            if result {dismiss()}
+                        } catch {
+                            errorMessage = error.localizedDescription
+                            showError.toggle()
+                        }
+                    }
+                }, label: {
                     Image("Google-Symbol")
                         .resizable()
                         .scaledToFit()

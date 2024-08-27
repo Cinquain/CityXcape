@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct User: Identifiable, Equatable {
+struct User: Identifiable, Equatable, Codable {
     
     let id: String
     let username: String
@@ -19,11 +19,25 @@ struct User: Identifiable, Equatable {
     let isMale: Bool
     let timestamp: Date
     let fcmToken: String?
-
+    let email: String?
  
     
     static func == (lhs: User, rhs: User) -> Bool {
         return lhs.id == rhs.id
+    }
+    
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case username
+        case imageUrl
+        case goal
+        case streetcred
+        case worldId
+        case isMale
+        case timestamp
+        case email
+        case fcmToken
     }
     
 }

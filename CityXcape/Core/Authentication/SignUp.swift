@@ -10,8 +10,15 @@ import SwiftUI
 struct SignUp: View {
     
     @Environment(\.dismiss) var dismiss
+    @State var isAuth: Bool = false {
+        didSet {
+            dismiss()
+        }
+    }
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
+    @StateObject var vm = AuthService.shared
+    
     
     var body: some View {
         VStack {
@@ -70,8 +77,8 @@ struct SignUp: View {
                 Button(action: {
                     Task {
                         do {
-                            let result = try await AuthService.shared.startSigninWithGoogle()
-                            if result {dismiss()}
+                             try await vm.startSigninWithGoogle()
+                             dismiss()
                         } catch {
                             errorMessage = error.localizedDescription
                             showError.toggle()
@@ -84,7 +91,16 @@ struct SignUp: View {
                         .frame(width: 55)
                 })
                 
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {
+                    Task {
+                        do {
+                            vm.startSignInWithAppleFlow(view: self)
+                        } catch {
+                            errorMessage = error.localizedDescription
+                            showError.toggle()
+                        }
+                    }
+                }, label: {
                     Image("apple-emblem")
                         .resizable()
                         .scaledToFit()

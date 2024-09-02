@@ -10,6 +10,7 @@ import SwiftUI
 struct PassportPage: View {
     
     @Environment(\.dismiss) private var dismiss
+    @State private var showPage: Bool = false
     
     let columns: [GridItem] = [
         GridItem(.adaptive(minimum: 180))
@@ -81,7 +82,15 @@ struct PassportPage: View {
             LazyVGrid(columns: columns, spacing: 10) {
                 
                 ForEach(1..<11) { _ in
-                    PostalStamp(url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2Fmaxresdefault.jpg?alt=media&token=c29d351b-b204-426d-a7f2-e71cba4396d3")
+                    Button(action: {
+                        showPage.toggle()
+                    }, label: {
+                        PostalStamp(url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2Fmaxresdefault.jpg?alt=media&token=c29d351b-b204-426d-a7f2-e71cba4396d3")
+                    })
+                    .sheet(isPresented: $showPage, content: {
+                        StampPage()
+                            .presentationDetents([.height(480)])
+                    })
                 }
                 
             }

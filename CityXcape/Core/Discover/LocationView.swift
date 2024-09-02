@@ -11,8 +11,11 @@ import SDWebImageSwiftUI
 
 struct LocationView: View {
     
+    private var isSocialHub: Bool = false
     @Environment(\.dismiss) private var dismiss
+    
     @State private var showStamp: Bool = false
+    @State private var showPassport: Bool = false
     @State private var showInfo: Bool = false
     @State private var showLounge: Bool = false
     @State private var alert: Bool = false
@@ -42,8 +45,13 @@ struct LocationView: View {
         .onAppear(perform: {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
                 showStamp.toggle()
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-                    showLounge.toggle()
+                    if isSocialHub {
+                        showLounge.toggle()
+                    } else {
+                        showPassport.toggle()
+                    }
                 })
             })
           
@@ -78,6 +86,10 @@ struct LocationView: View {
                 .foregroundStyle(.white)
                 .fontWeight(.thin)
                 .lineLimit(1)
+                .sheet(isPresented: $showPassport, content: {
+                    PassportPage()
+                        .presentationDetents([.height(480)])
+                })
             
             Spacer()
             

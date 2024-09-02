@@ -15,11 +15,10 @@ struct Discover: View {
         VStack {
             headerView()
             Spacer()
-            Image("glass")
+            Image("qr-code")
                 .resizable()
                 .scaledToFit()
-                .frame(height: 350)
-                .overlay(content: qrCode)
+                .frame(height: 250)
                 
             Text("Scan QR code to check in")
                 .font(.title3)

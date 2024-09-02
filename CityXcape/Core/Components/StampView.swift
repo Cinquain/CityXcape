@@ -18,7 +18,7 @@ struct StampView: View {
        Image("Stamp")
             .resizable()
             .scaledToFit()
-            .frame(width: 325)
+            .frame(width: 305)
             .overlay(timestamp())
             .scaleEffect(animate ? 4 : 1)
             .rotationEffect(animate ? Angle(degrees: 0) : Angle(degrees: -35))
@@ -40,7 +40,7 @@ struct StampView: View {
                 .fontWeight(.medium)
             
             Text(day())
-                .font(.title2)
+                .font(.title3)
                 .fontWeight(.medium)
             
             Text(time())

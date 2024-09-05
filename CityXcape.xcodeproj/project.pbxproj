@@ -26,13 +26,17 @@
 		21D772EA2C5D1F8D004BEF31 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D772E92C5D1F8D004BEF31 /* SoundManager.swift */; };
 		21D772EC2C5D27F0004BEF31 /* StreetPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D772EB2C5D27F0004BEF31 /* StreetPass.swift */; };
 		21D983C12C6640EE003FC4A6 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D983C02C6640EE003FC4A6 /* LaunchView.swift */; };
-		21DA45C62C6A41B200A16832 /* Lounge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA45C52C6A41B200A16832 /* Lounge.swift */; };
+		21DA45C62C6A41B200A16832 /* DigitalLounge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA45C52C6A41B200A16832 /* DigitalLounge.swift */; };
 		21DA45C92C6A499D00A16832 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 21DA45C82C6A499D00A16832 /* Shimmer */; };
 		21DC252D2C6F95970046FFB8 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DC252C2C6F95970046FFB8 /* TimerView.swift */; };
 		21DC25302C6FD2200046FFB8 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DC252F2C6FD2200046FFB8 /* TimerViewModel.swift */; };
 		21DCDEC92C70E21800F5A468 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DCDEC82C70E21800F5A468 /* Connection.swift */; };
 		21DCDECB2C71269600F5A468 /* MatchAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DCDECA2C71269600F5A468 /* MatchAnimation.swift */; };
+		21DDFBFF2C89030000D74309 /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DDFBFE2C89030000D74309 /* Onboarding.swift */; };
+		21DE09072C88922000A2D526 /* UploadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DE09062C88922000A2D526 /* UploadViewModel.swift */; };
+		21DE09092C8893B500A2D526 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DE09082C8893B500A2D526 /* ImageManager.swift */; };
 		21E487152C862889005ADB06 /* StampPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E487142C862889005ADB06 /* StampPage.swift */; };
+		21E487172C867778005ADB06 /* PassPortReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E487162C867778005ADB06 /* PassPortReceipt.swift */; };
 		21E50E8B2C6CE0B000FACFCB /* BuySTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E50E8A2C6CE0B000FACFCB /* BuySTC.swift */; };
 		21E50E8D2C6CE3B900FACFCB /* CoinCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E50E8C2C6CE3B900FACFCB /* CoinCapsule.swift */; };
 		21EC5ACC2C5C2A1700B88812 /* UserDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC5ACB2C5C2A1700B88812 /* UserDot.swift */; };
@@ -86,13 +90,17 @@
 		21D772E92C5D1F8D004BEF31 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		21D772EB2C5D27F0004BEF31 /* StreetPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetPass.swift; sourceTree = "<group>"; };
 		21D983C02C6640EE003FC4A6 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
-		21DA45C52C6A41B200A16832 /* Lounge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lounge.swift; sourceTree = "<group>"; };
+		21DA45C52C6A41B200A16832 /* DigitalLounge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalLounge.swift; sourceTree = "<group>"; };
 		21DC252C2C6F95970046FFB8 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		21DC252F2C6FD2200046FFB8 /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
 		21DCDEC82C70E21800F5A468 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		21DCDECA2C71269600F5A468 /* MatchAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchAnimation.swift; sourceTree = "<group>"; };
+		21DDFBFE2C89030000D74309 /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		21DE09062C88922000A2D526 /* UploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewModel.swift; sourceTree = "<group>"; };
+		21DE09082C8893B500A2D526 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		21DF5C8F2C82620600449D96 /* CityXcape.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CityXcape.entitlements; sourceTree = "<group>"; };
 		21E487142C862889005ADB06 /* StampPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampPage.swift; sourceTree = "<group>"; };
+		21E487162C867778005ADB06 /* PassPortReceipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassPortReceipt.swift; sourceTree = "<group>"; };
 		21E50E8A2C6CE0B000FACFCB /* BuySTC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuySTC.swift; sourceTree = "<group>"; };
 		21E50E8C2C6CE3B900FACFCB /* CoinCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinCapsule.swift; sourceTree = "<group>"; };
 		21EC5ACB2C5C2A1700B88812 /* UserDot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDot.swift; sourceTree = "<group>"; };
@@ -147,6 +155,7 @@
 			children = (
 				210A043E2C618FA800CA1078 /* StartScreen.swift */,
 				210A043C2C61518700CA1078 /* SignUp.swift */,
+				21DDFBFE2C89030000D74309 /* Onboarding.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -186,6 +195,7 @@
 				21EC5AD92C5C40BA00B88812 /* Extensions.swift */,
 				21D772E92C5D1F8D004BEF31 /* SoundManager.swift */,
 				21FC27D22C7CB0A30055CDCF /* Utilities.swift */,
+				21DE09062C88922000A2D526 /* UploadViewModel.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -195,7 +205,7 @@
 			children = (
 				21F91D842C63A87D0024A991 /* Discover.swift */,
 				21D4FA2A2C67A1AC00CD4F58 /* LocationView.swift */,
-				21DA45C52C6A41B200A16832 /* Lounge.swift */,
+				21DA45C52C6A41B200A16832 /* DigitalLounge.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -205,6 +215,7 @@
 			children = (
 				21FC27D52C7CB3C80055CDCF /* AuthService.swift */,
 				21FC27D72C7CB9680055CDCF /* DataService.swift */,
+				21DE09082C8893B500A2D526 /* ImageManager.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -300,6 +311,7 @@
 				21DC252C2C6F95970046FFB8 /* TimerView.swift */,
 				21C635362C77A67000D15DB2 /* RequestThumb.swift */,
 				21E487142C862889005ADB06 /* StampPage.swift */,
+				21E487162C867778005ADB06 /* PassPortReceipt.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -416,12 +428,14 @@
 				21F91D892C63BD3C0024A991 /* Location.swift in Sources */,
 				21E50E8D2C6CE3B900FACFCB /* CoinCapsule.swift in Sources */,
 				21D772EA2C5D1F8D004BEF31 /* SoundManager.swift in Sources */,
-				21DA45C62C6A41B200A16832 /* Lounge.swift in Sources */,
+				21DA45C62C6A41B200A16832 /* DigitalLounge.swift in Sources */,
 				21DC252D2C6F95970046FFB8 /* TimerView.swift in Sources */,
 				21CF8D872C5E7081006339A9 /* PassportPage.swift in Sources */,
 				21F91D822C63A0200024A991 /* SpotView.swift in Sources */,
+				21DE09092C8893B500A2D526 /* ImageManager.swift in Sources */,
 				21EC5AD82C5C3FD600B88812 /* StampView.swift in Sources */,
 				21FC27D82C7CB9680055CDCF /* DataService.swift in Sources */,
+				21DE09072C88922000A2D526 /* UploadViewModel.swift in Sources */,
 				21EC5AD62C5C3CDC00B88812 /* PinView.swift in Sources */,
 				21D772E42C5D0F1C004BEF31 /* PublicStreetPass.swift in Sources */,
 				21D983C12C6640EE003FC4A6 /* LaunchView.swift in Sources */,
@@ -436,7 +450,9 @@
 				21F91D8D2C63C0800024A991 /* Stamp.swift in Sources */,
 				21EC5AD02C5C2F9D00B88812 /* Helpers.swift in Sources */,
 				21EC5AD22C5C305D00B88812 /* SelfieBubble.swift in Sources */,
+				21DDFBFF2C89030000D74309 /* Onboarding.swift in Sources */,
 				21F91D872C63BB270024A991 /* User.swift in Sources */,
+				21E487172C867778005ADB06 /* PassPortReceipt.swift in Sources */,
 				21F91D8B2C63BF660024A991 /* World.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

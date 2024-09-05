@@ -13,10 +13,11 @@ enum UserType {
     case personal
 }
 
-
 struct CXUserDefaults {
     static let uid = "uid"
     static let firstOpen = "firstOpen"
+    static let createdSP = "createdSP"
+    static let profileUrl = "profileUrl"
 }
 
 struct Server {
@@ -50,6 +51,13 @@ enum CustomError: Error {
     case uidNotFound
     case failedPurchase
     case badUrl
+    case badCompression
+}
+
+enum ImageCase {
+    case profile
+    case location
+    case stamp
 }
 
 

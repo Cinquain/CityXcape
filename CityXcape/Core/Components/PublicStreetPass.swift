@@ -106,15 +106,7 @@ struct PublicStreetPass: View {
                 .fontWeight(.thin)
             
             
-            HStack(spacing: 2) {
-                Text("Queen")
-                    .foregroundStyle(.white)
-                    .fontWeight(.thin)
-                    .font(.callout)
-                Image(systemName: "crown.fill")
-                    .foregroundColor(.white)
-                    .font(.callout)
-            }
+        
             
         }
     }

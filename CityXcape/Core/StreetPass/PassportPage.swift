@@ -17,15 +17,22 @@ struct PassportPage: View {
     ]
     
     var body: some View {
-        VStack {
-            header()
-            Spacer()
-                .frame(height: 40)
-            scrollView()
-            Spacer()
+        ZStack {
+            VStack {
+                header()
+                Spacer()
+                    .frame(height: 40)
+                scrollView()
+                Spacer()
+            }
+            .background(background())
+            .edgesIgnoringSafeArea(.all)
+
+            
+            Color.black
+                .opacity(showPage ? 0.95 : 0)
+                .edgesIgnoringSafeArea(.all)
         }
-        .edgesIgnoringSafeArea(.all)
-        .background(background())
     }
     
     @ViewBuilder
@@ -69,10 +76,10 @@ struct PassportPage: View {
             Color.black
             Image("travel")
                 .resizable()
-                .scaledToFit()
+                .scaledToFill()
                 .opacity(0.4)
+
         }
-        .edgesIgnoringSafeArea(.all)
 
     }
     

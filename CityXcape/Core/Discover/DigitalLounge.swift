@@ -7,10 +7,15 @@
 
 import SwiftUI
 
-struct Lounge: View {
+struct DigitalLounge: View {
+    @AppStorage(CXUserDefaults.createdSP) var createdSP: Bool?
     @Environment(\.dismiss) private var dismiss
+    
     @State private var showSP: Bool = false
     @State private var isShimmering: Bool = false
+    @State private var errorMessage: String = ""
+    @State private var showError: Bool = false
+    @State private var showOnboarding: Bool = false
     
     var body: some View {
         VStack {
@@ -36,6 +41,14 @@ struct Lounge: View {
                     .font(.title2)
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
+                    .alert(isPresented: $showError, content: {
+                        Alert(title: Text(errorMessage),
+                              primaryButton: .default(Text("Ok"), action: {
+                            showOnboarding.toggle()
+                        }),
+                        secondaryButton: .cancel()
+                        )
+                    })
                 
                 Spacer()
                 
@@ -47,6 +60,9 @@ struct Lounge: View {
                         .scaledToFit()
                         .frame(height: 30)
                         .foregroundStyle(.white)
+                        .fullScreenCover(isPresented: $showOnboarding, content: {
+                            Onboarding()
+                        })
                 })
             }
             .padding(.horizontal, 10)
@@ -76,7 +92,12 @@ struct Lounge: View {
         HStack(spacing: 30) {
            
             Button(action: {
-                showSP.toggle()
+                if createdSP != true {
+                    errorMessage = "You need a StreetPass to view profile"
+                    showError.toggle()
+                } else {
+                    showSP.toggle()
+                }
             }, label: {
                 VStack(spacing: 2) {
                     UserDot(size: 100, url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FAllison.png?alt=media&token=23e6eceb-b9b2-4a49-8b23-a11de0e2d32c")
@@ -120,5 +141,5 @@ struct Lounge: View {
 }
 
 #Preview {
-    Lounge()
+    DigitalLounge()
 }

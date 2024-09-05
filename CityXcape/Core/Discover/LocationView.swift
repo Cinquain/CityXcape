@@ -10,9 +10,9 @@ import SDWebImageSwiftUI
 
 
 struct LocationView: View {
-    
     private var isSocialHub: Bool = false
     @Environment(\.dismiss) private var dismiss
+    
     
     @State private var showStamp: Bool = false
     @State private var showPassport: Bool = false
@@ -69,7 +69,7 @@ struct LocationView: View {
                     customLayer()
                 }
                 .fullScreenCover(isPresented: $showLounge, content: {
-                    Lounge()
+                    DigitalLounge()
                 })
     }
     
@@ -87,8 +87,8 @@ struct LocationView: View {
                 .fontWeight(.thin)
                 .lineLimit(1)
                 .sheet(isPresented: $showPassport, content: {
-                    PassportPage()
-                        .presentationDetents([.height(480)])
+                    PassPortReceipt()
+                        .presentationDetents([.height(350)])
                 })
             
             Spacer()

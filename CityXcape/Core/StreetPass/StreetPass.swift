@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StreetPass: View {
-    
+    @AppStorage(CXUserDefaults.profileUrl) var profileUrl: String?
     @State private var showPasport: Bool = false
     
     var body: some View {
@@ -67,26 +67,23 @@ struct StreetPass: View {
     @ViewBuilder
     func userView() -> some View {
         VStack {
-            SelfieBubble(
-                size: 300,
-                url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FIMG_1575.png?alt=media&token=100ea308-bcb1-41cf-b53e-dc663a3f6692",
-                pulse: 1.2)
+            
+            Button(action: {
+                
+            }, label: {
+                SelfieBubble(
+                    size: 300,
+                    url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FIMG_1575.png?alt=media&token=100ea308-bcb1-41cf-b53e-dc663a3f6692",
+                    pulse: 1.2)
+            })
+            
             
             Text("Cinquain")
                 .font(.title)
                 .foregroundStyle(.white)
                 .fontWeight(.thin)
             
-            
-            HStack(spacing: 2) {
-                Text("King")
-                    .foregroundStyle(.white)
-                    .fontWeight(.thin)
-                    .font(.callout)
-                Image(systemName: "crown.fill")
-                    .foregroundColor(.white)
-                    .font(.callout)
-            }
+          
         }
     }
     

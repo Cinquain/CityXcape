@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 
-struct Location: Identifiable, Equatable {
+struct Location: Identifiable, Equatable, Codable {
     
     let id: String
     let name: String
@@ -20,9 +20,19 @@ struct Location: Identifiable, Equatable {
     let longitude: Double
     let latitude: Double
     let timestamp: Date
-
     
     static func == (lhs: Location, rhs: Location) -> Bool {
         return lhs.id == rhs.id
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case imageUrl
+        case ownerId
+        case worldId
+        case longitude
+        case latitude
+        case timestamp
     }
 }

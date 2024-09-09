@@ -18,6 +18,7 @@
 		21CF8D872C5E7081006339A9 /* PassportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF8D862C5E7081006339A9 /* PassportPage.swift */; };
 		21D240AC2C6EEBE50054D048 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D240AB2C6EEBE50054D048 /* Request.swift */; };
 		21D240AE2C6EEC730054D048 /* Cardview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D240AD2C6EEC730054D048 /* Cardview.swift */; };
+		21D45FDC2C8F9606001B12FA /* DataScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D45FDB2C8F9606001B12FA /* DataScanner.swift */; };
 		21D4FA292C67A07300CD4F58 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D4FA282C67A07300CD4F58 /* BlurView.swift */; };
 		21D4FA2B2C67A1AC00CD4F58 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D4FA2A2C67A1AC00CD4F58 /* LocationView.swift */; };
 		21D772E42C5D0F1C004BEF31 /* PublicStreetPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D772E32C5D0F1C004BEF31 /* PublicStreetPass.swift */; };
@@ -82,6 +83,7 @@
 		21CF8D862C5E7081006339A9 /* PassportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportPage.swift; sourceTree = "<group>"; };
 		21D240AB2C6EEBE50054D048 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		21D240AD2C6EEC730054D048 /* Cardview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardview.swift; sourceTree = "<group>"; };
+		21D45FDB2C8F9606001B12FA /* DataScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataScanner.swift; sourceTree = "<group>"; };
 		21D4FA282C67A07300CD4F58 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		21D4FA2A2C67A1AC00CD4F58 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		21D772E32C5D0F1C004BEF31 /* PublicStreetPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicStreetPass.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				21F91D842C63A87D0024A991 /* Discover.swift */,
 				21D4FA2A2C67A1AC00CD4F58 /* LocationView.swift */,
 				21DA45C52C6A41B200A16832 /* DigitalLounge.swift */,
+				21D45FDB2C8F9606001B12FA /* DataScanner.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 			files = (
 				21D240AE2C6EEC730054D048 /* Cardview.swift in Sources */,
 				21D772E82C5D1741004BEF31 /* Particle.swift in Sources */,
+				21D45FDC2C8F9606001B12FA /* DataScanner.swift in Sources */,
 				21E50E8B2C6CE0B000FACFCB /* BuySTC.swift in Sources */,
 				21E487152C862889005ADB06 /* StampPage.swift in Sources */,
 				21FCE5992C5AD4B7006A86CE /* ContentView.swift in Sources */,
@@ -593,6 +597,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CityXcape/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSCameraUsageDescription = "CityXcape needs to scan QR codes";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CityXcape needs to access photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -624,6 +630,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CityXcape/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSCameraUsageDescription = "CityXcape needs to scan QR codes";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CityXcape needs to access photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -48,7 +48,7 @@ extension AuthService {
             UserDefaults.standard.set(uid, forKey: CXUserDefaults.uid)
             return true
         } else {
-            DataService.shared.createUser(result: authResult)
+            DataService.shared.createUser(auth: authResult)
             return false
         }
     }
@@ -108,24 +108,21 @@ extension AuthService {
 //MARK: Google Signin
 extension AuthService {
     
-    @MainActor @discardableResult
+    @MainActor
     func signInWithGoogle(credentials: AuthCredential) async throws -> Bool {
         let authResult = try await Auth.auth().signIn(with: credentials)
         let uid = authResult.user.uid
         if try await DataService.shared.checkIfUserExist(uid: uid) {
-            signupView.isAuth = true 
-            signupView.dismiss()
+            //Log in user using DataService
             return true
         } else {
-            DataService.shared.createUser(result: authResult)
-            signupView.isAuth = true
-            signupView.dismiss()
+            DataService.shared.createUser(auth: authResult)
             return false
         } 
     }
     
-    @MainActor
-    func startSigninWithGoogle() async throws -> Bool {
+    @MainActor @discardableResult
+    func startSigninWithGoogle(signUpview: SignUp) async throws -> Bool {
         guard let view = Utilities.shared.topViewController() else {
             print("Failed to get top Viewcontroller")
             throw CustomError.authFailure
@@ -148,7 +145,10 @@ extension AuthService {
         let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
         
         do {
-            return try await signInWithGoogle(credentials: credential)
+            let result = try await signInWithGoogle(credentials: credential)
+            signUpview.isAuth = true 
+            signUpview.dismiss()
+            return result
         } catch {
             print("Error signing in with Google", error.localizedDescription)
             throw CustomError.authFailure

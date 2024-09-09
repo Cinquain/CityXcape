@@ -13,8 +13,7 @@ import SwiftUI
 
 @MainActor
 class UploadViewModel: ObservableObject {
-    
-    @Published var selectedImage: PhotosPickerItem? {
+        @Published var selectedImage: PhotosPickerItem? {
         didSet {
             switch imageCase {
             case .profile:

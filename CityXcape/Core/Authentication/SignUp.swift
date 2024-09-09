@@ -77,8 +77,7 @@ struct SignUp: View {
                 Button(action: {
                     Task {
                         do {
-                             try await vm.startSigninWithGoogle()
-                             dismiss()
+                            let result = try await vm.startSigninWithGoogle(signUpview: self)
                         } catch {
                             errorMessage = error.localizedDescription
                             showError.toggle()

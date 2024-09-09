@@ -19,5 +19,7 @@
 	<false/>
 	<key>GIDClientID</key>
 	<string>32981840497-ukicflntjo8up615rhv7nqltaqsbfk9e.apps.googleusercontent.com</string>
+	<key>GoogleUtilitiesAppDelegateProxyEnabled</key>
+	<true/>
 </dict>
 </plist>

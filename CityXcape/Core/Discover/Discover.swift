@@ -6,21 +6,31 @@
 //
 
 import SwiftUI
+import VisionKit
 
 struct Discover: View {
     @AppStorage(CXUserDefaults.uid) var uid: String?
     @State private var showPage: Bool = false
     @State private var showSignUp: Bool = false
+    @State private var scannedText: String = "Tap to scan QR code"
+    @State private var isShowingScanner: Bool = false
     var body: some View {
         VStack {
             headerView()
             Spacer()
+           
             Image("qr-code")
                 .resizable()
                 .scaledToFit()
                 .frame(height: 250)
+                .sheet(isPresented: $isShowingScanner, content: {
+                    DataScannerRepresentable(
+                    shouldStartScanning: $isShowingScanner,
+                    scannedText: $scannedText, 
+                    dataToScanFor: [.barcode(symbologies: [.qr])])
+                })
                 
-            Text("Scan QR code to check in")
+            Text(scannedText)
                 .font(.title3)
                 .foregroundStyle(.white)
                 .fontWeight(.thin)
@@ -28,6 +38,7 @@ struct Discover: View {
             Spacer()
         }
         .background(background())
+        
     }
     
     @ViewBuilder
@@ -57,11 +68,7 @@ struct Discover: View {
     @ViewBuilder
     func ctaButton() -> some View {
         Button(action: {
-            if uid == nil {
-                showSignUp.toggle()
-            } else {
-                showPage.toggle()
-            }
+            isShowingScanner.toggle()
         }, label: {
             Text("scan")
                 .font(.title3)

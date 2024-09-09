@@ -16,11 +16,12 @@ final class DataService {
     static let shared = DataService()
     private init() {}
     var userRef = DB.collection(Server.users)
+    var spotRef = DB.collection(Server.locations)
     
     //MARK: CREATE FUNCTIONS
-    func createUser(result: AuthDataResult) {
-        let uid = result.user.uid
-        let email = result.user.email
+    func createUser(auth: AuthDataResult) {
+        let uid = auth.user.uid
+        let email = auth.user.email
         
         let data: [String: Any] = [
             User.CodingKeys.id.rawValue: uid,
@@ -42,6 +43,7 @@ final class DataService {
         ]
         let ref = userRef.document(uid)
         try await ref.updateData(data)
+        UserDefaults.standard.setValue(username, forKey: CXUserDefaults.username)
     }
     
     
@@ -66,6 +68,12 @@ final class DataService {
         let snapshot = try await userRef.document(uid).getDocument()
         let user = try snapshot.data(as: User.self)
         return user
+    }
+    
+    func getSpotFrom(id: String) async throws -> Location {
+        let snapshot = try await spotRef.document(id).getDocument()
+        let location = try snapshot.data(as: Location.self)
+        return location
     }
     
     //MARK: PUT FUNCTIONS

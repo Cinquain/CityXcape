@@ -18,6 +18,7 @@ struct CXUserDefaults {
     static let firstOpen = "firstOpen"
     static let createdSP = "createdSP"
     static let profileUrl = "profileUrl"
+    static let username = "username"
 }
 
 struct Server {

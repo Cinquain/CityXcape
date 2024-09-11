@@ -19,6 +19,7 @@ struct Location: Identifiable, Equatable, Codable {
     
     let longitude: Double
     let latitude: Double
+    let isSocialHub: Bool
     let timestamp: Date
     
     static func == (lhs: Location, rhs: Location) -> Bool {
@@ -30,9 +31,36 @@ struct Location: Identifiable, Equatable, Codable {
         case name
         case imageUrl
         case ownerId
+        case isSocialHub
         case worldId
         case longitude
         case latitude
         case timestamp
     }
+    
+    init(data: [String: Any]) {
+        self.id = data[Location.CodingKeys.id.rawValue] as? String ?? ""
+        self.name = data[Location.CodingKeys.name.rawValue] as? String ?? ""
+        self.imageUrl = data[Location.CodingKeys.imageUrl.rawValue] as? String ?? ""
+        self.ownerId = data[Location.CodingKeys.ownerId.rawValue] as? String ?? ""
+        self.worldId = data[Location.CodingKeys.worldId.rawValue] as? String ?? ""
+        self.longitude = data[Location.CodingKeys.id.rawValue] as? Double ?? 0
+        self.latitude = data[Location.CodingKeys.latitude.rawValue] as? Double ?? 0
+        self.timestamp = data[Location.CodingKeys.timestamp.rawValue] as? Date ?? Date()
+        self.isSocialHub = data[Location.CodingKeys.isSocialHub.rawValue] as? Bool ?? true
+    }
+    static let data: [String: Any] = [
+        Location.CodingKeys.id.rawValue: "abcxyz",
+        Location.CodingKeys.name.rawValue: "Graffiti Pier",
+        Location.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2Fmaxresdefault.jpg?alt=media&token=c29d351b-b204-426d-a7f2-e71cba4396d3",
+        Location.CodingKeys.ownerId.rawValue: "sdpojon",
+        Location.CodingKeys.worldId.rawValue: "oedfoijsdofjeofsd",
+        Location.CodingKeys.isSocialHub.rawValue: true,
+        Location.CodingKeys.longitude.rawValue: 13845556,
+        Location.CodingKeys.latitude.rawValue: 8585988,
+        Location.CodingKeys.timestamp.rawValue: Date()
+    ]
+    
+    
+    static let demo = Location(data: data)
 }

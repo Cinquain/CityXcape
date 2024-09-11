@@ -10,9 +10,9 @@ import SDWebImageSwiftUI
 
 
 struct LocationView: View {
-    private var isSocialHub: Bool = false
-    @Environment(\.dismiss) private var dismiss
     
+    var spot: Location
+    @Environment(\.dismiss) private var dismiss
     
     @State private var showStamp: Bool = false
     @State private var showPassport: Bool = false
@@ -38,17 +38,17 @@ struct LocationView: View {
             }
             
             if showStamp {
-                StampView(name: "Graffiti Pier")
+                StampView(name: spot.name)
                     .padding(.bottom, 100)
             }
         }
         .onAppear(perform: {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-                showStamp.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                showStamp = true
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-                    if isSocialHub {
-                        showLounge.toggle()
+                    if spot.isSocialHub {
+                        showLounge = true
                     } else {
                         showPassport.toggle()
                     }
@@ -61,7 +61,7 @@ struct LocationView: View {
     
     @ViewBuilder
     func mainImage(size: CGSize) -> some View {
-            WebImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2Fmaxresdefault.jpg?alt=media&token=c29d351b-b204-426d-a7f2-e71cba4396d3"))
+        WebImage(url: URL(string: spot.imageUrl))
                 .resizable()
                 .scaledToFill()
                 .frame(width: size.width, height: size.height * 3.5/4)
@@ -81,7 +81,7 @@ struct LocationView: View {
                 .scaledToFit()
                 .frame(height: 50)
             
-            Text("Graffiti Pier")
+            Text(spot.name)
                 .font(.system(size: 32))
                 .foregroundStyle(.white)
                 .fontWeight(.thin)
@@ -146,5 +146,5 @@ struct LocationView: View {
 }
 
 #Preview {
-    LocationView()
+    LocationView(spot: Location.demo)
 }

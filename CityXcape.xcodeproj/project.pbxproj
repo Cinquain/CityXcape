@@ -38,6 +38,7 @@
 		21DE09092C8893B500A2D526 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DE09082C8893B500A2D526 /* ImageManager.swift */; };
 		21E487152C862889005ADB06 /* StampPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E487142C862889005ADB06 /* StampPage.swift */; };
 		21E487172C867778005ADB06 /* PassPortReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E487162C867778005ADB06 /* PassPortReceipt.swift */; };
+		21E4C28A2C9078B3008198FD /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 21E4C2892C9078B3008198FD /* CodeScanner */; };
 		21E50E8B2C6CE0B000FACFCB /* BuySTC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E50E8A2C6CE0B000FACFCB /* BuySTC.swift */; };
 		21E50E8D2C6CE3B900FACFCB /* CoinCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E50E8C2C6CE3B900FACFCB /* CoinCapsule.swift */; };
 		21EC5ACC2C5C2A1700B88812 /* UserDot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC5ACB2C5C2A1700B88812 /* UserDot.swift */; };
@@ -141,6 +142,7 @@
 				21FC27C72C7CAD160055CDCF /* FirebaseMessaging in Frameworks */,
 				21FC27CF2C7CAF6B0055CDCF /* GoogleSignIn in Frameworks */,
 				21DA45C92C6A499D00A16832 /* Shimmer in Frameworks */,
+				21E4C28A2C9078B3008198FD /* CodeScanner in Frameworks */,
 				210DA00C2C5BBCC100913890 /* SDWebImageSwiftUI in Frameworks */,
 				21FC27C12C7CAD160055CDCF /* FirebaseAnalytics in Frameworks */,
 				21FC27C92C7CAD160055CDCF /* FirebaseStorage in Frameworks */,
@@ -345,6 +347,7 @@
 				21FC27C82C7CAD160055CDCF /* FirebaseStorage */,
 				21FC27CE2C7CAF6B0055CDCF /* GoogleSignIn */,
 				21FC27D02C7CAF6B0055CDCF /* GoogleSignInSwift */,
+				21E4C2892C9078B3008198FD /* CodeScanner */,
 			);
 			productName = CityXcape;
 			productReference = 21FCE5932C5AD4B7006A86CE /* CityXcape.app */;
@@ -379,6 +382,7 @@
 				21DA45C72C6A499D00A16832 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
 				21FC27BF2C7CAD160055CDCF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				21FC27CD2C7CAF6B0055CDCF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				21E4C2882C9078B3008198FD /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = 21FCE5942C5AD4B7006A86CE /* Products */;
 			projectDirPath = "";
@@ -689,6 +693,14 @@
 				minimumVersion = 1.5.0;
 			};
 		};
+		21E4C2882C9078B3008198FD /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.0;
+			};
+		};
 		21FC27BF2C7CAD160055CDCF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -717,6 +729,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 21DA45C72C6A499D00A16832 /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */;
 			productName = Shimmer;
+		};
+		21E4C2892C9078B3008198FD /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21E4C2882C9078B3008198FD /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
 		};
 		21FC27C02C7CAD160055CDCF /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

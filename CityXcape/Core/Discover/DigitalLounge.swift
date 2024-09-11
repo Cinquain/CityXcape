@@ -92,12 +92,7 @@ struct DigitalLounge: View {
         HStack(spacing: 30) {
            
             Button(action: {
-                if createdSP != true {
-                    errorMessage = "You need a StreetPass to view profile"
-                    showError.toggle()
-                } else {
-                    showSP.toggle()
-                }
+                showSP.toggle()
             }, label: {
                 VStack(spacing: 2) {
                     UserDot(size: 100, url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FAllison.png?alt=media&token=23e6eceb-b9b2-4a49-8b23-a11de0e2d32c")

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import VisionKit
+import CodeScanner
 
 struct Discover: View {
     @AppStorage(CXUserDefaults.uid) var uid: String?
@@ -14,6 +15,7 @@ struct Discover: View {
     @State private var showSignUp: Bool = false
     @State private var scannedText: String = "Tap to scan QR code"
     @State private var isShowingScanner: Bool = false
+    @State private var currentSpot: Location?
     var body: some View {
         VStack {
             headerView()
@@ -24,21 +26,30 @@ struct Discover: View {
                 .scaledToFit()
                 .frame(height: 250)
                 .sheet(isPresented: $isShowingScanner, content: {
-                    DataScannerRepresentable(
-                    shouldStartScanning: $isShowingScanner,
-                    scannedText: $scannedText, 
-                    dataToScanFor: [.barcode(symbologies: [.qr])])
+                    CodeScannerView(codeTypes: [.qr], completion: handleScan)
                 })
                 
             Text(scannedText)
                 .font(.title3)
                 .foregroundStyle(.white)
                 .fontWeight(.thin)
+            
             ctaButton()
             Spacer()
         }
         .background(background())
         
+    }
+    
+    fileprivate func handleScan(result: Result<ScanResult, ScanError>) {
+        switch result {
+        case .success(let code):
+            isShowingScanner = false 
+            scannedText = code.string
+            currentSpot = Location.demo
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
     }
     
     @ViewBuilder
@@ -78,9 +89,9 @@ struct Discover: View {
                 .background(.orange)
                 .clipShape(Capsule())
         })
-        .fullScreenCover(isPresented: $showPage, content: {
-            LocationView()
-        })
+        .fullScreenCover(item: $currentSpot) { spot in
+            LocationView(spot: spot)
+        }
     }
     
     @ViewBuilder

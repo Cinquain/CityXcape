@@ -82,7 +82,7 @@ struct DigitalLounge: View {
             }
         }
         .padding(.top, 40)
-        .fullScreenCover(isPresented: $showSP, content: {
+        .sheet(isPresented: $showSP, content: {
             PublicStreetPass()
         })
     }

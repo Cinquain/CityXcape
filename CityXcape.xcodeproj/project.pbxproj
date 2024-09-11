@@ -602,6 +602,7 @@
 				INFOPLIST_FILE = CityXcape/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSCameraUsageDescription = "CityXcape needs to scan QR codes";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "CityXcape needs to save QR codes";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CityXcape needs to access photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -635,6 +636,7 @@
 				INFOPLIST_FILE = CityXcape/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSCameraUsageDescription = "CityXcape needs to scan QR codes";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "CityXcape needs to save QR codes";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CityXcape needs to access photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

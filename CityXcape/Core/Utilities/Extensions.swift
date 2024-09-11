@@ -9,6 +9,22 @@ import Foundation
 import SwiftUI
 
 
+extension CIImage {
+    func combined() -> CIImage? {
+        if let image = UIImage(named: "Pin") {
+            if let cgImage = CIImage(image: image) {
+                guard let combinedFilter = CIFilter(name: "CISourceOverCompositing") else { return nil }
+                let centerTransform = CGAffineTransform(translationX: extent.midX - (cgImage.extent.size.width / 2), y: extent.midY - (cgImage.extent.size.height / 2))
+                combinedFilter.setValue(cgImage.transformed(by: centerTransform), forKey: "inputImage")
+                combinedFilter.setValue(self, forKey: "inputBackgroundImage")
+                return combinedFilter.outputImage!
+            }
+            return nil
+        }
+        return nil
+    }
+}
+
 extension Date {
     func formattedDate() -> String {
         

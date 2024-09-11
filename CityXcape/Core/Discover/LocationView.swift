@@ -13,8 +13,11 @@ struct LocationView: View {
     
     var spot: Location
     @Environment(\.dismiss) private var dismiss
+    @AppStorage(CXUserDefaults.uid) var userId: String?
+
     
     @State private var showStamp: Bool = false
+    @State private var showQRCode: Bool = false
     @State private var showPassport: Bool = false
     @State private var showInfo: Bool = false
     @State private var showLounge: Bool = false
@@ -119,16 +122,35 @@ struct LocationView: View {
                     titleView()
                         .padding(.bottom, 10)
                         .animation(.easeInOut(duration: 0.5), value: showInfo)
+                        .sheet(isPresented: $showQRCode, content: {
+                            VStack {
+                                Image(uiImage: spot.generateQRCode() ?? UIImage())
+                                    .interpolation(.none)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 250)
+                                
+                                Button(action: saveToPhotosAlbum) {
+                                    Text("Save QR Code")
+                                        .font(.callout)
+                                        .fontWeight(.thin)
+                                        .foregroundStyle(.white)
+                                        .frame(width: 160, height: 40)
+                                        .background(.blue)
+                                        .clipShape(Capsule())
+                                }
+                            }
+                            .presentationDetents([.medium])
+                        })
         }
     }
     
     @ViewBuilder
     func checkinButton() -> some View {
         Button(action: {
-            showStamp.toggle()
-           
+            showQRCode.toggle()
         }, label: {
-            Text("CHECK OUT")
+            Text("Generate Code")
                 .font(.subheadline)
                 .fontWeight(.light)
                 .foregroundStyle(.black)
@@ -139,6 +161,11 @@ struct LocationView: View {
                 )
         })
         .padding(.bottom, 55)
+    }
+    
+    fileprivate func saveToPhotosAlbum() {
+        guard let image = spot.generateQRCode() else {return}
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
     }
     
     

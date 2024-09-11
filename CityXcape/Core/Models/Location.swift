@@ -5,8 +5,9 @@
 //  Created by James Allan on 8/7/24.
 //
 
-import Foundation
+import SwiftUI
 import CoreLocation
+import CoreImage.CIFilterBuiltins
 
 
 struct Location: Identifiable, Equatable, Codable {
@@ -22,6 +23,9 @@ struct Location: Identifiable, Equatable, Codable {
     let isSocialHub: Bool
     let timestamp: Date
     
+    let context = CIContext()
+    let filter = CIFilter.qrCodeGenerator()
+    
     static func == (lhs: Location, rhs: Location) -> Bool {
         return lhs.id == rhs.id
     }
@@ -36,6 +40,18 @@ struct Location: Identifiable, Equatable, Codable {
         case longitude
         case latitude
         case timestamp
+    }
+    
+    
+    func generateQRCode() -> UIImage? {
+        filter.message = Data(id.utf8)
+        
+        if let outputImage = filter.outputImage {
+            if let cgImage = context.createCGImage(outputImage, from: outputImage.extent) {
+                return UIImage(cgImage: cgImage)
+            }
+        }
+        return nil
     }
     
     init(data: [String: Any]) {

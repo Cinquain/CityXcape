@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct RequestView: View {
-    
     let columns: [GridItem] = [
         GridItem(.adaptive(minimum: 180))
     ]

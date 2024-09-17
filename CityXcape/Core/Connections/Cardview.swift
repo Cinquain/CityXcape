@@ -9,7 +9,6 @@ import SwiftUI
 
 struct Cardview: View {
     @Environment(\.dismiss) private var dismiss
-
     let request: Request
     
     @State private var match: Bool = false

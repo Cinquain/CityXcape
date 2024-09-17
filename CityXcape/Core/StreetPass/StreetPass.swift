@@ -98,7 +98,7 @@ struct StreetPass: View {
                         .font(.title)
                     
                     Text("Passport")
-                        .font(.title3)
+                        .font(.title)
                         .fontWeight(.thin)
                     
                 }
@@ -121,7 +121,7 @@ struct StreetPass: View {
                         .font(.title)
                     
                     Text("Connections")
-                        .font(.title3)
+                        .font(.title)
                         .fontWeight(.thin)
                     
                 }

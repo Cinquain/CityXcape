@@ -34,6 +34,7 @@ enum Tab: String, CaseIterable {
     case locations = "Location"
     case profile = "Profile"
     case connections = "Requests"
+    case messages = "Messages"
     
     var imageTitle: String {
         switch self {
@@ -43,6 +44,8 @@ enum Tab: String, CaseIterable {
             return "point.3.connected.trianglepath.dotted"
         case .profile:
             return "person.fill"
+        case .messages:
+            return "message.fill"
         }
     }
 }

@@ -49,6 +49,11 @@
 		21EC5AD82C5C3FD600B88812 /* StampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC5AD72C5C3FD600B88812 /* StampView.swift */; };
 		21EC5ADA2C5C40BA00B88812 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC5AD92C5C40BA00B88812 /* Extensions.swift */; };
 		21EC5ADC2C5C440A00B88812 /* BubbleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC5ADB2C5C440A00B88812 /* BubbleAnimation.swift */; };
+		21ED577D2C9A11B70029505B /* ScavengerHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED577C2C9A11B70029505B /* ScavengerHunt.swift */; };
+		21F5C0FF2C98D01D0078684E /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5C0FE2C98D01D0078684E /* ChatBubble.swift */; };
+		21F5C1012C98D4D80078684E /* ChatPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5C1002C98D4D80078684E /* ChatPreview.swift */; };
+		21F5C1032C990AAE0078684E /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5C1022C990AAE0078684E /* MessagesView.swift */; };
+		21F5C1052C990FA10078684E /* Chatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5C1042C990FA10078684E /* Chatroom.swift */; };
 		21F91D822C63A0200024A991 /* SpotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F91D812C63A0200024A991 /* SpotView.swift */; };
 		21F91D852C63A87D0024A991 /* Discover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F91D842C63A87D0024A991 /* Discover.swift */; };
 		21F91D872C63BB270024A991 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F91D862C63BB270024A991 /* User.swift */; };
@@ -114,6 +119,11 @@
 		21EC5AD72C5C3FD600B88812 /* StampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampView.swift; sourceTree = "<group>"; };
 		21EC5AD92C5C40BA00B88812 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		21EC5ADB2C5C440A00B88812 /* BubbleAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleAnimation.swift; sourceTree = "<group>"; };
+		21ED577C2C9A11B70029505B /* ScavengerHunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScavengerHunt.swift; sourceTree = "<group>"; };
+		21F5C0FE2C98D01D0078684E /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
+		21F5C1002C98D4D80078684E /* ChatPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPreview.swift; sourceTree = "<group>"; };
+		21F5C1022C990AAE0078684E /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
+		21F5C1042C990FA10078684E /* Chatroom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chatroom.swift; sourceTree = "<group>"; };
 		21F91D812C63A0200024A991 /* SpotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotView.swift; sourceTree = "<group>"; };
 		21F91D842C63A87D0024A991 /* Discover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discover.swift; sourceTree = "<group>"; };
 		21F91D862C63BB270024A991 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -176,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				21D772EB2C5D27F0004BEF31 /* StreetPass.swift */,
+				21D772E32C5D0F1C004BEF31 /* PublicStreetPass.swift */,
 				21CF8D862C5E7081006339A9 /* PassportPage.swift */,
 			);
 			path = StreetPass;
@@ -204,6 +215,17 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		21F5C0FD2C98D0050078684E /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				21F5C0FE2C98D01D0078684E /* ChatBubble.swift */,
+				21F5C1002C98D4D80078684E /* ChatPreview.swift */,
+				21F5C1022C990AAE0078684E /* MessagesView.swift */,
+				21F5C1042C990FA10078684E /* Chatroom.swift */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
 		21F91D832C63A8610024A991 /* Discover */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +233,7 @@
 				21D4FA2A2C67A1AC00CD4F58 /* LocationView.swift */,
 				21DA45C52C6A41B200A16832 /* DigitalLounge.swift */,
 				21D45FDB2C8F9606001B12FA /* DataScanner.swift */,
+				21ED577C2C9A11B70029505B /* ScavengerHunt.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -267,6 +290,7 @@
 		21FCE5A42C5AD63C006A86CE /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				21F5C0FD2C98D0050078684E /* Messages */,
 				21FC27D42C7CB3310055CDCF /* Firebase */,
 				21DC252E2C6FD2040046FFB8 /* Connections */,
 				21F91D832C63A8610024A991 /* Discover */,
@@ -302,7 +326,6 @@
 				21EC5AD52C5C3CDC00B88812 /* PinView.swift */,
 				210A04402C61939800CA1078 /* Stc.swift */,
 				21EC5AD72C5C3FD600B88812 /* StampView.swift */,
-				21D772E32C5D0F1C004BEF31 /* PublicStreetPass.swift */,
 				21EC5ADB2C5C440A00B88812 /* BubbleAnimation.swift */,
 				21F91D812C63A0200024A991 /* SpotView.swift */,
 				21EC5AD32C5C3BBE00B88812 /* UserBubble.swift */,
@@ -414,6 +437,7 @@
 			files = (
 				21D240AE2C6EEC730054D048 /* Cardview.swift in Sources */,
 				21D772E82C5D1741004BEF31 /* Particle.swift in Sources */,
+				21F5C1052C990FA10078684E /* Chatroom.swift in Sources */,
 				21D45FDC2C8F9606001B12FA /* DataScanner.swift in Sources */,
 				21E50E8B2C6CE0B000FACFCB /* BuySTC.swift in Sources */,
 				21E487152C862889005ADB06 /* StampPage.swift in Sources */,
@@ -431,6 +455,7 @@
 				21D772E62C5D1518004BEF31 /* CircleButton.swift in Sources */,
 				21C635392C77B58800D15DB2 /* RequestView.swift in Sources */,
 				21C635372C77A67000D15DB2 /* RequestThumb.swift in Sources */,
+				21F5C0FF2C98D01D0078684E /* ChatBubble.swift in Sources */,
 				210A043D2C61518700CA1078 /* SignUp.swift in Sources */,
 				21DCDECB2C71269600F5A468 /* MatchAnimation.swift in Sources */,
 				21F91D892C63BD3C0024A991 /* Location.swift in Sources */,
@@ -447,16 +472,19 @@
 				21EC5AD62C5C3CDC00B88812 /* PinView.swift in Sources */,
 				21D772E42C5D0F1C004BEF31 /* PublicStreetPass.swift in Sources */,
 				21D983C12C6640EE003FC4A6 /* LaunchView.swift in Sources */,
+				21ED577D2C9A11B70029505B /* ScavengerHunt.swift in Sources */,
 				21D4FA292C67A07300CD4F58 /* BlurView.swift in Sources */,
 				21FC27D32C7CB0A30055CDCF /* Utilities.swift in Sources */,
 				21FCE5972C5AD4B7006A86CE /* CityXcapeApp.swift in Sources */,
 				210A043F2C618FA800CA1078 /* StartScreen.swift in Sources */,
 				21EC5ADC2C5C440A00B88812 /* BubbleAnimation.swift in Sources */,
+				21F5C1032C990AAE0078684E /* MessagesView.swift in Sources */,
 				21EC5AD42C5C3BBE00B88812 /* UserBubble.swift in Sources */,
 				21DC25302C6FD2200046FFB8 /* TimerViewModel.swift in Sources */,
 				21F91D8F2C63C1310024A991 /* Message.swift in Sources */,
 				21F91D8D2C63C0800024A991 /* Stamp.swift in Sources */,
 				21EC5AD02C5C2F9D00B88812 /* Helpers.swift in Sources */,
+				21F5C1012C98D4D80078684E /* ChatPreview.swift in Sources */,
 				21EC5AD22C5C305D00B88812 /* SelfieBubble.swift in Sources */,
 				21DDFBFF2C89030000D74309 /* Onboarding.swift in Sources */,
 				21F91D872C63BB270024A991 /* User.swift in Sources */,

@@ -55,6 +55,55 @@ extension Date {
         let date = dateFormatter.string(from: self)
         return date
     }
+    
+    func timeAgo() -> String {
+
+             let secondsAgo = Int(Date().timeIntervalSince(self))
+
+             let minute = 60
+             let hour = 60 * minute
+             let day = 24 * hour
+             let week = 7 * day
+             let month = 4 * week
+
+             let quotient: Int
+             let unit: String
+             if secondsAgo < minute {
+                 quotient = secondsAgo
+                 unit = "sec"
+             } else if secondsAgo < hour {
+                 quotient = secondsAgo / minute
+                 unit = "min"
+             } else if secondsAgo < day {
+                 quotient = secondsAgo / hour
+                 unit = "hour"
+             } else if secondsAgo < week {
+                 quotient = secondsAgo / day
+                 unit = "day"
+             } else if secondsAgo < month {
+                 quotient = secondsAgo / week
+                 unit = "week"
+             } else {
+                 quotient = secondsAgo / month
+                 unit = "month"
+             }
+             return "\(quotient) \(unit)\(quotient == 1 ? "" : "s") ago"
+         }
+}
+
+extension Sequence where Iterator.Element: Hashable {
+    func unique() -> [Iterator.Element] {
+        var seen: Set<Iterator.Element> = []
+        return filter { seen.insert($0).inserted }
+    }
+}
+
+extension Double {
+    /// Rounds the double to decimal places value
+    func rounded(toPlaces places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
 }
 
 
@@ -91,6 +140,15 @@ extension View {
         }
 }
 
+extension Color {
+    static var random: Color {
+           return Color(
+               red: .random(in: 0...1),
+               green: .random(in: 0...1),
+               blue: .random(in: 0...1)
+           )
+       }
+}
 
 
 fileprivate struct ParticleModifier: ViewModifier {

@@ -28,10 +28,16 @@ struct ContentView: View {
                         Text(Tab.connections.rawValue)
                     }
                     .badge(1)
-                    
+                
+                MessagesView()
+                    .tag(2)
+                    .tabItem {
+                        Image(systemName: Tab.messages.imageTitle)
+                        Text(Tab.messages.rawValue)
+                    }
                 
                 StreetPass()
-                    .tag(1)
+                    .tag(3)
                     .tabItem {
                         Image(systemName: Tab.profile.imageTitle)
                         Text(Tab.profile.rawValue)

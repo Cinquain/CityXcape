@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21005EC62C9B81C30033D674 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21005EC52C9B81C30033D674 /* ChatViewModel.swift */; };
 		210A043D2C61518700CA1078 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210A043C2C61518700CA1078 /* SignUp.swift */; };
 		210A043F2C618FA800CA1078 /* StartScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210A043E2C618FA800CA1078 /* StartScreen.swift */; };
 		210A04412C61939800CA1078 /* Stc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210A04402C61939800CA1078 /* Stc.swift */; };
@@ -79,6 +80,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		21005EC52C9B81C30033D674 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		210A043C2C61518700CA1078 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		210A043E2C618FA800CA1078 /* StartScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreen.swift; sourceTree = "<group>"; };
 		210A04402C61939800CA1078 /* Stc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stc.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				21F5C1002C98D4D80078684E /* ChatPreview.swift */,
 				21F5C1022C990AAE0078684E /* MessagesView.swift */,
 				21F5C1042C990FA10078684E /* Chatroom.swift */,
+				21005EC52C9B81C30033D674 /* ChatViewModel.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 				21F91D8D2C63C0800024A991 /* Stamp.swift in Sources */,
 				21EC5AD02C5C2F9D00B88812 /* Helpers.swift in Sources */,
 				21F5C1012C98D4D80078684E /* ChatPreview.swift in Sources */,
+				21005EC62C9B81C30033D674 /* ChatViewModel.swift in Sources */,
 				21EC5AD22C5C305D00B88812 /* SelfieBubble.swift in Sources */,
 				21DDFBFF2C89030000D74309 /* Onboarding.swift in Sources */,
 				21F91D872C63BB270024A991 /* User.swift in Sources */,

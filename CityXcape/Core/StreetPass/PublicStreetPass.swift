@@ -61,16 +61,7 @@ struct PublicStreetPass: View {
                 .padding(.top, 5)
             
             Spacer()
-            
-            Button(action: {
-                dismiss()
-            }, label: {
-                Image(systemName: "arrow.uturn.down.circle.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 30)
-                    .foregroundStyle(.white)
-            })
+         
         }
         .padding(.horizontal, 22)
     }

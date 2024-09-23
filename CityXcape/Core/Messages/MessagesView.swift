@@ -9,16 +9,17 @@ import SwiftUI
 
 struct MessagesView: View {
     
+    @StateObject var vm = ChatViewModel()
     var body: some View {
         NavigationView {
             VStack {
                 header()
                 ScrollView {
-                    ForEach(1..<10) { _ in
+                    ForEach(vm.messages) { message in
                         NavigationLink {
-                            Chatroom()
+                            Chatroom(uid: message.fromId, vm: vm)
                         } label: {
-                            ChatPreview(message: Message.demo)
+                            ChatPreview(message: message)
                         }
 
                     }

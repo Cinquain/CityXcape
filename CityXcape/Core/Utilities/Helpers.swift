@@ -28,6 +28,8 @@ struct Server {
     static let messages = "messgaes"
     static let connections = "connections"
     static let stamps = "stamps"
+    static let recentMessage = "recentMessage"
+    static let request = "requests"
 }
 
 enum Tab: String, CaseIterable {
@@ -62,6 +64,10 @@ enum ImageCase {
     case profile
     case location
     case stamp
+}
+
+enum Keys: String {
+    case proxy
 }
 
 

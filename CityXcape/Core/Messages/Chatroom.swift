@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct Chatroom: View {
-    @State private var message: String = ""
+    
+    let uid: String
+    @StateObject var vm: ChatViewModel
+    
     var body: some View {
         ZStack {
             messages()
@@ -26,13 +29,19 @@ struct Chatroom: View {
                 header()
             }
         }
+        .onAppear(perform: {
+            vm.fetchMessageFor(uid: uid)
+        })
+        .onDisappear(perform: {
+            vm.removeChatListener()
+        })
     }
     
     
     @ViewBuilder
     func chatBar() -> some View {
         HStack {
-            TextField("write your message", text: $message)
+            TextField("Text message", text: $vm.message)
                 .padding(.horizontal)
                 .padding(.vertical, 10)
                 .background(.black.opacity(0.8))
@@ -41,7 +50,9 @@ struct Chatroom: View {
             Spacer()
             
             Button {
-                //Send message to chat branch
+                Task {
+                     await vm.sendMessage(uid: uid)
+                }
             } label: {
                 Text("Send")
                     .foregroundStyle(.white)
@@ -61,16 +72,17 @@ struct Chatroom: View {
         ScrollView {
             ScrollViewReader { proxy in
                 
-                ForEach(1..<11) { num in
-                    if num % 2 == 0 {
-                        ChatBubble(message: Message.demoII)
-                    } else {
-                        ChatBubble(message: Message.demo)
-                    }
+                ForEach(vm.chatroom) {
+                    ChatBubble(message: $0)
                 }
                 
                 HStack{Spacer()}
-                    .id("proxy")
+                    .id(Keys.proxy)
+                    .onReceive(vm.$count, perform: { _ in
+                        withAnimation {
+                            proxy.scrollTo(Keys.proxy)
+                        }
+                    })
                     
             }
         }
@@ -91,6 +103,6 @@ struct Chatroom: View {
 
 #Preview {
     NavigationView {
-        Chatroom()
+        Chatroom(uid: "foid", vm: ChatViewModel())
     }
 }

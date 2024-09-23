@@ -74,15 +74,15 @@ struct BuySTC: View {
     func buttonRow() -> some View {
         VStack(spacing: 15) {
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                CoinCapsule(count: 10, price: 9.99)
+                CoinCapsule(count: 3, price: 9.99)
             })
             
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                CoinCapsule(count: 50, price: 29.99)
+                CoinCapsule(count: 15, price: 29.99)
             })
             
             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                CoinCapsule(count: 100, price: 74.99)
+                CoinCapsule(count: 50, price: 49.99)
             })
         }
         .padding(.bottom, 40)

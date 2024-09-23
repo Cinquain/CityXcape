@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct DigitalLounge: View {
     @AppStorage(CXUserDefaults.createdSP) var createdSP: Bool?
     @Environment(\.dismiss) private var dismiss
+    
+    var spot: Location
     
     @State private var showSP: Bool = false
     @State private var isShimmering: Bool = false
@@ -37,7 +40,7 @@ struct DigitalLounge: View {
                     .scaledToFit()
                     .frame(height: 30)
                 
-                Text("Digital Lounge")
+                Text("Devil's Advocate")
                     .font(.title2)
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
@@ -98,7 +101,7 @@ struct DigitalLounge: View {
                     UserDot(size: 100, url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FAllison.png?alt=media&token=23e6eceb-b9b2-4a49-8b23-a11de0e2d32c")
                     Text("Alison")
                         .foregroundStyle(.white)
-                        .fontWeight(.thin)
+                        .fontWeight(.light)
                         .font(.title3)
                 }
             })
@@ -106,9 +109,9 @@ struct DigitalLounge: View {
             
             VStack(alignment: .leading) {
                 Text("Looking for Friends")
-                    .fontWeight(.thin)
+                    .fontWeight(.light)
                 Text("Checked in at 3:45")
-                    .fontWeight(.thin)
+                    .fontWeight(.light)
                 Divider()
                     .background(.white)
                     .frame(height: 0.5)
@@ -126,15 +129,15 @@ struct DigitalLounge: View {
     func background() -> some View {
         ZStack {
             Color.black
-            Image("honeycomb-blue")
+            WebImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Locations%2F0pY5rXu0aG2ATVaRYT3A%2Fpexels-vardarious-3887985.jpg?alt=media&token=462afed3-608d-4762-bd37-bc88f7653430"))
                 .resizable()
                 .scaledToFill()
-                .opacity(0.15)
+                .opacity(0.30)
         }
         .edgesIgnoringSafeArea(.all)
     }
 }
 
 #Preview {
-    DigitalLounge()
+    DigitalLounge(spot: Location.demo)
 }

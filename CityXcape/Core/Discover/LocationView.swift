@@ -16,7 +16,7 @@ struct LocationView: View {
     
     var body: some View {
         if spot.isSocialHub {
-            DigitalLounge()
+            DigitalLounge(spot: spot)
         } else {
             ScavengerHunt(spot: spot)
         }

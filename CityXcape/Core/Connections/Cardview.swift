@@ -100,7 +100,7 @@ struct Cardview: View {
         Button(action: {
             match.toggle()
         }, label: {
-            Text("Connect")
+            Text("Connect at")
                 .font(.callout)
                 .foregroundStyle(.black)
                 .fontWeight(.light)

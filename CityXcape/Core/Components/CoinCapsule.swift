@@ -12,7 +12,7 @@ struct CoinCapsule: View {
     let price: Double
 
     var body: some View {
-        Text("\(count) StreetCred for $\(roundedNumber())")
+        Text("\(count) Connections for $\(roundedNumber())")
             .fontWeight(.medium)
             .foregroundStyle(.white)
             .frame(width: 275, height: 50)

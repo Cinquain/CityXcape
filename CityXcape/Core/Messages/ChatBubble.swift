@@ -43,7 +43,7 @@ struct ChatBubble: View {
     
     
     fileprivate func isUser() -> Bool {
-        if message.fromId == Auth.auth().currentUser?.uid ?? "ljhdhfkjhfhbdbbj" {
+        if message.fromId == Auth.auth().currentUser?.uid ?? "" {
             return true
         } else {
             return false

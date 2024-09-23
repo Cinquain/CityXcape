@@ -19,6 +19,8 @@ struct Message: Identifiable, Codable {
     
     let ownerImageUrl: String
     let displayName: String
+    let spotName: String?
+    let spotId: String?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -29,6 +31,8 @@ struct Message: Identifiable, Codable {
         case timestamp
         case ownerImageUrl
         case displayName
+        case spotName
+        case spotId
     }
     
     init(data: [String: Any]) {
@@ -40,6 +44,8 @@ struct Message: Identifiable, Codable {
         self.ownerImageUrl = data[Message.CodingKeys.ownerImageUrl.rawValue] as? String ?? ""
         self.displayName = data[Message.CodingKeys.displayName.rawValue] as? String ?? ""
         self.timestamp = data[Message.CodingKeys.timestamp.rawValue] as? Date ?? Date()
+        self.spotName = data[Message.CodingKeys.spotName.rawValue] as? String ?? ""
+        self.spotId = data[Message.CodingKeys.spotId.rawValue] as? String ?? ""
     }
     
     static let data: [String: Any] = [
@@ -49,6 +55,8 @@ struct Message: Identifiable, Codable {
         Message.CodingKeys.content.rawValue: "Hey handsome, wanna buy me a drink",
         Message.CodingKeys.read.rawValue: true,
         Message.CodingKeys.timestamp.rawValue: Date(),
+        Message.CodingKeys.spotName.rawValue: "Parlor Lounge",
+        Message.CodingKeys.spotId.rawValue: "efehjehshso",
         Message.CodingKeys.ownerImageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FAllison.png?alt=media&token=23e6eceb-b9b2-4a49-8b23-a11de0e2d32c",
         Message.CodingKeys.displayName.rawValue: "Emilia"
     ]
@@ -59,6 +67,8 @@ struct Message: Identifiable, Codable {
         Message.CodingKeys.toId.rawValue: "fhdoifhuhiuhih",
         Message.CodingKeys.content.rawValue: "Oh yeah... I got you",
         Message.CodingKeys.read.rawValue: true,
+        Message.CodingKeys.spotId.rawValue: "efehjehshso",
+        Message.CodingKeys.spotName.rawValue: "Up Down Arcade",
         Message.CodingKeys.timestamp.rawValue: Date(),
         Message.CodingKeys.ownerImageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FIMG_1575.png?alt=media&token=100ea308-bcb1-41cf-b53e-dc663a3f6692",
         Message.CodingKeys.displayName.rawValue: "Cinquin"

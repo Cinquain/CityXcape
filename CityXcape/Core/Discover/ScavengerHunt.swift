@@ -66,9 +66,7 @@ struct ScavengerHunt: View {
                 .overlay {
                     customLayer()
                 }
-                .fullScreenCover(isPresented: $showLounge, content: {
-                    DigitalLounge()
-                })
+                
     }
     
     @ViewBuilder

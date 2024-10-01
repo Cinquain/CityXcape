@@ -46,6 +46,9 @@ struct Chatroom: View {
                 .padding(.vertical, 10)
                 .background(.black.opacity(0.8))
                 .clipShape(Capsule())
+                .alert(isPresented: $vm.showAlert, content: {
+                    return Alert(title: Text(vm.errorMessage))
+                })
             
             Spacer()
             

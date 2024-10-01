@@ -14,6 +14,7 @@ struct User: Identifiable, Equatable, Codable {
     let username: String
     let imageUrl: String
     let gender: Bool
+    let city: String
     let goal: String
     let streetcred: Int
     let worldId: String
@@ -34,6 +35,7 @@ struct User: Identifiable, Equatable, Codable {
         case imageUrl
         case goal
         case gender 
+        case city
         case streetcred
         case worldId
         case isMale

@@ -56,15 +56,17 @@ struct Discover: View {
     func background() -> some View {
         ZStack {
             Color.black
-            Image("black-paths")
-                .renderingMode(.template)
-                .foregroundStyle(.red)
+            Image("hex-background")
+                .resizable()
                 .scaledToFill()
+                .opacity(0.3)
                 .fullScreenCover(isPresented: $showSignUp) {
                     SignUp()
                 }
               
         }
+        .edgesIgnoringSafeArea(.all)
+
     }
     
     @ViewBuilder

@@ -22,6 +22,7 @@ final class DataService {
     var chatRef = DB.collection(Server.messages)
     var connectRef = DB.collection(Server.connections)
     var recentRef = DB.collection(Server.recentMessage)
+    var worldRef = DB.collection(Server.world)
     
     var chatListener: ListenerRegistration?
     var checkinListener: ListenerRegistration?
@@ -97,6 +98,7 @@ final class DataService {
         try await ref.updateData(data)
     }
     
+    
     func deleteUser() async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         try await ImageManager.shared.deleteUserProfile(uid: uid)
@@ -120,8 +122,16 @@ final class DataService {
         return location
     }
     
-  
-
+    //MARK: WORLD FUNCTIONS
+    func fetchAllWorlds() async throws -> [World] {
+        var worlds: [World] = []
+        let snapshot = try await worldRef.getDocuments()
+        try snapshot.documents.forEach { document in
+            let world = try document.data(as: World.self)
+            worlds.append(world)
+        }
+        return worlds
+    }
 
     //MARK: CONNECTION FUNCTIONS
     func sendRequest(userId: String, location: String, message: String) async throws {

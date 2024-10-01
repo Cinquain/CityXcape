@@ -17,11 +17,17 @@
 		21C635392C77B58800D15DB2 /* RequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C635382C77B58800D15DB2 /* RequestView.swift */; };
 		21CF8D842C5E6B92006339A9 /* PostalStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF8D832C5E6B92006339A9 /* PostalStamp.swift */; };
 		21CF8D872C5E7081006339A9 /* PassportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF8D862C5E7081006339A9 /* PassportPage.swift */; };
+		21D238B32CA36490002242F8 /* ChooseWorldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D238B22CA36490002242F8 /* ChooseWorldView.swift */; };
 		21D240AC2C6EEBE50054D048 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D240AB2C6EEBE50054D048 /* Request.swift */; };
 		21D240AE2C6EEC730054D048 /* Cardview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D240AD2C6EEC730054D048 /* Cardview.swift */; };
+		21D302912CA738B200111D6E /* CreateUsername.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D302902CA738B200111D6E /* CreateUsername.swift */; };
+		21D302932CA7430900111D6E /* UploadImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D302922CA7430900111D6E /* UploadImageView.swift */; };
+		21D302952CA7485A00111D6E /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D302942CA7485A00111D6E /* LocationService.swift */; };
+		21D302982CA74EBB00111D6E /* MapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D302972CA74EBB00111D6E /* MapViewRepresentable.swift */; };
 		21D45FDC2C8F9606001B12FA /* DataScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D45FDB2C8F9606001B12FA /* DataScanner.swift */; };
 		21D4FA292C67A07300CD4F58 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D4FA282C67A07300CD4F58 /* BlurView.swift */; };
 		21D4FA2B2C67A1AC00CD4F58 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D4FA2A2C67A1AC00CD4F58 /* LocationView.swift */; };
+		21D6E1C92CA894FD00ED9918 /* FindCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D6E1C82CA894FD00ED9918 /* FindCityView.swift */; };
 		21D772E42C5D0F1C004BEF31 /* PublicStreetPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D772E32C5D0F1C004BEF31 /* PublicStreetPass.swift */; };
 		21D772E62C5D1518004BEF31 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D772E52C5D1518004BEF31 /* CircleButton.swift */; };
 		21D772E82C5D1741004BEF31 /* Particle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D772E72C5D1741004BEF31 /* Particle.swift */; };
@@ -89,11 +95,17 @@
 		21C635382C77B58800D15DB2 /* RequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestView.swift; sourceTree = "<group>"; };
 		21CF8D832C5E6B92006339A9 /* PostalStamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostalStamp.swift; sourceTree = "<group>"; };
 		21CF8D862C5E7081006339A9 /* PassportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportPage.swift; sourceTree = "<group>"; };
+		21D238B22CA36490002242F8 /* ChooseWorldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseWorldView.swift; sourceTree = "<group>"; };
 		21D240AB2C6EEBE50054D048 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		21D240AD2C6EEC730054D048 /* Cardview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardview.swift; sourceTree = "<group>"; };
+		21D302902CA738B200111D6E /* CreateUsername.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsername.swift; sourceTree = "<group>"; };
+		21D302922CA7430900111D6E /* UploadImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageView.swift; sourceTree = "<group>"; };
+		21D302942CA7485A00111D6E /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		21D302972CA74EBB00111D6E /* MapViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewRepresentable.swift; sourceTree = "<group>"; };
 		21D45FDB2C8F9606001B12FA /* DataScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataScanner.swift; sourceTree = "<group>"; };
 		21D4FA282C67A07300CD4F58 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		21D4FA2A2C67A1AC00CD4F58 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
+		21D6E1C82CA894FD00ED9918 /* FindCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindCityView.swift; sourceTree = "<group>"; };
 		21D772E32C5D0F1C004BEF31 /* PublicStreetPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicStreetPass.swift; sourceTree = "<group>"; };
 		21D772E52C5D1518004BEF31 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		21D772E72C5D1741004BEF31 /* Particle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Particle.swift; sourceTree = "<group>"; };
@@ -172,6 +184,10 @@
 				210A043E2C618FA800CA1078 /* StartScreen.swift */,
 				210A043C2C61518700CA1078 /* SignUp.swift */,
 				21DDFBFE2C89030000D74309 /* Onboarding.swift */,
+				21D302902CA738B200111D6E /* CreateUsername.swift */,
+				21D302922CA7430900111D6E /* UploadImageView.swift */,
+				21D6E1C82CA894FD00ED9918 /* FindCityView.swift */,
+				21D238B22CA36490002242F8 /* ChooseWorldView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -194,6 +210,14 @@
 			path = StreetPass;
 			sourceTree = "<group>";
 		};
+		21D302962CA74E9C00111D6E /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				21D302972CA74EBB00111D6E /* MapViewRepresentable.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		21DC252E2C6FD2040046FFB8 /* Connections */ = {
 			isa = PBXGroup;
 			children = (
@@ -213,6 +237,7 @@
 				21D772E92C5D1F8D004BEF31 /* SoundManager.swift */,
 				21FC27D22C7CB0A30055CDCF /* Utilities.swift */,
 				21DE09062C88922000A2D526 /* UploadViewModel.swift */,
+				21D302942CA7485A00111D6E /* LocationService.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -293,6 +318,7 @@
 		21FCE5A42C5AD63C006A86CE /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				21D302962CA74E9C00111D6E /* Map */,
 				21F5C0FD2C98D0050078684E /* Messages */,
 				21FC27D42C7CB3310055CDCF /* Firebase */,
 				21DC252E2C6FD2040046FFB8 /* Connections */,
@@ -459,6 +485,7 @@
 				21C635392C77B58800D15DB2 /* RequestView.swift in Sources */,
 				21C635372C77A67000D15DB2 /* RequestThumb.swift in Sources */,
 				21F5C0FF2C98D01D0078684E /* ChatBubble.swift in Sources */,
+				21D302912CA738B200111D6E /* CreateUsername.swift in Sources */,
 				210A043D2C61518700CA1078 /* SignUp.swift in Sources */,
 				21DCDECB2C71269600F5A468 /* MatchAnimation.swift in Sources */,
 				21F91D892C63BD3C0024A991 /* Location.swift in Sources */,
@@ -482,7 +509,10 @@
 				210A043F2C618FA800CA1078 /* StartScreen.swift in Sources */,
 				21EC5ADC2C5C440A00B88812 /* BubbleAnimation.swift in Sources */,
 				21F5C1032C990AAE0078684E /* MessagesView.swift in Sources */,
+				21D6E1C92CA894FD00ED9918 /* FindCityView.swift in Sources */,
 				21EC5AD42C5C3BBE00B88812 /* UserBubble.swift in Sources */,
+				21D302932CA7430900111D6E /* UploadImageView.swift in Sources */,
+				21D302952CA7485A00111D6E /* LocationService.swift in Sources */,
 				21DC25302C6FD2200046FFB8 /* TimerViewModel.swift in Sources */,
 				21F91D8F2C63C1310024A991 /* Message.swift in Sources */,
 				21F91D8D2C63C0800024A991 /* Stamp.swift in Sources */,
@@ -490,8 +520,10 @@
 				21F5C1012C98D4D80078684E /* ChatPreview.swift in Sources */,
 				21005EC62C9B81C30033D674 /* ChatViewModel.swift in Sources */,
 				21EC5AD22C5C305D00B88812 /* SelfieBubble.swift in Sources */,
+				21D302982CA74EBB00111D6E /* MapViewRepresentable.swift in Sources */,
 				21DDFBFF2C89030000D74309 /* Onboarding.swift in Sources */,
 				21F91D872C63BB270024A991 /* User.swift in Sources */,
+				21D238B32CA36490002242F8 /* ChooseWorldView.swift in Sources */,
 				21E487172C867778005ADB06 /* PassPortReceipt.swift in Sources */,
 				21F91D8B2C63BF660024A991 /* World.swift in Sources */,
 			);
@@ -634,6 +666,7 @@
 				INFOPLIST_FILE = CityXcape/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSCameraUsageDescription = "CityXcape needs to scan QR codes";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "CityXcape needs to find your city";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "CityXcape needs to save QR codes";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CityXcape needs to access photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -668,6 +701,7 @@
 				INFOPLIST_FILE = CityXcape/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSCameraUsageDescription = "CityXcape needs to scan QR codes";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "CityXcape needs to find your city";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "CityXcape needs to save QR codes";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CityXcape needs to access photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

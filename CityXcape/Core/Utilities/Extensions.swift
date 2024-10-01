@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import MapKit
 
 
 extension CIImage {
@@ -148,6 +149,62 @@ extension Color {
                blue: .random(in: 0...1)
            )
        }
+}
+
+
+extension MKMapItem {
+    func getAddress() -> String {
+            
+            let placemark = self.placemark
+            var addressString : String = ""
+            
+            if placemark.subThoroughfare != nil {
+                addressString = addressString + placemark.subThoroughfare! + " "
+            }
+            
+            if placemark.thoroughfare != nil {
+                addressString = addressString + placemark.thoroughfare! + ", "
+           }
+            if placemark.locality != nil {
+                addressString = addressString + placemark.locality! + ", "
+           }
+         
+            if placemark.postalCode != nil {
+                addressString = addressString + placemark.postalCode! + " "
+           }
+            if addressString == "" {
+                return "Long: \(String(format: "%.4f", self.placemark.coordinate.longitude)), Lat:\(String(format: "%.4f", self.placemark.coordinate.latitude))"
+            } else {
+                return addressString
+            }
+            
+        }
+        
+        func getCity() -> String {
+            let placemark = self.placemark
+            var city: String = ""
+            
+            if placemark.locality != nil {
+                city = placemark.locality!
+            }
+            return city
+        }
+}
+
+extension CLLocationCoordinate2D {
+    func getCity() -> String? {
+        var city: String?
+        let location = CLLocation(latitude: self.latitude, longitude: self.longitude)
+        CLGeocoder().reverseGeocodeLocation(location) { placemark, error in
+            if let error = error {
+                print("Error reverse geocoding location", error.localizedDescription)
+                return
+            }
+            
+          city = placemark?.first?.locality
+        }
+        return city
+    }
 }
 
 

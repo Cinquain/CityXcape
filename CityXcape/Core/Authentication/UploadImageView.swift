@@ -1,56 +1,50 @@
 //
-//  Onboarding.swift
+//  UploadImageView.swift
 //  CityXcape
 //
-//  Created by James Allan on 9/4/24.
+//  Created by James Allan on 9/27/24.
 //
 
 import SwiftUI
 
-struct Onboarding: View {
-    @Environment(\.dismiss) var dismiss
-
+struct UploadImageView: View {
+    @StateObject var vm: UploadViewModel
+    @Binding var selection: Int
+    
     @State private var showPicker: Bool = false
-    @State private var tabselection = 0
-    @StateObject var vm = UploadViewModel()
+    
     var body: some View {
-        TabView(selection: $tabselection) {
-            
-         CreateUsername(vm: vm, selection: $tabselection)
-                .tag(0)
-            
-        FindCityView(selection: $tabselection, vm: vm)
-                .tag(1)
-            
-         UploadImageView(vm: vm, selection: $tabselection)
-                .tag(2)
-            
-            ChooseWorldView(vm: vm)
-                .tag(3)
-                
+        VStack {
+            header()
+            UploadImage()
+            Spacer()
         }
-        .tabViewStyle(.page)
-        .edgesIgnoringSafeArea(.all)
+        .background(background())
     }
     
     
     @ViewBuilder
     func UploadImage() -> some View {
         VStack {
-            header()
             HStack {
                 Spacer()
                 Button(action: {
                     showPicker.toggle()
                 }, label: {
-                    SelfieBubble(size: 300, url: vm.imageUrl, pulse: 1)
+                    VStack {
+                        SelfieBubble(size: 300, url: vm.imageUrl, pulse: 1)
+                        Text(vm.username)
+                            .foregroundStyle(.white)
+                            .fontWeight(.thin)
+                            .padding(.top, 10)
+                    }
                 })
                 Spacer()
             }
             
             Spacer()
-                .frame(height: 100)
-            Text("Upload Selfie")
+                .frame(height: 60)
+            Text("Upload a Selfie")
                 .font(.title3)
                 .foregroundStyle(.white)
                 .fontWeight(.thin)
@@ -66,13 +60,26 @@ struct Onboarding: View {
                     .clipShape(Capsule())
             })
             .padding(.top, 5)
-            Spacer()
+            
+            
+            Button(action: {
+                withAnimation {
+                    selection = 3
+                }
+            }, label: {
+                HStack(spacing: 2) {
+                    
+                    Image(systemName: "forward.fill")
+                        .foregroundStyle(.white)
+                        .font(.callout)
+                }
+                .frame(width: 55, height: 55)
+                .background(.blue)
+                .clipShape(Circle())
+            })
+            .padding(.top, 25)
         }
-        .background(background())
     }
-    
-
-    
     
     @ViewBuilder
     func background() -> some View {
@@ -89,26 +96,23 @@ struct Onboarding: View {
     func header() -> some View {
         HStack {
             VStack(alignment: .leading) {
+                Text(LocationService.shared.city)
+                    .font(.caption)
+                    .fontWeight(.thin)
+                    .foregroundStyle(.white)
+                    .tracking(4)
+                
                 Text("STREETPASS")
                     .font(.system(size: 24))
                     .fontWeight(.thin)
                     .tracking(4)
                     .opacity(0.7)
-                Text("STC Balance: 0")
-                    .font(.caption)
-                    .fontWeight(.thin)
-                    .opacity(0.7)
+               
             }
             .foregroundStyle(.white)
-            Spacer()
             
-            Button(action: {
-                dismiss()
-            }, label: {
-                Image(systemName: "arrow.uturn.down.circle.fill")
-                    .font(.title)
-                    .foregroundStyle(.white.opacity(0.5))
-            })
+            Spacer()
+        
         }
         .padding(.horizontal, 20)
     }

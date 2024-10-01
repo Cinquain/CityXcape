@@ -42,15 +42,18 @@ struct StreetPass: View {
     func header() -> some View {
         HStack {
             VStack(alignment: .leading) {
+                Text(LocationService.shared.city)
+                    .font(.caption)
+                    .fontWeight(.thin)
+                    .foregroundStyle(.white)
+                    .tracking(4)
+                
                 Text("STREETPASS")
                     .font(.system(size: 24))
                     .fontWeight(.thin)
                     .tracking(4)
                     .opacity(0.7)
-                Text("STC Balance: 88")
-                    .font(.caption)
-                    .fontWeight(.thin)
-                    .opacity(0.7)
+                
             }
             .foregroundStyle(.white)
             Spacer()
@@ -71,17 +74,25 @@ struct StreetPass: View {
             Button(action: {
                 
             }, label: {
-                SelfieBubble(
-                    size: 300,
-                    url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FIMG_1575.png?alt=media&token=100ea308-bcb1-41cf-b53e-dc663a3f6692",
+                    SelfieBubble(
+                        size: 300,
+                        url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FIMG_1575.png?alt=media&token=100ea308-bcb1-41cf-b53e-dc663a3f6692",
                     pulse: 1.2)
             })
             
             
-            Text("Cinquain")
-                .font(.title)
-                .foregroundStyle(.white)
+            VStack {
+                Text("Cinquain")
+                    .font(.title)
                 .fontWeight(.thin)
+                
+                Text("100 StreetCred")
+                    .fontWeight(.thin)
+                    .font(.callout)
+
+            }
+            .foregroundStyle(.white)
+
             
           
         }

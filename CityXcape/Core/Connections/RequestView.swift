@@ -25,12 +25,13 @@ struct RequestView: View {
     func background() -> some View {
         ZStack {
             Color.black
-                
-            Image("black-paths")
-                .renderingMode(.template)
-                .foregroundStyle(.blue)
+            Image("hex-background")
+                .resizable()
+                .scaledToFill()
+                .opacity(0.3)
         }
         .edgesIgnoringSafeArea(.all)
+
     }
     
     @ViewBuilder

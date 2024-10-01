@@ -34,7 +34,10 @@ class UploadViewModel: ObservableObject {
     
     
     @Published var username: String = ""
-    @Published var gender: Bool = false
+    @Published var gender: Bool = true
+    @Published var city: String = ""
+    @Published var worlds: [World] = []
+    @Published var selectedWorlds: [World] = []
     
     
     func loadProfileImage(from item: PhotosPickerItem?) async {
@@ -59,6 +62,48 @@ class UploadViewModel: ObservableObject {
     
     func submitStreetPass() async throws {
         try await DataService.shared.createStreetPass(username: username, imageUrl: imageUrl, gender: gender)
+    }
+    
+    
+    func addOrRemove(world: World) {
+       if let index = selectedWorlds.firstIndex(of: world) {
+           selectedWorlds.remove(at: index)
+           errorMessage = "Removed \(world.name)"
+           showError.toggle()
+           return
+       }
+       if selectedWorlds.count < 3 {
+           selectedWorlds.append(world)
+           print(selectedWorlds)
+           errorMessage = "Added \(world.name)"
+           showError.toggle()
+       }  else {
+           errorMessage = "You've reached the max of 3 worlds"
+           showError.toggle()
+       }
+   }
+    
+    func getWorlds()  {
+        Task {
+            do {
+                let data = try await DataService.shared.fetchAllWorlds()
+                worlds = data
+            } catch {
+                errorMessage = error.localizedDescription
+                print(error.localizedDescription)
+                showError.toggle()
+            }
+        }
+    }
+    
+    
+    func submitStreetPass() {
+        if selectedWorlds.isEmpty {
+            errorMessage = "Please choose at least one world"
+            showError.toggle()
+        }
+        
+        
     }
     
 }

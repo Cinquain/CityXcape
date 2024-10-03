@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct StreetPass: View {
     @AppStorage(CXUserDefaults.profileUrl) var profileUrl: String?
@@ -16,11 +17,9 @@ struct StreetPass: View {
             header()
             userView()
             Spacer()
-                .frame(maxHeight: 100)
-            VStack(alignment: .leading, spacing: 20) {
-                passport()
-                bucketList()
-            }
+                .frame(maxHeight: 50)
+            worldList()
+            passport()
             Spacer()
         }
         .background(background())
@@ -66,6 +65,26 @@ struct StreetPass: View {
         }
         .padding(.horizontal, 20)
     }
+    
+    @ViewBuilder
+    func worldList() -> some View {
+        HStack {
+            ForEach([World.demo, World.demo, World.demo]) { world in
+                Button {
+                    //
+                } label: {
+                    WebImage(url: URL(string: world.imageUrl))
+                        .resizable()
+                        .scaledToFit()
+                        .colorInvert()
+                        .frame(height: 65)
+                }
+
+            }
+        }
+        
+    }
+    
     
     @ViewBuilder
     func userView() -> some View {
@@ -115,15 +134,7 @@ struct StreetPass: View {
                 }
                 .foregroundStyle(.white)
             })
-        }
-        .fullScreenCover(isPresented: $showPasport, content: {
-            PassportPage()
-        })
-    }
-    
-    @ViewBuilder
-    func bucketList() -> some View {
-        VStack(alignment: .leading, spacing: 20) {
+            
             Button(action: {
                 
             }, label: {
@@ -139,9 +150,11 @@ struct StreetPass: View {
                 .foregroundStyle(.white)
             })
         }
+        .fullScreenCover(isPresented: $showPasport, content: {
+            PassportPage()
+        })
+        .padding(.top, 20)
     }
-    
-  
     
     func openCustom(url: String) {
         guard let url = URL(string: url) else {return}

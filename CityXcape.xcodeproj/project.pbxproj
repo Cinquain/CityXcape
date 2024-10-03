@@ -13,6 +13,7 @@
 		210A04412C61939800CA1078 /* Stc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210A04402C61939800CA1078 /* Stc.swift */; };
 		210DA00C2C5BBCC100913890 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 210DA00B2C5BBCC100913890 /* SDWebImageSwiftUI */; };
 		210DA00F2C5BBD4000913890 /* Stamp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 210DA00E2C5BBD4000913890 /* Stamp.mp3 */; };
+		216F72A92CAC88A30040B8AC /* StreetIDCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216F72A82CAC88A30040B8AC /* StreetIDCard.swift */; };
 		21C635372C77A67000D15DB2 /* RequestThumb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C635362C77A67000D15DB2 /* RequestThumb.swift */; };
 		21C635392C77B58800D15DB2 /* RequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C635382C77B58800D15DB2 /* RequestView.swift */; };
 		21CF8D842C5E6B92006339A9 /* PostalStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF8D832C5E6B92006339A9 /* PostalStamp.swift */; };
@@ -91,6 +92,7 @@
 		210A043E2C618FA800CA1078 /* StartScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreen.swift; sourceTree = "<group>"; };
 		210A04402C61939800CA1078 /* Stc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stc.swift; sourceTree = "<group>"; };
 		210DA00E2C5BBD4000913890 /* Stamp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Stamp.mp3; sourceTree = "<group>"; };
+		216F72A82CAC88A30040B8AC /* StreetIDCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetIDCard.swift; sourceTree = "<group>"; };
 		21C635362C77A67000D15DB2 /* RequestThumb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestThumb.swift; sourceTree = "<group>"; };
 		21C635382C77B58800D15DB2 /* RequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestView.swift; sourceTree = "<group>"; };
 		21CF8D832C5E6B92006339A9 /* PostalStamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostalStamp.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				21D302922CA7430900111D6E /* UploadImageView.swift */,
 				21D6E1C82CA894FD00ED9918 /* FindCityView.swift */,
 				21D238B22CA36490002242F8 /* ChooseWorldView.swift */,
+				216F72A82CAC88A30040B8AC /* StreetIDCard.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				21D772E42C5D0F1C004BEF31 /* PublicStreetPass.swift in Sources */,
 				21D983C12C6640EE003FC4A6 /* LaunchView.swift in Sources */,
 				21ED577D2C9A11B70029505B /* ScavengerHunt.swift in Sources */,
+				216F72A92CAC88A30040B8AC /* StreetIDCard.swift in Sources */,
 				21D4FA292C67A07300CD4F58 /* BlurView.swift in Sources */,
 				21FC27D32C7CB0A30055CDCF /* Utilities.swift in Sources */,
 				21FCE5972C5AD4B7006A86CE /* CityXcapeApp.swift in Sources */,

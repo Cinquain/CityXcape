@@ -12,7 +12,8 @@ struct ChooseWorldView: View {
 
     
     @StateObject var vm: UploadViewModel
- 
+    @Binding var selection: Int
+
     var body: some View {
         VStack {
             header()
@@ -45,22 +46,24 @@ struct ChooseWorldView: View {
                 
               
             }
-            Spacer()
             
             Button(action: {
-                vm.submitStreetPass()
+                submitStreetPass()
             }, label: {
                 HStack(spacing: 2) {
                     
-                  Text("Create StreetPass")
-                        .fontWeight(.light)
+                    Image(systemName: "forward.fill")
                         .foregroundStyle(.white)
+                        .font(.callout)
                 }
-                .frame(width: 165, height: 50)
+                .frame(width: 55, height: 55)
                 .background(.blue)
-                .clipShape(Capsule())
+                .clipShape(Circle())
             })
             .padding(.top, 25)
+            
+            Spacer()
+
         }
         .background(background())
         .onAppear(perform: {
@@ -89,6 +92,19 @@ struct ChooseWorldView: View {
         .contentMargins(10)
         .cornerRadius(12)
 
+    }
+    
+    func submitStreetPass() {
+        if vm.selectedWorlds.isEmpty {
+            vm.errorMessage = "Please choose at least one world"
+            vm.showError.toggle()
+            return
+        }
+        
+        withAnimation {
+            selection = 4
+        }
+        
     }
     
     
@@ -134,5 +150,5 @@ struct ChooseWorldView: View {
 }
 
 #Preview {
-    ChooseWorldView(vm: UploadViewModel())
+   Onboarding()
 }

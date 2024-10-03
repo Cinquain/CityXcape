@@ -38,7 +38,7 @@ struct FindCityView: View {
                 .cornerRadius(12)
             
             Button(action: {
-                manager.checkAuthorizationStatus()
+                submitLocation()
             }, label: {
                 Text("Find Me")
                     .foregroundStyle(.black)
@@ -51,9 +51,7 @@ struct FindCityView: View {
             .padding(.top, 10)
             
             Button(action: {
-                withAnimation {
-                    selection = 2
-                }
+              
             }, label: {
                 HStack(spacing: 2) {
                     
@@ -84,6 +82,21 @@ struct FindCityView: View {
                 .scaledToFill()
         }
         .edgesIgnoringSafeArea(.all)
+    }
+    
+    fileprivate func submitLocation() {
+        if manager.city.isEmpty {
+            vm.errorMessage = "Please give CityXcape location permissions"
+            vm.showError.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                manager.checkAuthorizationStatus()
+            })
+            return
+        }
+        
+        withAnimation {
+            selection = 2
+        }
     }
     
     @ViewBuilder

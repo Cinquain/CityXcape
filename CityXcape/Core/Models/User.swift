@@ -15,13 +15,10 @@ struct User: Identifiable, Equatable, Codable {
     let imageUrl: String
     let gender: Bool
     let city: String
-    let goal: String
     let streetcred: Int
-    let worldId: String
-    let isMale: Bool
+    let worlds: [World]
     let timestamp: Date
-    let fcmToken: String?
-    let email: String?
+    let fcmToken: String
  
     
     static func == (lhs: User, rhs: User) -> Bool {
@@ -33,14 +30,11 @@ struct User: Identifiable, Equatable, Codable {
         case id
         case username
         case imageUrl
-        case goal
-        case gender 
+        case gender
         case city
         case streetcred
-        case worldId
-        case isMale
+        case worlds
         case timestamp
-        case email
         case fcmToken
     }
     

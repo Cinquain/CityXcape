@@ -57,9 +57,7 @@ struct CreateUsername: View {
             
             
             Button(action: {
-                withAnimation {
-                    selection = 1
-                }
+              submitUsername()
             }, label: {
                 HStack(spacing: 2) {
                     
@@ -104,6 +102,22 @@ struct CreateUsername: View {
             Spacer()
         }
         .padding(.horizontal, 20)
+    }
+    
+    fileprivate func submitUsername() {
+        if vm.username.isEmpty {
+            vm.errorMessage = "Please create a username and select your gender"
+            vm.showError.toggle()
+            return
+        }
+        if vm.username.count < 3 {
+            vm.errorMessage = "Please create a username"
+            vm.showError.toggle()
+            return
+        }
+        withAnimation {
+            selection = 1
+        }
     }
 }
 

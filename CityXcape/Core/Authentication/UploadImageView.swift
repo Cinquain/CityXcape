@@ -58,14 +58,15 @@ struct UploadImageView: View {
                     .frame(width: 150, height: 40)
                     .background(Color.white)
                     .clipShape(Capsule())
+                    .alert(isPresented: $vm.showError, content: {
+                        Alert(title: Text(vm.errorMessage))
+                    })
             })
             .padding(.top, 5)
             
             
             Button(action: {
-                withAnimation {
-                    selection = 3
-                }
+                submitImage()
             }, label: {
                 HStack(spacing: 2) {
                     
@@ -92,11 +93,22 @@ struct UploadImageView: View {
         .edgesIgnoringSafeArea(.all)
     }
     
+    fileprivate func submitImage() {
+        if vm.imageUrl.isEmpty {
+            vm.errorMessage = "Please upload a picture of yourself"
+            vm.showError.toggle()
+            return
+        }
+        withAnimation {
+            selection = 3
+        }
+    }
+    
     @ViewBuilder
     func header() -> some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(LocationService.shared.city)
+                Text(vm.city)
                     .font(.caption)
                     .fontWeight(.thin)
                     .foregroundStyle(.white)

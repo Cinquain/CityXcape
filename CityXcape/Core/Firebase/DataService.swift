@@ -38,7 +38,7 @@ final class DataService {
         
         let data: [String: Any] = [
             User.CodingKeys.id.rawValue: uid,
-            User.CodingKeys.email.rawValue: email ?? "",
+            "email": email ?? "",
             User.CodingKeys.timestamp.rawValue: Timestamp(),
             User.CodingKeys.streetcred.rawValue: 3
         ]
@@ -47,16 +47,11 @@ final class DataService {
         UserDefaults.standard.setValue(uid, forKey: CXUserDefaults.uid)
     }
     
-    func createStreetPass(username: String, imageUrl: String, gender: Bool) async throws {
+    func createStreetPass(user: User) async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        let data: [String: Any] = [
-            User.CodingKeys.username.rawValue: username,
-            User.CodingKeys.imageUrl.rawValue: imageUrl,
-            User.CodingKeys.gender.rawValue: gender
-        ]
-        let ref = userRef.document(uid)
-        try await ref.updateData(data)
-        UserDefaults.standard.setValue(username, forKey: CXUserDefaults.username)
+        let reference = userRef.document(uid)
+        try reference.setData(from: user.self)
+        UserDefaults.standard.setValue(user.username, forKey: CXUserDefaults.username)
     }
     
     func loginUser(uid: String) async throws {

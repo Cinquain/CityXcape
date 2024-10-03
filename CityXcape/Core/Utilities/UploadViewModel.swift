@@ -61,7 +61,9 @@ class UploadViewModel: ObservableObject {
     }
     
     func submitStreetPass() async throws {
-        try await DataService.shared.createStreetPass(username: username, imageUrl: imageUrl, gender: gender)
+        guard let uid = AuthService.shared.uid else {return}
+        let user = User(id: uid, username: username, imageUrl: imageUrl, gender: gender, city: city, streetcred: 10, worlds: selectedWorlds, timestamp: Date(), fcmToken: "")
+        try await DataService.shared.createStreetPass(user: user)
     }
     
     
@@ -97,13 +99,6 @@ class UploadViewModel: ObservableObject {
     }
     
     
-    func submitStreetPass() {
-        if selectedWorlds.isEmpty {
-            errorMessage = "Please choose at least one world"
-            showError.toggle()
-        }
-        
-        
-    }
+   
     
 }

@@ -16,17 +16,20 @@ struct Onboarding: View {
     var body: some View {
         TabView(selection: $tabselection) {
             
-         CreateUsername(vm: vm, selection: $tabselection)
+            CreateUsername(vm: vm, selection: $tabselection)
                 .tag(0)
             
-        FindCityView(selection: $tabselection, vm: vm)
+            FindCityView(selection: $tabselection, vm: vm)
                 .tag(1)
             
-         UploadImageView(vm: vm, selection: $tabselection)
+            UploadImageView(vm: vm, selection: $tabselection)
                 .tag(2)
             
-            ChooseWorldView(vm: vm)
+            ChooseWorldView(vm: vm, selection: $tabselection)
                 .tag(3)
+            
+            StreetIDCard(vm: vm)
+                .tag(4)
                 
         }
         .tabViewStyle(.page)

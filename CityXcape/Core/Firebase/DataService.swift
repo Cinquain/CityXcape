@@ -52,6 +52,7 @@ final class DataService {
         let reference = userRef.document(uid)
         try reference.setData(from: user.self)
         UserDefaults.standard.setValue(user.username, forKey: CXUserDefaults.username)
+        UserDefaults.standard.set(true, forKey: CXUserDefaults.createdSP)
     }
     
     func loginUser(uid: String) async throws {

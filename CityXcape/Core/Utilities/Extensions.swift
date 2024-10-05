@@ -192,8 +192,8 @@ extension MKMapItem {
 }
 
 extension CLLocationCoordinate2D {
-    func getCity() -> String? {
-        var city: String?
+    func getCity(completion: @escaping (CLPlacemark?) -> ()) -> String? {
+        var city: String = ""
         let location = CLLocation(latitude: self.latitude, longitude: self.longitude)
         CLGeocoder().reverseGeocodeLocation(location) { placemark, error in
             if let error = error {
@@ -201,7 +201,9 @@ extension CLLocationCoordinate2D {
                 return
             }
             
-          city = placemark?.first?.locality
+            let newPlacemark =  placemark?.first
+            completion(newPlacemark)
+            print("The city is \(city)")
         }
         return city
     }

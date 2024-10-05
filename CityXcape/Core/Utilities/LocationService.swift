@@ -28,12 +28,13 @@ class LocationService: NSObject, ObservableObject {
     @Published var userCoordinates: CLLocationCoordinate2D?
     @Published var region: MKCoordinateRegion = MKCoordinateRegion()
     
-    var city: String = ""
+    @Published var city: String = ""
     
     func checkAuthorizationStatus() {
         switch manager.authorizationStatus {
             case .authorizedAlways:
             manager.startUpdatingLocation()
+            getCity()
         case .notDetermined:
             manager.requestWhenInUseAuthorization()
         case .restricted:
@@ -42,11 +43,21 @@ class LocationService: NSObject, ObservableObject {
             manager.requestWhenInUseAuthorization()
         case .authorizedWhenInUse:
             manager.startUpdatingLocation()
+            getCity()
         @unknown default:
             break
         }
     }
     
+    func getCity() {
+        if let coordinates = userCoordinates {
+            coordinates.getCity { placemark in
+                let newCity = placemark?.subAdministrativeArea ?? ""
+                print("The new city is: \(newCity)")
+                self.city = newCity
+            }
+        }
+    }
     
     
 }
@@ -60,16 +71,8 @@ extension LocationService: CLLocationManagerDelegate {
             let annotation = MKPointAnnotation()
             annotation.coordinate = firstLocation.coordinate
             annotations.append(annotation)
+            return
         }
-       
-        if let userCoordinates {
-            self.region = .init(center: userCoordinates, span: span)
-            if let newCity = userCoordinates.getCity() {
-                self.city = newCity.capitalized
-                //Make Network call to save new city
-            }
-        }
-        
         
     }
     

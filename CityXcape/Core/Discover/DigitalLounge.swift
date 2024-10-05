@@ -19,6 +19,7 @@ struct DigitalLounge: View {
     @State private var errorMessage: String = ""
     @State private var showError: Bool = false
     @State private var showOnboarding: Bool = false
+    @State private var signup: Bool = false
     
     var body: some View {
         VStack {
@@ -39,6 +40,9 @@ struct DigitalLounge: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 30)
+                    .fullScreenCover(isPresented: $signup, content: {
+                        SignUp()
+                    })
                 
                 Text("Devil's Advocate")
                     .font(.title2)
@@ -95,6 +99,11 @@ struct DigitalLounge: View {
         HStack(spacing: 30) {
            
             Button(action: {
+//                if AuthService.shared.uid == nil ||
+//                    AuthService.shared.uid == "" {
+//                    signup.toggle()
+//                    return
+//                }
                 if createdSP == true {
                     showSP.toggle()
                 } else {

@@ -62,6 +62,7 @@ class UploadViewModel: ObservableObject {
     
     func submitStreetPass() async throws {
         guard let uid = AuthService.shared.uid else {return}
+        
         let user = User(id: uid, username: username, imageUrl: imageUrl, gender: gender, city: city, streetcred: 10, worlds: selectedWorlds, timestamp: Date(), fcmToken: "")
         try await DataService.shared.createStreetPass(user: user)
     }

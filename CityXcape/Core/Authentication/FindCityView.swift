@@ -11,7 +11,7 @@ struct FindCityView: View {
     
     @Binding var selection: Int
     @StateObject var vm: UploadViewModel
-    let manager = LocationService.shared
+    @StateObject var manager = LocationService.shared
     @State private var errorMessage: String = ""
     @State private var showError: Bool = false
     @State private var city: String = ""
@@ -38,7 +38,8 @@ struct FindCityView: View {
                 .cornerRadius(12)
             
             Button(action: {
-                submitLocation()
+                manager.checkAuthorizationStatus()
+                
             }, label: {
                 Text("Find Me")
                     .foregroundStyle(.black)
@@ -51,7 +52,7 @@ struct FindCityView: View {
             .padding(.top, 10)
             
             Button(action: {
-              
+              submitLocation()
             }, label: {
                 HStack(spacing: 2) {
                     
@@ -68,9 +69,6 @@ struct FindCityView: View {
             Spacer()
         }
         .background(background())
-        .onReceive(manager.$userCoordinates, perform: { _ in
-            vm.city = manager.city
-        })
     }
     
     @ViewBuilder
@@ -85,12 +83,9 @@ struct FindCityView: View {
     }
     
     fileprivate func submitLocation() {
-        if manager.city.isEmpty {
-            vm.errorMessage = "Please give CityXcape location permissions"
-            vm.showError.toggle()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                manager.checkAuthorizationStatus()
-            })
+        
+        if vm.city.isEmpty  {
+            manager.getCity()
             return
         }
         
@@ -104,7 +99,7 @@ struct FindCityView: View {
         HStack {
             VStack(alignment: .leading) {
                 
-                Text(city)
+                Text(manager.city)
                     .font(.caption)
                     .fontWeight(.thin)
                     .foregroundStyle(.white)

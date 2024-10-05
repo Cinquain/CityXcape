@@ -12,6 +12,8 @@ struct StreetIDCard: View {
     @Environment(\.dismiss) private var dismiss
 
     @StateObject var vm: UploadViewModel
+    @State private var errorMessage: String = ""
+    @State private var showError: Bool = false
     @State var worlds: [World] = [World.demo, World.demo, World.demo]
     var body: some View {
         VStack {
@@ -25,7 +27,15 @@ struct StreetIDCard: View {
     
             
             Button {
-                dismiss()
+                Task {
+                    do {
+                        try await vm.submitStreetPass()
+                        dismiss()
+                    } catch {
+                        errorMessage = error.localizedDescription
+                        showError.toggle()
+                    }
+                }
             } label: {
                 Text("Create StreetPass")
                     .fontWeight(.thin)
@@ -137,13 +147,13 @@ struct StreetIDCard: View {
             }, label: {
                     SelfieBubble(
                         size: 300,
-                        url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FIMG_1575.png?alt=media&token=100ea308-bcb1-41cf-b53e-dc663a3f6692",
+                        url: vm.imageUrl,
                     pulse: 1.2)
             })
             
             
             VStack {
-                Text("Cinquain")
+                Text(vm.username)
                     .font(.title)
                 .fontWeight(.thin)
                 

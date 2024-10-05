@@ -32,11 +32,25 @@ struct World: Identifiable, Equatable, Codable {
     }
     
     static let data = [
-        World.CodingKeys.id.rawValue: "1KgaAMEDoqdNNZv6IQnH",
-        World.CodingKeys.name.rawValue: "Artsy",
-        World.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Worlds%2Fartsy%2FArtsy.png?alt=media&token=470f6281-c57c-4c73-87a2-1c848f2ec544"
+        World.CodingKeys.id.rawValue: "Z16DY5JPhBbIq15bG2LK",
+        World.CodingKeys.name.rawValue: "Tech",
+        World.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Worlds%2Ftech%2FTech.png?alt=media&token=971f389e-fec5-4f5b-a5cf-d3155557c6d7"
+    ]
+    
+    static let data2 = [
+        World.CodingKeys.id.rawValue: "gRFlwrdG3NUBxAlcuXYK",
+        World.CodingKeys.name.rawValue: "Scout",
+        World.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Worlds%2Fscout%2FScout.png?alt=media&token=36912bf1-995c-410b-b9ab-dc6b23d5c348"
+    ]
+    
+    static let data3 = [
+        World.CodingKeys.id.rawValue: "OHf9hK5OkVD8q9fmKkom",
+        World.CodingKeys.name.rawValue: "Navy",
+        World.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Worlds%2Fnavy%2FNavy.png?alt=media&token=c6d3123e-36fd-4c50-8dc9-61f0c7f29a59"
     ]
     
     static let demo = World(data: data)
+    static let demo2 = World(data: data2)
+    static let demo3 = World(data: data3)
     
 }

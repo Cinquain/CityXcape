@@ -69,7 +69,7 @@ struct StreetPass: View {
     @ViewBuilder
     func worldList() -> some View {
         HStack {
-            ForEach([World.demo, World.demo, World.demo]) { world in
+            ForEach([World.demo2, World.demo, World.demo3]) { world in
                 Button {
                     //
                 } label: {

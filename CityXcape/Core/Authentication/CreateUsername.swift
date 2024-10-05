@@ -33,6 +33,7 @@ struct CreateUsername: View {
             
             TextField(" Create a Username", text: $vm.username)
                 .frame(width: 260, height: 40)
+                .foregroundStyle(.black)
                 .background(.white)
                 .clipShape(Capsule())
                 .alert(isPresented: $vm.showError, content: {

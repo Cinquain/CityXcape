@@ -36,43 +36,7 @@ struct Onboarding: View {
         .edgesIgnoringSafeArea(.all)
     }
     
-    
-    @ViewBuilder
-    func UploadImage() -> some View {
-        VStack {
-            header()
-            HStack {
-                Spacer()
-                Button(action: {
-                    showPicker.toggle()
-                }, label: {
-                    SelfieBubble(size: 300, url: vm.imageUrl, pulse: 1)
-                })
-                Spacer()
-            }
-            
-            Spacer()
-                .frame(height: 100)
-            Text("Upload Selfie")
-                .font(.title3)
-                .foregroundStyle(.white)
-                .fontWeight(.thin)
-                .photosPicker(isPresented: $showPicker, selection: $vm.selectedImage, matching: .images)
-                
-            
-            Button(action: {
-                showPicker.toggle()
-            }, label: {
-                Text("Choose")
-                    .frame(width: 150, height: 40)
-                    .background(Color.white)
-                    .clipShape(Capsule())
-            })
-            .padding(.top, 5)
-            Spacer()
-        }
-        .background(background())
-    }
+
     
 
     

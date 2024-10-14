@@ -54,6 +54,15 @@ struct CreateUsername: View {
                         .frame(width: 115)
                     Spacer()
                 }
+                
+                Picker("Sexual Orientation", selection: $vm.orientation) {
+                    ForEach(Orientation.allCases) {
+                        Text($0.rawValue)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .padding(.top, 20)
+                .foregroundStyle(.red)
             }
             
             

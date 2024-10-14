@@ -52,7 +52,7 @@ class LocationService: NSObject, ObservableObject {
     func getCity() {
         if let coordinates = userCoordinates {
             coordinates.getCity { placemark in
-                let newCity = placemark?.subAdministrativeArea ?? ""
+                let newCity = placemark?.locality ?? ""
                 print("The new city is: \(newCity)")
                 self.city = newCity
             }

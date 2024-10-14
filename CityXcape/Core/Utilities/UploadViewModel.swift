@@ -31,10 +31,11 @@ class UploadViewModel: ObservableObject {
     @Published var showError: Bool = false
     @Published var imageUrl: String = ""
     @Published var imageCase: ImageCase = .profile
-    
+    @StateObject var manager = LocationService.shared
     
     @Published var username: String = ""
     @Published var gender: Bool = true
+    @Published var orientation: Orientation = .Straight
     @Published var city: String = ""
     @Published var worlds: [World] = []
     @Published var selectedWorlds: [World] = []
@@ -63,7 +64,7 @@ class UploadViewModel: ObservableObject {
     func submitStreetPass() async throws {
         guard let uid = AuthService.shared.uid else {return}
         
-        let user = User(id: uid, username: username, imageUrl: imageUrl, gender: gender, city: city, streetcred: 10, worlds: selectedWorlds, timestamp: Date(), fcmToken: "")
+        let user = User(id: uid, username: username, imageUrl: imageUrl, gender: gender, orientation: orientation, city: city, streetcred: 10, worlds: selectedWorlds, timestamp: Date(), fcmToken: "")
         try await DataService.shared.createStreetPass(user: user)
     }
     
@@ -85,6 +86,10 @@ class UploadViewModel: ObservableObject {
            showError.toggle()
        }
    }
+    
+    func updateCity() {
+        self.city = manager.city
+    }
     
     func getWorlds()  {
         Task {

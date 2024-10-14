@@ -52,6 +52,14 @@ enum Tab: String, CaseIterable {
     }
 }
 
+enum Orientation: String, CaseIterable, Identifiable, Codable {
+    var id: Self { return self }
+    
+    case Bi
+    case Straight
+    case Gay
+}
+
 enum CustomError: Error {
     case authFailure
     case uidNotFound

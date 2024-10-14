@@ -73,11 +73,20 @@ struct StreetPass: View {
                 Button {
                     //
                 } label: {
-                    WebImage(url: URL(string: world.imageUrl))
-                        .resizable()
-                        .scaledToFit()
-                        .colorInvert()
+                    VStack {
+                        WebImage(url: URL(string: world.imageUrl))
+                            .resizable()
+                            .scaledToFit()
+                            .colorInvert()
                         .frame(height: 65)
+                        Text(world.name)
+                            .foregroundStyle(.white)
+                            .fontWeight(.thin)
+                            .lineLimit(1)
+                            .font(.callout)
+                            .frame(width: 55)
+
+                    }
                 }
 
             }

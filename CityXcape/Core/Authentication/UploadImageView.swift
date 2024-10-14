@@ -108,7 +108,7 @@ struct UploadImageView: View {
     func header() -> some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(vm.city)
+                Text(LocationService.shared.city)
                     .font(.caption)
                     .fontWeight(.thin)
                     .foregroundStyle(.white)

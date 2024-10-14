@@ -14,6 +14,7 @@ struct User: Identifiable, Equatable, Codable {
     let username: String
     let imageUrl: String
     let gender: Bool
+    let orientation: Orientation
     let city: String
     let streetcred: Int
     let worlds: [World]
@@ -32,6 +33,7 @@ struct User: Identifiable, Equatable, Codable {
         case imageUrl
         case gender
         case city
+        case orientation
         case streetcred
         case worlds
         case timestamp

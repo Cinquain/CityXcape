@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Shimmer
+import SDWebImageSwiftUI
 
 struct PublicStreetPass: View {
     
@@ -21,6 +22,7 @@ struct PublicStreetPass: View {
         VStack {
             header()
             userView()
+            worldList()
             Spacer()
             ctaButton()
         }
@@ -101,6 +103,35 @@ struct PublicStreetPass: View {
             
         }
     }
+    
+    @ViewBuilder
+    func worldList() -> some View {
+        HStack {
+            ForEach([World.demo6, World.demo4, World.demo5]) { world in
+                Button {
+                    //
+                } label: {
+                    VStack {
+                        WebImage(url: URL(string: world.imageUrl))
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 65)
+                        
+                        Text(world.name)
+                            .font(.callout)
+                            .foregroundStyle(.white)
+                            .lineLimit(1)
+                            .fontWeight(.thin)
+                            .frame(width: 55)
+                    }
+                }
+
+            }
+        }
+        .padding(.top, 10)
+        
+    }
+    
 }
 
 #Preview {

@@ -69,6 +69,9 @@ struct FindCityView: View {
             Spacer()
         }
         .background(background())
+        .onAppear {
+            manager.getCity()
+        }
     }
     
     @ViewBuilder
@@ -86,6 +89,7 @@ struct FindCityView: View {
         
         if vm.city.isEmpty  {
             manager.getCity()
+            vm.updateCity()
             return
         }
         
@@ -99,7 +103,7 @@ struct FindCityView: View {
         HStack {
             VStack(alignment: .leading) {
                 
-                Text(manager.city)
+                Text(LocationService.shared.city)
                     .font(.caption)
                     .fontWeight(.thin)
                     .foregroundStyle(.white)

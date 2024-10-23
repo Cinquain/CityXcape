@@ -44,7 +44,7 @@ struct Cardview: View {
                 UserBubble(size: 300, url: request.imageUrl, pulse: 2)
             })
             .sheet(isPresented: $showSP, content: {
-                PublicStreetPass()
+                PublicStreetPass(user: User.demo)
             })
             
             Text(request.username)

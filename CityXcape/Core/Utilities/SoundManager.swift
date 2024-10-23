@@ -23,8 +23,19 @@ final class SoundManager {
         do {
             player = try AVAudioPlayer(contentsOf: url)
             player?.play()
-        } catch let error {
+        } catch  {
             print("Error playing stamp sound", error.localizedDescription)
+        }
+    }
+    
+    func playBeep() {
+        guard let url = Bundle.main.url(forResource: "Apple", withExtension: ".mp3") else {return}
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.play()
+        } catch {
+            print("Error playing Apple Play sound", error.localizedDescription)
         }
     }
 }

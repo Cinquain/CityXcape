@@ -20,6 +20,8 @@ struct DigitalLounge: View {
     @State private var showError: Bool = false
     @State private var showOnboarding: Bool = false
     @State private var signup: Bool = false
+    @State private var users: [User] = [User.demo, User.demo, User.demo]
+    @State private var currentUser: User?
     
     var body: some View {
         VStack {
@@ -29,6 +31,9 @@ struct DigitalLounge: View {
         }
         .background(background())
         .edgesIgnoringSafeArea(.bottom)
+        .onAppear(perform: {
+            setSpotId()
+        })
      
     }
     
@@ -51,7 +56,7 @@ struct DigitalLounge: View {
                     .alert(isPresented: $showError, content: {
                         Alert(title: Text(errorMessage),
                               primaryButton: .default(Text("Ok"), action: {
-                            showOnboarding.toggle()
+                            signup.toggle()
                         }),
                         secondaryButton: .cancel()
                         )
@@ -84,36 +89,34 @@ struct DigitalLounge: View {
     @ViewBuilder
     func guestList() -> some View {
         ScrollView {
-            ForEach(1..<30) { num in
-              userRow()
+            ForEach(users) { user in
+                userRow(user: user)
             }
         }
         .padding(.top, 40)
-        .sheet(isPresented: $showSP, content: {
-            PublicStreetPass()
-        })
+        .sheet(item: $currentUser) { user in
+            PublicStreetPass(user: user)
+        }
     }
     
     @ViewBuilder
-    func userRow() -> some View {
+    func userRow(user: User) -> some View {
         HStack(spacing: 30) {
            
             Button(action: {
-//                if AuthService.shared.uid == nil ||
-//                    AuthService.shared.uid == "" {
-//                    signup.toggle()
-//                    return
-//                }
-                if createdSP == true {
-                    showSP.toggle()
-                } else {
-                    errorMessage = "You need a StreetPass to message others"
+                if AuthService.shared.uid == nil ||
+                    AuthService.shared.uid == "" {
+                    errorMessage = "You need an account to view profile"
                     showError.toggle()
+                    return
                 }
+                
+                
+             
             }, label: {
                 VStack(spacing: 2) {
-                    UserDot(size: 100, url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FAllison.png?alt=media&token=23e6eceb-b9b2-4a49-8b23-a11de0e2d32c")
-                    Text("Alison")
+                    UserDot(size: 100, url: user.imageUrl)
+                    Text(user.username)
                         .foregroundStyle(.white)
                         .fontWeight(.light)
                         .font(.title3)
@@ -149,6 +152,10 @@ struct DigitalLounge: View {
                 .opacity(0.30)
         }
         .edgesIgnoringSafeArea(.all)
+    }
+    
+    fileprivate func setSpotId() {
+        UserDefaults.standard.set(spot.id, forKey: CXUserDefaults.lastSpotId)
     }
 }
 

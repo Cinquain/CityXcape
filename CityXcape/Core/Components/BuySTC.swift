@@ -12,6 +12,8 @@ struct BuySTC: View {
     @Environment(\.dismiss) private var dismiss
     @State private var message: String = ""
     @State private var showError: Bool = false
+    @AppStorage(CXUserDefaults.streetcred) var wallet: Int?
+    @EnvironmentObject private var store: Store
 
     var body: some View {
         VStack {
@@ -35,6 +37,9 @@ struct BuySTC: View {
                 .overlay(Color.black.opacity(0.8))
                 .frame(width: size.width, height: size.height)
                 .edgesIgnoringSafeArea(.bottom)
+                .alert(isPresented: $showError, content: {
+                    return Alert(title: Text(message))
+                })
         }
     }
     
@@ -73,15 +78,57 @@ struct BuySTC: View {
     @ViewBuilder
     func buttonRow() -> some View {
         VStack(spacing: 15) {
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+            Button(action: {
+                if let product = store.product(for: Product.streetcred.rawValue) {
+                    store.purchaseProduct(product) { result in
+                        switch result {
+                            case .success(_):
+                            print("Successfully Bought StreetCred")
+                            //Update Streetcred on backend
+                            DataService.shared.updateStreetCred(count: Product.streetcred.count)
+                            case .failure(let error):
+                            message = error.localizedDescription
+                            showError.toggle()
+                        }
+                    }
+                }
+            }, label: {
                 CoinCapsule(count: 3, price: 9.99)
             })
             
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+            Button(action: {
+                if let product = store.product(for: Product.streetcred_15.rawValue) {
+                    store.purchaseProduct(product) { result in
+                        switch result {
+                            case .success(_):
+                            print("Successfully Bought StreetCred")
+                            //Update Streetcred on backend
+                            DataService.shared.updateStreetCred(count: Product.streetcred_15.count)
+                            case .failure(let error):
+                            message = error.localizedDescription
+                            showError.toggle()
+                        }
+                    }
+                }
+            }, label: {
                 CoinCapsule(count: 15, price: 29.99)
             })
             
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+            Button(action: {
+                if let product = store.product(for: Product.streetcred_50.rawValue) {
+                    store.purchaseProduct(product) { result in
+                        switch result {
+                            case .success(_):
+                            print("Successfully Bought StreetCred")
+                            //Update Streetcred on backend
+                            DataService.shared.updateStreetCred(count: Product.streetcred_50.count)
+                            case .failure(let error):
+                            message = error.localizedDescription
+                            showError.toggle()
+                        }
+                    }
+                }
+            }, label: {
                 CoinCapsule(count: 50, price: 49.99)
             })
         }

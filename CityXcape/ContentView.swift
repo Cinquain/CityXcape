@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @AppStorage(CXUserDefaults.firstOpen) var firstOpen: Bool?
     @State var selection: Int = 0
+    @EnvironmentObject private var store: Store
+
     
     var body: some View {
     

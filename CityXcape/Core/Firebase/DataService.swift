@@ -71,15 +71,6 @@ final class DataService {
         }
     }
     
-    func updateStreetCred(count: Double) async throws {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        let reference = userRef.document(uid)
-        let data: [String: Any] = [
-            User.CodingKeys.streetcred.rawValue: FieldValue.increment(count)
-        ]
-        try await reference.updateData(data)
-    }
-    
     func getUserFrom(uid: String) async throws -> User {
         let snapshot = try await userRef.document(uid).getDocument()
         let user = try snapshot.data(as: User.self)
@@ -111,6 +102,27 @@ final class DataService {
         try AuthService.shared.signOut()
     }
     
+    //MARK: STREETCRED FUNCTIONS
+    
+    func updateStreetCred(count: Int) {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let value = Double(count)
+        let reference = userRef.document(uid)
+        let data: [String: Any] = [
+            User.CodingKeys.streetcred.rawValue: FieldValue.increment(value)
+        ]
+        reference.updateData(data)
+        UserDefaults.standard.setValue(count, forKey: CXUserDefaults.streetcred)
+    }
+    
+    func getStreetCred() async throws  {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let reference = userRef.document(uid)
+        let document = try await reference.getDocument()
+        let user = try document.data(as: User.self)
+        UserDefaults.standard.setValue(user.streetcred, forKey: CXUserDefaults.streetcred)
+    }
+    
     //MARK: LOCATION FUNCTIONS
     func getSpotFrom(id: String) async throws -> Location {
         let snapshot = try await spotRef.document(id).getDocument()
@@ -130,7 +142,7 @@ final class DataService {
     }
 
     //MARK: CONNECTION FUNCTIONS
-    func sendRequest(userId: String, location: String, message: String) async throws {
+    func sendRequest(userId: String, spotId: String, message: String) async throws {
         
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let imageUrl = profileUrl ?? ""
@@ -140,6 +152,8 @@ final class DataService {
                                   .collection(Server.request)
                                   .document(uid)
         
+        let spotReference = spotRef.document(spotId).collection(Server.request).document()
+        
         let data: [String: Any] = [
             Message.CodingKeys.id.rawValue: reference.documentID,
             Message.CodingKeys.fromId.rawValue: uid,
@@ -148,10 +162,11 @@ final class DataService {
             Message.CodingKeys.timestamp.rawValue: Timestamp(),
             Message.CodingKeys.ownerImageUrl.rawValue: imageUrl,
             Message.CodingKeys.displayName.rawValue: username,
-            Message.CodingKeys.spotName.rawValue: location
+            Message.CodingKeys.spotId.rawValue: spotId
         ]
         
         try await reference.setData(data)
+        try await spotReference.setData(data)
     }
     
     func deleteUser(userId: String) async throws {
@@ -195,7 +210,6 @@ final class DataService {
             User.CodingKeys.username.rawValue: message.displayName,
             User.CodingKeys.imageUrl.rawValue: message.ownerImageUrl,
             Message.CodingKeys.spotId.rawValue: message.spotId ?? "",
-            Message.CodingKeys.spotName.rawValue: message.spotName ?? "",
             User.CodingKeys.timestamp.rawValue: Timestamp()
         ]
         
@@ -208,8 +222,7 @@ final class DataService {
         let spotData: [String: Any] = [
             Message.CodingKeys.fromId.rawValue: message.fromId,
             Message.CodingKeys.toId.rawValue: uid,
-            Message.CodingKeys.spotId.rawValue: message.spotId ?? "",
-            Message.CodingKeys.spotName.rawValue: message.spotName ?? ""
+            Message.CodingKeys.timestamp.rawValue: Timestamp(),
         ]
         
         try await spotRef.setData(spotData)

@@ -19,6 +19,8 @@ struct CXUserDefaults {
     static let createdSP = "createdSP"
     static let profileUrl = "profileUrl"
     static let username = "username"
+    static let streetcred = "streetcred"
+    static let lastSpotId = "lastSpotId"
 }
 
 struct Server {
@@ -48,6 +50,25 @@ enum Tab: String, CaseIterable {
             return "person.fill"
         case .messages:
             return "message.fill"
+        }
+    }
+}
+
+enum Product: String, CaseIterable, Identifiable {
+    case streetcred = "com.cityXcape.CityXcape8.streetcred"
+    case streetcred_15 = "com.cityXcape.CityXcape8.streetcred15"
+    case streetcred_50 = "com.cityXcape.CityXcape8.streetcred50"
+
+    var id: Self { return self }
+    
+    var count: Int {
+        switch self {
+        case .streetcred:
+            return 3
+        case .streetcred_15:
+            return 15
+        case .streetcred_50:
+            return 50
         }
     }
 }

@@ -11,18 +11,27 @@ import SDWebImageSwiftUI
 
 struct PublicStreetPass: View {
     
+    @AppStorage(CXUserDefaults.streetcred) var wallet : Int?
+    @AppStorage(CXUserDefaults.lastSpotId) var lastSpot : String?
+
     @Environment(\.dismiss) private var dismiss
+    
+    var user: User
+    
     @State private var message: String = ""
-    @State private var showAlert: Bool = false
+    @State private var showError: Bool = false
     @State private var errorMessage: String = ""
     @State private var isShimmering: Bool = false
+    @State private var showTextField: Bool = false
     @State private var buySTC: Bool = false
+    @State private var isSent: Bool = false
     
     var body: some View {
         VStack {
             header()
             userView()
             worldList()
+            messageField()
             Spacer()
             ctaButton()
         }
@@ -52,6 +61,8 @@ struct PublicStreetPass: View {
         .edgesIgnoringSafeArea(.all)
     }
     
+    
+    
     @ViewBuilder
     func header() -> some View {
         HStack {
@@ -69,16 +80,38 @@ struct PublicStreetPass: View {
     }
     
     @ViewBuilder
+    func messageField() -> some View {
+        ZStack {
+            TextField("  Send a message", text: $message)
+                .frame(width: showTextField ? 250 : 0, height: 40)
+                .background(.white)
+                .clipShape(Capsule())
+                .animation(.easeIn, value: showTextField)
+                .padding(.top, 40)
+            
+            VStack {
+                Image(systemName: "checkmark.seal.fill")
+                    .foregroundStyle(.green)
+                    .font(.largeTitle)
+                Text("Sent!")
+                    .foregroundStyle(.white)
+                    .fontWeight(.thin)
+            }
+            .opacity(isSent ? 1 : 0)
+        }
+    }
+    
+    @ViewBuilder
     func ctaButton() -> some View {
             Button(action: {
-                buySTC.toggle()
+                submitRequest()
             }, label: {
-                Text("message")
+                Text(showTextField ? "Send" : "message")
                     .font(.title3)
                     .fontWeight(.thin)
                     .foregroundStyle(.black)
-                    .frame(width: 200, height: 45)
-                    .background(.orange)
+                    .frame(width: showTextField ? 100 : 200, height: 45)
+                    .background(showTextField ? .green : .orange)
                     .clipShape(Capsule())
             })
             .sheet(isPresented: $buySTC, content: {
@@ -91,15 +124,12 @@ struct PublicStreetPass: View {
     func userView() -> some View {
         VStack {
             
-            UserBubble(size: 300, url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FAllison.png?alt=media&token=23e6eceb-b9b2-4a49-8b23-a11de0e2d32c", pulse: 1.3)
+            UserBubble(size: 300, url: user.imageUrl, pulse: 1.3)
             
-            Text("Allison")
+            Text(user.username)
                 .font(.title)
                 .foregroundStyle(.white)
                 .fontWeight(.thin)
-            
-            
-        
             
         }
     }
@@ -107,9 +137,10 @@ struct PublicStreetPass: View {
     @ViewBuilder
     func worldList() -> some View {
         HStack {
-            ForEach([World.demo6, World.demo4, World.demo5]) { world in
+            ForEach(user.worlds) { world in
                 Button {
-                    //
+                    errorMessage = world.name
+                    showError.toggle()
                 } label: {
                     VStack {
                         WebImage(url: URL(string: world.imageUrl))
@@ -132,8 +163,40 @@ struct PublicStreetPass: View {
         
     }
     
+
+    fileprivate func submitRequest() {
+        if wallet == 0   {
+            buySTC.toggle()
+            return
+        } else if !showTextField {
+            showTextField.toggle()
+            return
+        } else {
+            let locationId = lastSpot ?? ""
+              Task {
+                  do {
+                      try await  DataService.shared.sendRequest(userId: user.id, spotId: locationId, message: message)
+                      withAnimation {
+                          message = ""
+                          showTextField = false
+                          isSent = true
+                          SoundManager.shared.playBeep()
+                      }
+                      DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                          withAnimation {
+                              isSent = false
+                          }
+                      })
+                  } catch {
+                      errorMessage = error.localizedDescription
+                      showError.toggle()
+                  }
+              }
+        }
+    }
+    
 }
 
 #Preview {
-    PublicStreetPass()
+    PublicStreetPass(user: User.demo)
 }

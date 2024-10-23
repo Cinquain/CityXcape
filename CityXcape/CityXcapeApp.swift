@@ -30,12 +30,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct CityXcapeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @State private var showLaunchView: Bool = true
+    @ObservedObject var store = Store()
     
     var body: some Scene {
         WindowGroup {
             
             ZStack {
                 ContentView()
+                    .environmentObject(store)
                 
                 ZStack {
                     if showLaunchView {

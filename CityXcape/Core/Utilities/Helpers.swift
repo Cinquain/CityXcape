@@ -13,6 +13,10 @@ enum UserType {
     case personal
 }
 
+enum Names: String {
+    case STREETPASS
+}
+
 struct CXUserDefaults {
     static let uid = "uid"
     static let firstOpen = "firstOpen"

@@ -79,6 +79,33 @@ struct User: Identifiable, Equatable, Codable {
         User.CodingKeys.fcmToken.rawValue: "fkjfjjfgkjjg"
     ]
     
-    static let demo = User(data: data)
+    static let data2: [String: Any] = [
+        User.CodingKeys.id.rawValue: "orjoifhohd984308240984098uihffo",
+        User.CodingKeys.username.rawValue: "Adam",
+        User.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2Fman.png?alt=media&token=7b2a24de-49ce-4d40-a9a6-26325ee45371",
+        User.CodingKeys.gender.rawValue: false,
+        User.CodingKeys.city.rawValue: "Minneapolis",
+        User.CodingKeys.streetcred.rawValue: 100,
+        User.CodingKeys.worlds.rawValue: [World.demo2, World.demo, World.demo6],
+        User.CodingKeys.timestamp.rawValue: Date(),
+        User.CodingKeys.orientation.rawValue: Orientation.Straight.rawValue,
+        User.CodingKeys.fcmToken.rawValue: "fkjfjjfgkjjg"
+    ]
     
+    static let data3: [String: Any] = [
+        User.CodingKeys.id.rawValue: "orjoif83797947hohduihffo",
+        User.CodingKeys.username.rawValue: "Ciara",
+        User.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FCiara%20copy.png?alt=media&token=1a10681a-139a-4be7-9ab5-a71ef907bf10",
+        User.CodingKeys.gender.rawValue: false,
+        User.CodingKeys.city.rawValue: "Minneapolis",
+        User.CodingKeys.streetcred.rawValue: 100,
+        User.CodingKeys.worlds.rawValue: [World.demo, World.demo4, World.demo3],
+        User.CodingKeys.timestamp.rawValue: Date(),
+        User.CodingKeys.orientation.rawValue: Orientation.Straight.rawValue,
+        User.CodingKeys.fcmToken.rawValue: "fkjfjjfgkjjg"
+    ]
+    
+    static let demo = User(data: data)
+    static let demo2 = User(data: data2)
+    static let demo3 = User(data: data3)
 }

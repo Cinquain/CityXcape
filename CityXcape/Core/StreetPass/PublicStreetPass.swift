@@ -11,9 +11,7 @@ import SDWebImageSwiftUI
 
 struct PublicStreetPass: View {
     
-    @AppStorage(CXUserDefaults.streetcred) var wallet : Int?
     @AppStorage(CXUserDefaults.lastSpotId) var lastSpot : String?
-
     @Environment(\.dismiss) private var dismiss
     
     var user: User
@@ -37,13 +35,9 @@ struct PublicStreetPass: View {
         }
         .background(background())
         .onAppear {
-            isShimmering = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: {
-                withAnimation {
-                    isShimmering = false
-                }
-            })
+           showAnimation()
         }
+    
       
     }
     
@@ -61,29 +55,48 @@ struct PublicStreetPass: View {
         .edgesIgnoringSafeArea(.all)
     }
     
-    
+    func showAnimation() {
+        isShimmering = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: {
+            withAnimation {
+                isShimmering = false
+            }
+        })
+    }
     
     @ViewBuilder
     func header() -> some View {
         HStack {
-            Text("STREETPASS")
-                .font(.system(size: 24))
-                .fontWeight(.thin)
-                .foregroundStyle(.white)
-                .tracking(4)
-                .padding(.top, 5)
+            VStack(alignment: .leading, spacing: 0) {
+                Text(user.city)
+                    .foregroundStyle(.white)
+                    .font(.caption)
+                    .fontWeight(.thin)
+                    .tracking(4)
+                Text(Names.STREETPASS.rawValue)
+                    .font(.system(size: 24))
+                    .fontWeight(.thin)
+                    .foregroundStyle(.white)
+                    .tracking(4)
+                    .alert(isPresented: $showError, content: {
+                        return Alert(title: Text(errorMessage))
+                })
+            }
             
             Spacer()
          
         }
         .padding(.horizontal, 22)
+        .padding(.top, 10)
     }
     
     @ViewBuilder
     func messageField() -> some View {
         ZStack {
             TextField("  Send a message", text: $message)
+                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                 .frame(width: showTextField ? 250 : 0, height: 40)
+                .foregroundStyle(.black)
                 .background(.white)
                 .clipShape(Capsule())
                 .animation(.easeIn, value: showTextField)
@@ -104,7 +117,7 @@ struct PublicStreetPass: View {
     @ViewBuilder
     func ctaButton() -> some View {
             Button(action: {
-                submitRequest()
+                checkForStreetCred()
             }, label: {
                 Text(showTextField ? "Send" : "message")
                     .font(.title3)
@@ -139,7 +152,7 @@ struct PublicStreetPass: View {
         HStack {
             ForEach(user.worlds) { world in
                 Button {
-                    errorMessage = world.name
+                    errorMessage = "\(user.username) is \(world.memberName)"
                     showError.toggle()
                 } label: {
                     VStack {
@@ -163,36 +176,59 @@ struct PublicStreetPass: View {
         
     }
     
+    fileprivate func checkForStreetCred() {
+        if showTextField {
+            submitRequest()
+            return
+        }
+        Task {
+            do {
+               let value = try await DataService.shared.getStreetCred()
+                if value > 0 {
+                    submitRequest()
+                } else {
+                    buySTC.toggle()
+                    return
+                }
+            } catch {
+                print("Error fetching STC", error.localizedDescription)
+            }
+        }
+    }
+    
 
     fileprivate func submitRequest() {
-        if wallet == 0   {
-            buySTC.toggle()
-            return
-        } else if !showTextField {
+       if !showTextField {
             showTextField.toggle()
             return
-        } else {
-            let locationId = lastSpot ?? ""
-              Task {
-                  do {
-                      try await  DataService.shared.sendRequest(userId: user.id, spotId: locationId, message: message)
-                      withAnimation {
-                          message = ""
-                          showTextField = false
-                          isSent = true
-                          SoundManager.shared.playBeep()
-                      }
-                      DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                          withAnimation {
-                              isSent = false
-                          }
-                      })
-                  } catch {
-                      errorMessage = error.localizedDescription
-                      showError.toggle()
-                  }
-              }
         }
+      if message.isEmpty {
+            errorMessage = "Please enter a message"
+            showError.toggle()
+            return
+        }
+        
+        let locationId = lastSpot ?? ""
+          Task {
+              do {
+                  try await  DataService.shared.sendRequest(userId: user.id, spotId: locationId, message: message)
+                  withAnimation {
+                      message = ""
+                      showTextField = false
+                      isSent = true
+                      SoundManager.shared.playBeep()
+                  }
+                  DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                      withAnimation {
+                          isSent = false
+                      }
+                  })
+              } catch {
+                  errorMessage = error.localizedDescription
+                  showError.toggle()
+              }
+          }
+        
     }
     
 }

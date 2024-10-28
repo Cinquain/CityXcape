@@ -47,7 +47,7 @@ struct StreetPass: View {
                     .foregroundStyle(.white)
                     .tracking(4)
                 
-                Text("STREETPASS")
+                Text(Names.STREETPASS.rawValue)
                     .font(.system(size: 24))
                     .fontWeight(.thin)
                     .tracking(4)

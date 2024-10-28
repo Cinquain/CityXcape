@@ -20,7 +20,7 @@ struct DigitalLounge: View {
     @State private var showError: Bool = false
     @State private var showOnboarding: Bool = false
     @State private var signup: Bool = false
-    @State private var users: [User] = [User.demo, User.demo, User.demo]
+    @State private var users: [User] = [User.demo, User.demo2, User.demo3]
     @State private var currentUser: User?
     
     var body: some View {
@@ -33,6 +33,7 @@ struct DigitalLounge: View {
         .edgesIgnoringSafeArea(.bottom)
         .onAppear(perform: {
             setSpotId()
+            checkForStreetCred()
         })
      
     }
@@ -49,7 +50,7 @@ struct DigitalLounge: View {
                         SignUp()
                     })
                 
-                Text("Devil's Advocate")
+                Text(spot.name)
                     .font(.title2)
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
@@ -101,7 +102,6 @@ struct DigitalLounge: View {
     
     @ViewBuilder
     func userRow(user: User) -> some View {
-        HStack(spacing: 30) {
            
             Button(action: {
                 if AuthService.shared.uid == nil ||
@@ -111,42 +111,44 @@ struct DigitalLounge: View {
                     return
                 }
                 
-                
+                currentUser = user
              
             }, label: {
-                VStack(spacing: 2) {
-                    UserDot(size: 100, url: user.imageUrl)
-                    Text(user.username)
-                        .foregroundStyle(.white)
-                        .fontWeight(.light)
-                        .font(.title3)
-                }
-            })
-            
-            
-            VStack(alignment: .leading) {
-                Text("Looking for Friends")
-                    .fontWeight(.light)
-                Text("Checked in at 3:45")
-                    .fontWeight(.light)
-                Divider()
-                    .background(.white)
-                    .frame(height: 0.5)
-            }
-            .foregroundStyle(.white)
+                HStack(spacing: 30) {
+                    VStack(spacing: 2) {
+                        UserDot(size: 100, url: user.imageUrl)
+                        Text(user.username)
+                            .foregroundStyle(.white)
+                            .fontWeight(.light)
+                            .font(.title3)
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("Looking for Friends")
+                            .fontWeight(.light)
+                        Text("Checked in at 3:45")
+                            .fontWeight(.light)
+                        Divider()
+                            .background(.white)
+                            .frame(height: 0.5)
+                    }
+                    .foregroundStyle(.white)
 
-          
-            
-            Spacer()
-        }
-        .padding(.horizontal, 10)
+                  
+                    
+                    Spacer()
+                }
+                .padding(.horizontal, 10)
+
+            })
+        
     }
     
     @ViewBuilder
     func background() -> some View {
         ZStack {
             Color.black
-            WebImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Locations%2F0pY5rXu0aG2ATVaRYT3A%2Fpexels-vardarious-3887985.jpg?alt=media&token=462afed3-608d-4762-bd37-bc88f7653430"))
+            WebImage(url: URL(string: spot.imageUrl))
                 .resizable()
                 .scaledToFill()
                 .opacity(0.30)
@@ -156,6 +158,16 @@ struct DigitalLounge: View {
     
     fileprivate func setSpotId() {
         UserDefaults.standard.set(spot.id, forKey: CXUserDefaults.lastSpotId)
+    }
+    
+    fileprivate func checkForStreetCred() {
+        Task {
+            do {
+               let value = try await DataService.shared.getStreetCred()
+            } catch {
+                print("Error fetching STC", error.localizedDescription)
+            }
+        }
     }
 }
 

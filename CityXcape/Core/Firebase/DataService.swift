@@ -40,7 +40,7 @@ final class DataService {
             User.CodingKeys.id.rawValue: uid,
             "email": email ?? "",
             User.CodingKeys.timestamp.rawValue: Timestamp(),
-            User.CodingKeys.streetcred.rawValue: 3
+            User.CodingKeys.streetcred.rawValue: 1
         ]
 
         userRef.document(uid).setData(data)
@@ -51,6 +51,7 @@ final class DataService {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let reference = userRef.document(uid)
         try reference.setData(from: user.self)
+        updateStreetCred(count: 2)
         UserDefaults.standard.setValue(user.username, forKey: CXUserDefaults.username)
         UserDefaults.standard.set(true, forKey: CXUserDefaults.createdSP)
     }
@@ -115,12 +116,15 @@ final class DataService {
         UserDefaults.standard.setValue(count, forKey: CXUserDefaults.streetcred)
     }
     
-    func getStreetCred() async throws  {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
+    func getStreetCred() async throws -> Int  {
+        guard let uid = Auth.auth().currentUser?.uid else {return 0}
         let reference = userRef.document(uid)
         let document = try await reference.getDocument()
-        let user = try document.data(as: User.self)
+        guard let data = document.data() else {return 0}
+        let user = User(data: data)
+        print("StreetCred is \(user.streetcred)")
         UserDefaults.standard.setValue(user.streetcred, forKey: CXUserDefaults.streetcred)
+        return user.streetcred
     }
     
     //MARK: LOCATION FUNCTIONS
@@ -165,7 +169,10 @@ final class DataService {
             Message.CodingKeys.spotId.rawValue: spotId
         ]
         
+        
+        
         try await reference.setData(data)
+        updateStreetCred(count: -1)
         try await spotReference.setData(data)
     }
     

@@ -14,25 +14,32 @@ struct Cardview: View {
     @State private var match: Bool = false
     @State private var showSP: Bool = false
     var body: some View {
-        if match {
-            withAnimation {
-                MatchAnimation()
+        ZStack {
+            if match {
+                withAnimation {
+                    MatchAnimation()
+                }
+            } else {
+                VStack(spacing: 20) {
+                    userBubble()
+                    
+                    messageBubble()
+                    
+                    TimerView(size: 100, thickness: 10, font: .title2)
+                        .padding(.top, 15)
+                    ctaButton()
+                    Spacer()
+                    
+                }
+                .background(background())
             }
-        } else {
-            VStack(spacing: 20) {
-                userBubble()
-                
-                messageBubble()
-                
-                TimerView(size: 150, thickness: 20, font: .title2)
-                    .padding(.top, 15)
-                ctaButton()
-                Spacer()
-                dismissButton()
-                
-            }
-            .background(background())
         }
+        .frame(width: 370, height: 600)
+        .overlay(
+          RoundedRectangle(cornerRadius: 12)
+           .stroke(.gray.opacity(0.7), lineWidth: 2)
+              )
+        .cornerRadius(12)
     }
     
     @ViewBuilder
@@ -41,7 +48,7 @@ struct Cardview: View {
             Button(action: {
                 showSP.toggle()
             }, label: {
-                UserBubble(size: 300, url: request.imageUrl, pulse: 2)
+                SelfieBubble(size: 250, url: request.imageUrl, pulse: 2)
             })
             .sheet(isPresented: $showSP, content: {
                 PublicStreetPass(user: User.demo)
@@ -75,41 +82,36 @@ struct Cardview: View {
         ZStack {
             Color.black
             
-            Image("honeycomb-black")
+           Image("honeycomb-blue")
                 .resizable()
-                .scaledToFill()
-                .opacity(0.5)
+                .foregroundColor(.orange)
+                .opacity(0.3)
         }
         .edgesIgnoringSafeArea(.all)
     }
     
-    @ViewBuilder
-    func dismissButton() -> some View {
-        Button(action: {
-            dismiss()
-        }, label: {
-            Image("down-arrow")
-                .resizable()
-                .scaledToFit()
-                .frame(height: 20)
-        })
-    }
+   
     
     @ViewBuilder
     func ctaButton() -> some View {
-        Button(action: {
-            match.toggle()
-        }, label: {
-            Text("CONNECT")
-                .font(.caption)
-                .foregroundStyle(.black)
-                .fontWeight(.light)
-                .tracking(2)
-                .frame(width: 140, height: 40)
-                .background(.orange)
-                .clipShape(Capsule())
+        HStack {
+        
+            Button(action: {}, label: {
+                Label("Pass", systemImage: "hand.raised.slash.fill")
+                    .foregroundStyle(.red)
+            })
 
-        })
+            Spacer()
+
+            Button(action: {
+                match.toggle()
+            }, label: {
+                Label("Connect", systemImage: "powerplug.fill")
+                    .foregroundColor(.green)
+            })
+            
+        }
+        .padding(.horizontal, 10)
     }
     
     
@@ -117,4 +119,5 @@ struct Cardview: View {
 
 #Preview {
     Cardview(request: Request.demo)
+        .previewLayout(.sizeThatFits)
 }

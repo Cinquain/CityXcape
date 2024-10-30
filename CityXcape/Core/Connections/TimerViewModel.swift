@@ -14,7 +14,7 @@ class TimerViewModel: ObservableObject {
     @Published var count: Int = 60
     @Published var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
-    @Published var minutes: Int = 10
+    @Published var minutes: Int = 5
     @Published var seconds: Int = 0
     @Published var beginTimer: Bool = false
     

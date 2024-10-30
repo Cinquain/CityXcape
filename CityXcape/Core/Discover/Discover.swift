@@ -21,18 +21,29 @@ struct Discover: View {
             headerView()
             Spacer()
            
-            Image("qr-code")
-                .resizable()
-                .scaledToFit()
-                .frame(height: 250)
-                .sheet(isPresented: $isShowingScanner, content: {
-                    CodeScannerView(codeTypes: [.qr], completion: handleScan)
-                })
+            Button(action: {
+                isShowingScanner.toggle()
+            }, label: {
+                VStack {
+                    Image(systemName: "qrcode")
+                        .resizable()
+                        .foregroundStyle(.white)
+                        .scaledToFit()
+                        .frame(height: 220)
+                    
+                    Text(scannedText)
+                        .font(.title3)
+                        .foregroundStyle(.white)
+                        .fontWeight(.thin)
+                }
+                   
+            })
+            .opacity(0.9)
+            .sheet(isPresented: $isShowingScanner, content: {
+                CodeScannerView(codeTypes: [.qr], completion: handleScan)
+            })
                 
-            Text(scannedText)
-                .font(.title3)
-                .foregroundStyle(.white)
-                .fontWeight(.thin)
+           
             
             ctaButton()
             Spacer()
@@ -45,7 +56,6 @@ struct Discover: View {
         switch result {
         case .success(let code):
             isShowingScanner = false 
-            scannedText = code.string
             currentSpot = Location.demo
         case .failure(let error):
             print(error.localizedDescription)

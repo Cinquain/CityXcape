@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 enum UserType {
@@ -39,22 +40,30 @@ struct Server {
 }
 
 enum Tab: String, CaseIterable {
-    case locations = "Location"
-    case profile = "Profile"
-    case connections = "Requests"
+    case locations = "Check-In"
+    case profile = "StreetPass"
+    case connections = "Connections"
     case messages = "Messages"
     
     var imageTitle: String {
         switch self {
         case .locations:
-            return "location.circle.fill"
+            return "Checkin"
         case .connections:
-            return "point.3.connected.trianglepath.dotted"
+            return "hexagons-3"
         case .profile:
-            return "person.fill"
+            return "idcard"
         case .messages:
             return "message.fill"
         }
+    }
+}
+
+struct swipeModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 128))
+            .shadow(color: Color(UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)), radius: 12, x: 0, y: 0)
     }
 }
 
@@ -73,6 +82,39 @@ enum Product: String, CaseIterable, Identifiable {
             return 15
         case .streetcred_50:
             return 50
+        }
+    }
+}
+
+enum DragState {
+    case inactive
+    case pressing
+    case dragging(translation: CGSize)
+    
+    var translation: CGSize {
+        switch self {
+            case .inactive, .pressing:
+                return .zero
+            case .dragging(let translation):
+                return translation
+        }
+    }
+    
+    var isDragging: Bool {
+        switch self {
+        case .pressing, .inactive:
+            return false
+        case .dragging:
+            return true
+        }
+    }
+    
+    var isPressing: Bool {
+        switch self {
+            case .inactive:
+                return false
+            case .pressing, .dragging:
+                return true
         }
     }
 }

@@ -58,7 +58,7 @@ struct MatchAnimation: View {
                 .animation(.easeOut(duration: 0.5), value: rotation)
 
         }
-        .padding(.horizontal, 20)
+        .padding(.horizontal, 10)
     }
     
     @ViewBuilder

@@ -45,15 +45,7 @@ struct ScavengerHunt: View {
             }
         }
         .onAppear(perform: {
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-                    showStamp.toggle()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-                        showPreview.toggle()
-                    })
-                })
-           
-          
+          loadStamp()
         })
     }
     
@@ -140,6 +132,15 @@ struct ScavengerHunt: View {
                 )
         })
         .padding(.bottom, 55)
+    }
+    
+    fileprivate func loadStamp() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+            showStamp.toggle()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
+                showPreview.toggle()
+            })
+        })
     }
     
 }

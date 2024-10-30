@@ -106,8 +106,8 @@ struct FindCityView: View {
                 Text(LocationService.shared.city)
                     .font(.caption)
                     .fontWeight(.thin)
-                    .foregroundStyle(.white)
                     .tracking(4)
+                
                 Text("STREETPASS")
                     .font(.system(size: 24))
                     .fontWeight(.thin)

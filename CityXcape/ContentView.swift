@@ -19,14 +19,17 @@ struct ContentView: View {
                 Discover()
                     .tag(0)
                     .tabItem {
-                        Image(systemName: Tab.locations.imageTitle)
+                        Image(Tab.locations.imageTitle)
+                            .renderingMode(.template)
                         Text(Tab.locations.rawValue)
                     }
                 
-                RequestView()
+                RequestView(index: $selection)
                     .tag(1)
                     .tabItem {
-                        Image(systemName: Tab.connections.imageTitle)
+                        Image(Tab.connections.imageTitle)
+                            .renderingMode(.template)
+                            .scaledToFit()
                         Text(Tab.connections.rawValue)
                     }
                     .badge(1)
@@ -41,7 +44,7 @@ struct ContentView: View {
                 StreetPass()
                     .tag(3)
                     .tabItem {
-                        Image(systemName: Tab.profile.imageTitle)
+                        Image(Tab.profile.imageTitle)
                         Text(Tab.profile.rawValue)
                     }
                 

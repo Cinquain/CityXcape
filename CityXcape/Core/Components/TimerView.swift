@@ -26,7 +26,7 @@ struct TimerView: View {
                 
                 Circle()
                     .trim(from: 0, to: vm.finalValue)
-                    .stroke(Color.orange.opacity(0.8), style: StrokeStyle(lineWidth: thickness, lineCap: .round))
+                    .stroke(Color.blue.opacity(0.8), style: StrokeStyle(lineWidth: thickness, lineCap: .round))
                     .frame(width: size, height: size)
                     .rotationEffect(.init(degrees: -90))
                 

@@ -50,7 +50,7 @@ struct PublicStreetPass: View {
                 .scaledToFill()
                 .rotationEffect(Angle(degrees: 180))
                 .opacity(0.8)
-                .shimmering(active: isShimmering, duration: 0.7, bounce: true)
+               
         }
         .edgesIgnoringSafeArea(.all)
     }
@@ -168,6 +168,7 @@ struct PublicStreetPass: View {
                             .fontWeight(.thin)
                             .frame(width: 55)
                     }
+                    .shimmering(active: isShimmering, duration: 0.7, bounce: true)
                 }
 
             }

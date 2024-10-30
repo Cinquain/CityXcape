@@ -33,7 +33,6 @@ struct DigitalLounge: View {
         .edgesIgnoringSafeArea(.bottom)
         .onAppear(perform: {
             setSpotId()
-            checkForStreetCred()
         })
      
     }
@@ -160,15 +159,7 @@ struct DigitalLounge: View {
         UserDefaults.standard.set(spot.id, forKey: CXUserDefaults.lastSpotId)
     }
     
-    fileprivate func checkForStreetCred() {
-        Task {
-            do {
-               let value = try await DataService.shared.getStreetCred()
-            } catch {
-                print("Error fetching STC", error.localizedDescription)
-            }
-        }
-    }
+    
 }
 
 #Preview {

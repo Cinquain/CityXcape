@@ -11,11 +11,11 @@ struct CreateUsername: View {
     
     @StateObject var vm: UploadViewModel
     @Binding var selection: Int
+    @State var isDone : Bool = false
     
     var body: some View {
         VStack {
-            header()
-            
+            OnboardingHeader()
             Spacer()
 
             VStack {
@@ -32,6 +32,7 @@ struct CreateUsername: View {
 
             
             TextField(" Create a Username", text: $vm.username)
+                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                 .frame(width: 260, height: 40)
                 .foregroundStyle(.black)
                 .background(.white)
@@ -45,7 +46,7 @@ struct CreateUsername: View {
                 Text("Set Your Gender")
                     .foregroundStyle(.white)
                     .font(.callout)
-                    .fontWeight(.thin)
+                    .fontWeight(.light)
                 HStack {
                     Spacer()
                     Toggle(vm.gender ? "Male" : "Female", isOn: $vm.gender)
@@ -55,64 +56,30 @@ struct CreateUsername: View {
                     Spacer()
                 }
                 
-                Picker("Sexual Orientation", selection: $vm.orientation) {
-                    ForEach(Orientation.allCases) {
-                        Text($0.rawValue)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .padding(.top, 20)
-                .foregroundStyle(.red)
+           
             }
             
             
             Button(action: {
               submitUsername()
             }, label: {
-                HStack(spacing: 2) {
-                    
-                    Image(systemName: "forward.fill")
-                        .foregroundStyle(.white)
-                        .font(.callout)
-                }
-                .frame(width: 55, height: 55)
-                .background(.blue)
-                .clipShape(Circle())
+                Label("Done", systemImage: "checkmark.shield.fill")
+                    .foregroundStyle(.white)
+                    .fontWeight(.light)
+                    .frame(width: 125, height: 35)
+                    .background(isDone ? .green : .gray)
+                    .animation(.easeIn, value: isDone)
+                    .clipShape(Capsule())
             })
             .padding(.top, 45)
         
             
             Spacer()
         }
-        .background(background())
+        .background(SPBackground())
     }
     
-    @ViewBuilder
-    func background() -> some View {
-        ZStack {
-            Color.black
-            Image("colored-paths")
-                .resizable()
-                .scaledToFill()
-        }
-        .edgesIgnoringSafeArea(.all)
-    }
-    
-    @ViewBuilder
-    func header() -> some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text("STREETPASS")
-                    .font(.system(size: 28))
-                    .fontWeight(.thin)
-                    .tracking(4)
-                    .opacity(0.7)
-            }
-            .foregroundStyle(.white)
-            Spacer()
-        }
-        .padding(.horizontal, 20)
-    }
+  
     
     fileprivate func submitUsername() {
         if vm.username.isEmpty {
@@ -126,7 +93,7 @@ struct CreateUsername: View {
             return
         }
         withAnimation {
-            selection = 1
+            selection = 2
         }
     }
 }

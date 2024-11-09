@@ -19,7 +19,6 @@ struct DigitalLounge: View {
     @State private var errorMessage: String = ""
     @State private var showError: Bool = false
     @State private var showOnboarding: Bool = false
-    @State private var signup: Bool = false
     @State private var users: [User] = [User.demo, User.demo2, User.demo3]
     @State private var currentUser: User?
     
@@ -45,22 +44,13 @@ struct DigitalLounge: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 30)
-                    .fullScreenCover(isPresented: $signup, content: {
-                        SignUp()
-                    })
+                    
                 
                 Text(spot.name)
                     .font(.title2)
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
-                    .alert(isPresented: $showError, content: {
-                        Alert(title: Text(errorMessage),
-                              primaryButton: .default(Text("Ok"), action: {
-                            signup.toggle()
-                        }),
-                        secondaryButton: .cancel()
-                        )
-                    })
+              
                 
                 Spacer()
                 
@@ -103,15 +93,7 @@ struct DigitalLounge: View {
     func userRow(user: User) -> some View {
            
             Button(action: {
-                if AuthService.shared.uid == nil ||
-                    AuthService.shared.uid == "" {
-                    errorMessage = "You need an account to view profile"
-                    showError.toggle()
-                    return
-                }
-                
                 currentUser = user
-             
             }, label: {
                 HStack(spacing: 30) {
                     VStack(spacing: 2) {

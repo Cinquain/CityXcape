@@ -39,6 +39,7 @@ struct UserBubble: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: size  * 5.5/7)
+                .clipShape(Circle())
             
             
         }

@@ -16,41 +16,32 @@ struct Onboarding: View {
     var body: some View {
         TabView(selection: $tabselection) {
             
-            CreateUsername(vm: vm, selection: $tabselection)
+            AuthPage(vm: vm, selection: $tabselection)
                 .tag(0)
             
-            FindCityView(selection: $tabselection, vm: vm)
+            CreateUsername(vm: vm, selection: $tabselection)
                 .tag(1)
             
-            UploadImageView(vm: vm, selection: $tabselection)
+            FindCityView(selection: $tabselection, vm: vm)
                 .tag(2)
             
-            ChooseWorldView(vm: vm, selection: $tabselection)
+            UploadImageView(vm: vm, selection: $tabselection)
                 .tag(3)
             
-            StreetIDCard(vm: vm)
+            ChooseWorldView(vm: vm, selection: $tabselection)
                 .tag(4)
+            
+            StreetIDCard(vm: vm)
+                .tag(5)
                 
         }
-        .tabViewStyle(.page)
+        .tabViewStyle(.page(indexDisplayMode: .automatic))
+    
         .edgesIgnoringSafeArea(.all)
     }
     
 
     
-
-    
-    
-    @ViewBuilder
-    func background() -> some View {
-        ZStack {
-            Color.black
-            Image("colored-paths")
-                .resizable()
-                .scaledToFill()
-        }
-        .edgesIgnoringSafeArea(.all)
-    }
     
     @ViewBuilder
     func header() -> some View {

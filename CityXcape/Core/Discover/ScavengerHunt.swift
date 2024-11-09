@@ -12,12 +12,10 @@ struct ScavengerHunt: View {
     
     var spot: Location
     @Environment(\.dismiss) private var dismiss
-    @AppStorage(CXUserDefaults.uid) var userId: String?
 
     
     @State private var showStamp: Bool = false
     @State private var showPreview: Bool = false
-    @State private var seePassport: Bool = false
     @State private var showInfo: Bool = false
     @State private var showLounge: Bool = false
     @State private var alert: Bool = false
@@ -109,9 +107,7 @@ struct ScavengerHunt: View {
                     titleView()
                         .padding(.bottom, 10)
                         .animation(.easeInOut(duration: 0.5), value: showInfo)
-                        .fullScreenCover(isPresented: $seePassport, content: {
-                            PassportPage()
-                        })
+                     
                 
         }
     }
@@ -119,9 +115,9 @@ struct ScavengerHunt: View {
     @ViewBuilder
     func checkinButton() -> some View {
         Button(action: {
-            seePassport.toggle()
+            showPreview.toggle()
         }, label: {
-            Text("View Passport")
+            Text("View Stamp")
                 .font(.subheadline)
                 .fontWeight(.light)
                 .foregroundStyle(.black)

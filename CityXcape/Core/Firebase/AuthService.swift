@@ -18,7 +18,7 @@ final class AuthService: NSObject, ObservableObject {
     
     static let shared = AuthService()
     private override init() {}
-    var signupView: SignUp!
+    var signupView: AuthPage!
     
     @Published var isSignedIn: Bool = false
     fileprivate var currentNonce: String?
@@ -46,15 +46,17 @@ extension AuthService {
         let uid = authResult.user.uid
         if try await DataService.shared.checkIfUserExist(uid: uid) {
             UserDefaults.standard.set(uid, forKey: CXUserDefaults.uid)
+            self.signupView.isAuth = true
             return true
         } else {
             DataService.shared.createUser(auth: authResult)
+            self.signupView.isAuth = true
             return false
         }
     }
     
     @MainActor @available(iOS 13, *)
-       func startSignInWithAppleFlow(view: SignUp) {
+       func startSignInWithAppleFlow(view: AuthPage) {
            guard let topVC = Utilities.shared.topViewController() else {return}
              self.signupView = view
              let nonce = randomNonceString()
@@ -122,7 +124,7 @@ extension AuthService {
     }
     
     @MainActor @discardableResult
-    func startSigninWithGoogle(signUpview: SignUp) async throws -> Bool {
+    func startSigninWithGoogle(signUpview: AuthPage) async throws -> Bool {
         guard let view = Utilities.shared.topViewController() else {
             print("Failed to get top Viewcontroller")
             throw CustomError.authFailure
@@ -147,7 +149,6 @@ extension AuthService {
         do {
             let result = try await signInWithGoogle(credentials: credential)
             signUpview.isAuth = true 
-            signUpview.dismiss()
             return result
         } catch {
             print("Error signing in with Google", error.localizedDescription)
@@ -180,7 +181,6 @@ extension AuthService: ASAuthorizationControllerDelegate {
               Task {
                   do {
                      let result = try await signInWithApple(credentials: credential)
-                      await signupView.dismiss()
                   } catch let error {
                       print("Failed to sign in with Apple", error.localizedDescription)
                   }

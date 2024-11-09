@@ -21,7 +21,6 @@ struct Location: Identifiable, Equatable, Codable {
     let longitude: Double
     let latitude: Double
     let isSocialHub: Bool
-    let timestamp: Date
     
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
@@ -39,7 +38,6 @@ struct Location: Identifiable, Equatable, Codable {
         case worldId
         case longitude
         case latitude
-        case timestamp
     }
     
     
@@ -62,7 +60,6 @@ struct Location: Identifiable, Equatable, Codable {
         self.worldId = data[Location.CodingKeys.worldId.rawValue] as? String ?? ""
         self.longitude = data[Location.CodingKeys.id.rawValue] as? Double ?? 0
         self.latitude = data[Location.CodingKeys.latitude.rawValue] as? Double ?? 0
-        self.timestamp = data[Location.CodingKeys.timestamp.rawValue] as? Date ?? Date()
         self.isSocialHub = data[Location.CodingKeys.isSocialHub.rawValue] as? Bool ?? true
     }
     static let data: [String: Any] = [
@@ -74,7 +71,6 @@ struct Location: Identifiable, Equatable, Codable {
         Location.CodingKeys.isSocialHub.rawValue: true,
         Location.CodingKeys.longitude.rawValue: 13845556,
         Location.CodingKeys.latitude.rawValue: 8585988,
-        Location.CodingKeys.timestamp.rawValue: Date()
     ]
     
     

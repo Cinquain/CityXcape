@@ -11,10 +11,10 @@ import CodeScanner
 
 struct Discover: View {
     @AppStorage(CXUserDefaults.uid) var uid: String?
-    @State private var showPage: Bool = false
-    @State private var showSignUp: Bool = false
-    @State private var scannedText: String = "Tap to scan QR code"
-    @State private var isShowingScanner: Bool = false
+    @State private var showAlert: Bool = false
+    @State private var startOnboarding: Bool = false
+    @State private var scannedText: String = "Scan QR Code"
+    @State private var startScanner: Bool = false
     @State private var currentSpot: Location?
     var body: some View {
         VStack {
@@ -22,7 +22,7 @@ struct Discover: View {
             Spacer()
            
             Button(action: {
-                isShowingScanner.toggle()
+                startScanner.toggle()
             }, label: {
                 VStack {
                     Image(systemName: "qrcode")
@@ -35,11 +35,16 @@ struct Discover: View {
                         .font(.title3)
                         .foregroundStyle(.white)
                         .fontWeight(.thin)
+                        .alert(isPresented: $showAlert, content: {
+                            return Alert(title: Text("You need an account to check-in"), primaryButton: .default(Text("Ok")){
+                                startOnboarding.toggle()
+                            } , secondaryButton: .cancel())
+                        })
                 }
                    
             })
             .opacity(0.9)
-            .sheet(isPresented: $isShowingScanner, content: {
+            .sheet(isPresented: $startScanner, content: {
                 CodeScannerView(codeTypes: [.qr], completion: handleScan)
             })
                 
@@ -55,7 +60,7 @@ struct Discover: View {
     fileprivate func handleScan(result: Result<ScanResult, ScanError>) {
         switch result {
         case .success(let code):
-            isShowingScanner = false 
+            startScanner = false 
             currentSpot = Location.demo
         case .failure(let error):
             print(error.localizedDescription)
@@ -70,8 +75,8 @@ struct Discover: View {
                 .resizable()
                 .scaledToFill()
                 .opacity(0.3)
-                .fullScreenCover(isPresented: $showSignUp) {
-                    SignUp()
+                .fullScreenCover(isPresented: $startOnboarding) {
+                    Onboarding()
                 }
               
         }
@@ -91,9 +96,9 @@ struct Discover: View {
     @ViewBuilder
     func ctaButton() -> some View {
         Button(action: {
-            isShowingScanner.toggle()
+            startScanner.toggle()
         }, label: {
-            Text("scan")
+            Text("Check-In")
                 .font(.title3)
                 .foregroundStyle(.black)
                 .fontWeight(.thin)

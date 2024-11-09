@@ -12,6 +12,7 @@ struct BuySTC: View {
     @Environment(\.dismiss) private var dismiss
     @State private var message: String = ""
     @State private var showError: Bool = false
+    @State private var rotation: Double = 0
     @AppStorage(CXUserDefaults.streetcred) var wallet: Int?
     @EnvironmentObject private var store: Store
 
@@ -25,6 +26,11 @@ struct BuySTC: View {
         .cornerRadius(24)
         .background(background())
         .edgesIgnoringSafeArea(.bottom)
+        .onAppear(perform: {
+            withAnimation {
+                rotation = 360
+            }
+        })
     }
     
     @ViewBuilder
@@ -54,16 +60,17 @@ struct BuySTC: View {
                     .scaledToFit()
                     .opacity(0.8)
                     .frame(width: 60, height: 60)
+                    .rotationEffect(Angle(degrees: rotation))
                     .clipShape(Circle())
             })
             
             HStack {
                 Spacer()
                 VStack {
-                    Text("Get StreetCred")
+                    Text("Get StreetCred to Connect")
                         .fontWeight(.semibold)
                     
-                    Text("Balance: 0 STC")
+                    Text("1 STC Per Connection")
                         .foregroundStyle(.white)
                         .fontWeight(.thin)
                         .font(.caption)

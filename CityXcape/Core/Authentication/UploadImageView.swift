@@ -10,16 +10,15 @@ import SwiftUI
 struct UploadImageView: View {
     @StateObject var vm: UploadViewModel
     @Binding var selection: Int
-    
-    @State private var showPicker: Bool = false
+    @State private var isDone:Bool = false
     
     var body: some View {
         VStack {
-            header()
+            OnboardingHeader()
             UploadImage()
             Spacer()
         }
-        .background(background())
+        .background(SPBackground())
     }
     
     
@@ -29,7 +28,7 @@ struct UploadImageView: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    showPicker.toggle()
+                    vm.showPicker.toggle()
                 }, label: {
                     VStack {
                         SelfieBubble(size: 300, url: vm.imageUrl, pulse: 1)
@@ -47,12 +46,12 @@ struct UploadImageView: View {
             Text("Upload a Selfie")
                 .font(.title3)
                 .foregroundStyle(.white)
-                .fontWeight(.thin)
-                .photosPicker(isPresented: $showPicker, selection: $vm.selectedImage, matching: .images)
+                .fontWeight(.light)
+                .photosPicker(isPresented: $vm.showPicker, selection: $vm.selectedImage, matching: .images)
                 
             
             Button(action: {
-                showPicker.toggle()
+                vm.showPicker.toggle()
             }, label: {
                 Text("Choose")
                     .frame(width: 150, height: 40)
@@ -66,32 +65,21 @@ struct UploadImageView: View {
             
             
             Button(action: {
-                submitImage()
+              submitImage()
             }, label: {
-                HStack(spacing: 2) {
-                    
-                    Image(systemName: "forward.fill")
-                        .foregroundStyle(.white)
-                        .font(.callout)
-                }
-                .frame(width: 55, height: 55)
-                .background(.blue)
-                .clipShape(Circle())
+                Label("Done", systemImage: "checkmark.shield.fill")
+                    .foregroundStyle(.white)
+                    .fontWeight(.light)
+                    .frame(width: 125, height: 35)
+                    .background(isDone ? .green : .gray)
+                    .animation(.easeIn, value: isDone)
+                    .clipShape(Capsule())
             })
-            .padding(.top, 25)
+            .padding(.top, 45)
+            
         }
     }
     
-    @ViewBuilder
-    func background() -> some View {
-        ZStack {
-            Color.black
-            Image("colored-paths")
-                .resizable()
-                .scaledToFill()
-        }
-        .edgesIgnoringSafeArea(.all)
-    }
     
     fileprivate func submitImage() {
         if vm.imageUrl.isEmpty {
@@ -100,34 +88,11 @@ struct UploadImageView: View {
             return
         }
         withAnimation {
-            selection = 3
+            selection = 4
         }
     }
     
-    @ViewBuilder
-    func header() -> some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(LocationService.shared.city)
-                    .font(.caption)
-                    .fontWeight(.thin)
-                    .foregroundStyle(.white)
-                    .tracking(4)
-                
-                Text("STREETPASS")
-                    .font(.system(size: 24))
-                    .fontWeight(.thin)
-                    .tracking(4)
-                    .opacity(0.7)
-               
-            }
-            .foregroundStyle(.white)
-            
-            Spacer()
-        
-        }
-        .padding(.horizontal, 20)
-    }
+  
 }
 
 #Preview {

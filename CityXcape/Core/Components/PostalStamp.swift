@@ -9,7 +9,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct PostalStamp: View {
-    let url: String
+    let stamp: Stamp
     
     var body: some View {
         ZStack {
@@ -20,7 +20,7 @@ struct PostalStamp: View {
                 .foregroundStyle(.white)
                 .frame(width: 155, height: 155)
             
-            WebImage(url: URL(string: url))
+            WebImage(url: URL(string: stamp.imageUrl))
                 .resizable()
                 .scaledToFill()
                 .frame(maxWidth: 155 - 20, maxHeight: 155 - 20)
@@ -39,7 +39,7 @@ struct PostalStamp: View {
                 .scaledToFit()
                 .frame(height: 20)
             
-            Text("Graffiti Pier")
+            Text(stamp.spotName)
                 .foregroundStyle(.white)
                 .font(.caption)
                 .fontWeight(.semibold)
@@ -52,5 +52,5 @@ struct PostalStamp: View {
 }
 
 #Preview {
-    PostalStamp(url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2Fmaxresdefault.jpg?alt=media&token=c29d351b-b204-426d-a7f2-e71cba4396d3")
+    PostalStamp(stamp: Stamp.demo)
 }

@@ -9,49 +9,44 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct StreetPass: View {
-    @AppStorage(CXUserDefaults.profileUrl) var profileUrl: String?
-    @State private var showPasport: Bool = false
     
+    @StateObject var vm = StreetPassViewModel()
     var body: some View {
         VStack {
             header()
             userView()
             Spacer()
-                .frame(maxHeight: 50)
+                .frame(maxHeight: 40)
             worldList()
             passport()
             Spacer()
         }
-        .background(background())
+        .background(SPBackground())
     }
     
     
-    @ViewBuilder
-    func background() -> some View {
-        ZStack {
-            Color.black
-            Image("colored-paths")
-                .resizable()
-                .scaledToFill()
-        }
-        .edgesIgnoringSafeArea(.all)
-    }
+
     
     @ViewBuilder
     func header() -> some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(LocationService.shared.city)
+                Text(vm.user?.city ?? "")
                     .font(.caption)
                     .fontWeight(.thin)
                     .foregroundStyle(.white)
                     .tracking(4)
+                    .alert(isPresented: $vm.showError, content: {
+                        return Alert(title: Text(vm.errorMessage))
+                    })
                 
                 Text(Names.STREETPASS.rawValue)
                     .font(.system(size: 24))
                     .fontWeight(.thin)
                     .tracking(4)
                     .opacity(0.7)
+                    .photosPicker(isPresented: $vm.showPicker, selection: $vm.selectedImage, matching: .images)
+                
                 
             }
             .foregroundStyle(.white)
@@ -69,9 +64,10 @@ struct StreetPass: View {
     @ViewBuilder
     func worldList() -> some View {
         HStack {
-            ForEach([World.demo2, World.demo, World.demo3]) { world in
+            ForEach(vm.worlds) { world in
                 Button {
-                    //
+                    vm.errorMessage = "You're part of the \(world) world"
+                    vm.showError.toggle()
                 } label: {
                     VStack {
                         WebImage(url: URL(string: world.imageUrl))
@@ -100,21 +96,21 @@ struct StreetPass: View {
         VStack {
             
             Button(action: {
-                
+                vm.showPicker.toggle()
             }, label: {
                     SelfieBubble(
                         size: 300,
-                        url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FIMG_1575.png?alt=media&token=100ea308-bcb1-41cf-b53e-dc663a3f6692",
+                        url: vm.user?.imageUrl ?? "",
                     pulse: 1.2)
             })
             
             
             VStack {
-                Text("Cinquain")
+                Text(vm.user?.username ?? "")
                     .font(.title)
                 .fontWeight(.thin)
                 
-                Text("100 StreetCred")
+                Text("\(vm.user?.streetcred ?? 0) StreetCred")
                     .fontWeight(.thin)
                     .font(.callout)
 
@@ -124,13 +120,14 @@ struct StreetPass: View {
             
           
         }
+        .padding(.top, 20)
     }
     
     @ViewBuilder
     func passport() -> some View {
         VStack(alignment: .leading, spacing: 20) {
             Button(action: {
-                showPasport.toggle()
+                vm.getStamps()
             }, label: {
                 HStack {
                     Image(systemName: "menucard.fill")
@@ -143,25 +140,12 @@ struct StreetPass: View {
                 }
                 .foregroundStyle(.white)
             })
-            
-            Button(action: {
-                
-            }, label: {
-                HStack {
-                    Image(systemName: "point.3.connected.trianglepath.dotted")
-                        .font(.title)
-                    
-                    Text("Connections")
-                        .font(.title2)
-                        .fontWeight(.thin)
-                    
-                }
-                .foregroundStyle(.white)
+            .sheet(isPresented: $vm.showPassport, content: {
+                PassportPage(stamps: vm.stamps)
             })
+            
+           
         }
-        .fullScreenCover(isPresented: $showPasport, content: {
-            PassportPage()
-        })
         .padding(.top, 20)
     }
     

@@ -20,7 +20,7 @@ class ChatViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     
     init() {
-        fetchAllMessages()
+
     }
     
     

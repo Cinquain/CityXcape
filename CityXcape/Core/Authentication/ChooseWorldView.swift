@@ -10,25 +10,25 @@ import SDWebImageSwiftUI
 
 struct ChooseWorldView: View {
 
-    
+    @State private var isDone: Bool = false
     @StateObject var vm: UploadViewModel
     @Binding var selection: Int
 
     var body: some View {
         VStack {
-            header()
+            OnboardingHeader()
             Spacer()
             VStack {
                 Text("Choose Up to 3 Worlds")
                     .font(.title)
-                    .fontWeight(.thin)
+                    .fontWeight(.light)
                     .foregroundStyle(.white)
                     .alert(isPresented: $vm.showError, content: {
                         Alert(title: Text(vm.errorMessage))
                     })
                 Text("Worlds are communities & subcultures")
                     .font(.callout)
-                    .fontWeight(.thin)
+                    .fontWeight(.light)
                     .foregroundStyle(.white)
                   
                 
@@ -36,6 +36,11 @@ struct ChooseWorldView: View {
                         ForEach(vm.worlds.sorted(by: {$0.name < $1.name})) { world in
                             Button {
                                 vm.addOrRemove(world: world)
+                                if !vm.selectedWorlds.isEmpty {
+                                    isDone = true
+                                } else {
+                                    isDone = false 
+                                }
                             } label: {
                                 worldItem(world: world)
                             }
@@ -48,24 +53,22 @@ struct ChooseWorldView: View {
             }
             
             Button(action: {
-                submitStreetPass()
+              submitWorlds()
             }, label: {
-                HStack(spacing: 2) {
-                    
-                    Image(systemName: "forward.fill")
-                        .foregroundStyle(.white)
-                        .font(.callout)
-                }
-                .frame(width: 55, height: 55)
-                .background(.blue)
-                .clipShape(Circle())
+                Label("Done", systemImage: "checkmark.shield.fill")
+                    .foregroundStyle(.white)
+                    .fontWeight(.light)
+                    .frame(width: 125, height: 35)
+                    .background(isDone ? .green : .gray)
+                    .animation(.easeIn, value: isDone)
+                    .clipShape(Capsule())
             })
-            .padding(.top, 25)
+            .padding(.top, 45)
             
             Spacer()
 
         }
-        .background(background())
+        .background(SPBackground())
         .onAppear(perform: {
             vm.getWorlds()
         })
@@ -94,54 +97,16 @@ struct ChooseWorldView: View {
 
     }
     
-    func submitStreetPass() {
+    func submitWorlds() {
         if vm.selectedWorlds.isEmpty {
             vm.errorMessage = "Please choose at least one world"
             vm.showError.toggle()
-            return
         }
-        
         withAnimation {
-            selection = 4
+            selection = 5
         }
-        
     }
     
-    
-    @ViewBuilder
-    func background() -> some View {
-        ZStack {
-            Color.black
-            Image("colored-paths")
-                .resizable()
-                .scaledToFill()
-        }
-        .edgesIgnoringSafeArea(.all)
-    }
-    
-    @ViewBuilder
-    func header() -> some View {
-        HStack {
-            VStack(alignment: .leading) {
-                
-                Text(LocationService.shared.city)
-                    .font(.caption)
-                    .fontWeight(.thin)
-                    .tracking(4)
-                Text("STREETPASS")
-                    .font(.system(size: 24))
-                    .fontWeight(.thin)
-                    .tracking(4)
-                    .opacity(0.7)
-                
-            }
-            .foregroundStyle(.white)
-            
-            Spacer()
-        
-        }
-        .padding(.horizontal, 20)
-    }
     
     
 

@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @AppStorage(CXUserDefaults.firstOpen) var firstOpen: Bool?
     @State var selection: Int = 0
+    @StateObject var vm = RequestViewModel()
     @EnvironmentObject private var store: Store
 
     
@@ -24,7 +25,7 @@ struct ContentView: View {
                         Text(Tab.locations.rawValue)
                     }
                 
-                RequestView(index: $selection)
+                RequestView(index: $selection, vm: vm)
                     .tag(1)
                     .tabItem {
                         Image(Tab.connections.imageTitle)
@@ -32,7 +33,7 @@ struct ContentView: View {
                             .scaledToFit()
                         Text(Tab.connections.rawValue)
                     }
-                    .badge(1)
+                    .badge(vm.requests.count)
                 
                 MessagesView()
                     .tag(2)

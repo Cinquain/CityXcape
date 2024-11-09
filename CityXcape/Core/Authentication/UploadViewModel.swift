@@ -30,12 +30,13 @@ class UploadViewModel: ObservableObject {
     @Published var errorMessage: String = ""
     @Published var showError: Bool = false
     @Published var imageUrl: String = ""
+    @Published var showPicker: Bool = false 
     @Published var imageCase: ImageCase = .profile
     @StateObject var manager = LocationService.shared
     
+    @Published var showPassport: Bool = false 
     @Published var username: String = ""
     @Published var gender: Bool = true
-    @Published var orientation: Orientation = .Straight
     @Published var city: String = ""
     @Published var worlds: [World] = []
     @Published var selectedWorlds: [World] = []
@@ -61,10 +62,13 @@ class UploadViewModel: ObservableObject {
         }
     }
     
+
+    
     func submitStreetPass() async throws {
+        if checkAllFields() == false {return}
         guard let uid = AuthService.shared.uid else {return}
-        
-        let user = User(id: uid, username: username, imageUrl: imageUrl, gender: gender, orientation: orientation.rawValue, city: city, streetcred: 10, worlds: selectedWorlds, timestamp: Date(), fcmToken: "")
+        let worldIds = selectedWorlds.map { $0.id }
+        let user = User(id: uid, username: username, imageUrl: imageUrl, gender: gender, city: city, streetcred: 2, worlds: worldIds, fcmToken: "")
         try await DataService.shared.createStreetPass(user: user)
     }
     
@@ -102,6 +106,44 @@ class UploadViewModel: ObservableObject {
                 showError.toggle()
             }
         }
+    }
+    
+    func checkAllFields() -> Bool {
+        guard let uid = AuthService.shared.uid else {
+            errorMessage = "Please sign up using Apple or Google"
+            showError.toggle()
+            return false
+        }
+        
+        if username.isEmpty {
+            errorMessage = "Please create a username and select your gender"
+            showError.toggle()
+            return false
+        }
+        if username.count < 3 {
+            errorMessage = "Your username must be at least 3 characters long"
+            showError.toggle()
+            return false
+        }
+        
+        if imageUrl.isEmpty {
+            errorMessage = "Please upload a selfie"
+            showError.toggle()
+            return false
+        }
+        
+        if city.isEmpty || city == "" {
+            errorMessage = "CityXcape needs location permission"
+            showError.toggle()
+            return false
+        }
+        
+        if selectedWorlds.isEmpty {
+            errorMessage = "Please choose at least one world"
+            showError.toggle()
+            return false
+        }
+        return true
     }
     
     

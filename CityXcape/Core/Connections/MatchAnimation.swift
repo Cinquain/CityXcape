@@ -9,7 +9,12 @@ import SwiftUI
 
 struct MatchAnimation: View {
     @Environment(\.dismiss) private var dismiss
+    @AppStorage(CXUserDefaults.profileUrl) var profileUrl: String?
 
+    @StateObject var vm: RequestViewModel
+    var request: Request
+    @Binding var index: Int
+    
     @State private var length: CGFloat = 120
     @State private var rotation: Double = 90
     @State private var opacity: Double = 0
@@ -44,7 +49,7 @@ struct MatchAnimation: View {
     func rotatingUsers() -> some View {
         HStack {
                 
-            UserBubble(size: 125, url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2Fman.png?alt=media&token=7b2a24de-49ce-4d40-a9a6-26325ee45371", pulse: 2)
+            UserBubble(size: 125, url: profileUrl ?? "", pulse: 2)
                 .rotationEffect(Angle(degrees: rotation))
                 .animation(.easeOut(duration: 0.5), value: rotation)
             
@@ -53,7 +58,7 @@ struct MatchAnimation: View {
                 .background(.orange)
                 .animation(.easeOut(duration: 0.5), value: length)
 
-            UserBubble(size: 125, url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FAllison.png?alt=media&token=23e6eceb-b9b2-4a49-8b23-a11de0e2d32c", pulse: 2)
+            UserBubble(size: 125, url: request.imageUrl, pulse: 2)
                 .rotationEffect(Angle(degrees: rotation))
                 .animation(.easeOut(duration: 0.5), value: rotation)
 
@@ -75,7 +80,10 @@ struct MatchAnimation: View {
                 .font(.title2)
             
             Button(action: {
-                dismiss()
+                withAnimation {
+                    index = 2
+                    vm.showMatch.toggle()
+                }
             }, label: {
                 Text("Start Chatting")
                     .font(.callout)
@@ -92,6 +100,6 @@ struct MatchAnimation: View {
     
 }
 
-#Preview {
-    MatchAnimation()
-}
+//#Preview {
+//    MatchAnimation(request: Request.demo)
+//}

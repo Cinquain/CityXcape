@@ -37,6 +37,8 @@ struct Server {
     static let stamps = "stamps"
     static let recentMessage = "recentMessage"
     static let request = "requests"
+    static let email = "email"
+    static let members = "members"
 }
 
 enum Tab: String, CaseIterable {

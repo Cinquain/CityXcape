@@ -11,28 +11,27 @@ struct RequestView: View {
 
     @Binding var index: Int
     @GestureState private var dragState: DragState = .inactive
-    @State var requests: [Request] = []
-    @State private var offset: CGFloat = 0
-    var dragThreshold: CGFloat = 65.0
+    @StateObject var vm: RequestViewModel
+    @State private var currentRequest: Request?
     
     var body: some View {
         VStack {
             header()
             
-            if requests.isEmpty {
+            if vm.requests.isEmpty {
                 emptyState()
             } else {
                 ZStack {
-                    if !requests.isEmpty {
-                        ForEach(requests) {
-                            Cardview(request: $0)
-                                .zIndex(1)
-                                .overlay(LikeorDislike())
-                                .offset(x: self.dragState.translation.width, y: self.dragState.translation.height)
-                                .scaleEffect(self.dragState.isDragging ? 0.85 : 1)
-                                .rotationEffect(Angle(degrees:  Double(dragState.translation.width / 12)))
+                    if !vm.cardViews.isEmpty {
+                        ForEach(vm.cardViews) { cardView in
+                            cardView
+                                .zIndex(vm.isTopCard(cardView: cardView) ? 1 : 0)
+                                .overlay(LikeorDislike(cardView: cardView))
+                                .offset(x: vm.isTopCard(cardView: cardView) ? self.dragState.translation.width : 0, y: vm.isTopCard(cardView: cardView) ? self.dragState.translation.height : 0)
+                                .scaleEffect(self.dragState.isDragging && vm.isTopCard(cardView: cardView) ? 0.85 : 1)
+                                .rotationEffect(Angle(degrees: vm.isTopCard(cardView: cardView) ?  Double(dragState.translation.width / 12) : 0))
                                 .animation(.interpolatingSpring(stiffness: 120, damping: 120))
-                                .offset(x: offset)
+                                .offset(x: vm.isTopCard(cardView: cardView) ? vm.offset : 0)
                                 .gesture(LongPressGesture(minimumDuration: 0.01)
                                                               .sequenced(before: DragGesture())
                                       .updating(self.$dragState, body: { (value, state, transaction) in
@@ -47,23 +46,39 @@ struct RequestView: View {
                                       })
                                       .onEnded({ (value) in
                                           guard case .second(true, let drag?) = value else {return}
-                                          if drag.translation.width < -self.dragThreshold {
+                                          if drag.translation.width < -vm.dragThreshold  && vm.isTopCard(cardView: cardView) {
                                               //User is dismissed
+                                              currentRequest = cardView.request
+                                              if let currentRequest {
+                                                  vm.unmatch(request: currentRequest)
+                                              }
                                           }
-                                          if drag.translation.width > self.dragThreshold {
-                                              offset = 1000
+                                          if drag.translation.width > vm.dragThreshold  && vm.isTopCard(cardView: cardView){
+                                              currentRequest = cardView.request
+                                              if let currentRequest {
+                                                  vm.match(request: currentRequest)
+                                              }
                                               
                                           }
                                       })
                                   )
+                            if vm.showMatch {
+                                if let currentRequest {
+                                    MatchAnimation(vm: vm, request: currentRequest, index: $index)
+                                }
+                            }
                         }
                     }
+                    
+                   
                 }
             }
             
         }
         .background(background())
     }
+    
+  
     
     @ViewBuilder
     func background() -> some View {
@@ -88,7 +103,7 @@ struct RequestView: View {
                 .frame(height: 250)
                 
             
-            Text("Check-in a location with a CityXcape \n QR code to find people looking to meet")
+            Text("Scan CityXcape QR code to \n find people looking to meet")
                 .foregroundStyle(.white)
                 .fontWeight(.thin)
                 .multilineTextAlignment(.center)
@@ -107,6 +122,18 @@ struct RequestView: View {
 
             Spacer()
         }
+    }
+    
+    fileprivate func match(request: Request) {
+        vm.offset = 1000
+        if let index = vm.requests.firstIndex(of: request) {
+            vm.requests.remove(at: index)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            withAnimation {
+                vm.showMatch.toggle()
+            }
+        })
     }
     
     @ViewBuilder
@@ -130,15 +157,15 @@ struct RequestView: View {
     }
     
     fileprivate func calculateTitle() -> String {
-        if requests.isEmpty {
-            return "No Request Pending!"
+        if vm.requests.isEmpty {
+            return "No Request Pending"
         } else {
-            return "\(Request.demo.username) Wants to Connect"
+            return "\(vm.requests.first?.username ?? "") Wants to Connect"
         }
     }
     
     @ViewBuilder
-    func LikeorDislike() -> some View {
+    func LikeorDislike(cardView: Cardview) -> some View {
         ZStack {
             VStack {
                 Image(systemName: "hand.raised.slash.fill")
@@ -150,7 +177,7 @@ struct RequestView: View {
                     .font(.title2)
                     .fontWeight(.medium)
             }
-            .opacity(dragState.translation.width < -dragThreshold ? 1 : 0)
+            .opacity(dragState.translation.width < -vm.dragThreshold && vm.isTopCard(cardView: cardView) ? 1 : 0)
             
             VStack {
                 Image(systemName: "heart.fill")
@@ -162,7 +189,35 @@ struct RequestView: View {
                     .font(.title2)
                     .fontWeight(.medium)
             }
-            .opacity(dragState.translation.width > dragThreshold ? 1 : 0)
+            .opacity(dragState.translation.width > vm.dragThreshold && vm.isTopCard(cardView: cardView) ? 1 : 0)
+        }
+    }
+    
+    @ViewBuilder
+    func ctaButton(request: Request) -> some View {
+        VStack {
+            Spacer()
+            HStack {
+            
+                Button(action: {
+                    vm.unmatch(request: request)
+                }, label: {
+                    Label("Pass", systemImage: "hand.raised.slash.fill")
+                        .foregroundStyle(.red)
+                })
+
+                Spacer()
+
+                Button(action: {
+                    //Accept Match
+                    vm.match(request: request)
+                }, label: {
+                    Label("Connect", systemImage: "powerplug.fill")
+                        .foregroundColor(.green)
+                })
+                
+            }
+            .padding(.horizontal, 10)
         }
     }
     

@@ -7,32 +7,27 @@
 
 import SwiftUI
 
-struct Cardview: View {
+struct Cardview: View, Identifiable {
     @Environment(\.dismiss) private var dismiss
     let request: Request
-    
+    let id = UUID()
     @State private var match: Bool = false
     @State private var showSP: Bool = false
     var body: some View {
         ZStack {
-            if match {
-                withAnimation {
-                    MatchAnimation()
-                }
-            } else {
-                VStack(spacing: 20) {
-                    userBubble()
-                    
-                    messageBubble()
-                    
-                    TimerView(size: 100, thickness: 10, font: .title2)
-                        .padding(.top, 15)
-                    ctaButton()
-                    Spacer()
-                    
-                }
-                .background(background())
+         
+            VStack(spacing: 20) {
+                userBubble()
+                
+                messageBubble()
+                
+                TimerView(size: 100, thickness: 10, font: .title2)
+                    .padding(.top, 15)
+                Spacer()
+                
             }
+            .background(background())
+            
         }
         .frame(width: 370, height: 600)
         .overlay(
@@ -92,32 +87,11 @@ struct Cardview: View {
     
    
     
-    @ViewBuilder
-    func ctaButton() -> some View {
-        HStack {
-        
-            Button(action: {}, label: {
-                Label("Pass", systemImage: "hand.raised.slash.fill")
-                    .foregroundStyle(.red)
-            })
 
-            Spacer()
-
-            Button(action: {
-                match.toggle()
-            }, label: {
-                Label("Connect", systemImage: "powerplug.fill")
-                    .foregroundColor(.green)
-            })
-            
-        }
-        .padding(.horizontal, 10)
-    }
     
     
 }
 
 #Preview {
     Cardview(request: Request.demo)
-        .previewLayout(.sizeThatFits)
 }

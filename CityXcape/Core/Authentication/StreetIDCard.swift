@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import PhotosUI
 
 struct StreetIDCard: View {
     @Environment(\.dismiss) private var dismiss
@@ -14,10 +15,10 @@ struct StreetIDCard: View {
     @StateObject var vm: UploadViewModel
     @State private var errorMessage: String = ""
     @State private var showError: Bool = false
-    @State var worlds: [World] = [World.demo, World.demo, World.demo]
+    
     var body: some View {
         VStack {
-            header()
+            OnboardingHeader()
             userView()
             
             worldList()
@@ -44,10 +45,11 @@ struct StreetIDCard: View {
                     .frame(width: 200, height: 40)
                     .background(.blue)
                     .clipShape(Capsule())
+                    .photosPicker(isPresented: $vm.showPicker, selection: $vm.selectedImage, matching: .images)
             }
 
         }
-        .background(background())
+        .background(SPBackground())
     }
     
     @ViewBuilder
@@ -66,21 +68,10 @@ struct StreetIDCard: View {
     }
     
     @ViewBuilder
-    func background() -> some View {
-        ZStack {
-            Color.black
-            Image("colored-paths")
-                .resizable()
-                .scaledToFill()
-        }
-        .edgesIgnoringSafeArea(.all)
-    }
-    
-    @ViewBuilder
     func passport() -> some View {
         VStack(alignment: .leading, spacing: 20) {
             Button(action: {
-                //
+                vm.showPassport.toggle()
             }, label: {
                 HStack {
                     Image(systemName: "menucard.fill")
@@ -89,25 +80,16 @@ struct StreetIDCard: View {
                     Text("Passport")
                         .font(.title)
                         .fontWeight(.thin)
+                        
                     
                 }
                 .foregroundStyle(.white)
+            })
+            .sheet(isPresented: $vm.showPassport, content: {
+                PassportPage(stamps: [])
             })
             
-            Button(action: {
-                //
-            }, label: {
-                HStack {
-                    Image(systemName: "point.3.connected.trianglepath.dotted")
-                        .font(.title)
-                    
-                    Text("Connections")
-                        .font(.title2)
-                        .fontWeight(.thin)
-                    
-                }
-                .foregroundStyle(.white)
-            })
+         
         }
         .padding(.top, 20)
         
@@ -115,35 +97,11 @@ struct StreetIDCard: View {
   
     
     @ViewBuilder
-    func header() -> some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(LocationService.shared.city)
-                    .font(.caption)
-                    .fontWeight(.thin)
-                    .foregroundStyle(.white)
-                    .tracking(4)
-                
-                Text("STREETPASS")
-                    .font(.system(size: 24))
-                    .fontWeight(.thin)
-                    .tracking(4)
-                    .opacity(0.7)
-                
-            }
-            .foregroundStyle(.white)
-            Spacer()
-            
-        }
-        .padding(.horizontal, 20)
-    }
-    
-    @ViewBuilder
     func userView() -> some View {
         VStack {
             
             Button(action: {
-                
+                vm.showPicker.toggle()
             }, label: {
                     SelfieBubble(
                         size: 300,
@@ -157,7 +115,7 @@ struct StreetIDCard: View {
                     .font(.title)
                 .fontWeight(.thin)
                 
-                Text("10 StreetCred")
+                Text("2 StreetCred")
                     .fontWeight(.thin)
                     .font(.callout)
 

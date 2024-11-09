@@ -14,11 +14,9 @@ struct User: Identifiable, Equatable, Codable {
     let username: String
     let imageUrl: String
     let gender: Bool
-    let orientation: String
     let city: String
     let streetcred: Int
-    let worlds: [World]
-    let timestamp: Date
+    let worlds: [String]
     let fcmToken: String
  
     
@@ -33,49 +31,41 @@ struct User: Identifiable, Equatable, Codable {
         case imageUrl
         case gender
         case city
-        case orientation
         case streetcred
         case worlds
-        case timestamp
         case fcmToken
     }
     
-    init(id: String, username: String, imageUrl: String, gender: Bool, orientation: String, city: String, streetcred: Int, worlds: [World], timestamp: Date, fcmToken: String) {
+    init(id: String, username: String, imageUrl: String, gender: Bool, city: String, streetcred: Int, worlds: [String], fcmToken: String) {
         self.id = id
         self.username = username
         self.imageUrl = imageUrl
         self.gender = gender
-        self.orientation = orientation
         self.city = city
         self.streetcred = streetcred
         self.worlds = worlds
-        self.timestamp = timestamp
         self.fcmToken = fcmToken
     }
     
-    init(data: [String: Any]) {
-        self.id = data[User.CodingKeys.id.rawValue] as? String ?? ""
-        self.username = data[User.CodingKeys.username.rawValue] as? String ?? ""
-        self.imageUrl = data[User.CodingKeys.imageUrl.rawValue] as? String ?? ""
-        self.gender = data[User.CodingKeys.gender.rawValue] as? Bool ?? false
-        self.orientation = data[User.CodingKeys.orientation.rawValue] as? String ?? ""
-        self.city = data[User.CodingKeys.city.rawValue] as? String ?? ""
-        self.streetcred = data[User.CodingKeys.streetcred.rawValue] as? Int ?? 0
-        self.worlds = data[User.CodingKeys.worlds.rawValue] as? [World] ?? []
-        self.timestamp = data[User.CodingKeys.timestamp.rawValue] as? Date ?? Date()
-        self.fcmToken = data[User.CodingKeys.fcmToken.rawValue] as? String ?? ""
+    init(data: [String: Any]?) {
+        self.id = data?[User.CodingKeys.id.rawValue] as? String ?? ""
+        self.username = data?[User.CodingKeys.username.rawValue] as? String ?? ""
+        self.imageUrl = data?[User.CodingKeys.imageUrl.rawValue] as? String ?? ""
+        self.gender = data?[User.CodingKeys.gender.rawValue] as? Bool ?? false
+        self.city = data?[User.CodingKeys.city.rawValue] as? String ?? ""
+        self.streetcred = data?[User.CodingKeys.streetcred.rawValue] as? Int ?? 0
+        self.fcmToken = data?[User.CodingKeys.fcmToken.rawValue] as? String ?? ""
+        self.worlds =  data?[User.CodingKeys.worlds.rawValue] as? [String] ?? []
     }
     
     static let data: [String: Any] = [
-        User.CodingKeys.id.rawValue: "orjoifhohduihffo",
+        User.CodingKeys.id.rawValue: "PlMt3eOkyseQIG9VDct6",
         User.CodingKeys.username.rawValue: "Alisha",
         User.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FAllison.png?alt=media&token=23e6eceb-b9b2-4a49-8b23-a11de0e2d32c",
         User.CodingKeys.gender.rawValue: false,
         User.CodingKeys.city.rawValue: "Minneapolis",
         User.CodingKeys.streetcred.rawValue: 100,
-        User.CodingKeys.worlds.rawValue: [World.demo4, World.demo5, World.demo6],
-        User.CodingKeys.timestamp.rawValue: Date(),
-        User.CodingKeys.orientation.rawValue: Orientation.Straight.rawValue,
+        User.CodingKeys.worlds.rawValue: [World.demo.id, World.demo2.id, World.demo3.id],
         User.CodingKeys.fcmToken.rawValue: "fkjfjjfgkjjg"
     ]
     
@@ -86,9 +76,7 @@ struct User: Identifiable, Equatable, Codable {
         User.CodingKeys.gender.rawValue: false,
         User.CodingKeys.city.rawValue: "Minneapolis",
         User.CodingKeys.streetcred.rawValue: 100,
-        User.CodingKeys.worlds.rawValue: [World.demo2, World.demo, World.demo6],
-        User.CodingKeys.timestamp.rawValue: Date(),
-        User.CodingKeys.orientation.rawValue: Orientation.Straight.rawValue,
+        User.CodingKeys.worlds.rawValue: [World.demo4.id, World.demo5.id, World.demo6.id],
         User.CodingKeys.fcmToken.rawValue: "fkjfjjfgkjjg"
     ]
     
@@ -99,9 +87,7 @@ struct User: Identifiable, Equatable, Codable {
         User.CodingKeys.gender.rawValue: false,
         User.CodingKeys.city.rawValue: "Minneapolis",
         User.CodingKeys.streetcred.rawValue: 100,
-        User.CodingKeys.worlds.rawValue: [World.demo, World.demo4, World.demo3],
-        User.CodingKeys.timestamp.rawValue: Date(),
-        User.CodingKeys.orientation.rawValue: Orientation.Straight.rawValue,
+        User.CodingKeys.worlds.rawValue: [World.demo3.id, World.demo.id, World.demo.id],
         User.CodingKeys.fcmToken.rawValue: "fkjfjjfgkjjg"
     ]
     

@@ -23,6 +23,7 @@ final class DataService {
     var connectRef = DB.collection(Server.connections)
     var recentRef = DB.collection(Server.recentMessage)
     var worldRef = DB.collection(Server.world)
+    var stampRef  = DB.collection(Server.stamps)
     
     var chatListener: ListenerRegistration?
     var checkinListener: ListenerRegistration?
@@ -38,8 +39,8 @@ final class DataService {
         
         let data: [String: Any] = [
             User.CodingKeys.id.rawValue: uid,
-            "email": email ?? "",
-            User.CodingKeys.timestamp.rawValue: Timestamp(),
+            Server.email: email ?? "",
+            Message.CodingKeys.timestamp.rawValue: Timestamp(),
             User.CodingKeys.streetcred.rawValue: 1
         ]
 
@@ -51,7 +52,7 @@ final class DataService {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let reference = userRef.document(uid)
         try reference.setData(from: user.self)
-        updateStreetCred(count: 2)
+        updateStreetCred(count: 1)
         UserDefaults.standard.setValue(user.username, forKey: CXUserDefaults.username)
         UserDefaults.standard.set(true, forKey: CXUserDefaults.createdSP)
     }
@@ -72,9 +73,15 @@ final class DataService {
         }
     }
     
+    func getUserCredentials() async throws -> User {
+        guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
+        return try await getUserFrom(uid: uid)
+    }
+
     func getUserFrom(uid: String) async throws -> User {
         let snapshot = try await userRef.document(uid).getDocument()
-        let user = try snapshot.data(as: User.self)
+        let data = snapshot.data()
+        let user = User(data: data)
         return user
     }
     
@@ -103,6 +110,22 @@ final class DataService {
         try AuthService.shared.signOut()
     }
     
+    
+    
+    //MARK: CHECKIN FUNCTIONS
+    
+    func fetchAllCheckins(spotId: String) async throws {
+        
+    }
+    
+    func checkin(spotId: String) async throws {
+        
+    }
+    
+    func checkout(spotId: String) async throws  {
+        
+    }
+    
     //MARK: STREETCRED FUNCTIONS
     
     func updateStreetCred(count: Int) {
@@ -117,7 +140,7 @@ final class DataService {
     }
     
     func getStreetCred() async throws -> Int  {
-        guard let uid = Auth.auth().currentUser?.uid else {return 0}
+        guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
         let reference = userRef.document(uid)
         let document = try await reference.getDocument()
         guard let data = document.data() else {return 0}
@@ -144,15 +167,53 @@ final class DataService {
         }
         return worlds
     }
+    
+    func getWorldFor(id: String) async throws -> World {
+        let reference = worldRef.document(id)
+        let world = try await reference.getDocument(as: World.self)
+        return world
+    }
+    
+    func saveUserWorld(worldId: String) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
+        let reference = userRef.document(uid)
+        try await saveMemberToWorld(worldId: worldId)
+        let data: [String: Any] = [
+            User.CodingKeys.worlds.rawValue: FieldValue.arrayUnion([worldId])
+        ]
+        try await reference.setData(data, merge: true)
+        
+    }
+    
+    func deleteWorld(worldId: String) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let reference = userRef.document(uid)
+        let data: [String: Any] = [
+            User.CodingKeys.worlds.rawValue: FieldValue.arrayRemove([worldId])
+        ]
+        try await reference.setData(data, merge: true)
+        try await worldRef.document(worldId).collection(Server.members).document(uid).delete()
+    }
+    
+     
+    func saveMemberToWorld(worldId: String) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
+        let reference = worldRef.document(worldId).collection(Server.members)
+        let data: [String: Any] = [
+            User.CodingKeys.id.rawValue: uid,
+            Message.CodingKeys.timestamp.rawValue: FieldValue.serverTimestamp()
+        ]
+        try await reference.document(uid).setData(data)
+    }
 
     //MARK: CONNECTION FUNCTIONS
     func sendRequest(userId: String, spotId: String, message: String) async throws {
         
-        guard let uid = Auth.auth().currentUser?.uid else {return}
+        guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
         let imageUrl = profileUrl ?? ""
         let username = username ?? ""
         
-        let reference = connectRef.document(userId)
+        let reference = userRef.document(userId)
                                   .collection(Server.request)
                                   .document(uid)
         
@@ -176,17 +237,8 @@ final class DataService {
         try await spotReference.setData(data)
     }
     
-    func deleteUser(userId: String) async throws {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        
-        let reference = connectRef.document(uid).collection(Server.connections).document(userId)
-        let referenceII = connectRef.document(userId).collection(Server.connections).document(uid)
-        try await reference.delete()
-        try await referenceII.delete()
-    }
-    
     func acceptRequest(message: Message) async throws {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
+        guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
         
         //Create chat references
         let messageRef = chatRef.document(uid).collection(message.fromId).document()
@@ -201,27 +253,8 @@ final class DataService {
         try recentRefII.setData(from: message)
         
         //Create connections
-        let userRef = connectRef.document(uid).collection(Server.connections).document(message.fromId)
-        let userIIRef = connectRef.document(message.fromId).collection(uid).document(uid)
-        
-        let data: [String: Any] = [
-            User.CodingKeys.id.rawValue: uid,
-            User.CodingKeys.username.rawValue: username ?? "",
-            User.CodingKeys.imageUrl.rawValue: profileUrl ?? "",
-            Message.CodingKeys.spotId.rawValue: message.spotId ?? "",
-            User.CodingKeys.timestamp.rawValue: Timestamp()
-        ]
-        
-        let dataII: [String: Any] = [
-            User.CodingKeys.id.rawValue: message.fromId,
-            User.CodingKeys.username.rawValue: message.displayName,
-            User.CodingKeys.imageUrl.rawValue: message.ownerImageUrl,
-            Message.CodingKeys.spotId.rawValue: message.spotId ?? "",
-            User.CodingKeys.timestamp.rawValue: Timestamp()
-        ]
-        
-        try await userRef.setData(dataII)
-        try await userIIRef.setData(data)
+        let userIRef = userRef.document(uid).collection(Server.connections).document(message.fromId)
+        let userIIRef = userRef.document(message.fromId).collection(uid).document(uid)
         
         //Set Location Connection
         let spotRef = connectRef.document(message.spotId ?? "").collection(Server.connections).document()
@@ -233,6 +266,31 @@ final class DataService {
         ]
         
         try await spotRef.setData(spotData)
+    }
+    
+    func fetchAllRequests() async throws -> [Request] {
+        guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
+        var requests: [Request] = []
+        let reference = userRef.document(uid).collection(Server.request)
+        
+        let documents = try await reference.getDocuments()
+        
+        documents.documents.forEach { snapshot in
+            let data = snapshot.data()
+            let request = Request(data: data)
+            requests.append(request)
+        }
+        return requests
+    }
+    
+    
+    func deleteConnection(userId: String) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        
+        let reference = userRef.document(uid).collection(Server.connections).document(userId)
+        let referenceII = userRef.document(userId).collection(Server.connections).document(uid)
+        try await reference.delete()
+        try await referenceII.delete()
     }
     
     
@@ -333,6 +391,24 @@ final class DataService {
     func deleteRecentMessage(userId: String)  {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         chatRef.document(Server.recentMessage).collection(uid).document(userId).delete()
+    }
+    
+    
+    //MARK: STAMP FUNCTIONS
+    
+    func fetchAllStamps() async throws -> [Stamp] {
+        guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
+        var stamps : [Stamp] = []
+        
+        let reference = userRef.document(uid).collection(Server.stamps)
+        let documents = try await reference.getDocuments()
+        
+        for snapshot in documents.documents {
+            let data = snapshot.data()
+            let stamp = Stamp(data: data)
+            stamps.append(stamp)
+        }
+        return stamps
     }
     
     

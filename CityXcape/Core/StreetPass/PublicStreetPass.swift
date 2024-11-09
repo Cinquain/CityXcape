@@ -15,6 +15,7 @@ struct PublicStreetPass: View {
     @Environment(\.dismiss) private var dismiss
     
     var user: User
+    @State var worlds: [World] = []
     
     @State private var message: String = ""
     @State private var showError: Bool = false
@@ -36,6 +37,7 @@ struct PublicStreetPass: View {
         .background(background())
         .onAppear {
            showAnimation()
+           loadWorlds()
         }
     
       
@@ -150,7 +152,7 @@ struct PublicStreetPass: View {
     @ViewBuilder
     func worldList() -> some View {
         HStack {
-            ForEach(user.worlds) { world in
+            ForEach(worlds) { world in
                 Button {
                     errorMessage = "\(user.username) is \(world.memberName)"
                     showError.toggle()
@@ -165,7 +167,7 @@ struct PublicStreetPass: View {
                             .font(.callout)
                             .foregroundStyle(.white)
                             .lineLimit(1)
-                            .fontWeight(.thin)
+                            .fontWeight(.light)
                             .frame(width: 55)
                     }
                     .shimmering(active: isShimmering, duration: 0.7, bounce: true)
@@ -175,6 +177,15 @@ struct PublicStreetPass: View {
         }
         .padding(.top, 10)
         
+    }
+    
+    func loadWorlds() {
+        Task {
+            for key in user.worlds {
+                let world = try await DataService.shared.getWorldFor(id: key)
+                self.worlds.append(world)
+            }
+        }
     }
     
     fileprivate func checkForStreetCred() {

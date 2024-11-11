@@ -96,6 +96,10 @@ struct Discover: View {
     @ViewBuilder
     func ctaButton() -> some View {
         Button(action: {
+            if AuthService.shared.uid == nil {
+                showAlert.toggle()
+                return
+            }
             startScanner.toggle()
         }, label: {
             Text("Check-In")

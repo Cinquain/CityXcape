@@ -9,6 +9,10 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct PassPortReceipt: View {
+    
+    var spot: Location
+    @State private var message: String = ""
+    @State private var showSeal: Bool = false
     var body: some View {
        
         ZStack {
@@ -16,7 +20,7 @@ struct PassPortReceipt: View {
             VStack {
                 Headline()
                 PostalStamp()
-                Spacer()
+                officialSeal()
             }
             .cornerRadius(12)
         }
@@ -28,14 +32,19 @@ struct PassPortReceipt: View {
     func Headline() -> some View {
         VStack {
             HStack {
-                Image("Pin")
-                    .resizable()
+                Image(systemName: "menucard.fill")
+                    .foregroundColor(.white)
+                    .font(.title)
                     .scaledToFit()
-                    .frame(height: 40)
+
+                
                 Text("Saved to Your Passport")
                     .font(.title3)
                     .fontWeight(.thin)
                     .foregroundStyle(.white)
+                    .alert(isPresented: $showSeal, content: {
+                        return Alert(title: Text(message))
+                    })
                 Spacer()
                 
             }
@@ -47,6 +56,24 @@ struct PassPortReceipt: View {
 
     }
     
+    @ViewBuilder
+    func officialSeal() -> some View {
+        HStack {
+            Spacer()
+            Button(action: {
+                message = "Visited on \(Date().formattedDate())"
+                showSeal.toggle()
+            }, label: {
+                Image("Certified")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 100)
+                    .rotationEffect(Angle(degrees: -45))
+            })
+            
+        }
+        .padding(.horizontal, 10)
+    }
     
     @ViewBuilder
     func PostalStamp() -> some View {
@@ -54,7 +81,7 @@ struct PassPortReceipt: View {
             Button(action: {
                 
             }, label: {
-                ZStack {
+                VStack {
                     Image("postal")
                         .renderingMode(.template)
                         .resizable()
@@ -62,12 +89,30 @@ struct PassPortReceipt: View {
                         .foregroundStyle(.white)
                         .frame(height: 200)
                         .overlay(
-                            WebImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2Fmaxresdefault.jpg?alt=media&token=c29d351b-b204-426d-a7f2-e71cba4396d3"))
+                            WebImage(url: URL(string: spot.imageUrl))
                                 .resizable()
                                 .scaledToFill()
                                 .frame(maxWidth: 180, maxHeight: 180)
                                 .clipped()
                         )
+   
+                    HStack(spacing: 0) {
+                        Image("Pin")
+                            .renderingMode(.template)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 20)
+                            .foregroundColor(.white)
+                        
+                        Text(spot.name)
+                            .foregroundStyle(.white)
+                            .fontWeight(.thin)
+                            .font(.title3)
+                            .lineLimit(1)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 10)
+                    }
+                    
                 }
             })
             
@@ -91,5 +136,5 @@ struct PassPortReceipt: View {
 }
 
 #Preview {
-    PassPortReceipt()
+    PassPortReceipt(spot: Location.demo)
 }

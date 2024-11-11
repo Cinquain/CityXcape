@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct StampView: View {
+    
     let name: String
-    let day = Date.formattedDate(Date())
-    let time = Date.timeFormatter(Date())
+    let date: Date
     
     @State private var animate: Bool = true
     
@@ -39,11 +39,11 @@ struct StampView: View {
                 .font(.caption)
                 .fontWeight(.medium)
             
-            Text(day())
+            Text(date.formattedDate())
                 .font(.title3)
                 .fontWeight(.medium)
             
-            Text(time())
+            Text(date.timeFormatter())
                 .font(.caption)
                 .fontWeight(.medium)
         }
@@ -60,5 +60,5 @@ struct StampView: View {
 }
 
 #Preview {
-    StampView(name: "Graffiti Pier")
+    StampView(name: "Graffiti Pier", date: Date())
 }

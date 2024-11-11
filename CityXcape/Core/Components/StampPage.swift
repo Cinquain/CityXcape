@@ -9,6 +9,9 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct StampPage: View {
+    
+    var stamp: Stamp
+    
     var body: some View {
         VStack {
             postalStamp()
@@ -24,7 +27,7 @@ struct StampPage: View {
     func passportSeal() -> some View {
         HStack {
             Spacer()
-            StampView(name: "Graffiti Pier")
+            StampView(name: stamp.spotName, date: stamp.timestamp)
         }
         .padding(.horizontal, 20)
     }
@@ -43,7 +46,7 @@ struct StampPage: View {
                         .foregroundStyle(.white)
                         .frame(height: 200)
                         .overlay(
-                            WebImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2Fmaxresdefault.jpg?alt=media&token=c29d351b-b204-426d-a7f2-e71cba4396d3"))
+                            WebImage(url: URL(string: stamp.imageUrl))
                                 .resizable()
                                 .scaledToFill()
                                 .frame(maxWidth: 180, maxHeight: 180)
@@ -66,7 +69,7 @@ struct StampPage: View {
                 .scaledToFit()
                 .frame(height: 25)
             
-            Text("Graffiti Pier")
+            Text(stamp.spotName)
                 .font(.title3)
                 .fontWeight(.regular)
                 .foregroundStyle(.white)
@@ -89,5 +92,5 @@ struct StampPage: View {
 }
 
 #Preview {
-    StampPage()
+    StampPage(stamp: Stamp.demo)
 }

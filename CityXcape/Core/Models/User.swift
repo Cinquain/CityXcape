@@ -87,7 +87,7 @@ struct User: Identifiable, Equatable, Codable {
         User.CodingKeys.gender.rawValue: false,
         User.CodingKeys.city.rawValue: "Minneapolis",
         User.CodingKeys.streetcred.rawValue: 100,
-        User.CodingKeys.worlds.rawValue: [World.demo3.id, World.demo.id, World.demo.id],
+        User.CodingKeys.worlds.rawValue: [World.demo3.id, World.demo.id, World.demo5.id],
         User.CodingKeys.fcmToken.rawValue: "fkjfjjfgkjjg"
     ]
     

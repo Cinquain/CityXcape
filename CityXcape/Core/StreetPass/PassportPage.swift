@@ -12,6 +12,7 @@ struct PassportPage: View {
     
     @Environment(\.dismiss) private var dismiss
     @State private var showPage: Bool = false
+    @State private var currentStamp: Stamp?
     @State var stamps: [Stamp]
     let columns: [GridItem] = [
         GridItem(.adaptive(minimum: 180))
@@ -89,14 +90,14 @@ struct PassportPage: View {
                 
                 ForEach(stamps) { stamp in
                     Button(action: {
-                        showPage.toggle()
+                        currentStamp = stamp
                     }, label: {
                         PostalStamp(stamp: stamp)
                     })
-                    .sheet(isPresented: $showPage, content: {
-                        StampPage()
+                    .sheet(item: $currentStamp) { stamp in
+                        StampPage(stamp: stamp)
                             .presentationDetents([.height(480)])
-                    })
+                    }
                 }
                 
             }

@@ -66,7 +66,7 @@ struct StreetPass: View {
         HStack {
             ForEach(vm.worlds) { world in
                 Button {
-                    vm.errorMessage = "You're part of the \(world) world"
+                    vm.errorMessage = "You're part of the \(world.name) world"
                     vm.showError.toggle()
                 } label: {
                     VStack {

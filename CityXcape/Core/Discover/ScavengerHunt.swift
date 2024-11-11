@@ -38,7 +38,7 @@ struct ScavengerHunt: View {
             }
             
             if showStamp {
-                StampView(name: spot.name)
+                StampView(name: spot.name, date: Date())
                     .padding(.bottom, 100)
             }
         }
@@ -73,8 +73,8 @@ struct ScavengerHunt: View {
                 .fontWeight(.thin)
                 .lineLimit(1)
                 .sheet(isPresented: $showPreview, content: {
-                    PassPortReceipt()
-                        .presentationDetents([.height(350)])
+                    PassPortReceipt(spot: spot)
+                        .presentationDetents([.height(410)])
                 })
             
             Spacer()
@@ -132,9 +132,9 @@ struct ScavengerHunt: View {
     
     fileprivate func loadStamp() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-            showStamp.toggle()
+            showStamp = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
-                showPreview.toggle()
+                showPreview = true
             })
         })
     }

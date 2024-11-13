@@ -21,6 +21,7 @@ struct Location: Identifiable, Equatable, Codable {
     let longitude: Double
     let latitude: Double
     let isSocialHub: Bool
+    let city: String
     
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
@@ -37,6 +38,7 @@ struct Location: Identifiable, Equatable, Codable {
         case isSocialHub
         case worldId
         case longitude
+        case city
         case latitude
     }
     
@@ -61,6 +63,7 @@ struct Location: Identifiable, Equatable, Codable {
         self.longitude = data[Location.CodingKeys.id.rawValue] as? Double ?? 0
         self.latitude = data[Location.CodingKeys.latitude.rawValue] as? Double ?? 0
         self.isSocialHub = data[Location.CodingKeys.isSocialHub.rawValue] as? Bool ?? true
+        self.city = data[Location.CodingKeys.city.rawValue] as? String ?? ""
     }
     
     
@@ -69,6 +72,7 @@ struct Location: Identifiable, Equatable, Codable {
         Location.CodingKeys.name.rawValue: "Graffiti Pier",
         Location.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2Fmaxresdefault.jpg?alt=media&token=c29d351b-b204-426d-a7f2-e71cba4396d3",
         Location.CodingKeys.ownerId.rawValue: "sdpojon",
+        Location.CodingKeys.city.rawValue: "Philadelphia",
         Location.CodingKeys.worldId.rawValue: "oedfoijsdofjeofsd",
         Location.CodingKeys.isSocialHub.rawValue: false,
         Location.CodingKeys.longitude.rawValue: 13845556,

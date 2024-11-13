@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseStorage
+import Firebase
 
 class ImageManager: NSObject {
     
@@ -44,7 +45,9 @@ class ImageManager: NSObject {
         let path = getStampImagePath(uid: uid, spotId: spotId)
         
         do {
-            return try await uploadImage(path: path, image: image)
+            let imageUrl = try await uploadImage(path: path, image: image)
+            try await DataService.shared.updateStampImage(stampId: spotId, imageUrl: imageUrl)
+            return imageUrl
         } catch {
             throw error
         }

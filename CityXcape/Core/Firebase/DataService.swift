@@ -411,6 +411,33 @@ final class DataService {
         return stamps
     }
     
+    func createStamp(spot: Location) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let reference = userRef.document(uid).collection(Server.stamps).document(spot.id)
+        
+        let data: [String : Any] = [
+            Stamp.CodingKeys.id.rawValue: spot.id,
+            Stamp.CodingKeys.imageUrl.rawValue: spot.imageUrl,
+            Stamp.CodingKeys.ownerId.rawValue: uid,
+            Stamp.CodingKeys.city.rawValue: spot.city,
+            Stamp.CodingKeys.timestamp.rawValue: FieldValue.serverTimestamp(),
+            Stamp.CodingKeys.spotName.rawValue: spot.name
+        ]
+        
+        try await reference.setData(data)
+    }
+    
+    func updateStampImage(stampId: String, imageUrl: String) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let reference = userRef.document(uid).collection(Server.stamps).document(stampId)
+        
+        let data: [String: Any] = [
+            Stamp.CodingKeys.imageUrl.rawValue: imageUrl
+        ]
+        
+        try await reference.updateData(data)
+    }
+    
     
     
     

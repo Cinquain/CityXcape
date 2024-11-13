@@ -13,6 +13,7 @@ struct DigitalLounge: View {
     @Environment(\.dismiss) private var dismiss
     
     var spot: Location
+    @StateObject var vm: LocationViewModel
     
     @State private var showSP: Bool = false
     @State private var isShimmering: Bool = false
@@ -145,5 +146,5 @@ struct DigitalLounge: View {
 }
 
 #Preview {
-    DigitalLounge(spot: Location.demo)
+    DigitalLounge(spot: Location.demo, vm: LocationViewModel())
 }

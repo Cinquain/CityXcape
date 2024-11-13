@@ -7,10 +7,13 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import PhotosUI
 
 struct PassPortReceipt: View {
     
     var spot: Location
+    @StateObject var vm: LocationViewModel
+    
     @State private var message: String = ""
     @State private var showSeal: Bool = false
     var body: some View {
@@ -20,7 +23,7 @@ struct PassPortReceipt: View {
             VStack {
                 Headline()
                 PostalStamp()
-                officialSeal()
+                Spacer()
             }
             .cornerRadius(12)
         }
@@ -36,6 +39,7 @@ struct PassPortReceipt: View {
                     .foregroundColor(.white)
                     .font(.title)
                     .scaledToFit()
+                    .photosPicker(isPresented: $vm.showPicker, selection: $vm.selectedImage, matching: .images)
 
                 
                 Text("Saved to Your Passport")
@@ -56,30 +60,13 @@ struct PassPortReceipt: View {
 
     }
     
-    @ViewBuilder
-    func officialSeal() -> some View {
-        HStack {
-            Spacer()
-            Button(action: {
-                message = "Visited on \(Date().formattedDate())"
-                showSeal.toggle()
-            }, label: {
-                Image("Certified")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 100)
-                    .rotationEffect(Angle(degrees: -45))
-            })
-            
-        }
-        .padding(.horizontal, 10)
-    }
+
     
     @ViewBuilder
     func PostalStamp() -> some View {
         HStack {
             Button(action: {
-                
+                vm.showPicker.toggle()
             }, label: {
                 VStack {
                     Image("postal")
@@ -89,7 +76,7 @@ struct PassPortReceipt: View {
                         .foregroundStyle(.white)
                         .frame(height: 200)
                         .overlay(
-                            WebImage(url: URL(string: spot.imageUrl))
+                            WebImage(url: URL(string: vm.stampImageUrl))
                                 .resizable()
                                 .scaledToFill()
                                 .frame(maxWidth: 180, maxHeight: 180)
@@ -136,5 +123,5 @@ struct PassPortReceipt: View {
 }
 
 #Preview {
-    PassPortReceipt(spot: Location.demo)
+    PassPortReceipt(spot: Location.demo, vm: LocationViewModel())
 }

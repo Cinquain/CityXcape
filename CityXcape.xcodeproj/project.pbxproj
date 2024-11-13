@@ -14,6 +14,7 @@
 		211090FC2CC18963006F83B3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211090FB2CC18963006F83B3 /* StoreKit.framework */; };
 		211090FE2CC18A74006F83B3 /* Store.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 211090FD2CC18A74006F83B3 /* Store.storekit */; };
 		211091002CC18D81006F83B3 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211090FF2CC18D81006F83B3 /* Store.swift */; };
+		212E5E0B2CE42F60001BC98B /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E5E0A2CE42F60001BC98B /* LocationViewModel.swift */; };
 		216F72A92CAC88A30040B8AC /* StreetIDCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216F72A82CAC88A30040B8AC /* StreetIDCard.swift */; };
 		21C635392C77B58800D15DB2 /* RequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C635382C77B58800D15DB2 /* RequestView.swift */; };
 		21C896512CDBAE2400F148D0 /* StreePassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C896502CDBAE2400F148D0 /* StreePassViewModel.swift */; };
@@ -99,6 +100,7 @@
 		211090FB2CC18963006F83B3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		211090FD2CC18A74006F83B3 /* Store.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Store.storekit; sourceTree = "<group>"; };
 		211090FF2CC18D81006F83B3 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		212E5E0A2CE42F60001BC98B /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		216F72A82CAC88A30040B8AC /* StreetIDCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetIDCard.swift; sourceTree = "<group>"; };
 		21C635382C77B58800D15DB2 /* RequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestView.swift; sourceTree = "<group>"; };
 		21C896502CDBAE2400F148D0 /* StreePassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreePassViewModel.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				21F91D842C63A87D0024A991 /* Discover.swift */,
+				212E5E0A2CE42F60001BC98B /* LocationViewModel.swift */,
 				21D4FA2A2C67A1AC00CD4F58 /* LocationView.swift */,
 				21DA45C52C6A41B200A16832 /* DigitalLounge.swift */,
 				21D45FDB2C8F9606001B12FA /* DataScanner.swift */,
@@ -562,6 +565,7 @@
 				21D1C53E2CDD95C00045CE79 /* AuthPage.swift in Sources */,
 				21E487172C867778005ADB06 /* PassPortReceipt.swift in Sources */,
 				21F91D8B2C63BF660024A991 /* World.swift in Sources */,
+				212E5E0B2CE42F60001BC98B /* LocationViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

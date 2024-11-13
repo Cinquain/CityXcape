@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 struct ScavengerHunt: View {
     
     var spot: Location
+    @StateObject var vm: LocationViewModel
     @Environment(\.dismiss) private var dismiss
 
     
@@ -73,8 +74,8 @@ struct ScavengerHunt: View {
                 .fontWeight(.thin)
                 .lineLimit(1)
                 .sheet(isPresented: $showPreview, content: {
-                    PassPortReceipt(spot: spot)
-                        .presentationDetents([.height(410)])
+                    PassPortReceipt(spot: spot, vm: vm)
+                        .presentationDetents([.height(350)])
                 })
             
             Spacer()
@@ -131,6 +132,8 @@ struct ScavengerHunt: View {
     }
     
     fileprivate func loadStamp() {
+        vm.stampImageUrl = spot.imageUrl
+        vm.createStamp(spot: spot)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
             showStamp = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
@@ -142,5 +145,5 @@ struct ScavengerHunt: View {
 }
 
 #Preview {
-    ScavengerHunt(spot: Location.demo)
+    ScavengerHunt(spot: Location.demo, vm: LocationViewModel())
 }

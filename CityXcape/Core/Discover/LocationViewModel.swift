@@ -24,8 +24,37 @@ class LocationViewModel: ObservableObject {
     
     @Published var showError: Bool = false
     @Published var stampImageUrl: String = ""
+    @Published var users: [User] = [User.demo, User.demo2, User.demo3]
+    @Published var meUser: User?
     
     
+    func fetchCheckedInUsers(spotId: String) {
+        checkin(spotId: spotId)
+        DataService.shared.fetchUsersCheckedIn(spotId: spotId) { result in
+            switch result {
+            case .success(let checkedInUsers):
+                self.users = checkedInUsers
+            case .failure(let error):
+                self.errorMessage = error.localizedDescription
+                self.showError.toggle()
+            }
+        }
+    }
+    
+    func checkin(spotId: String) {
+        Task {
+            do {
+                let user = try await DataService.shared.getUserCredentials()
+                self.meUser = user
+                try await DataService.shared.checkin(spotId: spotId, user: user)
+                UserDefaults.standard.set(spotId, forKey: CXUserDefaults.lastSpotId)
+
+            } catch {
+                errorMessage = error.localizedDescription
+                showError.toggle()
+            }
+        }
+    }
     
     fileprivate func uploadStampImage(item: PhotosPickerItem?) async {
         guard let item = item else {return}

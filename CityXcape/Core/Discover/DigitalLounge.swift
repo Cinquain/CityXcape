@@ -14,13 +14,7 @@ struct DigitalLounge: View {
     
     var spot: Location
     @StateObject var vm: LocationViewModel
-    
-    @State private var showSP: Bool = false
-    @State private var isShimmering: Bool = false
-    @State private var errorMessage: String = ""
-    @State private var showError: Bool = false
-    @State private var showOnboarding: Bool = false
-    @State private var users: [User] = [User.demo, User.demo2, User.demo3]
+ 
     @State private var currentUser: User?
     
     var body: some View {
@@ -32,7 +26,7 @@ struct DigitalLounge: View {
         .background(background())
         .edgesIgnoringSafeArea(.bottom)
         .onAppear(perform: {
-            setSpotId()
+            vm.fetchCheckedInUsers(spotId: spot.id)
         })
      
     }
@@ -55,18 +49,7 @@ struct DigitalLounge: View {
                 
                 Spacer()
                 
-                Button(action: {
-                    dismiss()
-                }, label: {
-                    Image(systemName: "arrow.uturn.down.circle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 30)
-                        .foregroundStyle(.white)
-                        .fullScreenCover(isPresented: $showOnboarding, content: {
-                            Onboarding()
-                        })
-                })
+               
             }
             .padding(.horizontal, 10)
             
@@ -80,7 +63,7 @@ struct DigitalLounge: View {
     @ViewBuilder
     func guestList() -> some View {
         ScrollView {
-            ForEach(users) { user in
+            ForEach(vm.users) { user in
                 userRow(user: user)
             }
         }
@@ -105,11 +88,11 @@ struct DigitalLounge: View {
                             .font(.title3)
                     }
                     
-                    VStack(alignment: .leading) {
-                        Text("Looking for Friends")
+                    VStack(alignment: .center) {
+                        Text("Two Worlds in Common")
                             .fontWeight(.light)
-                        Text("Checked in at 3:45")
-                            .fontWeight(.light)
+                        Text("50% Match")
+                            .fontWeight(.medium)
                         Divider()
                             .background(.white)
                             .frame(height: 0.5)
@@ -138,9 +121,7 @@ struct DigitalLounge: View {
         .edgesIgnoringSafeArea(.all)
     }
     
-    fileprivate func setSpotId() {
-        UserDefaults.standard.set(spot.id, forKey: CXUserDefaults.lastSpotId)
-    }
+  
     
     
 }

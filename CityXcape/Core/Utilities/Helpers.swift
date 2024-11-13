@@ -38,6 +38,7 @@ struct Server {
     static let recentMessage = "recentMessage"
     static let request = "requests"
     static let email = "email"
+    static let checkins = "checkins"
     static let members = "members"
 }
 

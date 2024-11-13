@@ -84,7 +84,7 @@ final class DataService {
         let user = User(data: data)
         return user
     }
-    
+   
     func uploadImageUrl(uid: String, url: String) async throws {
         let data: [String: Any] = [
             User.CodingKeys.imageUrl.rawValue: url
@@ -113,17 +113,59 @@ final class DataService {
     
     
     //MARK: CHECKIN FUNCTIONS
-    
-    func fetchAllCheckins(spotId: String) async throws {
+    func fetchUsersCheckedIn(spotId: String, completion: @escaping(Result<[User],Error>) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        var users: [User] = []
         
+        checkinListener = spotRef.document(spotId)
+                         .collection(Server.checkins)
+                         .addSnapshotListener({ snapshot, error in
+                             
+                             if let error = error {
+                                 print("Error fetching checked-in users")
+                                 completion(.failure(error))
+                             }
+                             guard let snapshot = snapshot else {return}
+                             
+                             for change in snapshot.documentChanges {
+                                 
+                                 if change.document.documentID == uid {
+                                     continue
+                                 }
+                                 
+                                 if change.type == .added {
+                                     let data = change.document.data()
+                                     let user = User(data: data)
+                                     users.insert(user, at: 0)
+                                 }
+                                 
+                                 if change.type == .removed {
+                                     let id = change.document.documentID
+                                     if let index = users.firstIndex(where: {$0.id == id}) {
+                                         users.remove(at: index)
+                                     }
+                                 }
+                             }
+                             
+                             DispatchQueue.main.async {
+                                 completion(.success(users))
+                             }
+                             
+                         })
+
     }
     
-    func checkin(spotId: String) async throws {
-        
+    func checkin(spotId: String, user: User) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let reference = spotRef.document(spotId).collection(Server.checkins)
+        try reference.document(uid).setData(from: user.self)
     }
     
     func checkout(spotId: String) async throws  {
-        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let reference = spotRef.document(spotId).collection(Server.checkins).document(uid)
+        checkinListener?.remove()
+        try await reference.delete()
     }
     
     //MARK: STREETCRED FUNCTIONS

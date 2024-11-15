@@ -63,11 +63,12 @@ struct Discover: View {
     
     fileprivate func handleScan(result: Result<ScanResult, ScanError>) {
         switch result {
-        case .success(let code):
-            startScanner = false 
+        case .success(let scanned):
+            startScanner = false
+            let code = scanned.string
             Task {
                 do {
-                    let spot = try await vm.checkin(spotId: "27dwRVATDnUYxRsK0XVn")
+                    let spot = try await vm.checkin(spotId: code)
                     currentSpot = spot
                 } catch {
                     print("Error fetching location", error.localizedDescription)

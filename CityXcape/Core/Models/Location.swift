@@ -42,6 +42,57 @@ struct Location: Identifiable, Equatable, Codable {
         case latitude
     }
     
+    var distanceString: String {
+              let manager = LocationService.shared.manager
+              
+              if manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways {
+                  let destination = CLLocation(latitude: latitude, longitude: longitude)
+                  let userlocation = CLLocation(latitude: (manager.location?.coordinate.latitude) ?? 0, longitude: (manager.location?.coordinate.longitude) ?? 0)
+                  let distance = userlocation.distance(from: destination)
+                  let distanceinMi =  distance * 0.000621
+                  let distanceinFt =  distance * 3.28084
+                  let roundedDistance = String(format: "%.0f", distanceinMi)
+                  let roundedDistanceMeters  = String(format: "%.2f", distanceinMi)
+                  if distanceinMi > 1 {
+                      return "\(roundedDistance) mi"
+                  } else {
+                      return "\(roundedDistanceMeters) mi"
+                  }
+              } else {
+                  manager.requestWhenInUseAuthorization()
+                  return "N/A"
+              }
+
+          }
+    
+    
+    var distanceFromUser: Double {
+            let manager = LocationService.shared.manager
+            
+            if manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways {
+                let destination = CLLocation(latitude: latitude, longitude: longitude)
+                let userlocation = CLLocation(latitude: (manager.location?.coordinate.latitude) ?? 0, longitude: (manager.location?.coordinate.longitude) ?? 0)
+                let distance = userlocation.distance(from: destination) * 3.28084
+                return distance
+            } else {
+                manager.requestWhenInUseAuthorization()
+                return 1000
+            }
+        }
+        
+        var distanceFromUserinMiles: Double {
+            let manager = LocationService.shared.manager
+            
+            if manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways {
+                let destination = CLLocation(latitude: latitude, longitude: longitude)
+                let userlocation = CLLocation(latitude: (manager.location?.coordinate.latitude) ?? 0, longitude: (manager.location?.coordinate.longitude) ?? 0)
+                let distance = userlocation.distance(from: destination) * 0.000621
+                return distance
+            } else {
+                manager.requestWhenInUseAuthorization()
+                return 1000
+            }
+        }
     
     func generateQRCode() -> UIImage? {
         filter.message = Data(id.utf8)

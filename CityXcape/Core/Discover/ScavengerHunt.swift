@@ -133,7 +133,6 @@ struct ScavengerHunt: View {
     
     fileprivate func loadStamp() {
         vm.stampImageUrl = spot.imageUrl
-        vm.spotId = spot.id
         vm.createStamp(spot: spot)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5, execute: {
             showStamp = true

@@ -22,12 +22,12 @@ struct DigitalLounge: View {
             header()
             guestList()
             Spacer()
+            checkoutButton()
+            Spacer()
         }
         .background(background())
         .edgesIgnoringSafeArea(.bottom)
-        .onAppear(perform: {
-            vm.fetchCheckedInUsers(spotId: spot.id)
-        })
+      
      
     }
     
@@ -107,6 +107,26 @@ struct DigitalLounge: View {
 
             })
         
+    }
+    
+    @ViewBuilder
+    func checkoutButton() -> some View {
+        Button {
+            Task {
+                try await vm.checkout(spotId: spot.id)
+                dismiss()
+            }
+        } label: {
+            Text("Checkout")
+                .foregroundStyle(.black)
+                .fontWeight(.thin)
+                .frame(width: 120, height: 35)
+                .background(.orange)
+                .clipShape(Capsule())
+                .padding(.bottom, 12)
+            
+        }
+
     }
     
     @ViewBuilder

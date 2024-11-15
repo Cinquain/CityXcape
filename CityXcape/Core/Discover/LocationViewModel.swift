@@ -18,18 +18,17 @@ class LocationViewModel: ObservableObject {
         }
     }
     
-    @Published var spotId: String = ""
     @Published var errorMessage: String = ""
     @Published var showPicker: Bool = false 
     
     @Published var showError: Bool = false
     @Published var stampImageUrl: String = ""
-    @Published var users: [User] = [User.demo, User.demo2, User.demo3]
-    @Published var meUser: User?
+    @Published var users: [User] = [User.demo]
+    @Published var user: User?
+    @Published var spot: Location?
     
     
     func fetchCheckedInUsers(spotId: String) {
-        checkin(spotId: spotId)
         DataService.shared.fetchUsersCheckedIn(spotId: spotId) { result in
             switch result {
             case .success(let checkedInUsers):
@@ -41,30 +40,30 @@ class LocationViewModel: ObservableObject {
         }
     }
     
-    func checkin(spotId: String) {
-        Task {
-            do {
-                let user = try await DataService.shared.getUserCredentials()
-                self.meUser = user
-                try await DataService.shared.checkin(spotId: spotId, user: user)
-                UserDefaults.standard.set(spotId, forKey: CXUserDefaults.lastSpotId)
-
-            } catch {
-                errorMessage = error.localizedDescription
-                showError.toggle()
-            }
-        }
+    func checkin(spotId: String) async throws -> Location {
+        let currentspot = try await DataService.shared.getSpotFrom(id: spotId)
+        fetchCheckedInUsers(spotId: spotId)
+        let user = try await DataService.shared.getUserCredentials()
+        self.user = user
+        self.spot = currentspot
+        try await DataService.shared.checkin(spotId: spotId, user: user)
+        return currentspot
+    }
+    
+    func checkout(spotId: String) async throws {
+        try await DataService.shared.checkout(spotId: spotId)
     }
     
     fileprivate func uploadStampImage(item: PhotosPickerItem?) async {
         guard let item = item else {return}
         guard let data = try? await item.loadTransferable(type: Data.self) else {return}
         guard let uiImage = UIImage(data: data) else {return}
-        guard let uid = AuthService.shared.uid else {return}
+        guard let spot = spot else {return}
+        guard let user = user else {return}
         
         Task {
             do {
-                let imageUrl = try await ImageManager.shared.uploadStampImage(uid: uid, spotId: spotId, image: uiImage)
+                let imageUrl = try await ImageManager.shared.uploadStampImage(uid: user.id, spotId: spot.id, image: uiImage)
                 DispatchQueue.main.async {
                     self.stampImageUrl = imageUrl
                 }

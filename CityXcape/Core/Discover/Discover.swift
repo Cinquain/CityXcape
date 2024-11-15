@@ -11,11 +11,15 @@ import CodeScanner
 
 struct Discover: View {
     @AppStorage(CXUserDefaults.uid) var uid: String?
+    
     @State private var showAlert: Bool = false
     @State private var startOnboarding: Bool = false
     @State private var scannedText: String = "Scan QR Code"
     @State private var startScanner: Bool = false
     @State private var currentSpot: Location?
+    
+    @StateObject var vm = LocationViewModel()
+    
     var body: some View {
         VStack {
             headerView()
@@ -61,7 +65,16 @@ struct Discover: View {
         switch result {
         case .success(let code):
             startScanner = false 
-            currentSpot = Location.demo
+            Task {
+                do {
+                    let spot = try await vm.checkin(spotId: "27dwRVATDnUYxRsK0XVn")
+                    currentSpot = spot
+                } catch {
+                    print("Error fetching location", error.localizedDescription)
+                    vm.errorMessage =  error.localizedDescription
+                    vm.showError.toggle()
+                }
+            }
         case .failure(let error):
             print(error.localizedDescription)
         }
@@ -96,10 +109,10 @@ struct Discover: View {
     @ViewBuilder
     func ctaButton() -> some View {
         Button(action: {
-            if AuthService.shared.uid == nil {
-                showAlert.toggle()
-                return
-            }
+//            if AuthService.shared.uid == nil {
+//                showAlert.toggle()
+//                return
+//            }
             startScanner.toggle()
         }, label: {
             Text("Check-In")
@@ -111,7 +124,7 @@ struct Discover: View {
                 .clipShape(Capsule())
         })
         .fullScreenCover(item: $currentSpot) { spot in
-            LocationView(spot: spot)
+            LocationView(spot: spot, vm: vm)
         }
     }
     

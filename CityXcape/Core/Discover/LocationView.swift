@@ -12,7 +12,7 @@ import SDWebImageSwiftUI
 struct LocationView: View {
     
     var spot: Location
-    @StateObject var vm = LocationViewModel()
+    @StateObject var vm : LocationViewModel
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -26,5 +26,5 @@ struct LocationView: View {
 }
 
 #Preview {
-    LocationView(spot: Location.demo)
+    LocationView(spot: Location.demo, vm: LocationViewModel())
 }

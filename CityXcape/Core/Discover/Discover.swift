@@ -12,7 +12,6 @@ import CodeScanner
 struct Discover: View {
     @AppStorage(CXUserDefaults.uid) var uid: String?
     
-    @State private var showAlert: Bool = false
     @State private var startOnboarding: Bool = false
     @State private var scannedText: String = "Scan QR Code"
     @State private var startScanner: Bool = false
@@ -39,10 +38,14 @@ struct Discover: View {
                         .font(.title3)
                         .foregroundStyle(.white)
                         .fontWeight(.thin)
-                        .alert(isPresented: $showAlert, content: {
-                            return Alert(title: Text("You need an account to check-in"), primaryButton: .default(Text("Ok")){
-                                startOnboarding.toggle()
-                            } , secondaryButton: .cancel())
+                        .alert(isPresented: $vm.showError, content: {
+                            if vm.showOnboarding {
+                                return Alert(title: Text("You need an account to check-in"), primaryButton: .default(Text("Ok")){
+                                    startOnboarding.toggle()
+                                } , secondaryButton: .cancel())
+                            } else {
+                                return Alert(title: Text(vm.errorMessage))
+                            }
                         })
                 }
                    
@@ -57,7 +60,7 @@ struct Discover: View {
             ctaButton()
             Spacer()
         }
-        .background(background())
+        .background(HexBackground())
         
     }
     
@@ -69,6 +72,11 @@ struct Discover: View {
             Task {
                 do {
                     let spot = try await vm.checkin(spotId: code)
+//                    if spot.distanceFromUser > 150 {
+//                        vm.errorMessage = "You need to be there to checkin"
+//                        vm.showError.toggle()
+//                        return
+//                    }
                     currentSpot = spot
                 } catch {
                     print("Error fetching location", error.localizedDescription)
@@ -81,22 +89,7 @@ struct Discover: View {
         }
     }
     
-    @ViewBuilder
-    func background() -> some View {
-        ZStack {
-            Color.black
-            Image("hex-background")
-                .resizable()
-                .scaledToFill()
-                .opacity(0.3)
-                .fullScreenCover(isPresented: $startOnboarding) {
-                    Onboarding()
-                }
-              
-        }
-        .edgesIgnoringSafeArea(.all)
 
-    }
     
     @ViewBuilder
     func qrCode() -> some View {
@@ -105,13 +98,18 @@ struct Discover: View {
             .scaledToFit()
             .frame(height: 150)
             .opacity(0.5)
+            .fullScreenCover(isPresented: $startOnboarding) {
+                Onboarding()
+            }
+          
     }
     
     @ViewBuilder
     func ctaButton() -> some View {
         Button(action: {
 //            if AuthService.shared.uid == nil {
-//                showAlert.toggle()
+//                vm.showOnboarding.toggle()
+//                vm.showError.toggle()
 //                return
 //            }
             startScanner.toggle()
@@ -133,11 +131,16 @@ struct Discover: View {
         func headerView() -> some View {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 2) {
+                    Image("honeycomb")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 25)
                     
                     Image("Logo")
                         .resizable()
                         .scaledToFit()
                         .frame(height: 25)
+                        .padding(.leading, 5)
                     Spacer()
                     
                    

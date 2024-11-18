@@ -26,6 +26,7 @@ struct MessagesView: View {
                 }
             }
             .navigationBarHidden(true)
+            .background(HexBackground())
         }
         .colorScheme(.dark)
     }
@@ -44,7 +45,9 @@ struct MessagesView: View {
                 .tracking(3)
             Spacer()
         }
+        .background(.black)
         .padding(.bottom, 25)
+        
     }
 }
 

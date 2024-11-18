@@ -69,7 +69,7 @@ struct DigitalLounge: View {
         }
         .padding(.top, 40)
         .sheet(item: $currentUser) { user in
-            PublicStreetPass(user: user)
+            PublicStreetPass(user: user, vm: vm)
         }
     }
     
@@ -89,9 +89,9 @@ struct DigitalLounge: View {
                     }
                     
                     VStack(alignment: .center) {
-                        Text("Two Worlds in Common")
+                        Text(vm.compare(worlds: user.worlds))
                             .fontWeight(.light)
-                        Text("50% Match")
+                        Text(vm.calculateMatch(worlds: user.worlds))
                             .fontWeight(.medium)
                         Divider()
                             .background(.white)
@@ -108,6 +108,9 @@ struct DigitalLounge: View {
             })
         
     }
+    
+    
+    
     
     @ViewBuilder
     func checkoutButton() -> some View {

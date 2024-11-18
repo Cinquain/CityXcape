@@ -26,6 +26,10 @@ struct CXUserDefaults {
     static let username = "username"
     static let streetcred = "streetcred"
     static let lastSpotId = "lastSpotId"
+    static let lastSpotName = "lastSpotName"
+    static let world1 = "world1"
+    static let world2 = "world2"
+    static let world3 = "world3"
 }
 
 struct Server {

@@ -32,6 +32,9 @@ final class DataService {
     @AppStorage(CXUserDefaults.profileUrl) var profileUrl: String?
     @AppStorage(CXUserDefaults.username) var username: String?
     
+
+
+    
     //MARK: AUTH FUNCTIONS
     func createUser(auth: AuthDataResult) {
         let uid = auth.user.uid
@@ -60,6 +63,8 @@ final class DataService {
     func loginUser(uid: String) async throws {
         let user = try await getUserFrom(uid: uid)
         UserDefaults.standard.set(user.id, forKey: CXUserDefaults.uid)
+        UserDefaults.standard.setValue(user.imageUrl, forKey: CXUserDefaults.profileUrl)
+        UserDefaults.standard.setValue(user.username, forKey: CXUserDefaults.username)
     }
     
     
@@ -249,30 +254,26 @@ final class DataService {
     }
 
     //MARK: CONNECTION FUNCTIONS
-    func sendRequest(userId: String, spotId: String, message: String) async throws {
+    func sendRequest(userId: String, spotName: String, spotId: String, message: String, worlds: [String]) async throws {
         
         guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
+        
         let imageUrl = profileUrl ?? ""
         let username = username ?? ""
         
-        let reference = userRef.document(userId)
-                                  .collection(Server.request)
-                                  .document(uid)
-        
+        let reference = userRef.document(userId).collection(Server.request).document(uid)
         let spotReference = spotRef.document(spotId).collection(Server.request).document()
         
         let data: [String: Any] = [
-            Message.CodingKeys.id.rawValue: reference.documentID,
-            Message.CodingKeys.fromId.rawValue: uid,
-            Message.CodingKeys.toId.rawValue: userId,
-            Message.CodingKeys.content.rawValue: message,
-            Message.CodingKeys.timestamp.rawValue: Timestamp(),
-            Message.CodingKeys.ownerImageUrl.rawValue: imageUrl,
-            Message.CodingKeys.displayName.rawValue: username,
-            Message.CodingKeys.spotId.rawValue: spotId
+            Request.CodingKeys.id.rawValue: uid,
+            Request.CodingKeys.content.rawValue: message,
+            Request.CodingKeys.imageUrl.rawValue: imageUrl,
+            Request.CodingKeys.username.rawValue: username,
+            Request.CodingKeys.spotId.rawValue: spotId,
+            Request.CodingKeys.spotName.rawValue: spotName,
+            Request.CodingKeys.worlds.rawValue: worlds,
+            Message.CodingKeys.timestamp.rawValue: Timestamp()
         ]
-        
-        
         
         try await reference.setData(data)
         updateStreetCred(count: -1)

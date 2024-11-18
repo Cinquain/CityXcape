@@ -25,7 +25,7 @@ struct ContentView: View {
                         Text(Tab.locations.rawValue)
                     }
                 
-                RequestView(index: $selection, vm: vm)
+                RequestView(vm: vm)
                     .tag(1)
                     .tabItem {
                         Image(Tab.connections.imageTitle)
@@ -35,12 +35,7 @@ struct ContentView: View {
                     }
                     .badge(vm.requests.count)
                 
-                MessagesView()
-                    .tag(2)
-                    .tabItem {
-                        Image(systemName: Tab.messages.imageTitle)
-                        Text(Tab.messages.rawValue)
-                    }
+             
                 
                 StreetPass()
                     .tag(3)

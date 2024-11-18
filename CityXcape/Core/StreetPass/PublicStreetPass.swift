@@ -15,15 +15,13 @@ struct PublicStreetPass: View {
     @Environment(\.dismiss) private var dismiss
     
     var user: User
-    @State var worlds: [World] = []
+    @StateObject var vm: LocationViewModel
     
-    @State private var message: String = ""
+    
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
     @State private var isShimmering: Bool = false
-    @State private var showTextField: Bool = false
     @State private var buySTC: Bool = false
-    @State private var isSent: Bool = false
     
     var body: some View {
         VStack {
@@ -37,7 +35,7 @@ struct PublicStreetPass: View {
         .background(background())
         .onAppear {
            showAnimation()
-           loadWorlds()
+            vm.loadWorldsfor(user: user)
         }
     
       
@@ -95,13 +93,13 @@ struct PublicStreetPass: View {
     @ViewBuilder
     func messageField() -> some View {
         ZStack {
-            TextField("  Send a message", text: $message)
+            TextField("  Send a message", text: $vm.message)
                 .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                .frame(width: showTextField ? 250 : 0, height: 40)
+                .frame(width: vm.showTextField ? 250 : 0, height: 40)
                 .foregroundStyle(.black)
                 .background(.white)
                 .clipShape(Capsule())
-                .animation(.easeIn, value: showTextField)
+                .animation(.easeIn, value: vm.showTextField)
                 .padding(.top, 40)
             
             VStack {
@@ -112,7 +110,7 @@ struct PublicStreetPass: View {
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
             }
-            .opacity(isSent ? 1 : 0)
+            .opacity(vm.isSent ? 1 : 0)
         }
     }
     
@@ -121,12 +119,12 @@ struct PublicStreetPass: View {
             Button(action: {
                 checkForStreetCred()
             }, label: {
-                Text(showTextField ? "Send" : "message")
+                Text(vm.showTextField ? "Send" : "message")
                     .font(.title3)
                     .fontWeight(.thin)
                     .foregroundStyle(.black)
-                    .frame(width: showTextField ? 100 : 200, height: 45)
-                    .background(showTextField ? .green : .orange)
+                    .frame(width: vm.showTextField ? 100 : 200, height: 45)
+                    .background(vm.showTextField ? .green : .orange)
                     .clipShape(Capsule())
             })
             .sheet(isPresented: $buySTC, content: {
@@ -152,7 +150,7 @@ struct PublicStreetPass: View {
     @ViewBuilder
     func worldList() -> some View {
         HStack {
-            ForEach(worlds) { world in
+            ForEach(vm.worlds) { world in
                 Button {
                     errorMessage = "\(user.username) is \(world.memberName)"
                     showError.toggle()
@@ -176,28 +174,20 @@ struct PublicStreetPass: View {
             }
         }
         .padding(.top, 10)
-        
     }
-    
-    func loadWorlds() {
-        Task {
-            for key in user.worlds {
-                let world = try await DataService.shared.getWorldFor(id: key)
-                self.worlds.append(world)
-            }
-        }
-    }
+
     
     fileprivate func checkForStreetCred() {
-        if showTextField {
-            submitRequest()
+        if vm.showTextField {
+            vm.sendRequest(uid: user.id)
             return
         }
+        
         Task {
             do {
                let value = try await DataService.shared.getStreetCred()
                 if value > 0 {
-                    submitRequest()
+                    vm.showTextField = true 
                 } else {
                     buySTC.toggle()
                     return
@@ -209,42 +199,10 @@ struct PublicStreetPass: View {
     }
     
 
-    fileprivate func submitRequest() {
-       if !showTextField {
-            showTextField.toggle()
-            return
-        }
-      if message.isEmpty {
-            errorMessage = "Please enter a message"
-            showError.toggle()
-            return
-        }
-        
-        let locationId = lastSpot ?? ""
-          Task {
-              do {
-                  try await  DataService.shared.sendRequest(userId: user.id, spotId: locationId, message: message)
-                  withAnimation {
-                      message = ""
-                      showTextField = false
-                      isSent = true
-                      SoundManager.shared.playBeep()
-                  }
-                  DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                      withAnimation {
-                          isSent = false
-                      }
-                  })
-              } catch {
-                  errorMessage = error.localizedDescription
-                  showError.toggle()
-              }
-          }
-        
-    }
+  
     
 }
 
 #Preview {
-    PublicStreetPass(user: User.demo)
+    PublicStreetPass(user: User.demo, vm: LocationViewModel())
 }

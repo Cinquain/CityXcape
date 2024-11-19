@@ -64,7 +64,7 @@ struct StreetPass: View {
     @ViewBuilder
     func worldList() -> some View {
         HStack {
-            ForEach(vm.worlds) { world in
+            ForEach(vm.user?.worlds ?? []) { world in
                 Button {
                     vm.errorMessage = "You're part of the \(world.name) world"
                     vm.showError.toggle()

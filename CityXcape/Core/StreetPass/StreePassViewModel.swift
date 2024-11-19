@@ -44,7 +44,6 @@ class StreetPassViewModel: ObservableObject {
                 let credentials = try await DataService.shared.getUserCredentials()
                 DispatchQueue.main.async {
                     self.user = credentials
-                    self.loadWorlds()
                 }
             } catch {
                 print("Error finding user", error.localizedDescription)
@@ -69,15 +68,7 @@ class StreetPassViewModel: ObservableObject {
         }
     }
     
-    func loadWorlds() {
-        guard let keys = user?.worlds else {return}
-        Task {
-            for key in keys {
-                let world = try await DataService.shared.getWorldFor(id: key)
-                self.worlds.append(world)
-            }
-        }
-    }
+
     
     
     func loadProfileImage(from item: PhotosPickerItem?) async {

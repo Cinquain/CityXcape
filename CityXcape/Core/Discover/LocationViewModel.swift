@@ -95,7 +95,7 @@ class LocationViewModel: ObservableObject {
         }
     }
     
-    func compare(worlds: [String]) -> String {
+    func compare(worlds: [World]) -> String {
         var result: String = "No Communities in Common"
         guard let user = user else {return result}
         var count: Int = 0
@@ -109,7 +109,7 @@ class LocationViewModel: ObservableObject {
         return result
     }
     
-    func calculateMatch(worlds: [String]) -> String {
+    func calculateMatch(worlds: [World]) -> String {
         var result: String = ""
         guard let user = user else {return result}
         var count: Int = 0
@@ -136,10 +136,10 @@ class LocationViewModel: ObservableObject {
         guard let user = user else {return}
         guard let spot = spot else {return}
         let worlds = user.worlds
-        
+        let request = Request(id: user.id, username: user.username, imageUrl: user.imageUrl, content: message, spotId: spot.id, spotName: spot.id, worlds: user.worlds)
         Task {
             do {
-                try await DataService.shared.sendRequest(userId: uid, spotName: spot.name, spotId: spot.id, message: message, worlds: worlds)
+                try await DataService.shared.sendRequest(userId: uid, request: request)
                 message = ""
                 showTextField = false
                 isSent = true
@@ -157,14 +157,7 @@ class LocationViewModel: ObservableObject {
     }
     
     
-    func loadWorldsfor(user: User) {
-        Task {
-            for key in user.worlds {
-                let world = try await DataService.shared.getWorldFor(id: key)
-                self.worlds.append(world)
-            }
-        }
-    }
+ 
     
 }
 

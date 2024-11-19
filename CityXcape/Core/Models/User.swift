@@ -16,8 +16,7 @@ struct User: Identifiable, Equatable, Codable {
     let gender: Bool
     let city: String
     let streetcred: Int
-    let worlds: [String]
-    let fcmToken: String
+    let worlds: [World]
  
     
     static func == (lhs: User, rhs: User) -> Bool {
@@ -33,10 +32,9 @@ struct User: Identifiable, Equatable, Codable {
         case city
         case streetcred
         case worlds
-        case fcmToken
     }
     
-    init(id: String, username: String, imageUrl: String, gender: Bool, city: String, streetcred: Int, worlds: [String], fcmToken: String) {
+    init(id: String, username: String, imageUrl: String, gender: Bool, city: String, streetcred: Int, worlds: [World]) {
         self.id = id
         self.username = username
         self.imageUrl = imageUrl
@@ -44,7 +42,6 @@ struct User: Identifiable, Equatable, Codable {
         self.city = city
         self.streetcred = streetcred
         self.worlds = worlds
-        self.fcmToken = fcmToken
     }
     
     init(data: [String: Any]?) {
@@ -54,8 +51,13 @@ struct User: Identifiable, Equatable, Codable {
         self.gender = data?[User.CodingKeys.gender.rawValue] as? Bool ?? false
         self.city = data?[User.CodingKeys.city.rawValue] as? String ?? ""
         self.streetcred = data?[User.CodingKeys.streetcred.rawValue] as? Int ?? 0
-        self.fcmToken = data?[User.CodingKeys.fcmToken.rawValue] as? String ?? ""
-        self.worlds =  data?[User.CodingKeys.worlds.rawValue] as? [String] ?? []
+        let data = data?[User.CodingKeys.worlds.rawValue] as? [String: [String: Any]] ?? [:]
+        var fetchedWorlds : [World] = []
+        for value in data.values {
+            let world = World(data: value)
+            fetchedWorlds.append(world)
+        }
+        self.worlds = fetchedWorlds
     }
     
     static let data: [String: Any] = [
@@ -65,8 +67,7 @@ struct User: Identifiable, Equatable, Codable {
         User.CodingKeys.gender.rawValue: false,
         User.CodingKeys.city.rawValue: "Minneapolis",
         User.CodingKeys.streetcred.rawValue: 100,
-        User.CodingKeys.worlds.rawValue: [World.demo.id, World.demo2.id, World.demo3.id],
-        User.CodingKeys.fcmToken.rawValue: "fkjfjjfgkjjg"
+        User.CodingKeys.worlds.rawValue: ["OHf9hK5OkVD8q9fmKkom": World.data, "diuhfhhgi": World.data2, "fjfjbhbf":World.data6]
     ]
     
     static let data2: [String: Any] = [
@@ -76,8 +77,7 @@ struct User: Identifiable, Equatable, Codable {
         User.CodingKeys.gender.rawValue: false,
         User.CodingKeys.city.rawValue: "Minneapolis",
         User.CodingKeys.streetcred.rawValue: 100,
-        User.CodingKeys.worlds.rawValue: [World.demo4.id, World.demo5.id, World.demo6.id],
-        User.CodingKeys.fcmToken.rawValue: "fkjfjjfgkjjg"
+        User.CodingKeys.worlds.rawValue: ["iohufhhf":World.data4, "dubvjnbwu": World.data5, "fiooufhj": World.data6],
     ]
     
     static let data3: [String: Any] = [
@@ -87,8 +87,7 @@ struct User: Identifiable, Equatable, Codable {
         User.CodingKeys.gender.rawValue: false,
         User.CodingKeys.city.rawValue: "Minneapolis",
         User.CodingKeys.streetcred.rawValue: 100,
-        User.CodingKeys.worlds.rawValue: [World.demo3.id, World.demo.id, World.demo5.id],
-        User.CodingKeys.fcmToken.rawValue: "fkjfjjfgkjjg"
+        User.CodingKeys.worlds.rawValue: ["jfhfhfhfh": World.data3, "dhhfhhff": World.data2, "dfggfgf": World.data5],
     ]
     
     static let demo = User(data: data)

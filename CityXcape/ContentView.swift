@@ -9,14 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     @AppStorage(CXUserDefaults.firstOpen) var firstOpen: Bool?
-    @State var selection: Int = 0
+    @State var index: Int = 0
     @StateObject var vm = RequestViewModel()
     @EnvironmentObject private var store: Store
 
     
     var body: some View {
     
-            TabView(selection: $selection) {
+            TabView(selection: $index) {
                 Discover()
                     .tag(0)
                     .tabItem {
@@ -25,7 +25,7 @@ struct ContentView: View {
                         Text(Tab.locations.rawValue)
                     }
                 
-                RequestView(vm: vm)
+                RequestView(vm: vm, index: $index)
                     .tag(1)
                     .tabItem {
                         Image(Tab.connections.imageTitle)
@@ -35,6 +35,14 @@ struct ContentView: View {
                     }
                     .badge(vm.requests.count)
                 
+                MessagesView()
+                    .tag(2)
+                    .tabItem {
+                        Image(systemName: Tab.messages.imageTitle)
+                            .renderingMode(.template)
+                            .scaledToFit()
+                        Text(Tab.messages.rawValue)
+                    }
              
                 
                 StreetPass()

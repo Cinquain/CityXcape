@@ -14,7 +14,7 @@ struct PublicStreetPass: View {
     @AppStorage(CXUserDefaults.lastSpotId) var lastSpot : String?
     @Environment(\.dismiss) private var dismiss
     
-    var user: User
+    @State var user: User
     @StateObject var vm: LocationViewModel
     
     
@@ -35,7 +35,6 @@ struct PublicStreetPass: View {
         .background(background())
         .onAppear {
            showAnimation()
-            vm.loadWorldsfor(user: user)
         }
     
       
@@ -150,7 +149,7 @@ struct PublicStreetPass: View {
     @ViewBuilder
     func worldList() -> some View {
         HStack {
-            ForEach(vm.worlds) { world in
+            ForEach(user.worlds) { world in
                 Button {
                     errorMessage = "\(user.username) is \(world.memberName)"
                     showError.toggle()

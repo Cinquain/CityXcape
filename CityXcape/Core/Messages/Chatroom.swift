@@ -10,7 +10,7 @@ import SwiftUI
 struct Chatroom: View {
     
     let uid: String
-    @StateObject var vm: ChatViewModel
+    @StateObject var vm : ChatViewModel
     
     var body: some View {
         ZStack {

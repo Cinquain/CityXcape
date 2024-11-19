@@ -12,7 +12,8 @@ import Shimmer
 struct UserRequestView: View {
     
     @State var request: Request
-    @Binding var close: Bool
+    @StateObject var vm: RequestViewModel
+    @Binding var index: Int
     
     @State private var worlds: [World] = []
     @State private var showMatch: Bool = false
@@ -26,15 +27,20 @@ struct UserRequestView: View {
                 header()
                 userView()
                 worldList()
+                chatBubble()
                 Spacer()
-                message()
+                ctaButtons()
             }
             .onAppear(perform: {
-                loadWorldsfor()
                 showAnimation()
             })
             .background(background())
             
+            if showMatch {
+                MatchAnimation(request: request, index: $index, vm: vm)
+                    .animation(.easeInOut, value: showMatch)
+            }
+           
           
         }
     }
@@ -53,6 +59,15 @@ struct UserRequestView: View {
         .edgesIgnoringSafeArea(.all)
     }
     
+    @ViewBuilder
+    func chatBubble() -> some View {
+        Text(request.content)
+            .foregroundStyle(.black)
+            .frame(width: 250, height: 40)
+            .background(.orange.opacity(0.85))
+            .clipShape(Capsule())
+            .padding(.top, 20)
+    }
     @ViewBuilder
     func userView() -> some View {
         VStack {
@@ -89,15 +104,6 @@ struct UserRequestView: View {
             }
             
             Spacer()
-            
-            Button {
-                close = false 
-            } label: {
-                Image(systemName: "arrow.uturn.left.circle.fill")
-                    .foregroundStyle(.white)
-                    .font(.largeTitle)
-                    .opacity(0.8)
-            }
 
          
         }
@@ -106,41 +112,39 @@ struct UserRequestView: View {
     }
     
     @ViewBuilder
-    func message() -> some View {
-                Button {
-                    //
-                } label: {
-                    HStack(spacing: 5) {
-                        HStack {
-                            Spacer()
-                            Text(request.content)
-                                .foregroundStyle(.black)
-                                .lineLimit(2)
-                            Spacer()
-                        }
-                        .padding(.vertical, 20)
-                        .background(.gray)
-                        .cornerRadius(8)
-                        
-                        Button {
-                            showMatch.toggle()
-                        } label: {
-                            Image(systemName: "message.fill")
-                                .font(.system(size: 32))
-                                .foregroundStyle(.orange)
-                               
-                        }
-                        
-                    }
-                }
-                .padding(.horizontal, 50)
+    func ctaButtons() -> some View {
+        HStack(spacing: 150) {
+            Button {
+                vm.showPage.toggle()
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+                    .font(.system(size: 32))
+                    .foregroundStyle(.white)
+                    .frame(width: 70, height: 70)
+                    .background(.red)
+                    .clipShape(Circle())
+            }
+            
+            Button {
+                showMatch = true
+            } label: {
+                Image(systemName: "message.fill")
+                    .font(.system(size: 32))
+                    .foregroundStyle(.white)
+                    .frame(width: 70, height: 70)
+                    .background(.green)
+                    .clipShape(Circle())
+            }
+
+        }
+        .padding(.bottom, 20)
         
     }
     
     @ViewBuilder
     func worldList() -> some View {
         HStack {
-            ForEach(worlds) { world in
+            ForEach(request.worlds) { world in
                 Button {
                     errorMessage = "\(request.username) is \(world.memberName)"
                     showError.toggle()
@@ -166,14 +170,6 @@ struct UserRequestView: View {
         .padding(.top, 10)
     }
     
-    func loadWorldsfor() {
-        Task {
-            for key in request.worlds {
-                let world = try await DataService.shared.getWorldFor(id: key)
-                self.worlds.append(world)
-            }
-        }
-    }
     
     func showAnimation() {
         isShimmering = true
@@ -188,5 +184,5 @@ struct UserRequestView: View {
 }
 
 #Preview {
-    RequestView(vm: RequestViewModel())
+   ContentView()
 }

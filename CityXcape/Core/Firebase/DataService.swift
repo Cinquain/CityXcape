@@ -54,7 +54,26 @@ final class DataService {
     func createStreetPass(user: User) async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let reference = userRef.document(uid)
-        try reference.setData(from: user.self)
+        var values: [String: [String: Any]] = [:]
+        for world in user.worlds {
+            values[world.id] = [
+                World.CodingKeys.id.rawValue: world.id,
+                World.CodingKeys.name.rawValue: world.name,
+                World.CodingKeys.memberName.rawValue: world.memberName,
+                World.CodingKeys.imageUrl.rawValue: world.imageUrl
+            ]
+        }
+        let data: [String: Any] = [
+            User.CodingKeys.id.rawValue: uid,
+            User.CodingKeys.username.rawValue: user.username,
+            User.CodingKeys.imageUrl.rawValue: user.imageUrl,
+            User.CodingKeys.gender.rawValue: user.gender,
+            User.CodingKeys.city.rawValue: user.city,
+            User.CodingKeys.streetcred.rawValue: user.streetcred,
+            User.CodingKeys.worlds.rawValue: values
+        ]
+        
+        try await reference.setData(data)
         updateStreetCred(count: 1)
         UserDefaults.standard.setValue(user.username, forKey: CXUserDefaults.username)
         UserDefaults.standard.set(true, forKey: CXUserDefaults.createdSP)
@@ -254,7 +273,7 @@ final class DataService {
     }
 
     //MARK: CONNECTION FUNCTIONS
-    func sendRequest(userId: String, spotName: String, spotId: String, message: String, worlds: [String]) async throws {
+    func sendRequest(userId: String, request: Request) async throws {
         
         guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
         
@@ -262,22 +281,11 @@ final class DataService {
         let username = username ?? ""
         
         let reference = userRef.document(userId).collection(Server.request).document(uid)
-        let spotReference = spotRef.document(spotId).collection(Server.request).document()
+        let spotReference = spotRef.document(request.spotId).collection(Server.request).document()
         
-        let data: [String: Any] = [
-            Request.CodingKeys.id.rawValue: uid,
-            Request.CodingKeys.content.rawValue: message,
-            Request.CodingKeys.imageUrl.rawValue: imageUrl,
-            Request.CodingKeys.username.rawValue: username,
-            Request.CodingKeys.spotId.rawValue: spotId,
-            Request.CodingKeys.spotName.rawValue: spotName,
-            Request.CodingKeys.worlds.rawValue: worlds,
-            Message.CodingKeys.timestamp.rawValue: Timestamp()
-        ]
-        
-        try await reference.setData(data)
+        try reference.setData(from: request.self)
         updateStreetCred(count: -1)
-        try await spotReference.setData(data)
+        try spotReference.setData(from: request.self)
     }
     
     func acceptRequest(message: Message) async throws {

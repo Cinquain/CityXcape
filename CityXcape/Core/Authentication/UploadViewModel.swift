@@ -68,7 +68,7 @@ class UploadViewModel: ObservableObject {
         if checkAllFields() == false {return}
         guard let uid = AuthService.shared.uid else {return}
         let worldIds = selectedWorlds.map { $0.id }
-        let user = User(id: uid, username: username, imageUrl: imageUrl, gender: gender, city: city, streetcred: 2, worlds: worldIds, fcmToken: "")
+        let user = User(id: uid, username: username, imageUrl: imageUrl, gender: gender, city: city, streetcred: 2, worlds: selectedWorlds)
         try await DataService.shared.createStreetPass(user: user)
     }
     

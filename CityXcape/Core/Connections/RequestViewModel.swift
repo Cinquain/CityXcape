@@ -15,6 +15,7 @@ class RequestViewModel: ObservableObject {
     @Published var showMatch: Bool = false
     @Published var errorMessage: String = ""
     @Published var showError: Bool = false
+    @Published var showPage: Bool = false 
     
     init() {
 //        fetchPendingRequest()

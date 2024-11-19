@@ -9,11 +9,12 @@ import SwiftUI
 
 struct RequestView: View {
 
-    @GestureState private var dragState: DragState = .inactive
     @StateObject var vm: RequestViewModel
+    @Binding var index: Int
+    
+    
+    @GestureState private var dragState: DragState = .inactive
     @State private var currentRequest: Request?
-    @State private var showPage: Bool = false
-    @State private var scale: Double  = 0
     var body: some View {
         ZStack {
             VStack {
@@ -25,8 +26,7 @@ struct RequestView: View {
                             ForEach(vm.requests) { request in
                                 Button {
                                     currentRequest = request
-                                    showPage.toggle()
-                                    scale  = 1
+                                    vm.showPage.toggle()
                                 } label: {
                                     RequestThumb(request: request)
                                 }
@@ -38,12 +38,12 @@ struct RequestView: View {
                 }
                 .background(HexBackground())
             
-            if showPage {
+            if vm.showPage {
                 if let requests = currentRequest {
                     withAnimation(.easeIn(duration: 0.5)) {
-                        UserRequestView(request: requests, close: $showPage)
+                        UserRequestView(request: requests, vm: vm, index: $index)
                             .transition(.move(edge: .leading))
-                            .animation(.easeIn(duration: 0.4), value: showPage)
+                            .animation(.easeIn(duration: 0.4), value: vm.showPage)
                     }
                 }
                                 
@@ -131,5 +131,5 @@ struct RequestView: View {
 }
 
 #Preview {
-    RequestView(vm: RequestViewModel())
+    ContentView()
 }

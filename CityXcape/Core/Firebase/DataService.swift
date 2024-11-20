@@ -43,7 +43,7 @@ final class DataService {
         let data: [String: Any] = [
             User.CodingKeys.id.rawValue: uid,
             Server.email: email ?? "",
-            Message.CodingKeys.timestamp.rawValue: Timestamp(),
+            Server.timestamp: Timestamp(),
             User.CodingKeys.streetcred.rawValue: 1
         ]
 
@@ -267,7 +267,7 @@ final class DataService {
         let reference = worldRef.document(worldId).collection(Server.members)
         let data: [String: Any] = [
             User.CodingKeys.id.rawValue: uid,
-            Message.CodingKeys.timestamp.rawValue: FieldValue.serverTimestamp()
+            Server.timestamp: FieldValue.serverTimestamp()
         ]
         try await reference.document(uid).setData(data)
     }
@@ -288,35 +288,51 @@ final class DataService {
         try spotReference.setData(from: request.self)
     }
     
-    func acceptRequest(message: Message) async throws {
+    func removeRequest(request: Request) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let reference = userRef.document(uid).collection(Server.request).document(request.id)
+        try await reference.delete()
+    }
+    
+    func acceptRequest(content: String, request: Request) async throws {
         guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
-        
         //Create chat references
-        let messageRef = chatRef.document(uid).collection(message.fromId).document()
-        let messageRefII = chatRef.document(message.fromId).collection(uid).document()
-        try messageRef.setData(from: message)
-        try messageRefII.setData(from: message)
+        let messageRef = chatRef.document(uid).collection(request.id).document()
+        let messageRefII = chatRef.document(request.id).collection(uid).document()
         
         //Create recent message references
-        let recentRef = chatRef.document(Server.recentMessage).collection(uid).document(message.fromId)
-        let recentRefII = chatRef.document(Server.recentMessage).collection(message.fromId).document(uid)
-        try recentRef.setData(from: message)
-        try recentRefII.setData(from: message)
+        let recentRef = chatRef.document(Server.recentMessage).collection(uid).document(request.id)
+        let recentRefII = chatRef.document(Server.recentMessage).collection(request.id).document(uid)
         
-        //Create connections
-        let userIRef = userRef.document(uid).collection(Server.connections).document(message.fromId)
-        let userIIRef = userRef.document(message.fromId).collection(uid).document(uid)
-        
-        //Set Location Connection
-        let spotRef = connectRef.document(message.spotId ?? "").collection(Server.connections).document()
-        
-        let spotData: [String: Any] = [
-            Message.CodingKeys.fromId.rawValue: message.fromId,
-            Message.CodingKeys.toId.rawValue: uid,
-            Message.CodingKeys.timestamp.rawValue: Timestamp(),
+        let message: [String: Any] = [
+            Message.CodingKeys.id.rawValue: messageRef.documentID,
+            Message.CodingKeys.imageUrl.rawValue: profileUrl ?? "",
+            Message.CodingKeys.username.rawValue: username ?? "",
+            Message.CodingKeys.content.rawValue: content,
+            Message.CodingKeys.toId.rawValue: request.id,
+            Message.CodingKeys.fromId.rawValue: uid
         ]
         
-        try await spotRef.setData(spotData)
+        try await  messageRef.setData(message)
+        try await messageRefII.setData(message)
+        try await  recentRef.setData(message)
+        try await  recentRefII.setData(message)
+        
+        //Create connections
+        let userIRef = userRef.document(uid).collection(Server.connections).document(request.id)
+        let userIIRef = userRef.document(request.id).collection(Server.connections).document(uid)
+        let spotRef = spotRef.document(request.spotId).collection(Server.connections).document()
+        
+        let connectionData: [String: Any] = [
+            Message.CodingKeys.fromId.rawValue: request.id,
+            Message.CodingKeys.toId.rawValue: uid,
+            Request.CodingKeys.spotId.rawValue: request.spotId,
+            Server.timestamp: Timestamp(),
+        ]
+        
+        try await userIRef.setData(connectionData)
+        try await userIIRef.setData(connectionData)
+        try await spotRef.setData(connectionData)
     }
     
     func fetchAllRequests() async throws -> [Request] {
@@ -425,7 +441,7 @@ final class DataService {
             Message.CodingKeys.fromId.rawValue: uid,
             Message.CodingKeys.toId.rawValue: userId,
             Message.CodingKeys.content.rawValue: content,
-            Message.CodingKeys.timestamp.rawValue: Timestamp()
+            Server.timestamp: Timestamp()
         ]
         
         try await toRef.setData(data)

@@ -14,10 +14,10 @@ struct ChatPreview: View {
     var body: some View {
         VStack {
             HStack(spacing: 16) {
-                UserDot(size: 60, url: message.ownerImageUrl)
+                UserDot(size: 60, url: message.imageUrl)
                     .padding(.top,2)
                 VStack(alignment: .leading) {
-                    Text(message.displayName)
+                    Text(message.username)
                         .font(.callout)
                         .foregroundStyle(.white)
                         .fontWeight(.light)
@@ -29,11 +29,7 @@ struct ChatPreview: View {
                 }
                 Spacer()
                 
-                Text(message.timestamp.timeAgo())
-                    .fontWeight(.thin)
-                    .foregroundStyle(.white)
-                    .frame(width: 65)
-                    .lineLimit(1)
+             
             }
             
             

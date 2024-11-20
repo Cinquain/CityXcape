@@ -43,6 +43,7 @@ struct Server {
     static let request = "requests"
     static let email = "email"
     static let checkins = "checkins"
+    static let timestamp = "timestamp"
     static let members = "members"
 }
 

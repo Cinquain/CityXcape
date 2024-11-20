@@ -16,7 +16,6 @@ struct UserRequestView: View {
     @Binding var index: Int
     
     @State private var worlds: [World] = []
-    @State private var showMatch: Bool = false
     @State private var errorMessage: String = ""
     @State private var showError: Bool = false
     @State private var isShimmering: Bool = false
@@ -36,13 +35,18 @@ struct UserRequestView: View {
             })
             .background(background())
             
-            if showMatch {
+            if vm.showMatch {
                 MatchAnimation(request: request, index: $index, vm: vm)
-                    .animation(.easeInOut, value: showMatch)
+                    .animation(.easeInOut, value: vm.showMatch)
             }
            
           
         }
+        .onDisappear(perform: {
+            if vm.showTextField {
+                vm.showTextField.toggle()
+            }
+        })
     }
     
     @ViewBuilder
@@ -61,12 +65,31 @@ struct UserRequestView: View {
     
     @ViewBuilder
     func chatBubble() -> some View {
-        Text(request.content)
-            .foregroundStyle(.black)
-            .frame(width: 250, height: 40)
-            .background(.orange.opacity(0.85))
-            .clipShape(Capsule())
-            .padding(.top, 20)
+        ZStack {
+            Text(request.content)
+                .foregroundStyle(.black)
+                .frame(width: 250, height: 40)
+                .background(.orange.opacity(0.85))
+                .clipShape(Capsule())
+                .padding(.top, 20)
+                .opacity(vm.showTextField ? 0 : 1)
+                .animation(.easeIn, value: vm.showTextField)
+                .alert(isPresented: $vm.showError, content: {
+                    return Alert(title: Text(vm.errorMessage))
+                })
+
+            
+            TextField("Send a message", text: $vm.message)
+                .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                .frame(width: 260, height: 40)
+                .foregroundStyle(.black)
+                .background(.white)
+                .clipShape(Capsule())
+                .padding(.top, 20)
+                .opacity(vm.showTextField ? 1 : 0)
+                .animation(.easeIn, value: vm.showTextField)
+
+        }
     }
     @ViewBuilder
     func userView() -> some View {
@@ -115,7 +138,7 @@ struct UserRequestView: View {
     func ctaButtons() -> some View {
         HStack(spacing: 150) {
             Button {
-                vm.showPage.toggle()
+                vm.removeRequest(request: request)
             } label: {
                 Image(systemName: "xmark.circle.fill")
                     .font(.system(size: 32))
@@ -126,7 +149,7 @@ struct UserRequestView: View {
             }
             
             Button {
-                showMatch = true
+                vm.acceptRequest(request: request)
             } label: {
                 Image(systemName: "message.fill")
                     .font(.system(size: 32))

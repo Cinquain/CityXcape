@@ -11,7 +11,6 @@ import CodeScanner
 
 struct Discover: View {
     @AppStorage(CXUserDefaults.uid) var uid: String?
-    
     @State private var startOnboarding: Bool = false
     @State private var scannedText: String = "Scan QR Code"
     @State private var startScanner: Bool = false
@@ -33,6 +32,10 @@ struct Discover: View {
                         .foregroundStyle(.white)
                         .scaledToFit()
                         .frame(height: 220)
+                        .fullScreenCover(isPresented: $startOnboarding) {
+                            Onboarding()
+                        }
+                      
                     
                     Text(scannedText)
                         .font(.title3)
@@ -41,7 +44,7 @@ struct Discover: View {
                         .alert(isPresented: $vm.showError, content: {
                             if vm.showOnboarding {
                                 return Alert(title: Text("You need an account to check-in"), primaryButton: .default(Text("Ok")){
-                                    startOnboarding.toggle()
+                                    startOnboarding = true
                                 } , secondaryButton: .cancel())
                             } else {
                                 return Alert(title: Text(vm.errorMessage))
@@ -98,20 +101,17 @@ struct Discover: View {
             .scaledToFit()
             .frame(height: 150)
             .opacity(0.5)
-            .fullScreenCover(isPresented: $startOnboarding) {
-                Onboarding()
-            }
-          
+            
     }
     
     @ViewBuilder
     func ctaButton() -> some View {
         Button(action: {
-//            if AuthService.shared.uid == nil {
-//                vm.showOnboarding.toggle()
-//                vm.showError.toggle()
-//                return
-//            }
+            if AuthService.shared.uid == nil {
+                vm.showOnboarding.toggle()
+                vm.showError.toggle()
+                return
+            }
             startScanner.toggle()
         }, label: {
             Text("Check-In")

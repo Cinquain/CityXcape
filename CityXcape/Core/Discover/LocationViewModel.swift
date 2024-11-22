@@ -95,36 +95,24 @@ class LocationViewModel: ObservableObject {
         }
     }
     
-    func compare(worlds: [World]) -> String {
-        var result: String = "No Communities in Common"
-        guard let user = user else {return result}
-        var count: Int = 0
+    func compare(worlds: [World]) -> (String, String) {
+        var result: String = "No World in Common"
+        var percentage: String = "0% Match"
+        let total: Double = 3
+        guard let user = user else {return (result, percentage) }
+        var count: Double = 0
         for world in worlds {
             if user.worlds.contains(world) {
                 count += 1
             }
         }
-        if count == 0 {return result}
+        if count == 0 {return (result, percentage)}
+        
         result = count > 1 ? "\(count) Worlds in Common" : "\(count) World in Common"
-        return result
+        let percent: Double = (count / total) * 100
+        percentage = "\(percent.clean)% Match"
+        return (result, percentage)
     }
-    
-    func calculateMatch(worlds: [World]) -> String {
-        var result: String = ""
-        guard let user = user else {return result}
-        var count: Int = 0
-        let total : Int = 3
-        for world in worlds {
-            if user.worlds.contains(world) {
-                count += 1
-            }
-        }
-        let percentage = count / total * 100
-        let roundedPercentage = String(format: "%0f", percentage)
-        let finalString = "\(percentage)% Match"
-        return finalString
-    }
-    
     
     func sendRequest(uid: String) {
         if message.isEmpty {
@@ -136,7 +124,7 @@ class LocationViewModel: ObservableObject {
         guard let user = user else {return}
         guard let spot = spot else {return}
         let worlds = user.worlds
-        let request = Request(id: user.id, username: user.username, imageUrl: user.imageUrl, content: message, spotId: spot.id, spotName: spot.id, worlds: user.worlds)
+        let request = Request(id: user.id, username: user.username, imageUrl: user.imageUrl, content: message, spotId: spot.id, spotName: spot.name, worlds: user.worlds)
         Task {
             do {
                 try await DataService.shared.sendRequest(userId: uid, request: request)

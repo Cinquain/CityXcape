@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Chatroom: View {
     
-    let uid: String
+    let message: Message
     @StateObject var vm : ChatViewModel
     
     var body: some View {
@@ -30,7 +30,7 @@ struct Chatroom: View {
             }
         }
         .onAppear(perform: {
-            vm.fetchMessageFor(uid: uid)
+            vm.fetchMessageFor(uid: message.toId)
         })
         .onDisappear(perform: {
             vm.removeChatListener()
@@ -54,7 +54,7 @@ struct Chatroom: View {
             
             Button {
                 Task {
-                     await vm.sendMessage(uid: uid)
+                    await vm.sendMessage(uid: message.toId)
                 }
             } label: {
                 Text("Send")
@@ -75,7 +75,7 @@ struct Chatroom: View {
         ScrollView {
             ScrollViewReader { proxy in
                 
-                ForEach(vm.chatroom) {
+                ForEach(vm.messages) {
                     ChatBubble(message: $0)
                 }
                 
@@ -106,6 +106,6 @@ struct Chatroom: View {
 
 #Preview {
     NavigationView {
-        Chatroom(uid: "foid", vm: ChatViewModel())
+        Chatroom(message: Message.demo, vm: ChatViewModel())
     }
 }

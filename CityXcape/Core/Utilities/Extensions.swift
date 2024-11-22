@@ -209,6 +209,11 @@ extension CLLocationCoordinate2D {
     }
 }
 
+extension Double {
+    var clean: String {
+        return String(format: "%.0f", self)
+    }
+}
 
 fileprivate struct ParticleModifier: ViewModifier {
     var systemName: String

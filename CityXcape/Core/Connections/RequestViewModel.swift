@@ -11,7 +11,7 @@ import SwiftUI
 
 class RequestViewModel: ObservableObject {
     
-    @Published var requests: [Request] = [Request.demo, Request.demo2, Request.demo3, Request.demo4, Request.demo5, Request.demo6]
+    @Published var requests: [Request] = []
     @Published var showMatch: Bool = false
     @Published var errorMessage: String = ""
     @Published var showError: Bool = false
@@ -20,7 +20,7 @@ class RequestViewModel: ObservableObject {
     @Published var message: String = ""
     
     init() {
-//        fetchPendingRequest()
+        fetchPendingRequest()
     }
     
  

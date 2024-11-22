@@ -89,9 +89,9 @@ struct DigitalLounge: View {
                     }
                     
                     VStack(alignment: .center) {
-                        Text(vm.compare(worlds: user.worlds))
+                        Text(vm.compare(worlds: user.worlds).0)
                             .fontWeight(.light)
-                        Text(vm.calculateMatch(worlds: user.worlds))
+                        Text(vm.compare(worlds: user.worlds).1)
                             .fontWeight(.medium)
                         Divider()
                             .background(.white)

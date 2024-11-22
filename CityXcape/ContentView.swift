@@ -11,6 +11,7 @@ struct ContentView: View {
     @AppStorage(CXUserDefaults.firstOpen) var firstOpen: Bool?
     @State var index: Int = 0
     @StateObject var vm = RequestViewModel()
+    @StateObject var chatVm = ChatViewModel()
     @EnvironmentObject private var store: Store
 
     
@@ -35,7 +36,7 @@ struct ContentView: View {
                     }
                     .badge(vm.requests.count)
                 
-                MessagesView()
+                MessagesView(vm: chatVm)
                     .tag(2)
                     .tabItem {
                         Image(systemName: Tab.messages.imageTitle)
@@ -43,6 +44,7 @@ struct ContentView: View {
                             .scaledToFit()
                         Text(Tab.messages.rawValue)
                     }
+                    .badge(chatVm.recents.count)
              
                 
                 StreetPass()

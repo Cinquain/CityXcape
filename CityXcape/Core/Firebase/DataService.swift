@@ -159,7 +159,8 @@ final class DataService {
                                  
                                  if change.type == .added {
                                      let data = change.document.data()
-                                     let user = User(data: data)
+                                     let user = try? change.document.data(as: User.self)
+                                     guard let user = user else {return}
                                      users.insert(user, at: 0)
                                  }
                                  
@@ -182,6 +183,8 @@ final class DataService {
     func checkin(spotId: String, user: User) async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let reference = spotRef.document(spotId).collection(Server.checkins)
+        
+        
         try reference.document(uid).setData(from: user.self)
     }
     
@@ -276,9 +279,6 @@ final class DataService {
     func sendRequest(userId: String, request: Request) async throws {
         
         guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
-        
-        let imageUrl = profileUrl ?? ""
-        let username = username ?? ""
         
         let reference = userRef.document(userId).collection(Server.request).document(uid)
         let spotReference = spotRef.document(request.spotId).collection(Server.request).document()
@@ -451,7 +451,7 @@ final class DataService {
     
     func saveRecentMessgae(userId: String, data: [String: Any]) async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        let reference = chatRef.document(Server.recentMessage).collection(uid).document(userId)
+        let reference = chatRef.document(Server.recentMessage).collection(userId).document(uid)
         try await reference.setData(data)
     }
     

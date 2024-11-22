@@ -81,13 +81,14 @@ struct UserRequestView: View {
             
             TextField("Send a message", text: $vm.message)
                 .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                .frame(width: 260, height: 40)
+                .frame(width: 250, height: 40)
                 .foregroundStyle(.black)
                 .background(.white)
                 .clipShape(Capsule())
                 .padding(.top, 20)
                 .opacity(vm.showTextField ? 1 : 0)
                 .animation(.easeIn, value: vm.showTextField)
+                .scaleEffect(CGSize(width: 1.0, height: 1.0))
 
         }
     }
@@ -169,8 +170,8 @@ struct UserRequestView: View {
         HStack {
             ForEach(request.worlds) { world in
                 Button {
-                    errorMessage = "\(request.username) is \(world.memberName)"
-                    showError.toggle()
+                    vm.errorMessage = "\(request.username) is \(world.memberName)"
+                    vm.showError.toggle()
                 } label: {
                     VStack {
                         WebImage(url: URL(string: world.imageUrl))
@@ -196,6 +197,9 @@ struct UserRequestView: View {
     
     func showAnimation() {
         isShimmering = true
+        withAnimation {
+
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: {
             withAnimation {
                 isShimmering = false

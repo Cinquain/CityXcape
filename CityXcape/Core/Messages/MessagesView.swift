@@ -9,26 +9,31 @@ import SwiftUI
 
 struct MessagesView: View {
     
-    @StateObject var vm = ChatViewModel()
+    @StateObject var vm : ChatViewModel
     var body: some View {
         NavigationView {
             VStack {
                 header()
                 ScrollView {
-                    ForEach(vm.messages) { message in
+                    ForEach(vm.recents) { message in
                         NavigationLink {
-                            Chatroom(uid: message.fromId, vm: vm)
+                            Chatroom(message: message, vm: vm)
                         } label: {
                             ChatPreview(message: message)
                         }
 
                     }
                 }
+                Spacer()
             }
             .navigationBarHidden(true)
+            .toolbar(.visible, for: .tabBar)
             .background(HexBackground())
+
         }
         .colorScheme(.dark)
+        
+
     }
     
     
@@ -52,5 +57,5 @@ struct MessagesView: View {
 }
 
 #Preview {
-    MessagesView()
+    MessagesView(vm: ChatViewModel())
 }

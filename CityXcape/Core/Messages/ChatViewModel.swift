@@ -10,8 +10,8 @@ import SwiftUI
 
 class ChatViewModel: ObservableObject {
     
-    @Published var messages: [Message] = [Message.demo]
-    @Published var chatroom: [Message] = []
+    @Published var recents: [Message] = []
+    @Published var messages: [Message] = []
     
     
     @Published var count: Int = 0
@@ -20,15 +20,17 @@ class ChatViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     
     init() {
-
+        fetchRecentMessages()
     }
     
     
-    func fetchAllMessages() {
+    func fetchRecentMessages() {
         DataService.shared.fetchRecentMessages { result in
             switch result {
             case .success(let messages):
-                self.messages = messages
+                DispatchQueue.main.async {
+                    self.recents = messages
+                }
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 self.showAlert.toggle()
@@ -40,7 +42,9 @@ class ChatViewModel: ObservableObject {
         DataService.shared.getMessagesFor(userId: uid) { result in
             switch result {
             case .success(let messages):
-                self.chatroom = messages
+                DispatchQueue.main.async {
+                    self.messages = messages
+                }
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
                 self.showAlert.toggle()

@@ -33,6 +33,9 @@ struct RequestView: View {
 
                             }
                         }
+                        .refreshable {
+                            vm.fetchPendingRequest()
+                        }
                     }
                  
                 }
@@ -74,9 +77,9 @@ struct RequestView: View {
                 .multilineTextAlignment(.center)
             
             Button {
-                
+                vm.fetchPendingRequest()
             } label: {
-                Text("Got it!")
+                Text("Refresh")
                     .foregroundStyle(.black)
                     .fontWeight(.thin)
                     .frame(width: 150, height: 40)

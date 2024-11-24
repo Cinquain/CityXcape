@@ -28,9 +28,14 @@ class LocationViewModel: ObservableObject {
     @Published var stampImageUrl: String = ""
     @Published var showOnboarding: Bool = false
     @Published var isSent: Bool = false
+    
+    @Published var showLounge: Bool = false 
+    @Published var huntSpot: Location?
+    
 
     
-    @Published var users: [User] = [User.demo]
+    @Published var users: [User] = []
+    @Published var currentUser: User?
     @Published var user: User?
     @Published var spot: Location?
     @Published var worlds: [World] = []
@@ -123,7 +128,7 @@ class LocationViewModel: ObservableObject {
         
         guard let user = user else {return}
         guard let spot = spot else {return}
-        let worlds = user.worlds
+        
         let request = Request(id: user.id, username: user.username, imageUrl: user.imageUrl, content: message, spotId: spot.id, spotName: spot.name, worlds: user.worlds)
         Task {
             do {

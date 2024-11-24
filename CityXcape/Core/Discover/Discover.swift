@@ -19,51 +19,64 @@ struct Discover: View {
     @StateObject var vm = LocationViewModel()
     
     var body: some View {
-        VStack {
-            headerView()
-            Spacer()
-           
-            Button(action: {
-                startScanner.toggle()
-            }, label: {
-                VStack {
-                    Image(systemName: "qrcode")
-                        .resizable()
-                        .foregroundStyle(.white)
-                        .scaledToFit()
-                        .frame(height: 220)
-                        .fullScreenCover(isPresented: $startOnboarding) {
-                            Onboarding()
-                        }
-                      
-                    
-                    Text(scannedText)
-                        .font(.title3)
-                        .foregroundStyle(.white)
-                        .fontWeight(.thin)
-                        .alert(isPresented: $vm.showError, content: {
-                            if vm.showOnboarding {
-                                return Alert(title: Text("You need an account to check-in"), primaryButton: .default(Text("Ok")){
-                                    startOnboarding = true
-                                } , secondaryButton: .cancel())
-                            } else {
-                                return Alert(title: Text(vm.errorMessage))
+        ZStack {
+            VStack {
+                headerView()
+                Spacer()
+               
+                Button(action: {
+                    startScanner.toggle()
+                }, label: {
+                    VStack {
+                        Image(systemName: "qrcode")
+                            .resizable()
+                            .foregroundStyle(.white)
+                            .scaledToFit()
+                            .frame(height: 220)
+                            .fullScreenCover(isPresented: $startOnboarding) {
+                                Onboarding()
                             }
-                        })
-                }
-                   
-            })
-            .opacity(0.9)
-            .sheet(isPresented: $startScanner, content: {
-                CodeScannerView(codeTypes: [.qr], completion: handleScan)
-            })
+                          
+                        
+                        Text(scannedText)
+                            .font(.title3)
+                            .foregroundStyle(.white)
+                            .fontWeight(.thin)
+                            .alert(isPresented: $vm.showError, content: {
+                                if vm.showOnboarding {
+                                    return Alert(title: Text("You need an account to check-in"), primaryButton: .default(Text("Ok")){
+                                        startOnboarding = true
+                                    } , secondaryButton: .cancel())
+                                } else {
+                                    return Alert(title: Text(vm.errorMessage))
+                                }
+                            })
+                    }
+                       
+                })
+                .opacity(0.9)
+                .sheet(isPresented: $startScanner, content: {
+                    CodeScannerView(codeTypes: [.qr], completion: handleScan)
+                })
+                    
+               
                 
-           
+                ctaButton()
+                Spacer()
+            }
+            .background(HexBackground())
+            .opacity(vm.showLounge ? 0 : 1)
+            .animation(.easeIn, value: vm.showLounge)
             
-            ctaButton()
-            Spacer()
+            
+            if vm.showLounge {
+                if let spot = currentSpot {
+                    withAnimation(.easeIn) {
+                        DigitalLounge(spot: spot, vm: vm)
+                    }
+                }
+            }
         }
-        .background(HexBackground())
         
     }
     
@@ -75,12 +88,18 @@ struct Discover: View {
             Task {
                 do {
                     let spot = try await vm.checkin(spotId: code)
+                    if !spot.isSocialHub {
+                        vm.huntSpot = spot
+                        return
+                    }
+                    currentSpot = spot
+
+                    vm.showLounge.toggle()
 //                    if spot.distanceFromUser > 150 {
 //                        vm.errorMessage = "You need to be there to checkin"
 //                        vm.showError.toggle()
 //                        return
 //                    }
-                    currentSpot = spot
                 } catch {
                     print("Error fetching location", error.localizedDescription)
                     vm.errorMessage =  error.localizedDescription
@@ -122,8 +141,8 @@ struct Discover: View {
                 .background(.orange)
                 .clipShape(Capsule())
         })
-        .fullScreenCover(item: $currentSpot) { spot in
-            LocationView(spot: spot, vm: vm)
+        .fullScreenCover(item: $vm.huntSpot) { spot in
+            ScavengerHunt(spot: spot, vm: vm)
         }
     }
     

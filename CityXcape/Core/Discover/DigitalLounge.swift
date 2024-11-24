@@ -15,7 +15,6 @@ struct DigitalLounge: View {
     var spot: Location
     @StateObject var vm: LocationViewModel
  
-    @State private var currentUser: User?
     
     var body: some View {
         VStack {
@@ -23,10 +22,8 @@ struct DigitalLounge: View {
             guestList()
             Spacer()
             checkoutButton()
-            Spacer()
         }
         .background(background())
-        .edgesIgnoringSafeArea(.bottom)
       
      
     }
@@ -68,7 +65,7 @@ struct DigitalLounge: View {
             }
         }
         .padding(.top, 40)
-        .sheet(item: $currentUser) { user in
+        .sheet(item: $vm.currentUser) { user in
             PublicStreetPass(user: user, vm: vm)
         }
     }
@@ -77,7 +74,7 @@ struct DigitalLounge: View {
     func userRow(user: User) -> some View {
            
             Button(action: {
-                currentUser = user
+                vm.currentUser = user
             }, label: {
                 HStack(spacing: 30) {
                     VStack(spacing: 2) {
@@ -117,6 +114,7 @@ struct DigitalLounge: View {
         Button {
             Task {
                 try await vm.checkout(spotId: spot.id)
+                vm.showLounge = false
                 dismiss()
             }
         } label: {

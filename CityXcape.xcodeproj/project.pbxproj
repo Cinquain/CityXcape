@@ -32,7 +32,6 @@
 		21D302982CA74EBB00111D6E /* MapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D302972CA74EBB00111D6E /* MapViewRepresentable.swift */; };
 		21D45FDC2C8F9606001B12FA /* DataScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D45FDB2C8F9606001B12FA /* DataScanner.swift */; };
 		21D4FA292C67A07300CD4F58 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D4FA282C67A07300CD4F58 /* BlurView.swift */; };
-		21D4FA2B2C67A1AC00CD4F58 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D4FA2A2C67A1AC00CD4F58 /* LocationView.swift */; };
 		21D6E1C92CA894FD00ED9918 /* FindCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D6E1C82CA894FD00ED9918 /* FindCityView.swift */; };
 		21D772E42C5D0F1C004BEF31 /* PublicStreetPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D772E32C5D0F1C004BEF31 /* PublicStreetPass.swift */; };
 		21D772E62C5D1518004BEF31 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D772E52C5D1518004BEF31 /* CircleButton.swift */; };
@@ -120,7 +119,6 @@
 		21D302972CA74EBB00111D6E /* MapViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewRepresentable.swift; sourceTree = "<group>"; };
 		21D45FDB2C8F9606001B12FA /* DataScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataScanner.swift; sourceTree = "<group>"; };
 		21D4FA282C67A07300CD4F58 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
-		21D4FA2A2C67A1AC00CD4F58 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		21D6E1C82CA894FD00ED9918 /* FindCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindCityView.swift; sourceTree = "<group>"; };
 		21D772E32C5D0F1C004BEF31 /* PublicStreetPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicStreetPass.swift; sourceTree = "<group>"; };
 		21D772E52C5D1518004BEF31 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
@@ -292,7 +290,6 @@
 			children = (
 				21F91D842C63A87D0024A991 /* Discover.swift */,
 				212E5E0A2CE42F60001BC98B /* LocationViewModel.swift */,
-				21D4FA2A2C67A1AC00CD4F58 /* LocationView.swift */,
 				21DA45C52C6A41B200A16832 /* DigitalLounge.swift */,
 				21D45FDB2C8F9606001B12FA /* DataScanner.swift */,
 				21ED577C2C9A11B70029505B /* ScavengerHunt.swift */,
@@ -518,7 +515,6 @@
 				21D240AC2C6EEBE50054D048 /* Request.swift in Sources */,
 				21F91D852C63A87D0024A991 /* Discover.swift in Sources */,
 				21FC27D62C7CB3C80055CDCF /* AuthService.swift in Sources */,
-				21D4FA2B2C67A1AC00CD4F58 /* LocationView.swift in Sources */,
 				21DCDEC92C70E21800F5A468 /* Connection.swift in Sources */,
 				210A04412C61939800CA1078 /* Stc.swift in Sources */,
 				21D772E62C5D1518004BEF31 /* CircleButton.swift in Sources */,

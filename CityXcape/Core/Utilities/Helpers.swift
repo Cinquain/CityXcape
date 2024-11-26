@@ -36,7 +36,7 @@ struct Server {
     static let users = "users"
     static let locations = "locations"
     static let world = "worlds"
-    static let messages = "messgaes"
+    static let messages = "messages"
     static let connections = "connections"
     static let stamps = "stamps"
     static let recentMessage = "recentMessage"

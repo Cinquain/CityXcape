@@ -71,6 +71,9 @@ class RequestViewModel: ObservableObject {
             do {
                 try await DataService.shared.acceptRequest(content: message, request: request)
                 showMatch.toggle()
+                if let index = requests.firstIndex(of: request) {
+                    requests.remove(at: index)
+                }
             } catch {
                 errorMessage = error.localizedDescription
                 showError.toggle()

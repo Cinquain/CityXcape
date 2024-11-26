@@ -30,7 +30,7 @@ struct Chatroom: View {
             }
         }
         .onAppear(perform: {
-            vm.fetchMessageFor(uid: message.toId)
+            vm.fetchMessageFor(uid: message.fromId)
         })
         .onDisappear(perform: {
             vm.removeChatListener()
@@ -54,7 +54,7 @@ struct Chatroom: View {
             
             Button {
                 Task {
-                    await vm.sendMessage(uid: message.toId)
+                    await vm.sendMessage(uid: message.fromId)
                 }
             } label: {
                 Text("Send")
@@ -95,9 +95,9 @@ struct Chatroom: View {
     @ViewBuilder
     func header() -> some View {
         HStack(spacing: 2) {
-            UserDot(size: 35, url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2FAllison.png?alt=media&token=23e6eceb-b9b2-4a49-8b23-a11de0e2d32c")
+            UserDot(size: 35, url: message.imageUrl)
             
-            Text("Alicia")
+            Text(message.username)
                 .foregroundStyle(.white)
                 .fontWeight(.thin)
         }

@@ -16,10 +16,16 @@
 		</dict>
 	</array>
 	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
+	<true/>
 	<key>GIDClientID</key>
 	<string>32981840497-ukicflntjo8up615rhv7nqltaqsbfk9e.apps.googleusercontent.com</string>
 	<key>GoogleUtilitiesAppDelegateProxyEnabled</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

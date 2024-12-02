@@ -28,10 +28,12 @@ final class DataService {
     var chatListener: ListenerRegistration?
     var checkinListener: ListenerRegistration?
     var recentMessageListener: ListenerRegistration?
+    var requestListener: ListenerRegistration?
     
     @AppStorage(CXUserDefaults.profileUrl) var profileUrl: String?
     @AppStorage(CXUserDefaults.username) var username: String?
-    
+    @AppStorage(CXUserDefaults.fcmToken) var fcmToken: String?
+
 
 
     
@@ -43,6 +45,7 @@ final class DataService {
         let data: [String: Any] = [
             User.CodingKeys.id.rawValue: uid,
             Server.email: email ?? "",
+            Server.fcmToken: fcmToken ?? "",
             Server.timestamp: Timestamp(),
             User.CodingKeys.streetcred.rawValue: 1
         ]
@@ -69,6 +72,7 @@ final class DataService {
             User.CodingKeys.imageUrl.rawValue: user.imageUrl,
             User.CodingKeys.gender.rawValue: user.gender,
             User.CodingKeys.city.rawValue: user.city,
+            Server.fcmToken: fcmToken ?? "",
             User.CodingKeys.streetcred.rawValue: user.streetcred,
             User.CodingKeys.worlds.rawValue: values
         ]
@@ -117,6 +121,16 @@ final class DataService {
         try await ref.updateData(data)
     }
     
+    func updateFcmToken(fcm: String) {
+        UserDefaults.standard.set(fcm, forKey: CXUserDefaults.fcmToken)
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let data: [String: Any] = [
+            Server.fcmToken: fcm
+        ]
+        let reference = userRef.document(uid)
+        reference.updateData(data)
+    }
+    
     
     func deleteUser() async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
@@ -158,7 +172,6 @@ final class DataService {
                                  }
                                  
                                  if change.type == .added {
-                                     let data = change.document.data()
                                      let user = try? change.document.data(as: User.self)
                                      guard let user = user else {return}
                                      users.insert(user, at: 0)
@@ -389,6 +402,41 @@ final class DataService {
         return requests
     }
     
+    func startListeningtoRequest(completion: @escaping (Result<[Request], Error>) -> ()) {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        
+        var requests: [Request] = []
+        
+        recentMessageListener = userRef
+            .document(uid)
+            .collection(Server.request)
+            .addSnapshotListener({ querySnapshot, error in
+                
+                if let error = error {
+                    print("Error Fetching Recent Messages", error.localizedDescription)
+                    completion(.failure(error))
+                }
+                
+                querySnapshot?.documentChanges.forEach({ change in
+                    if change.type == .added {
+                        let data = change.document.data()
+                        let request = Request(data: data)
+                        requests.insert(request, at: 0)
+                    }
+                })
+                
+                DispatchQueue.main.async {
+                    completion(.success(requests))
+                }
+                
+            })
+    }
+    
+    func removeRequestListener() {
+        requestListener?.remove()
+        print("Removed recent messages listener")
+    }
+    
     
     func deleteConnection(userId: String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
@@ -479,6 +527,8 @@ final class DataService {
             Message.CodingKeys.id.rawValue: fromRef.documentID,
             Message.CodingKeys.fromId.rawValue: uid,
             Message.CodingKeys.toId.rawValue: userId,
+            Message.CodingKeys.imageUrl.rawValue: profileUrl ?? "",
+            Message.CodingKeys.username.rawValue: username ?? "",
             Message.CodingKeys.content.rawValue: content,
             Server.timestamp: Timestamp()
         ]

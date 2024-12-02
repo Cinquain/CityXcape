@@ -113,7 +113,7 @@ class LocationViewModel: ObservableObject {
         }
         if count == 0 {return (result, percentage)}
         
-        result = count > 1 ? "\(count) Worlds in Common" : "\(count) World in Common"
+        result = count > 1 ? "\(count.clean) Worlds in Common" : "\(count.clean) World in Common"
         let percent: Double = (count / total) * 100
         percentage = "\(percent.clean)% Match"
         return (result, percentage)

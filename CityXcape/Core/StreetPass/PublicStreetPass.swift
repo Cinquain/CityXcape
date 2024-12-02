@@ -36,6 +36,9 @@ struct PublicStreetPass: View {
         .onAppear {
            showAnimation()
         }
+        .onDisappear {
+            vm.showTextField = false
+        }
     
       
     }

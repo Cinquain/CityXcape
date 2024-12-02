@@ -9,10 +9,6 @@ import Foundation
 import SwiftUI
 
 
-enum UserType {
-    case stranger
-    case personal
-}
 
 enum Names: String {
     case STREETPASS
@@ -27,9 +23,7 @@ struct CXUserDefaults {
     static let streetcred = "streetcred"
     static let lastSpotId = "lastSpotId"
     static let lastSpotName = "lastSpotName"
-    static let world1 = "world1"
-    static let world2 = "world2"
-    static let world3 = "world3"
+    static let fcmToken = "fcmToken"
 }
 
 struct Server {
@@ -44,6 +38,7 @@ struct Server {
     static let email = "email"
     static let checkins = "checkins"
     static let timestamp = "timestamp"
+    static let fcmToken = "fcmToken"
     static let members = "members"
 }
 

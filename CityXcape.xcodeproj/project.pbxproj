@@ -16,6 +16,7 @@
 		211091002CC18D81006F83B3 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211090FF2CC18D81006F83B3 /* Store.swift */; };
 		212E5E0B2CE42F60001BC98B /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E5E0A2CE42F60001BC98B /* LocationViewModel.swift */; };
 		216F72A92CAC88A30040B8AC /* StreetIDCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216F72A82CAC88A30040B8AC /* StreetIDCard.swift */; };
+		217134E52CFCF27E00FD684F /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 217134E42CFCF27E00FD684F /* FirebaseCore */; };
 		21C635392C77B58800D15DB2 /* RequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C635382C77B58800D15DB2 /* RequestView.swift */; };
 		21C896512CDBAE2400F148D0 /* StreePassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C896502CDBAE2400F148D0 /* StreePassViewModel.swift */; };
 		21C896532CDBAF3800F148D0 /* SPBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C896522CDBAF3800F148D0 /* SPBackground.swift */; };
@@ -190,6 +191,7 @@
 				21FC27C92C7CAD160055CDCF /* FirebaseStorage in Frameworks */,
 				21FC27C52C7CAD160055CDCF /* FirebaseFirestore in Frameworks */,
 				21FC27C32C7CAD160055CDCF /* FirebaseAuth in Frameworks */,
+				217134E52CFCF27E00FD684F /* FirebaseCore in Frameworks */,
 				211090FC2CC18963006F83B3 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,6 +438,7 @@
 				21FC27CE2C7CAF6B0055CDCF /* GoogleSignIn */,
 				21FC27D02C7CAF6B0055CDCF /* GoogleSignInSwift */,
 				21E4C2892C9078B3008198FD /* CodeScanner */,
+				217134E42CFCF27E00FD684F /* FirebaseCore */,
 			);
 			productName = CityXcape;
 			productReference = 21FCE5932C5AD4B7006A86CE /* CityXcape.app */;
@@ -836,6 +839,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 210DA00A2C5BBCC100913890 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		217134E42CFCF27E00FD684F /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21FC27BF2C7CAD160055CDCF /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
 		};
 		21DA45C82C6A499D00A16832 /* Shimmer */ = {
 			isa = XCSwiftPackageProductDependency;

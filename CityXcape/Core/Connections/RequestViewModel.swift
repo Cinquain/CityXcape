@@ -20,7 +20,7 @@ class RequestViewModel: ObservableObject {
     @Published var message: String = ""
     
     init() {
-        fetchPendingRequest()
+        startListeningForRequest()
     }
     
  
@@ -36,6 +36,18 @@ class RequestViewModel: ObservableObject {
             } catch {
                 errorMessage = error.localizedDescription
                 showError.toggle()
+            }
+        }
+    }
+    
+    func startListeningForRequest() {
+        DataService.shared.startListeningtoRequest { result in
+            switch result {
+            case .success(let newRequest):
+                self.requests = newRequest
+            case .failure(let error):
+                self.errorMessage = error.localizedDescription
+                self.showError.toggle()
             }
         }
     }

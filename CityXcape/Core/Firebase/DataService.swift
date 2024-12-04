@@ -85,6 +85,10 @@ final class DataService {
     
     func loginUser(uid: String) async throws {
         let user = try await getUserFrom(uid: uid)
+        setUserDefaults(user: user)
+    }
+    
+    func setUserDefaults(user: User) {
         UserDefaults.standard.set(user.id, forKey: CXUserDefaults.uid)
         UserDefaults.standard.setValue(user.imageUrl, forKey: CXUserDefaults.profileUrl)
         UserDefaults.standard.setValue(user.username, forKey: CXUserDefaults.username)
@@ -103,7 +107,9 @@ final class DataService {
     
     func getUserCredentials() async throws -> User {
         guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
-        return try await getUserFrom(uid: uid)
+        let user = try await getUserFrom(uid: uid)
+        setUserDefaults(user: user)
+        return user
     }
 
     func getUserFrom(uid: String) async throws -> User {
@@ -567,10 +573,10 @@ final class DataService {
         return stamps
     }
     
-    func createStamp(spot: Location) async throws {
+    func createStamp(spot: Location, username: String) async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let reference = userRef.document(uid).collection(Server.stamps).document(spot.id)
-        
+        let referenceII = spotRef.document(spot.id).collection(Server.stamps).document(uid)
         let data: [String : Any] = [
             Stamp.CodingKeys.id.rawValue: spot.id,
             Stamp.CodingKeys.imageUrl.rawValue: spot.imageUrl,
@@ -580,7 +586,16 @@ final class DataService {
             Stamp.CodingKeys.spotName.rawValue: spot.name
         ]
         
+        let dataII: [String: Any] = [
+            User.CodingKeys.id.rawValue: uid,
+            User.CodingKeys.username.rawValue: username,
+            Stamp.CodingKeys.ownerId.rawValue: spot.ownerId,
+            Stamp.CodingKeys.spotName.rawValue: spot.name,
+            Server.timestamp: FieldValue.serverTimestamp()
+        ]
+        
         try await reference.setData(data)
+        try await referenceII.setData(dataII)
     }
     
     func updateStampImage(stampId: String, imageUrl: String) async throws {

@@ -13,6 +13,9 @@ import SwiftUI
 
 @MainActor
 class UploadViewModel: ObservableObject {
+    
+    @AppStorage(CXUserDefaults.fcmToken) var fcmToken: String?
+
         @Published var selectedImage: PhotosPickerItem? {
         didSet {
             switch imageCase {
@@ -68,7 +71,7 @@ class UploadViewModel: ObservableObject {
         if checkAllFields() == false {return}
         guard let uid = AuthService.shared.uid else {return}
         let worldIds = selectedWorlds.map { $0.id }
-        let user = User(id: uid, username: username, imageUrl: imageUrl, gender: gender, city: city, streetcred: 2, worlds: selectedWorlds)
+        let user = User(id: uid, username: username, imageUrl: imageUrl, gender: gender, city: city, streetcred: 2, worlds: selectedWorlds, fcmToken: fcmToken ?? "")
         try await DataService.shared.createStreetPass(user: user)
     }
     

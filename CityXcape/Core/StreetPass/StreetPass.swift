@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 
 struct StreetPass: View {
     
-    @StateObject var vm = StreetPassViewModel()
+    @StateObject var vm : StreetPassViewModel
     var body: some View {
         VStack {
             header()
@@ -159,5 +159,5 @@ struct StreetPass: View {
 }
 
 #Preview {
-    StreetPass()
+    StreetPass(vm: StreetPassViewModel())
 }

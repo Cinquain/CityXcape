@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 import PhotosUI
 
-
-class LocationViewModel: ObservableObject {
+@MainActor
+final class LocationViewModel: ObservableObject {
     
     @Published var selectedImage: PhotosPickerItem? {
         didSet {
@@ -58,9 +58,9 @@ class LocationViewModel: ObservableObject {
         UserDefaults.standard.setValue(currentspot.id, forKey: CXUserDefaults.lastSpotId)
         fetchCheckedInUsers(spotId: spotId)
         let user = try await DataService.shared.getUserCredentials()
-        self.user = user
+        self.user = User(id: user.id, username: user.username, imageUrl: user.imageUrl, gender: user.gender, city: currentspot.name, streetcred: user.streetcred, worlds: user.worlds, fcmToken: user.fcmToken)
         self.spot = currentspot
-        try await DataService.shared.checkin(spotId: spotId, user: user)
+        try await DataService.shared.checkin(spotId: spotId, user: self.user!)
         return currentspot
     }
     
@@ -92,7 +92,8 @@ class LocationViewModel: ObservableObject {
     func createStamp(spot: Location) {
         Task {
             do {
-                try await DataService.shared.createStamp(spot: spot)
+                let user = try await DataService.shared.getUserCredentials()
+                try await DataService.shared.createStamp(spot: spot, username: user.username)
             } catch {
                 errorMessage = error.localizedDescription
                 print(errorMessage)

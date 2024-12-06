@@ -13,6 +13,8 @@ struct BuySTC: View {
     @State private var message: String = ""
     @State private var showError: Bool = false
     @State private var rotation: Double = 0
+    @State var user: User
+    
     @AppStorage(CXUserDefaults.streetcred) var wallet: Int?
     @EnvironmentObject private var store: Store
 
@@ -92,7 +94,7 @@ struct BuySTC: View {
                             case .success(_):
                             print("Successfully Bought StreetCred")
                             //Update Streetcred on backend
-                            DataService.shared.updateStreetCred(count: Product.streetcred.count)
+                            DataService.shared.purchaseStreetCred(count: Product.streetcred.count, price: 10, user: user)
                             case .failure(let error):
                             message = error.localizedDescription
                             showError.toggle()
@@ -110,7 +112,7 @@ struct BuySTC: View {
                             case .success(_):
                             print("Successfully Bought StreetCred")
                             //Update Streetcred on backend
-                            DataService.shared.updateStreetCred(count: Product.streetcred_15.count)
+                            DataService.shared.purchaseStreetCred(count: Product.streetcred_15.count, price: 30, user: user)
                             case .failure(let error):
                             message = error.localizedDescription
                             showError.toggle()
@@ -128,7 +130,7 @@ struct BuySTC: View {
                             case .success(_):
                             print("Successfully Bought StreetCred")
                             //Update Streetcred on backend
-                            DataService.shared.updateStreetCred(count: Product.streetcred_50.count)
+                            DataService.shared.purchaseStreetCred(count: Product.streetcred_50.count, price: 50, user: user)
                             case .failure(let error):
                             message = error.localizedDescription
                             showError.toggle()
@@ -146,5 +148,5 @@ struct BuySTC: View {
 }
 
 #Preview {
-    BuySTC()
+    BuySTC(user: User.demo)
 }

@@ -10,16 +10,21 @@ import SwiftUI
 struct MessagesView: View {
     
     @StateObject var vm : ChatViewModel
+    @State var currentMessage : Message?
     var body: some View {
-        NavigationView {
+        
             VStack {
                 header()
                 ScrollView {
                     ForEach(vm.recents) { message in
-                        NavigationLink {
-                            Chatroom(message: message, vm: vm)
+                       
+                        Button {
+                            currentMessage = message
                         } label: {
                             ChatPreview(message: message)
+                        }
+                        .sheet(item: $currentMessage) { message in
+                            Chatroom(message: message, vm: vm)
                         }
 
                     }
@@ -29,10 +34,6 @@ struct MessagesView: View {
             .navigationBarHidden(true)
             .toolbar(.visible, for: .tabBar)
             .background(HexBackground())
-
-        }
-        .colorScheme(.dark)
-        
 
     }
     

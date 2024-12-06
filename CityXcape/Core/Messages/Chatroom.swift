@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct Chatroom: View {
-    
+    @Environment(\.dismiss) private var dismiss
+
     let message: Message
     @StateObject var vm : ChatViewModel
     
     var body: some View {
         ZStack {
-            messages()
+            VStack {
+                header()
+                messages()
+            }
             
             VStack {
                 Spacer()
@@ -95,17 +99,18 @@ struct Chatroom: View {
     @ViewBuilder
     func header() -> some View {
         HStack(spacing: 2) {
+            Spacer()
             UserDot(size: 35, url: message.imageUrl)
             
             Text(message.username)
                 .foregroundStyle(.white)
                 .fontWeight(.thin)
+            Spacer()
         }
     }
 }
 
 #Preview {
-    NavigationView {
-        Chatroom(message: Message.demo, vm: ChatViewModel())
-    }
+    Chatroom(message: Message.demo, vm: ChatViewModel())
+    
 }

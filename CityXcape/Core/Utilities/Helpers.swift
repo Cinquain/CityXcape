@@ -40,6 +40,7 @@ struct Server {
     static let timestamp = "timestamp"
     static let fcmToken = "fcmToken"
     static let members = "members"
+    static let sales = "sales"
 }
 
 enum Tab: String, CaseIterable {

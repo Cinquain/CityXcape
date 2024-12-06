@@ -12,7 +12,6 @@ import SDWebImageSwiftUI
 struct PublicStreetPass: View {
     
     @AppStorage(CXUserDefaults.lastSpotId) var lastSpot : String?
-    @Environment(\.dismiss) private var dismiss
     
     @State var user: User
     @StateObject var vm: LocationViewModel
@@ -86,6 +85,7 @@ struct PublicStreetPass: View {
             }
             
             Spacer()
+
          
         }
         .padding(.horizontal, 22)
@@ -130,7 +130,7 @@ struct PublicStreetPass: View {
                     .clipShape(Capsule())
             })
             .sheet(isPresented: $buySTC, content: {
-                BuySTC()
+                BuySTC(user: vm.user ?? User.demo)
                     .presentationDetents([.height(370)])
             })
     }

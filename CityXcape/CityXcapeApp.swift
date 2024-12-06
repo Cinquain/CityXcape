@@ -112,10 +112,8 @@ extension AppDelegate: MessagingDelegate {
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         if let fcmToken = fcmToken {
-            print("Found FCM Token", fcmToken)
             DataService.shared.updateFcmToken(fcm: fcmToken)
         } else {
-            print("Did not find FCM Token")
         }
     }
 }

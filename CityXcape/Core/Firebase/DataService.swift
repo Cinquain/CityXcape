@@ -33,6 +33,7 @@ final class DataService {
     @AppStorage(CXUserDefaults.profileUrl) var profileUrl: String?
     @AppStorage(CXUserDefaults.username) var username: String?
     @AppStorage(CXUserDefaults.fcmToken) var fcmToken: String?
+    @AppStorage(CXUserDefaults.lastSpotId) var lastSpotId: String?
 
 
 
@@ -227,6 +228,22 @@ final class DataService {
         UserDefaults.standard.setValue(count, forKey: CXUserDefaults.streetcred)
     }
     
+    func purchaseStreetCred(count: Int, price: Int, user: User) {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        updateStreetCred(count: count)
+        let spotId = lastSpotId ?? ""
+        let reference = spotRef.document(spotId).collection(Server.sales).document()
+        
+        let record: [String: Any] = [
+            User.CodingKeys.id.rawValue: uid,
+            User.CodingKeys.username.rawValue: user.username,
+            User.CodingKeys.streetcred.rawValue: price,
+            User.CodingKeys.city.rawValue: user.city,
+            Server.timestamp: FieldValue.serverTimestamp()
+        ]
+        reference.setData(record)
+    }
+    
     func getStreetCred() async throws -> Int  {
         guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
         let reference = userRef.document(uid)
@@ -300,11 +317,9 @@ final class DataService {
         guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}
         
         let reference = userRef.document(userId).collection(Server.request).document(uid)
-        let spotReference = spotRef.document(request.spotId).collection(Server.request).document()
         
         try reference.setData(from: request.self)
         updateStreetCred(count: -1)
-        try spotReference.setData(from: request.self)
     }
     
     func removeRequest(request: Request) async throws {

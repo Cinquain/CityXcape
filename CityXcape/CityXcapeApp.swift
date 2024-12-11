@@ -88,16 +88,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             if granted {
                 print("Authorization granted!")
                 UNUserNotificationCenter.current().delegate = self
-                Messaging.messaging().token { token, error in
-                    if let error = error {
-                        print("Error fetching FCM registration token: \(error)")
-                    } else if let token = token {
-                        print("Token Found!", token)
-                        DataService.shared.updateFcmToken(fcm: token)
-                    }
-                    
-                    
-                }
+             
             } else {
                 print("Authorization request was denied")
             }

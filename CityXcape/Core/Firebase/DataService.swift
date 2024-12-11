@@ -355,6 +355,7 @@ final class DataService {
         try await requestRef.delete()
         //Create connections
         try await createConnections(userId: request.id, spotId: request.spotId)
+        try await userRef.document(uid).collection(Server.request).document(request.id).delete()
     }
     
     func createInitialChat(userId: String, request: Request) async throws {
@@ -562,6 +563,7 @@ final class DataService {
     func saveRecentMessgae(userId: String, data: [String: Any]) async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let reference = chatRef.document(Server.recentMessage).collection(userId).document(uid)
+        try await reference.delete()
         try await reference.setData(data)
     }
     

@@ -17,29 +17,30 @@ struct UserBubble: View {
     let pulse : Double
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .center) {
             
             Circle()
                 .fill(.orange.opacity(0.35))
                 .frame(width: size)
                 .shadow(color: .orange.opacity(0.35), radius: 10)
-                .scaleEffect(self.animate ? 1.10 : 1)
+                .scaleEffect(self.animate ? 1.1 : 1)
                 .animation(Animation.linear(duration: pulse).repeatForever(autoreverses: true), value: animate)
                 .shadow(color: .orange.opacity(0.35), radius: 10)
             
             Circle()
                 .fill(.orange.opacity(0.35))
-                .frame(width: size - 30)
+                .frame(width: size * 0.85)
                 .shadow(color: .orange.opacity(0.35), radius: 10)
                 .scaleEffect(self.animate ? 1.10 : 1)
                 .shadow(color: .orange.opacity(0.35), radius: 10)
+                
             
             
             WebImage(url: URL(string: url))
                 .resizable()
                 .scaledToFit()
-                .frame(width: size  * 5.5/7)
                 .clipShape(Circle())
+                .frame(width: size  * 0.75)
             
             
         }

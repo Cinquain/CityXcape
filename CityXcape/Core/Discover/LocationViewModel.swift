@@ -23,7 +23,7 @@ final class LocationViewModel: ObservableObject {
     @Published var errorMessage: String = ""
 
     @Published var message: String = ""
-    @Published var  showTextField: Bool = false
+    @Published var showTextField: Bool = false
 
     @Published var stampImageUrl: String = ""
     @Published var showOnboarding: Bool = false
@@ -39,6 +39,17 @@ final class LocationViewModel: ObservableObject {
     @Published var user: User?
     @Published var spot: Location?
     @Published var worlds: [World] = []
+    
+    
+    @Published var requests: [Request] = []
+    @Published var showPage: Bool = false
+    
+    
+    
+    init() {
+        startListeningForRequest()
+    }
+    
     
     
     func fetchCheckedInUsers(spotId: String) {
@@ -151,6 +162,78 @@ final class LocationViewModel: ObservableObject {
     }
     
     
+    
+    //MARK: REQUEST FUNCTIONALITIES
+        
+    func fetchPendingRequest() {
+        Task {
+            do {
+                let loadedRequest = try await DataService.shared.fetchAllRequests()
+                DispatchQueue.main.async {
+                    self.requests = loadedRequest
+                }
+               
+            } catch {
+                errorMessage = error.localizedDescription
+                showError.toggle()
+            }
+        }
+    }
+    
+    func startListeningForRequest() {
+        DataService.shared.startListeningtoRequest { result in
+            switch result {
+            case .success(let newRequest):
+                self.requests = newRequest
+            case .failure(let error):
+                self.errorMessage = error.localizedDescription
+                self.showError.toggle()
+            }
+        }
+    }
+    
+    func removeRequest(request: Request) {
+   
+        Task {
+            do {
+                try await DataService.shared.removeRequest(request: request)
+                if let index = requests.firstIndex(of: request) {
+                    requests.remove(at: index)
+                    
+                }
+            } catch {
+                errorMessage = error.localizedDescription
+                showError.toggle()
+            }
+        }
+    }
+    
+    func acceptRequest(request: Request) {
+        Task {
+            do {
+                try await DataService.shared.acceptRequest(content: message, request: request)
+                if let index = requests.firstIndex(of: request) {
+                    requests.remove(at: index)
+                }
+                errorMessage = "You and \(request.username) are now connected and can chat"
+                showError.toggle()
+            } catch {
+                errorMessage = error.localizedDescription
+                showError.toggle()
+            }
+        }
+    }
+    
+    
+    func loadUserStreetPass(request: Request) async throws -> User {
+        if let user = users.first(where: {$0.id == request.id}) {
+            print("Found user from checkins")
+            return user
+        } else {
+            let user = try await DataService.shared.getUserFrom(uid: request.id)
+            return user
+        }
+    }
  
     
 }

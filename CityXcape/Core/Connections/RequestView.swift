@@ -9,27 +9,30 @@ import SwiftUI
 
 struct RequestView: View {
 
-    @StateObject var vm: RequestViewModel
+    @StateObject var vm: LocationViewModel
     @Binding var index: Int
     
     
     @GestureState private var dragState: DragState = .inactive
     @State private var currentRequest: Request?
     var body: some View {
-        ZStack {
             VStack {
                     header()
                     if vm.requests.isEmpty {
                         emptyState()
+                            
                     } else {
                         ScrollView {
                             ForEach(vm.requests) { request in
                                 Button {
                                     currentRequest = request
-                                    vm.showPage.toggle()
                                 } label: {
-                                    RequestThumb(request: request)
+                                    RequestThumb(request: request, vm: vm)
+                                       
                                 }
+                                .alert(isPresented: $vm.showError, content: {
+                                    return Alert(title: Text(vm.errorMessage))
+                                })
 
                             }
                         }
@@ -41,19 +44,6 @@ struct RequestView: View {
                 }
                 .background(HexBackground())
             
-            if vm.showPage {
-                if let requests = currentRequest {
-                    withAnimation(.easeIn(duration: 0.5)) {
-                        UserRequestView(request: requests, vm: vm, index: $index)
-                            .transition(.move(edge: .leading))
-                            .animation(.easeIn(duration: 0.4), value: vm.showPage)
-                    }
-                }
-                                
-            }
-            
-        }
-        
     }
     
   

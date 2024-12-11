@@ -16,7 +16,7 @@ struct Discover: View {
     @State private var startScanner: Bool = false
     @State private var currentSpot: Location?
     
-    @StateObject var vm = LocationViewModel()
+    @StateObject var vm : LocationViewModel
     
     var body: some View {
         ZStack {
@@ -175,5 +175,5 @@ struct Discover: View {
 }
 
 #Preview {
-    Discover()
+    Discover(vm: LocationViewModel())
 }

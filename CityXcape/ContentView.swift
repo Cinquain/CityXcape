@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @AppStorage(CXUserDefaults.firstOpen) var firstOpen: Bool?
     @State var index: Int = 0
-    @StateObject var vm = RequestViewModel()
+    @StateObject var vm = LocationViewModel()
     @StateObject var sp = StreetPassViewModel()
     @StateObject var chatVm = ChatViewModel()
     @EnvironmentObject private var store: Store
@@ -19,7 +19,7 @@ struct ContentView: View {
     var body: some View {
     
             TabView(selection: $index) {
-                Discover()
+                Discover(vm: vm)
                     .tag(0)
                     .tabItem {
                         Image(Tab.locations.imageTitle)

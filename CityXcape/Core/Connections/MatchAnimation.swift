@@ -12,8 +12,7 @@ struct MatchAnimation: View {
     @AppStorage(CXUserDefaults.profileUrl) var profileUrl: String?
 
     var request: Request
-    @Binding var index: Int
-    @StateObject var vm: RequestViewModel
+    @StateObject var vm: LocationViewModel
     
     @State private var length: CGFloat = 120
     @State private var rotation: Double = 90
@@ -81,8 +80,8 @@ struct MatchAnimation: View {
             
             Button(action: {
                 withAnimation {
-                    index = 2
-                    vm.showPage = false 
+                    dismiss()
+                    vm.showPage = false
                 }
             }, label: {
                 Text("Start Chatting")

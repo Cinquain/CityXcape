@@ -12,7 +12,8 @@ import SDWebImageSwiftUI
 struct PublicStreetPass: View {
     
     @AppStorage(CXUserDefaults.lastSpotId) var lastSpot : String?
-    
+    @Environment(\.dismiss) private var dismiss
+
     @State var user: User
     @StateObject var vm: LocationViewModel
     
@@ -23,22 +24,32 @@ struct PublicStreetPass: View {
     @State private var buySTC: Bool = false
     
     var body: some View {
-        VStack {
-            header()
-            userView()
-            worldList()
-            messageField()
-            Spacer()
-            ctaButton()
+        
+        GeometryReader { geo in
+            VStack {
+                header()
+                UserBubble(size: geo.size.width * 0.75, url: user.imageUrl, pulse: 1.3)
+                
+                Text(user.username)
+                    .font(.title)
+                    .foregroundStyle(.white)
+                    .fontWeight(.thin)
+                worldList()
+                messageField()
+                Spacer()
+                ctaButton()
+            }
+            .onAppear {
+               showAnimation()
+            }
+            .onDisappear {
+                vm.showTextField = false
+            }
+        
         }
         .background(background())
-        .onAppear {
-           showAnimation()
-        }
-        .onDisappear {
-            vm.showTextField = false
-        }
-    
+
+       
       
     }
     
@@ -135,19 +146,7 @@ struct PublicStreetPass: View {
             })
     }
     
-    @ViewBuilder
-    func userView() -> some View {
-        VStack {
-            
-            UserBubble(size: 300, url: user.imageUrl, pulse: 1.3)
-            
-            Text(user.username)
-                .font(.title)
-                .foregroundStyle(.white)
-                .fontWeight(.thin)
-            
-        }
-    }
+  
     
     @ViewBuilder
     func worldList() -> some View {

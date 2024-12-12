@@ -79,7 +79,7 @@ struct Chatroom: View {
         ScrollView {
             ScrollViewReader { proxy in
                 
-                ForEach(vm.messages) {
+                ForEach(vm.messages.sorted(by: {$0.date < $1.date})) {
                     ChatBubble(message: $0)
                 }
                 

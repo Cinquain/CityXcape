@@ -336,15 +336,15 @@ final class DataService {
         let messageRef = chatRef.document(uid).collection(request.id).document()
         let messageRefII = chatRef.document(request.id).collection(uid).document()
         let requestRef = userRef.document(uid).collection(Server.request).document(request.id)
-        
+        let username = username ?? ""
         //Create recent message references
         let recentRefII = chatRef.document(Server.recentMessage).collection(request.id).document(uid)
         
         let message: [String: Any] = [
             Message.CodingKeys.id.rawValue: messageRef.documentID,
             Message.CodingKeys.imageUrl.rawValue: profileUrl ?? "",
-            Message.CodingKeys.username.rawValue: username ?? "",
-            Message.CodingKeys.content.rawValue: content,
+            Message.CodingKeys.username.rawValue: username,
+            Message.CodingKeys.content.rawValue: "\(username) accepted your connection request",
             Message.CodingKeys.toId.rawValue: request.id,
             Message.CodingKeys.fromId.rawValue: uid
         ]

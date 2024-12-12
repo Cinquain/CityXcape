@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import FirebaseFirestore
 
 struct Message: Identifiable, Codable {
     
@@ -16,6 +16,7 @@ struct Message: Identifiable, Codable {
     let content: String
     let imageUrl: String
     let username: String
+    let date: Date
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -24,6 +25,7 @@ struct Message: Identifiable, Codable {
         case content
         case imageUrl
         case username
+        case date
     }
     
     init(data: [String: Any]) {
@@ -33,6 +35,8 @@ struct Message: Identifiable, Codable {
         self.content = data[Message.CodingKeys.content.rawValue] as? String ?? ""
         self.imageUrl = data[Message.CodingKeys.imageUrl.rawValue] as? String ?? ""
         self.username = data[Message.CodingKeys.username.rawValue] as? String ?? ""
+        let timestamp = data[Message.CodingKeys.date.rawValue] as? Timestamp ?? Timestamp()
+        self.date = timestamp.dateValue()
     }
     
     static let data: [String: Any] = [

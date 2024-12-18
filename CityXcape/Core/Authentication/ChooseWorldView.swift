@@ -12,7 +12,7 @@ struct ChooseWorldView: View {
 
     @State private var isDone: Bool = false
     @StateObject var vm: UploadViewModel
-    @Binding var selection: Int
+    @Binding var index: Int
 
     var body: some View {
         VStack {
@@ -103,7 +103,7 @@ struct ChooseWorldView: View {
             vm.showError.toggle()
         }
         withAnimation {
-            selection = 5
+            index = 5
         }
     }
     

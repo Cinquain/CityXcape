@@ -17,7 +17,7 @@ struct AuthPage: View {
     }
     @State private var isDone: Bool = false
     @StateObject var vm: UploadViewModel
-    @Binding var selection: Int
+    @Binding var index: Int
     
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
@@ -27,12 +27,13 @@ struct AuthPage: View {
             Spacer()
                 .frame(height: 200)
             VStack {
-                Image(systemName: "person.crop.circle.fill")
+                Image("dot person")
+                    .resizable()
                     .scaledToFit()
-                    .font(.system(size: 100))
+                    .frame(height: 150)
                 HStack {
                     Spacer()
-                    Text("Create Your Account")
+                    Text("Create an Account")
                         .fontWeight(.light)
                         .font(.title2)
                         .alert(isPresented: $vm.showError, content: {
@@ -113,7 +114,7 @@ struct AuthPage: View {
         }
         isDone = true
         withAnimation {
-            selection = 1
+            index = 1
         }
     }
 }

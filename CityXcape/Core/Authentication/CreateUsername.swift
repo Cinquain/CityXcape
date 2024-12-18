@@ -10,7 +10,7 @@ import SwiftUI
 struct CreateUsername: View {
     
     @StateObject var vm: UploadViewModel
-    @Binding var selection: Int
+    @Binding var index: Int
     @State var isDone : Bool = false
     
     var body: some View {
@@ -93,7 +93,7 @@ struct CreateUsername: View {
             return
         }
         withAnimation {
-            selection = 2
+            index = 2
         }
     }
 }

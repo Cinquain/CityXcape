@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FindCityView: View {
     
-    @Binding var selection: Int
+    @Binding var index: Int
     @StateObject var vm: UploadViewModel
     @StateObject var manager = LocationService.shared
     @State private var isDone: Bool = false
@@ -86,7 +86,7 @@ struct FindCityView: View {
         }
         
         withAnimation {
-            selection = 3
+            index = 3
         }
     }
     

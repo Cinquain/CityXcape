@@ -77,23 +77,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
     
     func registerForNotification(appDelegate: UIApplication) {
-        let options: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(options: options) { granted, error in
-            
-            if let error = error {
-                print("Error gettign notification permission", error.localizedDescription)
-                return
-            }
-            
-            if granted {
-                print("Authorization granted!")
-                UNUserNotificationCenter.current().delegate = self
-             
-            } else {
-                print("Authorization request was denied")
-            }
-            
-        }
         appDelegate.registerForRemoteNotifications()
     }
     

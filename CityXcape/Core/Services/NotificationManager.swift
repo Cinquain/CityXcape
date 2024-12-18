@@ -15,6 +15,7 @@ final class NotificationManager {
     static let shared = NotificationManager()
     private init() {}
     
+    var granted: Bool = false
     
     func requestAuthorization() {
         let options : UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -25,6 +26,11 @@ final class NotificationManager {
             } else {
                 print("Success getting notification permissions")
             }
+            
+            if success {
+                self.granted = success
+            }
+            
         }
     }
     

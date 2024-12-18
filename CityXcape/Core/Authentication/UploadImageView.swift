@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UploadImageView: View {
     @StateObject var vm: UploadViewModel
-    @Binding var selection: Int
+    @Binding var index: Int
     @State private var isDone:Bool = false
     
     var body: some View {
@@ -88,7 +88,7 @@ struct UploadImageView: View {
             return
         }
         withAnimation {
-            selection = 4
+            index = 4
         }
     }
     

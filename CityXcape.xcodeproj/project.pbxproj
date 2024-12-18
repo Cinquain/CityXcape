@@ -65,6 +65,7 @@
 		21EC5ADC2C5C440A00B88812 /* BubbleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC5ADB2C5C440A00B88812 /* BubbleAnimation.swift */; };
 		21ED14FD2D1333F7009D9215 /* Analytic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED14FC2D1333F7009D9215 /* Analytic.swift */; };
 		21ED15002D13395D009D9215 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED14FF2D13395D009D9215 /* NotificationManager.swift */; };
+		21ED15022D136F3D009D9215 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED15012D136F3D009D9215 /* NotificationView.swift */; };
 		21ED577D2C9A11B70029505B /* ScavengerHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED577C2C9A11B70029505B /* ScavengerHunt.swift */; };
 		21F010392CC865AD00651C36 /* Apple.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 21F010382CC865AD00651C36 /* Apple.mp3 */; };
 		21F5C0FF2C98D01D0078684E /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5C0FE2C98D01D0078684E /* ChatBubble.swift */; };
@@ -151,6 +152,7 @@
 		21EC5ADB2C5C440A00B88812 /* BubbleAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleAnimation.swift; sourceTree = "<group>"; };
 		21ED14FC2D1333F7009D9215 /* Analytic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytic.swift; sourceTree = "<group>"; };
 		21ED14FF2D13395D009D9215 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		21ED15012D136F3D009D9215 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		21ED577C2C9A11B70029505B /* ScavengerHunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScavengerHunt.swift; sourceTree = "<group>"; };
 		21F010382CC865AD00651C36 /* Apple.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Apple.mp3; sourceTree = "<group>"; };
 		21F5C0FE2C98D01D0078684E /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				21D302922CA7430900111D6E /* UploadImageView.swift */,
 				21D238B22CA36490002242F8 /* ChooseWorldView.swift */,
 				216F72A82CAC88A30040B8AC /* StreetIDCard.swift */,
+				21ED15012D136F3D009D9215 /* NotificationView.swift */,
 				21DE09062C88922000A2D526 /* UploadViewModel.swift */,
 			);
 			path = Authentication;
@@ -563,6 +566,7 @@
 				21D302932CA7430900111D6E /* UploadImageView.swift in Sources */,
 				21D302952CA7485A00111D6E /* LocationService.swift in Sources */,
 				21DC25302C6FD2200046FFB8 /* TimerViewModel.swift in Sources */,
+				21ED15022D136F3D009D9215 /* NotificationView.swift in Sources */,
 				211091002CC18D81006F83B3 /* Store.swift in Sources */,
 				21D8C8452CEBAA19001B16CF /* RequestThumb.swift in Sources */,
 				21F91D8F2C63C1310024A991 /* Message.swift in Sources */,

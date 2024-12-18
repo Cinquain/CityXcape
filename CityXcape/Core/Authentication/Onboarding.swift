@@ -11,28 +11,31 @@ struct Onboarding: View {
     @Environment(\.dismiss) var dismiss
 
     @State private var showPicker: Bool = false
-    @State private var tabselection = 0
+    @State private var index = 0
     @StateObject var vm = UploadViewModel()
     var body: some View {
-        TabView(selection: $tabselection) {
+        TabView(selection: $index) {
             
-            AuthPage(vm: vm, selection: $tabselection)
+            AuthPage(vm: vm, index: $index)
                 .tag(0)
             
-            CreateUsername(vm: vm, selection: $tabselection)
+            CreateUsername(vm: vm, index: $index)
                 .tag(1)
             
-            FindCityView(selection: $tabselection, vm: vm)
+            NotificationView(vm: vm, index: $index)
                 .tag(2)
             
-            UploadImageView(vm: vm, selection: $tabselection)
+            FindCityView(index: $index, vm: vm)
                 .tag(3)
             
-            ChooseWorldView(vm: vm, selection: $tabselection)
+            UploadImageView(vm: vm, index: $index)
                 .tag(4)
             
-            StreetIDCard(vm: vm)
+            ChooseWorldView(vm: vm, index: $index)
                 .tag(5)
+            
+            StreetIDCard(vm: vm)
+                .tag(6)
                 
         }
         .tabViewStyle(.page(indexDisplayMode: .automatic))

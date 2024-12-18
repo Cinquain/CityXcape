@@ -45,12 +45,13 @@ extension AuthService {
         let authResult = try await Auth.auth().signIn(with: credentials)
         let uid = authResult.user.uid
         if try await DataService.shared.checkIfUserExist(uid: uid) {
-            UserDefaults.standard.set(uid, forKey: CXUserDefaults.uid)
+            try await DataService.shared.loginUser(uid: uid)
             self.signupView.isAuth = true
             return true
         } else {
             DataService.shared.createUser(auth: authResult)
             self.signupView.isAuth = true
+            Analytic.shared.appleSignup()
             return false
         }
     }
@@ -115,10 +116,11 @@ extension AuthService {
         let authResult = try await Auth.auth().signIn(with: credentials)
         let uid = authResult.user.uid
         if try await DataService.shared.checkIfUserExist(uid: uid) {
-            //Log in user using DataService
+            try await DataService.shared.loginUser(uid: uid)
             return true
         } else {
             DataService.shared.createUser(auth: authResult)
+            Analytic.shared.googleSignup()
             return false
         } 
     }

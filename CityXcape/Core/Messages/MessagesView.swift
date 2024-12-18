@@ -34,6 +34,7 @@ struct MessagesView: View {
             .navigationBarHidden(true)
             .toolbar(.visible, for: .tabBar)
             .background(HexBackground())
+           
 
     }
     

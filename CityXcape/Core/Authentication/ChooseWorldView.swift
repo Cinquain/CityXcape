@@ -26,7 +26,7 @@ struct ChooseWorldView: View {
                     .alert(isPresented: $vm.showError, content: {
                         Alert(title: Text(vm.errorMessage))
                     })
-                Text("Worlds are communities & subcultures")
+                Text("Worlds are communities people belong to")
                     .font(.callout)
                     .fontWeight(.light)
                     .foregroundStyle(.white)

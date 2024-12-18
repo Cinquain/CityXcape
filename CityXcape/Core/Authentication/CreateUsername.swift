@@ -22,7 +22,7 @@ struct CreateUsername: View {
                 Image(systemName: "info.circle.fill")
                     .font(.title)
                     .foregroundStyle(.white)
-                Text("Tell Us About You")
+                Text("Name & Gender")
                     .font(.title)
                     .foregroundStyle(.white)
                     .fontWeight(.thin)

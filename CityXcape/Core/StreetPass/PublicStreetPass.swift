@@ -41,6 +41,7 @@ struct PublicStreetPass: View {
             }
             .onAppear {
                showAnimation()
+               Analytic.shared.viewStreetPass()
             }
             .onDisappear {
                 vm.showTextField = false
@@ -153,6 +154,7 @@ struct PublicStreetPass: View {
         HStack {
             ForEach(user.worlds) { world in
                 Button {
+                    Analytic.shared.viewedWorld()
                     errorMessage = "\(user.username) is \(world.memberName)"
                     showError.toggle()
                 } label: {

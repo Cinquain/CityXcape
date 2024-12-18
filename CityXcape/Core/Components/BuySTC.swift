@@ -32,6 +32,7 @@ struct BuySTC: View {
             withAnimation {
                 rotation = 360
             }
+            Analytic.shared.viewOrderPage()
         })
     }
     
@@ -95,6 +96,7 @@ struct BuySTC: View {
                             print("Successfully Bought StreetCred")
                             //Update Streetcred on backend
                             DataService.shared.purchaseStreetCred(count: Product.streetcred.count, price: 10, user: user)
+                            Analytic.shared.ordered3STC()
                             case .failure(let error):
                             message = error.localizedDescription
                             showError.toggle()
@@ -113,6 +115,7 @@ struct BuySTC: View {
                             print("Successfully Bought StreetCred")
                             //Update Streetcred on backend
                             DataService.shared.purchaseStreetCred(count: Product.streetcred_15.count, price: 30, user: user)
+                            Analytic.shared.ordered15STC()
                             case .failure(let error):
                             message = error.localizedDescription
                             showError.toggle()
@@ -131,6 +134,7 @@ struct BuySTC: View {
                             print("Successfully Bought StreetCred")
                             //Update Streetcred on backend
                             DataService.shared.purchaseStreetCred(count: Product.streetcred_50.count, price: 50, user: user)
+                            Analytic.shared.ordered50STC()
                             case .failure(let error):
                             message = error.localizedDescription
                             showError.toggle()

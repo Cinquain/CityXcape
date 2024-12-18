@@ -66,6 +66,7 @@ struct StreetPass: View {
         HStack {
             ForEach(vm.user?.worlds ?? []) { world in
                 Button {
+                    Analytic.shared.viewedWorld()
                     vm.errorMessage = "You're part of the \(world.name) world"
                     vm.showError.toggle()
                 } label: {

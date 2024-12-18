@@ -72,11 +72,24 @@ final class LocationViewModel: ObservableObject {
         self.user = User(id: user.id, username: user.username, imageUrl: user.imageUrl, gender: user.gender, city: currentspot.name, streetcred: user.streetcred, worlds: user.worlds, fcmToken: user.fcmToken)
         self.spot = currentspot
         try await DataService.shared.checkin(spotId: spotId, user: self.user!)
+        NotificationManager.shared.scheduleGeoNotification(spot: currentspot)
+        NotificationManager.shared.scheduleTimeNotification(spot: currentspot)
+        Analytic.shared.checkedIn()
         return currentspot
+    }
+    
+    func checkDistance() {
+        guard let spot = spot else {return}
+        if spot.distanceFromUser > 150 {
+            Task {
+                try await DataService.shared.checkout(spotId: spot.id)
+            }
+        }
     }
     
     func checkout(spotId: String) async throws {
         try await DataService.shared.checkout(spotId: spotId)
+        NotificationManager.shared.cancelNotification()
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.lastSpotId)
     }
     
@@ -131,6 +144,7 @@ final class LocationViewModel: ObservableObject {
         return (result, percentage)
     }
     
+    
     func sendRequest(uid: String) {
         if message.isEmpty {
             errorMessage = "Please enter a message"
@@ -149,7 +163,7 @@ final class LocationViewModel: ObservableObject {
                 showTextField = false
                 isSent = true
                 SoundManager.shared.playBeep()
-            
+                Analytic.shared.sentRequest()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                     self.isSent = false
                 })

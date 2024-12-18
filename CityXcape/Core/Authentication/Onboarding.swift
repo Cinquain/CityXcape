@@ -36,8 +36,10 @@ struct Onboarding: View {
                 
         }
         .tabViewStyle(.page(indexDisplayMode: .automatic))
-    
         .edgesIgnoringSafeArea(.all)
+        .onAppear(perform: {
+            Analytic.shared.startedOnboarding()
+        })
     }
     
 

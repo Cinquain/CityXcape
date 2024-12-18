@@ -44,7 +44,7 @@ struct Discover: View {
                             .fontWeight(.thin)
                             .alert(isPresented: $vm.showError, content: {
                                 if vm.showOnboarding {
-                                    return Alert(title: Text("You need an account to check-in"), primaryButton: .default(Text("Ok")){
+                                    return Alert(title: Text("You need a user profile to check-in"), primaryButton: .default(Text("Ok")){
                                         startOnboarding = true
                                     } , secondaryButton: .cancel())
                                 } else {
@@ -77,6 +77,7 @@ struct Discover: View {
                 }
             }
         }
+       
         
     }
     
@@ -95,11 +96,7 @@ struct Discover: View {
                     currentSpot = spot
 
                     vm.showLounge.toggle()
-//                    if spot.distanceFromUser > 150 {
-//                        vm.errorMessage = "You need to be there to checkin"
-//                        vm.showError.toggle()
-//                        return
-//                    }
+
                 } catch {
                     print("Error fetching location", error.localizedDescription)
                     vm.errorMessage =  error.localizedDescription
@@ -126,6 +123,7 @@ struct Discover: View {
     @ViewBuilder
     func ctaButton() -> some View {
         Button(action: {
+            Analytic.shared.pressedCheckin()
             if AuthService.shared.uid == nil {
                 vm.showOnboarding.toggle()
                 vm.showError.toggle()

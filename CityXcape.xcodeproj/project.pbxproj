@@ -63,6 +63,8 @@
 		21EC5AD82C5C3FD600B88812 /* StampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC5AD72C5C3FD600B88812 /* StampView.swift */; };
 		21EC5ADA2C5C40BA00B88812 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC5AD92C5C40BA00B88812 /* Extensions.swift */; };
 		21EC5ADC2C5C440A00B88812 /* BubbleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC5ADB2C5C440A00B88812 /* BubbleAnimation.swift */; };
+		21ED14FD2D1333F7009D9215 /* Analytic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED14FC2D1333F7009D9215 /* Analytic.swift */; };
+		21ED15002D13395D009D9215 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED14FF2D13395D009D9215 /* NotificationManager.swift */; };
 		21ED577D2C9A11B70029505B /* ScavengerHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED577C2C9A11B70029505B /* ScavengerHunt.swift */; };
 		21F010392CC865AD00651C36 /* Apple.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 21F010382CC865AD00651C36 /* Apple.mp3 */; };
 		21F5C0FF2C98D01D0078684E /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5C0FE2C98D01D0078684E /* ChatBubble.swift */; };
@@ -147,6 +149,8 @@
 		21EC5AD72C5C3FD600B88812 /* StampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampView.swift; sourceTree = "<group>"; };
 		21EC5AD92C5C40BA00B88812 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		21EC5ADB2C5C440A00B88812 /* BubbleAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleAnimation.swift; sourceTree = "<group>"; };
+		21ED14FC2D1333F7009D9215 /* Analytic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytic.swift; sourceTree = "<group>"; };
+		21ED14FF2D13395D009D9215 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		21ED577C2C9A11B70029505B /* ScavengerHunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScavengerHunt.swift; sourceTree = "<group>"; };
 		21F010382CC865AD00651C36 /* Apple.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Apple.mp3; sourceTree = "<group>"; };
 		21F5C0FE2C98D01D0078684E /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
@@ -262,12 +266,20 @@
 			children = (
 				21EC5ACF2C5C2F9D00B88812 /* Helpers.swift */,
 				21EC5AD92C5C40BA00B88812 /* Extensions.swift */,
-				21D772E92C5D1F8D004BEF31 /* SoundManager.swift */,
 				21FC27D22C7CB0A30055CDCF /* Utilities.swift */,
-				21D302942CA7485A00111D6E /* LocationService.swift */,
-				211090FF2CC18D81006F83B3 /* Store.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		21ED14FE2D133901009D9215 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				21D772E92C5D1F8D004BEF31 /* SoundManager.swift */,
+				21D302942CA7485A00111D6E /* LocationService.swift */,
+				211090FF2CC18D81006F83B3 /* Store.swift */,
+				21ED14FF2D13395D009D9215 /* NotificationManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		21F5C0FD2C98D0050078684E /* Messages */ = {
@@ -300,6 +312,7 @@
 				21FC27D52C7CB3C80055CDCF /* AuthService.swift */,
 				21FC27D72C7CB9680055CDCF /* DataService.swift */,
 				21DE09082C8893B500A2D526 /* ImageManager.swift */,
+				21ED14FC2D1333F7009D9215 /* Analytic.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -355,6 +368,7 @@
 				21F91D832C63A8610024A991 /* Discover */,
 				210A043B2C61515100CA1078 /* Authentication */,
 				21CF8D852C5E7062006339A9 /* StreetPass */,
+				21ED14FE2D133901009D9215 /* Services */,
 				21EC5ACE2C5C2F6B00B88812 /* Utilities */,
 				210DA00D2C5BBD3000913890 /* Sounds */,
 				21FCE5A62C5AD676006A86CE /* Components */,
@@ -513,9 +527,11 @@
 				21F91D852C63A87D0024A991 /* Discover.swift in Sources */,
 				21FC27D62C7CB3C80055CDCF /* AuthService.swift in Sources */,
 				21DCDEC92C70E21800F5A468 /* Connection.swift in Sources */,
+				21ED14FD2D1333F7009D9215 /* Analytic.swift in Sources */,
 				210A04412C61939800CA1078 /* Stc.swift in Sources */,
 				21D772E62C5D1518004BEF31 /* CircleButton.swift in Sources */,
 				21C635392C77B58800D15DB2 /* RequestView.swift in Sources */,
+				21ED15002D13395D009D9215 /* NotificationManager.swift in Sources */,
 				21F5C0FF2C98D01D0078684E /* ChatBubble.swift in Sources */,
 				21D302912CA738B200111D6E /* CreateUsername.swift in Sources */,
 				21DCDECB2C71269600F5A468 /* MatchAnimation.swift in Sources */,

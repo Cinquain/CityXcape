@@ -80,12 +80,14 @@ final class DataService {
         
         try await reference.setData(data)
         updateStreetCred(count: 1)
+        Analytic.shared.newUser()
         UserDefaults.standard.setValue(user.username, forKey: CXUserDefaults.username)
         UserDefaults.standard.set(true, forKey: CXUserDefaults.createdSP)
     }
     
     func loginUser(uid: String) async throws {
         let user = try await getUserFrom(uid: uid)
+        Analytic.shared.loginUser()
         setUserDefaults(user: user)
     }
     
@@ -203,8 +205,6 @@ final class DataService {
     func checkin(spotId: String, user: User) async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let reference = spotRef.document(spotId).collection(Server.checkins)
-        
-        
         try reference.document(uid).setData(from: user.self)
     }
     
@@ -213,6 +213,7 @@ final class DataService {
         let reference = spotRef.document(spotId).collection(Server.checkins).document(uid)
         checkinListener?.remove()
         try await reference.delete()
+        Analytic.shared.checkout()
     }
     
     //MARK: STREETCRED FUNCTIONS
@@ -242,6 +243,7 @@ final class DataService {
             Server.timestamp: FieldValue.serverTimestamp()
         ]
         reference.setData(record)
+        Analytic.shared.purchasedSTC()
     }
     
     func getStreetCred() async throws -> Int  {
@@ -326,6 +328,7 @@ final class DataService {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let reference = userRef.document(uid).collection(Server.request).document(request.id)
         try await reference.delete()
+        Analytic.shared.deniedRequest()
     }
     
     func acceptRequest(content: String, request: Request) async throws {
@@ -407,6 +410,7 @@ final class DataService {
         try await reference.setData(data)
         try await referenceII.setData(dataII)
         try await spotRef.setData(spotData)
+        Analytic.shared.newConnection()
     }
     
     func fetchAllRequests() async throws -> [Request] {
@@ -474,6 +478,7 @@ final class DataService {
 
     func getMessagesFor(userId: String, completion: @escaping (Result<[Message], Error>) -> ()) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
+        updateRecentMessage(userId: userId)
         var messages: [Message] = []
         chatListener = chatRef
                     .document(uid)
@@ -552,12 +557,14 @@ final class DataService {
             Message.CodingKeys.imageUrl.rawValue: profileUrl ?? "",
             Message.CodingKeys.username.rawValue: username ?? "",
             Message.CodingKeys.content.rawValue: content,
+            Message.CodingKeys.read.rawValue: false,
             Server.timestamp: Timestamp()
         ]
         
         try await toRef.setData(data)
         try await fromRef.setData(data)
         try await saveRecentMessgae(userId: userId, data: data)
+        Analytic.shared.sentMessage()
     }
     
     func saveRecentMessgae(userId: String, data: [String: Any]) async throws {
@@ -565,6 +572,16 @@ final class DataService {
         let reference = chatRef.document(Server.recentMessage).collection(userId).document(uid)
         try await reference.delete()
         try await reference.setData(data)
+    }
+    
+    func updateRecentMessage(userId: String) {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let reference = chatRef.document(Server.recentMessage).collection(uid).document(userId)
+        
+        let data: [String: Any] = [
+            Message.CodingKeys.read.rawValue: true
+        ]
+        reference.updateData(data)
     }
     
     func deleteRecentMessage(userId: String)  {
@@ -613,6 +630,7 @@ final class DataService {
         
         try await reference.setData(data)
         try await referenceII.setData(dataII)
+        Analytic.shared.newStamp()
     }
     
     func updateStampImage(stampId: String, imageUrl: String) async throws {

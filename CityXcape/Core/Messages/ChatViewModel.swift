@@ -12,6 +12,7 @@ class ChatViewModel: ObservableObject {
     
     @Published var recents: [Message] = []
     @Published var messages: [Message] = []
+    @Published var unviewed: [Message] = []
     
     
     @Published var count: Int = 0
@@ -30,6 +31,7 @@ class ChatViewModel: ObservableObject {
             case .success(let messages):
                 DispatchQueue.main.async {
                     self.recents = messages
+                    self.count = messages.filter({$0.read == false}).count
                 }
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
@@ -44,6 +46,8 @@ class ChatViewModel: ObservableObject {
             case .success(let messages):
                 DispatchQueue.main.async {
                     self.messages = messages
+                    self.count = 0
+                    Analytic.shared.loadedChatroom()
                 }
             case .failure(let error):
                 self.errorMessage = error.localizedDescription

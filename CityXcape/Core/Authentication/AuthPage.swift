@@ -32,7 +32,7 @@ struct AuthPage: View {
                     .font(.system(size: 100))
                 HStack {
                     Spacer()
-                    Text("Let's Create Your Login")
+                    Text("Create Your Account")
                         .fontWeight(.light)
                         .font(.title2)
                         .alert(isPresented: $vm.showError, content: {

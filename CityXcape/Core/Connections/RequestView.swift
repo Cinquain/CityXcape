@@ -43,6 +43,9 @@ struct RequestView: View {
                  
                 }
                 .background(HexBackground())
+                .onAppear(perform: {
+                    Analytic.shared.viewedRequest()
+                })
             
     }
     

@@ -45,7 +45,7 @@ struct ContentView: View {
                             .scaledToFit()
                         Text(Tab.messages.rawValue)
                     }
-                    .badge(chatVm.recents.count)
+                    .badge(chatVm.count)
              
                 
                 StreetPass(vm: sp)

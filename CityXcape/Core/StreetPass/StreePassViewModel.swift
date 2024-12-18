@@ -60,6 +60,7 @@ class StreetPassViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.stamps = stamps
                 }
+                Analytic.shared.viewedPassport()
                 showPassport.toggle()
             } catch {
                 errorMessage = error.localizedDescription

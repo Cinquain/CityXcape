@@ -50,13 +50,39 @@ struct StreetPass: View {
                 
             }
             .foregroundStyle(.white)
+            .fullScreenCover(isPresented: $vm.showAuth, content: {
+                AuthPage()
+            })
             Spacer()
             
-            Button(action: {}, label: {
+            Menu{
+                Button(action: {vm.showAuth.toggle()}) {
+                                     Label("Signup", systemImage: "person.crop.circle.fill.badge.checkmark")
+                                 }
+                
+                Button {
+                    vm.openCustomUrl(link: "https://www.cityxcape.com/privacy_policy")
+                                } label: {
+                                    Label("Privacy Policy", systemImage: "hand.raised.circle.fill")
+                                }
+                                
+                                Button {
+                                    vm.openCustomUrl(link: "https://www.cityxcape.com/terms")
+                                } label: {
+                                    Label("Terms & Conditions", systemImage: "doc.text.magnifyingglass")
+                                }
+                Button(action: vm.signout) {
+                Label("Signout", systemImage: "point.filled.topleft.down.curvedto.point.bottomright.up")
+                                 }
+                
+                Button(action: vm.deleteAccount) {
+                                       Label("Delete Account", systemImage: "person.crop.circle.fill.badge.minus")
+                                   }
+            } label: {
                 Image(systemName: "gearshape.fill")
                     .font(.title)
                     .foregroundStyle(.white.opacity(0.5))
-            })
+            }
         }
         .padding(.horizontal, 20)
     }
@@ -66,7 +92,7 @@ struct StreetPass: View {
         HStack {
             ForEach(vm.user?.worlds ?? []) { world in
                 Button {
-                    Analytic.shared.viewedWorld()
+                    AnalyticService.shared.viewedWorld()
                     vm.errorMessage = "You're part of the \(world.name) world"
                     vm.showError.toggle()
                 } label: {

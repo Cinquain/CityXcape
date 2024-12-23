@@ -80,14 +80,14 @@ final class DataService {
         
         try await reference.setData(data)
         updateStreetCred(count: 1)
-        Analytic.shared.newUser()
+        AnalyticService.shared.newUser()
         UserDefaults.standard.setValue(user.username, forKey: CXUserDefaults.username)
         UserDefaults.standard.set(true, forKey: CXUserDefaults.createdSP)
     }
     
     func loginUser(uid: String) async throws {
         let user = try await getUserFrom(uid: uid)
-        Analytic.shared.loginUser()
+        AnalyticService.shared.loginUser()
         setUserDefaults(user: user)
     }
     
@@ -152,7 +152,8 @@ final class DataService {
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.profileUrl)
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.createdSP)
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.firstOpen)
-        
+        UserDefaults.standard.removeObject(forKey: CXUserDefaults.username)
+        UserDefaults.standard.removeObject(forKey: CXUserDefaults.lastSpotId)
         //Sign out
         try AuthService.shared.signOut()
     }
@@ -213,7 +214,7 @@ final class DataService {
         let reference = spotRef.document(spotId).collection(Server.checkins).document(uid)
         checkinListener?.remove()
         try await reference.delete()
-        Analytic.shared.checkout()
+        AnalyticService.shared.checkout()
     }
     
     //MARK: STREETCRED FUNCTIONS
@@ -243,7 +244,7 @@ final class DataService {
             Server.timestamp: FieldValue.serverTimestamp()
         ]
         reference.setData(record)
-        Analytic.shared.purchasedSTC()
+        AnalyticService.shared.purchasedSTC()
     }
     
     func getStreetCred() async throws -> Int  {
@@ -328,7 +329,7 @@ final class DataService {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let reference = userRef.document(uid).collection(Server.request).document(request.id)
         try await reference.delete()
-        Analytic.shared.deniedRequest()
+        AnalyticService.shared.deniedRequest()
     }
     
     func acceptRequest(content: String, request: Request) async throws {
@@ -410,7 +411,7 @@ final class DataService {
         try await reference.setData(data)
         try await referenceII.setData(dataII)
         try await spotRef.setData(spotData)
-        Analytic.shared.newConnection()
+        AnalyticService.shared.newConnection()
     }
     
     func fetchAllRequests() async throws -> [Request] {
@@ -564,7 +565,7 @@ final class DataService {
         try await toRef.setData(data)
         try await fromRef.setData(data)
         try await saveRecentMessgae(userId: userId, data: data)
-        Analytic.shared.sentMessage()
+        AnalyticService.shared.sentMessage()
     }
     
     func saveRecentMessgae(userId: String, data: [String: Any]) async throws {
@@ -630,7 +631,7 @@ final class DataService {
         
         try await reference.setData(data)
         try await referenceII.setData(dataII)
-        Analytic.shared.newStamp()
+        AnalyticService.shared.newStamp()
     }
     
     func updateStampImage(stampId: String, imageUrl: String) async throws {

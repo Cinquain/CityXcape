@@ -49,7 +49,9 @@ struct NotificationView: View {
             
             Button(action: {
                 if manager.granted {
-                    
+                    withAnimation {
+                        index = 3
+                    }
                 } else {
                     errorMessage = "Please enable notifications"
                     showError.toggle()

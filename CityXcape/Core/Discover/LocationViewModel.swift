@@ -43,6 +43,7 @@ final class LocationViewModel: ObservableObject {
     
     @Published var requests: [Request] = []
     @Published var showPage: Bool = false
+    @Published var stcValue: Int = 0
     
     
     
@@ -74,7 +75,7 @@ final class LocationViewModel: ObservableObject {
         try await DataService.shared.checkin(spotId: spotId, user: self.user!)
         NotificationManager.shared.scheduleGeoNotification(spot: currentspot)
         NotificationManager.shared.scheduleTimeNotification(spot: currentspot)
-        Analytic.shared.checkedIn()
+        AnalyticService.shared.checkedIn()
         return currentspot
     }
     
@@ -163,9 +164,10 @@ final class LocationViewModel: ObservableObject {
                 showTextField = false
                 isSent = true
                 SoundManager.shared.playBeep()
-                Analytic.shared.sentRequest()
+                AnalyticService.shared.sentRequest()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                     self.isSent = false
+                    self.stcValue -= 1
                 })
                
             } catch {

@@ -30,7 +30,20 @@ final class AuthService: NSObject, ObservableObject {
     //MARK: Generic Auth Functions
     func signOut() throws {
         try Auth.auth().signOut()
+        removeUserDefaults()
+    }
+    
+    func removeUserDefaults() {
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.uid)
+        UserDefaults.standard.removeObject(forKey: CXUserDefaults.profileUrl)
+        UserDefaults.standard.removeObject(forKey: CXUserDefaults.createdSP)
+        UserDefaults.standard.removeObject(forKey: CXUserDefaults.firstOpen)
+        UserDefaults.standard.removeObject(forKey: CXUserDefaults.username)
+        UserDefaults.standard.removeObject(forKey: CXUserDefaults.lastSpotId)
+    }
+    
+    func deleteUser() async throws {
+        try await Auth.auth().currentUser?.delete()
     }
         
 }
@@ -51,7 +64,7 @@ extension AuthService {
         } else {
             DataService.shared.createUser(auth: authResult)
             self.signupView.isAuth = true
-            Analytic.shared.appleSignup()
+            AnalyticService.shared.appleSignup()
             return false
         }
     }
@@ -120,7 +133,7 @@ extension AuthService {
             return true
         } else {
             DataService.shared.createUser(auth: authResult)
-            Analytic.shared.googleSignup()
+            AnalyticService.shared.googleSignup()
             return false
         } 
     }

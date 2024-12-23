@@ -86,7 +86,7 @@ struct FindCityView: View {
         }
         
         withAnimation {
-            index = 3
+            index = 4
         }
     }
     

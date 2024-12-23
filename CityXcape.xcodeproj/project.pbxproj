@@ -63,7 +63,7 @@
 		21EC5AD82C5C3FD600B88812 /* StampView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC5AD72C5C3FD600B88812 /* StampView.swift */; };
 		21EC5ADA2C5C40BA00B88812 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC5AD92C5C40BA00B88812 /* Extensions.swift */; };
 		21EC5ADC2C5C440A00B88812 /* BubbleAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC5ADB2C5C440A00B88812 /* BubbleAnimation.swift */; };
-		21ED14FD2D1333F7009D9215 /* Analytic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED14FC2D1333F7009D9215 /* Analytic.swift */; };
+		21ED14FD2D1333F7009D9215 /* AnalyticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED14FC2D1333F7009D9215 /* AnalyticService.swift */; };
 		21ED15002D13395D009D9215 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED14FF2D13395D009D9215 /* NotificationManager.swift */; };
 		21ED15022D136F3D009D9215 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED15012D136F3D009D9215 /* NotificationView.swift */; };
 		21ED577D2C9A11B70029505B /* ScavengerHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED577C2C9A11B70029505B /* ScavengerHunt.swift */; };
@@ -150,7 +150,7 @@
 		21EC5AD72C5C3FD600B88812 /* StampView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampView.swift; sourceTree = "<group>"; };
 		21EC5AD92C5C40BA00B88812 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		21EC5ADB2C5C440A00B88812 /* BubbleAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleAnimation.swift; sourceTree = "<group>"; };
-		21ED14FC2D1333F7009D9215 /* Analytic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytic.swift; sourceTree = "<group>"; };
+		21ED14FC2D1333F7009D9215 /* AnalyticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticService.swift; sourceTree = "<group>"; };
 		21ED14FF2D13395D009D9215 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		21ED15012D136F3D009D9215 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		21ED577C2C9A11B70029505B /* ScavengerHunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScavengerHunt.swift; sourceTree = "<group>"; };
@@ -315,7 +315,7 @@
 				21FC27D52C7CB3C80055CDCF /* AuthService.swift */,
 				21FC27D72C7CB9680055CDCF /* DataService.swift */,
 				21DE09082C8893B500A2D526 /* ImageManager.swift */,
-				21ED14FC2D1333F7009D9215 /* Analytic.swift */,
+				21ED14FC2D1333F7009D9215 /* AnalyticService.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -530,7 +530,7 @@
 				21F91D852C63A87D0024A991 /* Discover.swift in Sources */,
 				21FC27D62C7CB3C80055CDCF /* AuthService.swift in Sources */,
 				21DCDEC92C70E21800F5A468 /* Connection.swift in Sources */,
-				21ED14FD2D1333F7009D9215 /* Analytic.swift in Sources */,
+				21ED14FD2D1333F7009D9215 /* AnalyticService.swift in Sources */,
 				210A04412C61939800CA1078 /* Stc.swift in Sources */,
 				21D772E62C5D1518004BEF31 /* CircleButton.swift in Sources */,
 				21C635392C77B58800D15DB2 /* RequestView.swift in Sources */,

@@ -10,9 +10,9 @@ import FirebaseAnalytics
 
 
 
-final class Analytic {
+final class AnalyticService {
     
-    static let shared = Analytic()
+    static let shared = AnalyticService()
     private init() {}
     
     func pressedCheckin() {

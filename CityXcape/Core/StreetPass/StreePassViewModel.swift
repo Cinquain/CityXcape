@@ -27,6 +27,8 @@ class StreetPassViewModel: ObservableObject {
     
     @Published var showPassport: Bool = false
     @Published var showPage: Bool = false
+    @Published var showAuth: Bool = false
+    
     @Published var buySTC: Bool = false
     @Published var showPicker: Bool = false 
     
@@ -60,7 +62,7 @@ class StreetPassViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.stamps = stamps
                 }
-                Analytic.shared.viewedPassport()
+                AnalyticService.shared.viewedPassport()
                 showPassport.toggle()
             } catch {
                 errorMessage = error.localizedDescription
@@ -91,6 +93,36 @@ class StreetPassViewModel: ObservableObject {
     }
     
 
+    
+    //MARK: USER FUNCTIONS
+    
+    func signout() {
+        do {
+            try AuthService.shared.signOut()
+        } catch {
+            errorMessage = error.localizedDescription
+            showError.toggle()
+        }
+    }
+    
+    func deleteAccount() {
+        Task {
+            do {
+                try await DataService.shared.deleteUser()
+                try await AuthService.shared.deleteUser()
+            } catch {
+                errorMessage = error.localizedDescription
+                showError.toggle()
+            }
+        }
+    }
+    
+    func openCustomUrl(link: String) {
+        guard let url = URL(string: link) else {return}
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
     
     
 }

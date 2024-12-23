@@ -17,7 +17,6 @@ struct PublicStreetPass: View {
     @State var user: User
     @StateObject var vm: LocationViewModel
     
-    
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
     @State private var isShimmering: Bool = false
@@ -41,7 +40,7 @@ struct PublicStreetPass: View {
             }
             .onAppear {
                showAnimation()
-               Analytic.shared.viewStreetPass()
+               AnalyticService.shared.viewStreetPass()
             }
             .onDisappear {
                 vm.showTextField = false
@@ -117,10 +116,12 @@ struct PublicStreetPass: View {
                 .padding(.top, 40)
             
             VStack {
-                Image(systemName: "checkmark.seal.fill")
-                    .foregroundStyle(.green)
-                    .font(.largeTitle)
-                Text("Sent!")
+                Image("StreetCred")
+                    .scaledToFit()
+                    .opacity(0.8)
+                    .frame(width: 60, height: 60)
+                    .clipShape(Circle())
+                Text("\(vm.stcValue) StreetCred")
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
             }
@@ -130,12 +131,14 @@ struct PublicStreetPass: View {
     
     @ViewBuilder
     func ctaButton() -> some View {
+                
             Button(action: {
                 checkForStreetCred()
             }, label: {
-                Text(vm.showTextField ? "Send" : "message")
+                Text(vm.showTextField ? "Send Request" : "CONNECT")
                     .font(.title3)
-                    .fontWeight(.thin)
+                    .fontWeight(.light)
+                    .tracking(2)
                     .foregroundStyle(.black)
                     .frame(width: vm.showTextField ? 100 : 200, height: 45)
                     .background(vm.showTextField ? .green : .orange)
@@ -154,7 +157,7 @@ struct PublicStreetPass: View {
         HStack {
             ForEach(user.worlds) { world in
                 Button {
-                    Analytic.shared.viewedWorld()
+                    AnalyticService.shared.viewedWorld()
                     errorMessage = "\(user.username) is \(world.memberName)"
                     showError.toggle()
                 } label: {
@@ -188,9 +191,9 @@ struct PublicStreetPass: View {
         
         Task {
             do {
-               let value = try await DataService.shared.getStreetCred()
-                if value > 0 {
-                    vm.showTextField = true 
+                vm.stcValue = try await DataService.shared.getStreetCred()
+                if vm.stcValue > 0 {
+                    vm.showTextField = true
                 } else {
                     buySTC.toggle()
                     return

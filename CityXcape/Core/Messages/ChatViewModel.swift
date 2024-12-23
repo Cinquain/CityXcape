@@ -47,7 +47,7 @@ class ChatViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self.messages = messages
                     self.count = 0
-                    Analytic.shared.loadedChatroom()
+                    AnalyticService.shared.loadedChatroom()
                 }
             case .failure(let error):
                 self.errorMessage = error.localizedDescription

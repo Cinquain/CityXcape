@@ -60,7 +60,7 @@ final class NotificationManager {
     func scheduleTimeNotification(spot: Location) {
         let content = UNMutableNotificationContent()
         content.title = "Are you still at \(spot.name)?"
-        content.subtitle = "Please check out if you already left"
+        content.subtitle = "Please check out if you have left"
         content.sound = .default
         content.badge = 1
         

@@ -44,7 +44,7 @@ struct RequestView: View {
                 }
                 .background(HexBackground())
                 .onAppear(perform: {
-                    Analytic.shared.viewedRequest()
+                    AnalyticService.shared.viewedRequest()
                 })
             
     }
@@ -64,7 +64,7 @@ struct RequestView: View {
                 .frame(height: 250)
                 
             
-            Text("Scan CityXcape QR code to \n find people looking to meet")
+            Text("0 Connection Pending")
                 .foregroundStyle(.white)
                 .fontWeight(.thin)
                 .multilineTextAlignment(.center)

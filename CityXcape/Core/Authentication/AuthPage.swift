@@ -16,14 +16,14 @@ struct AuthPage: View {
         }
     }
     @State private var isDone: Bool = false
-    @StateObject var vm: UploadViewModel
-    @Binding var index: Int
+    @State private var showOnboarding: Bool = false
     
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
+    
     var body: some View {
         VStack {
-            OnboardingHeader()
+            header()
             Spacer()
                 .frame(height: 200)
             VStack {
@@ -31,13 +31,16 @@ struct AuthPage: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 150)
+                    .fullScreenCover(isPresented: $showOnboarding, content: {
+                        Onboarding()
+                    })
                 HStack {
                     Spacer()
                     Text("Create an Account")
                         .fontWeight(.light)
                         .font(.title2)
-                        .alert(isPresented: $vm.showError, content: {
-                            return Alert(title: Text(vm.errorMessage))
+                        .alert(isPresented: $showError, content: {
+                            return Alert(title: Text(errorMessage))
                         })
                     
                     Spacer()
@@ -106,19 +109,51 @@ struct AuthPage: View {
         .background(SPBackground())
     }
     
+    @ViewBuilder
+    func header() -> some View {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(LocationService.shared.city)
+                        .font(.caption)
+                        .fontWeight(.thin)
+                        .foregroundStyle(.white)
+                        .tracking(4)
+                    
+                    Text("STREETPASS")
+                        .font(.system(size: 24))
+                        .fontWeight(.thin)
+                        .tracking(4)
+                        .opacity(0.7)
+                    
+                }
+                .foregroundStyle(.white)
+                Spacer()
+                
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark.circle")
+                        .font(.title)
+                        .foregroundStyle(.gray)
+                }
+
+                
+            }
+            .padding(.horizontal, 20)
+        
+    }
+    
     fileprivate func checkAuth() {
         if AuthService.shared.uid == nil {
-            vm.errorMessage = "Please sign up using Apple or Google"
-            vm.showError.toggle()
+            errorMessage = "Please sign up using Apple or Google"
+            showError.toggle()
             return
         }
-        isDone = true
-        withAnimation {
-            index = 1
-        }
+       isDone = true
+       showOnboarding = true
     }
 }
 
 #Preview {
-    Onboarding()
+    AuthPage()
 }

@@ -88,7 +88,7 @@ struct UploadImageView: View {
             return
         }
         withAnimation {
-            index = 4
+            index = 5
         }
     }
     

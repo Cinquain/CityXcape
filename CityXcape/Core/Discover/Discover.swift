@@ -34,7 +34,7 @@ struct Discover: View {
                             .scaledToFit()
                             .frame(height: 220)
                             .fullScreenCover(isPresented: $startOnboarding) {
-                                Onboarding()
+                               AuthPage()
                             }
                           
                         
@@ -123,7 +123,7 @@ struct Discover: View {
     @ViewBuilder
     func ctaButton() -> some View {
         Button(action: {
-            Analytic.shared.pressedCheckin()
+            AnalyticService.shared.pressedCheckin() 
             if AuthService.shared.uid == nil {
                 vm.showOnboarding.toggle()
                 vm.showError.toggle()

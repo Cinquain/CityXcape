@@ -103,7 +103,7 @@ struct ChooseWorldView: View {
             vm.showError.toggle()
         }
         withAnimation {
-            index = 5
+            index = 6
         }
     }
     

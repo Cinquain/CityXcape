@@ -25,7 +25,7 @@ class ImageManager: NSObject {
             let url = try await uploadImage(path: path, image: image)
             try await DataService.shared.uploadImageUrl(uid: uid, url: url)
             UserDefaults.standard.set(url, forKey: CXUserDefaults.profileUrl)
-            Analytic.shared.uploadedProfilePic()
+            AnalyticService.shared.uploadedProfilePic()
             return url
         } catch {
             throw error

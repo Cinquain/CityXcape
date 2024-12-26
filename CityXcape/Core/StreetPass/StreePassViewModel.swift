@@ -49,8 +49,6 @@ class StreetPassViewModel: ObservableObject {
                 }
             } catch {
                 print("Error finding user", error.localizedDescription)
-                errorMessage = "No User Account Found"
-                showError.toggle()
             }
         }
     }
@@ -99,6 +97,9 @@ class StreetPassViewModel: ObservableObject {
     func signout() {
         do {
             try AuthService.shared.signOut()
+            user = nil
+            errorMessage = "Successfully Signed Out"
+            showError.toggle()
         } catch {
             errorMessage = error.localizedDescription
             showError.toggle()
@@ -110,6 +111,9 @@ class StreetPassViewModel: ObservableObject {
             do {
                 try await DataService.shared.deleteUser()
                 try await AuthService.shared.deleteUser()
+                user = nil
+                errorMessage = "Successfully Deleted Account"
+                showError.toggle()
             } catch {
                 errorMessage = error.localizedDescription
                 showError.toggle()

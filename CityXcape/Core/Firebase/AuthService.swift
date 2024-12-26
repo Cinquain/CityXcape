@@ -44,6 +44,7 @@ final class AuthService: NSObject, ObservableObject {
     
     func deleteUser() async throws {
         try await Auth.auth().currentUser?.delete()
+        removeUserDefaults()
     }
         
 }

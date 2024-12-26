@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AuthPage: View {
     @Environment(\.dismiss) var dismiss
+    @Binding var index: Int
 
     @State var isAuth: Bool = false {
         didSet {
@@ -16,8 +17,6 @@ struct AuthPage: View {
         }
     }
     @State private var isDone: Bool = false
-    @State private var showOnboarding: Bool = false
-    
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
     
@@ -31,9 +30,7 @@ struct AuthPage: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 150)
-                    .fullScreenCover(isPresented: $showOnboarding, content: {
-                        Onboarding()
-                    })
+                  
                 HStack {
                     Spacer()
                     Text("Create an Account")
@@ -149,11 +146,12 @@ struct AuthPage: View {
             showError.toggle()
             return
         }
-       isDone = true
-       showOnboarding = true
+        withAnimation {
+            index = 1
+        }
     }
 }
 
 #Preview {
-    AuthPage()
+    Onboarding()
 }

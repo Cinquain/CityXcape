@@ -11,11 +11,13 @@ struct Onboarding: View {
     @Environment(\.dismiss) var dismiss
 
     @State private var showPicker: Bool = false
-    @State private var index = 1
+    @State private var index = 0
     @StateObject var vm = UploadViewModel()
     var body: some View {
         TabView(selection: $index) {
-        
+            
+            AuthPage(index: $index)
+                .tag(0)
             
             CreateUsername(vm: vm, index: $index)
                 .tag(1)

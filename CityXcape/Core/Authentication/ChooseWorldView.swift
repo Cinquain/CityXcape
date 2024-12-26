@@ -13,7 +13,7 @@ struct ChooseWorldView: View {
     @State private var isDone: Bool = false
     @StateObject var vm: UploadViewModel
     @Binding var index: Int
-
+    @State private var searchText: String = ""
     var body: some View {
         VStack {
             OnboardingHeader()
@@ -36,7 +36,7 @@ struct ChooseWorldView: View {
                         ForEach(vm.worlds.sorted(by: {$0.name < $1.name})) { world in
                             Button {
                                 vm.addOrRemove(world: world)
-                                if !vm.selectedWorlds.isEmpty {
+                                if vm.selectedWorlds.count == 3 {
                                     isDone = true
                                 } else {
                                     isDone = false 
@@ -47,6 +47,7 @@ struct ChooseWorldView: View {
                         }
                     }
                     .frame(height: 400)
+                    .searchable(text: $searchText)
                 
                 
               

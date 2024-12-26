@@ -51,7 +51,7 @@ struct StreetPass: View {
             }
             .foregroundStyle(.white)
             .fullScreenCover(isPresented: $vm.showAuth, content: {
-                AuthPage()
+                Onboarding()
             })
             Spacer()
             

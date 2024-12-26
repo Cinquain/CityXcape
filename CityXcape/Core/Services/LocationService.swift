@@ -30,6 +30,7 @@ class LocationService: NSObject, ObservableObject {
     
     @Published var city: String = ""
     
+    
     func checkAuthorizationStatus() {
         switch manager.authorizationStatus {
             case .authorizedAlways:

@@ -34,7 +34,7 @@ struct Discover: View {
                             .scaledToFit()
                             .frame(height: 220)
                             .fullScreenCover(isPresented: $startOnboarding) {
-                               AuthPage()
+                               Onboarding()
                             }
                           
                         

@@ -10,7 +10,7 @@ import SwiftUI
 struct UploadImageView: View {
     @StateObject var vm: UploadViewModel
     @Binding var index: Int
-    @State private var isDone:Bool = false
+    @State private var isDone: Bool = false
     
     var body: some View {
         VStack {
@@ -71,7 +71,7 @@ struct UploadImageView: View {
                     .foregroundStyle(.white)
                     .fontWeight(.light)
                     .frame(width: 125, height: 35)
-                    .background(isDone ? .green : .gray)
+                    .background(vm.imageUrl == "" ? .gray : .green)
                     .animation(.easeIn, value: isDone)
                     .clipShape(Capsule())
             })

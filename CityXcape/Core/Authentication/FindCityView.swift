@@ -39,7 +39,7 @@ struct FindCityView: View {
                 .cornerRadius(12)
             
             Button(action: {
-                manager.checkAuthorizationStatus()
+                manager.manager.requestWhenInUseAuthorization()
                 
             }, label: {
                 Text("Find Me")
@@ -59,7 +59,7 @@ struct FindCityView: View {
                     .foregroundStyle(.white)
                     .fontWeight(.light)
                     .frame(width: 125, height: 35)
-                    .background(isDone ? .green : .gray)
+                    .background(vm.city == "" ? .gray : .green)
                     .animation(.easeIn, value: isDone)
                     .clipShape(Capsule())
             })

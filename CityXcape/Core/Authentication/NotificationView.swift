@@ -25,7 +25,7 @@ struct NotificationView: View {
             VStack {
                 Image(systemName: "antenna.radiowaves.left.and.right")
                     .foregroundStyle(.white)
-                    .font(.system(size: 100))
+                    .font(.system(size: 70))
                 Text("Get Notified when users \n send you a messgae")
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)

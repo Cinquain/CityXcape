@@ -140,6 +140,21 @@ struct AuthPage: View {
         
     }
     
+    @ViewBuilder
+    func Background() -> some View {
+        ZStack {
+            Color.black
+            Image("black-paths")
+                .renderingMode(.template)
+                .resizable()
+                .scaledToFill()
+                .foregroundColor(.orange)
+
+
+        }
+        .edgesIgnoringSafeArea(.all)
+    }
+    
     fileprivate func checkAuth() {
         if AuthService.shared.uid == nil {
             errorMessage = "Please sign up using Apple or Google"

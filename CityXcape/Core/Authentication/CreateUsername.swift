@@ -19,10 +19,10 @@ struct CreateUsername: View {
             Spacer()
 
             VStack {
-                Image(systemName: "info.circle.fill")
-                    .font(.title)
+                Image(systemName: "faceid")
+                    .font(.system(size: 50))
                     .foregroundStyle(.white)
-                Text("Username & Gender")
+                Text("Username")
                     .font(.title)
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
@@ -44,7 +44,7 @@ struct CreateUsername: View {
             
             VStack {
                 Text("Set Your Gender")
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.orange)
                     .font(.callout)
                     .fontWeight(.light)
                 HStack {

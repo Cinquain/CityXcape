@@ -64,7 +64,7 @@ struct RequestView: View {
                 .frame(height: 250)
                 
             
-            Text("0 Connection Pending")
+            Text("No Connections")
                 .foregroundStyle(.white)
                 .fontWeight(.thin)
                 .multilineTextAlignment(.center)
@@ -111,11 +111,11 @@ struct RequestView: View {
     
     fileprivate func calculateTitle() -> String {
         if vm.requests.isEmpty {
-            return "No Request Pending"
+            return "No Pending Connections"
         } else if vm.requests.count == 1 {
-            return "\(vm.requests.count) Person Wants to Connect"
+            return "\(vm.requests.count) Connection Pending "
         } else {
-            return "\(vm.requests.count) People Want to Connect"
+            return "\(vm.requests.count) Connections Pending"
         }
     }
     

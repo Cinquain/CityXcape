@@ -38,4 +38,15 @@ final class SoundManager {
             print("Error playing Apple Play sound", error.localizedDescription)
         }
     }
+    
+    func checkin() {
+        guard let url = Bundle.main.url(forResource: "checkin", withExtension: ".mp3") else {return}
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.play()
+        } catch {
+            print("Error playing Checkin sound", error.localizedDescription)
+        }
+    }
 }

@@ -22,7 +22,7 @@ struct RequestThumb: View {
                 }
             }, label: {
                 VStack {
-                    UserBubble(size: 100, url: request.imageUrl, pulse: 2)
+                    SelfieBubble(size: 100, url: request.imageUrl, pulse: 2)
                     Text(request.username)
                         .fontWeight(.thin)
                         .foregroundStyle(.white)
@@ -38,12 +38,12 @@ struct RequestThumb: View {
                     Spacer()
                     HStack {
                         Text(request.content)
-                            .foregroundStyle(.black)
-                            .lineLimit(3)
+                            .foregroundStyle(.white)
+                            .lineLimit(1)
                         Spacer()
                     }
                     .padding()
-                    .background(.orange.opacity(0.8))
+                    .background(.blue.opacity(0.6))
                     .cornerRadius(8)
                 }
               
@@ -52,9 +52,8 @@ struct RequestThumb: View {
                     Button {
                         vm.acceptRequest(request: request)
                     } label: {
-                        Image("Green Light")
-                            .resizable()
-                            .scaledToFit()
+                        Image(systemName: "point.3.filled.connected.trianglepath.dotted")
+                            .foregroundStyle(.green)
                             .frame(height: 30)
                         
                         Text("Connect")
@@ -68,13 +67,10 @@ struct RequestThumb: View {
                         vm.removeRequest(request: request)
                     } label: {
                         HStack {
-                            Image("Red Light")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 30)
-                            Text("Pass")
+                            Image(systemName: "trash.fill")
                                 .foregroundStyle(.red)
-                                .fontWeight(.light)
+                                .frame(height: 30)
+                           
                         }
                     }
                    

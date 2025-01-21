@@ -14,7 +14,6 @@ struct Discover: View {
     @State private var startOnboarding: Bool = false
     @State private var scannedText: String = "Scan QR Code"
     @State private var startScanner: Bool = false
-    @State private var currentSpot: Location?
     
     @StateObject var vm : LocationViewModel
     
@@ -25,41 +24,14 @@ struct Discover: View {
                 Spacer()
                
                 Button(action: {
-                    startScanner.toggle()
+                    handleCheckin()
                 }, label: {
-                    VStack {
-                        Image(systemName: "qrcode")
-                            .resizable()
-                            .foregroundStyle(.white)
-                            .scaledToFit()
-                            .frame(height: 220)
-                            .fullScreenCover(isPresented: $startOnboarding) {
-                               Onboarding()
-                            }
-                          
-                        
-                        Text(scannedText)
-                            .font(.title3)
-                            .foregroundStyle(.white)
-                            .fontWeight(.thin)
-                            .alert(isPresented: $vm.showError, content: {
-                                if vm.showOnboarding {
-                                    return Alert(title: Text("You need a user profile to check-in"), primaryButton: .default(Text("Ok")){
-                                        startOnboarding = true
-                                    } , secondaryButton: .cancel())
-                                } else {
-                                    return Alert(title: Text(vm.errorMessage))
-                                }
-                            })
-                    }
-                       
+                       qrCodeVisual()
                 })
                 .opacity(0.9)
                 .sheet(isPresented: $startScanner, content: {
                     CodeScannerView(codeTypes: [.qr], completion: handleScan)
                 })
-                    
-               
                 
                 ctaButton()
                 Spacer()
@@ -70,15 +42,16 @@ struct Discover: View {
             
             
             if vm.showLounge {
-                if let spot = currentSpot {
+                if let spot = vm.currentSpot {
                     withAnimation(.easeIn) {
                         DigitalLounge(spot: spot, vm: vm)
                     }
                 }
             }
+            //End of ZStack
         }
        
-        
+        //End of body
     }
     
     fileprivate func handleScan(result: Result<ScanResult, ScanError>) {
@@ -93,7 +66,7 @@ struct Discover: View {
                         vm.huntSpot = spot
                         return
                     }
-                    currentSpot = spot
+                    vm.currentSpot = spot
 
                     vm.showLounge.toggle()
 
@@ -104,32 +77,26 @@ struct Discover: View {
                 }
             }
         case .failure(let error):
+            vm.errorMessage =  error.localizedDescription
+            vm.showError.toggle()
             print(error.localizedDescription)
         }
     }
     
-
-    
-    @ViewBuilder
-    func qrCode() -> some View {
-        Image("QR Code")
-            .resizable()
-            .scaledToFit()
-            .frame(height: 150)
-            .opacity(0.5)
-            
+    fileprivate func handleCheckin() {
+        AnalyticService.shared.pressedCheckin()
+        if AuthService.shared.uid == nil {
+            vm.showOnboarding.toggle()
+            vm.showError.toggle()
+            return
+        }
+        startScanner.toggle()
     }
     
     @ViewBuilder
     func ctaButton() -> some View {
         Button(action: {
-            AnalyticService.shared.pressedCheckin() 
-            if AuthService.shared.uid == nil {
-                vm.showOnboarding.toggle()
-                vm.showError.toggle()
-                return
-            }
-            startScanner.toggle()
+          handleCheckin()
         }, label: {
             Text("Check-In")
                 .font(.title3)
@@ -145,31 +112,58 @@ struct Discover: View {
     }
     
     @ViewBuilder
-        func headerView() -> some View {
-            VStack(alignment: .leading, spacing: 0) {
-                HStack(spacing: 2) {
-                    Image("honeycomb")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 25)
-                    
-                    Image("Logo")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 25)
-                        .padding(.leading, 5)
-                    Spacer()
-                    
-                   
-                }
-                .padding(.bottom, 4)
+    func headerView() -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 2) {
+        
                 
-                Divider()
-                    .background(.white)
-                    .frame(height: 0.5)
+                Image("Logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 25)
+                    .padding(.leading, 5)
+                
+                Spacer()
+                
+                
             }
-            .padding(.horizontal, 10)
+            .padding(.bottom, 4)
+            
+            Divider()
+                .background(.white)
+                .frame(height: 0.5)
         }
+        .padding(.horizontal, 10)
+    }
+    
+    @ViewBuilder
+    func qrCodeVisual() -> some View {
+        VStack {
+            Image(systemName: "qrcode")
+                .resizable()
+                .foregroundStyle(.white)
+                .scaledToFit()
+                .frame(height: 220)
+                .fullScreenCover(isPresented: $startOnboarding) {
+                   Onboarding()
+                }
+              
+            
+            Text(scannedText)
+                .font(.title3)
+                .foregroundStyle(.white)
+                .fontWeight(.thin)
+                .alert(isPresented: $vm.showError, content: {
+                    if vm.showOnboarding {
+                        return Alert(title: Text("You need a user profile to check-in"), primaryButton: .default(Text("Ok")){
+                            startOnboarding = true
+                        } , secondaryButton: .cancel())
+                    } else {
+                        return Alert(title: Text(vm.errorMessage))
+                    }
+                })
+        }
+    }
 }
 
 #Preview {

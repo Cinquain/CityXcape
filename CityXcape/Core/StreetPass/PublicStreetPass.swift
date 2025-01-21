@@ -136,7 +136,7 @@ struct PublicStreetPass: View {
                 checkForStreetCred()
             }, label: {
                 Text(vm.showTextField ? "Send Request" : "CONNECT")
-                    .font(.title3)
+                    .font(.callout)
                     .fontWeight(.light)
                     .foregroundStyle(.black)
                     .frame(width:  200, height: 45)

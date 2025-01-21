@@ -33,14 +33,14 @@ struct DigitalLounge: View {
     @ViewBuilder
     func header() -> some View {
         VStack {
-            HStack {
-                Image("honeycomb")
+            HStack(spacing: 2) {
+                Image("dot person")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 30)
+                    .frame(height: 35)
                     
                 
-                Text(spot.name)
+                Text("\(spot.name)")
                     .font(.title2)
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
@@ -64,6 +64,9 @@ struct DigitalLounge: View {
         ScrollView {
             ForEach(vm.users) { user in
                 userRow(user: user)
+                    .onAppear(perform: {
+                        SoundManager.shared.checkin()
+                    })
             }
         }
         .padding(.top, 40)
@@ -80,16 +83,16 @@ struct DigitalLounge: View {
             }, label: {
                 HStack(spacing: 30) {
                     VStack(spacing: 2) {
-                        UserDot(size: 100, url: user.imageUrl)
+                        UserBubble(size: 100, url: user.imageUrl, pulse: 1)
                         Text(user.username)
                             .foregroundStyle(.white)
                             .fontWeight(.light)
                             .font(.title3)
                     }
+                    .padding(.top, 3)
                     
                     VStack(alignment: .center) {
-                        Text(vm.compare(worlds: user.worlds).0)
-                            .fontWeight(.light)
+                    
                         Text(vm.compare(worlds: user.worlds).1)
                             .fontWeight(.medium)
                         Divider()
@@ -136,10 +139,15 @@ struct DigitalLounge: View {
     func background() -> some View {
         ZStack {
             Color.black
-            WebImage(url: URL(string: spot.imageUrl))
+            
+            Image("chrome honey")
                 .resizable()
                 .scaledToFill()
-                .opacity(0.30)
+                .opacity(0.3)
+//            WebImage(url: URL(string: spot.imageUrl))
+//                .resizable()
+//                .scaledToFill()
+//                .opacity(0.30)
         }
         .edgesIgnoringSafeArea(.all)
     }

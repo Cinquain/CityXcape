@@ -22,6 +22,7 @@
 		21C896532CDBAF3800F148D0 /* SPBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C896522CDBAF3800F148D0 /* SPBackground.swift */; };
 		21CF8D842C5E6B92006339A9 /* PostalStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF8D832C5E6B92006339A9 /* PostalStamp.swift */; };
 		21CF8D872C5E7081006339A9 /* PassportPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF8D862C5E7081006339A9 /* PassportPage.swift */; };
+		21D0CB782D24A47000160E17 /* checkin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 21D0CB772D24A47000160E17 /* checkin.mp3 */; };
 		21D1C53E2CDD95C00045CE79 /* AuthPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1C53D2CDD95C00045CE79 /* AuthPage.swift */; };
 		21D1C5402CDD9A370045CE79 /* OnboardingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D1C53F2CDD9A370045CE79 /* OnboardingHeader.swift */; };
 		21D238B32CA36490002242F8 /* ChooseWorldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D238B22CA36490002242F8 /* ChooseWorldView.swift */; };
@@ -110,6 +111,7 @@
 		21C896522CDBAF3800F148D0 /* SPBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPBackground.swift; sourceTree = "<group>"; };
 		21CF8D832C5E6B92006339A9 /* PostalStamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostalStamp.swift; sourceTree = "<group>"; };
 		21CF8D862C5E7081006339A9 /* PassportPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportPage.swift; sourceTree = "<group>"; };
+		21D0CB772D24A47000160E17 /* checkin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = checkin.mp3; sourceTree = "<group>"; };
 		21D1C53D2CDD95C00045CE79 /* AuthPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPage.swift; sourceTree = "<group>"; };
 		21D1C53F2CDD9A370045CE79 /* OnboardingHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingHeader.swift; sourceTree = "<group>"; };
 		21D238B22CA36490002242F8 /* ChooseWorldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseWorldView.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				210DA00E2C5BBD4000913890 /* Stamp.mp3 */,
+				21D0CB772D24A47000160E17 /* checkin.mp3 */,
 				21F010382CC865AD00651C36 /* Apple.mp3 */,
 			);
 			path = Sounds;
@@ -506,6 +509,7 @@
 				21F010392CC865AD00651C36 /* Apple.mp3 in Resources */,
 				21FCE59B2C5AD4B9006A86CE /* Assets.xcassets in Resources */,
 				210DA00F2C5BBD4000913890 /* Stamp.mp3 in Resources */,
+				21D0CB782D24A47000160E17 /* checkin.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

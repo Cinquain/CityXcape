@@ -64,9 +64,6 @@ struct DigitalLounge: View {
         ScrollView {
             ForEach(vm.users) { user in
                 userRow(user: user)
-                    .onAppear(perform: {
-                        SoundManager.shared.checkin()
-                    })
             }
         }
         .padding(.top, 40)
@@ -77,7 +74,7 @@ struct DigitalLounge: View {
     
     @ViewBuilder
     func userRow(user: User) -> some View {
-           
+        
             Button(action: {
                 vm.currentUser = user
             }, label: {
@@ -93,6 +90,14 @@ struct DigitalLounge: View {
                     
                     VStack(alignment: .center) {
                     
+                        Text("View StreetPass")
+                            .font(.callout)
+                            .fontWeight(.light)
+                            .foregroundStyle(.black)
+                            .frame(width: 140, height: 30)
+                            .background(.orange.opacity(0.8))
+                            .clipShape(Capsule())
+                        
                         Text(vm.compare(worlds: user.worlds).1)
                             .fontWeight(.medium)
                         Divider()
@@ -111,19 +116,16 @@ struct DigitalLounge: View {
         
     }
     
-    
-    
-    
     @ViewBuilder
     func checkoutButton() -> some View {
         Button {
             Task {
-                try await vm.checkout(spotId: spot.id)
+                try await vm.checkout(spot.id)
                 vm.showLounge = false
                 dismiss()
             }
         } label: {
-            Text("Checkout")
+            Text("Check Out")
                 .foregroundStyle(.black)
                 .fontWeight(.thin)
                 .frame(width: 120, height: 35)
@@ -132,7 +134,6 @@ struct DigitalLounge: View {
                 .padding(.bottom, 12)
             
         }
-
     }
     
     @ViewBuilder
@@ -144,10 +145,6 @@ struct DigitalLounge: View {
                 .resizable()
                 .scaledToFill()
                 .opacity(0.3)
-//            WebImage(url: URL(string: spot.imageUrl))
-//                .resizable()
-//                .scaledToFill()
-//                .opacity(0.30)
         }
         .edgesIgnoringSafeArea(.all)
     }

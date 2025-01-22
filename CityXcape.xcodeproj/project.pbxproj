@@ -304,8 +304,8 @@
 			isa = PBXGroup;
 			children = (
 				21F91D842C63A87D0024A991 /* Discover.swift */,
-				212E5E0A2CE42F60001BC98B /* LocationViewModel.swift */,
 				21DA45C52C6A41B200A16832 /* DigitalLounge.swift */,
+				212E5E0A2CE42F60001BC98B /* LocationViewModel.swift */,
 				21D45FDB2C8F9606001B12FA /* DataScanner.swift */,
 				21ED577C2C9A11B70029505B /* ScavengerHunt.swift */,
 			);

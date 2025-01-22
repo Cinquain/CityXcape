@@ -88,7 +88,7 @@ final class LocationViewModel: ObservableObject {
         }
     }
     
-    func checkout(spotId: String) async throws {
+    func checkout(_ spotId: String) async throws {
         try await DataService.shared.checkout(spotId: spotId)
         NotificationManager.shared.cancelNotification()
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.lastSpotId)

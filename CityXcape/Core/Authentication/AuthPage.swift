@@ -129,8 +129,8 @@ struct AuthPage: View {
                 Button {
                     dismiss()
                 } label: {
-                    Image(systemName: "xmark.circle")
-                        .font(.title)
+                    Image(systemName: "xmark.app.fill")
+                        .font(.title2)
                         .foregroundStyle(.gray)
                 }
 

@@ -7,14 +7,17 @@
 
 import SwiftUI
 
-struct TimerView: View {
+struct ProgressView: View {
     
     
-    @StateObject var vm = TimerViewModel()
     let size: CGFloat
     let thickness: CGFloat
     let font: Font
+    let value: Int
     
+    @State private var color: Color = .orange
+    
+    @State private var finalValue: CGFloat = 0
     var body: some View {
         
         VStack(spacing: 25) {
@@ -25,30 +28,30 @@ struct TimerView: View {
                     .frame(width: size, height: size)
                 
                 Circle()
-                    .trim(from: 0, to: vm.finalValue)
-                    .stroke(Color.blue.opacity(0.8), style: StrokeStyle(lineWidth: thickness, lineCap: .round))
+                    .trim(from: 0, to: finalValue)
+                    .stroke(color.opacity(0.8), style: StrokeStyle(lineWidth: thickness, lineCap: .round))
                     .frame(width: size, height: size)
                     .rotationEffect(.init(degrees: -90))
                 
-                Text(vm.timerString)
+                Text("\(value)% \n Match")
                     .font(font)
-                    .fontWeight(.thin)
+                    .fontWeight(.light)
+                    .multilineTextAlignment(.center)
                     .foregroundStyle(.white)
                     
                     
             }
-            .onAppear(perform: {
-                withAnimation {
-                    vm.startTimer()
-                }
-            })
-            .onReceive(vm.timer, perform: { _ in
-                withAnimation {
-                    vm.updateTimer()
-                }
-        })
+        
             
            
+        }
+        .onAppear {
+            withAnimation(.easeInOut(duration: 0.5)) {
+                finalValue = CGFloat(value) / 100.0
+                if value >= 50 {
+                    color = .green
+                }
+            }
         }
     }
     
@@ -60,7 +63,7 @@ struct TimerView: View {
         Spacer()
         HStack {
             Spacer()
-            TimerView(size: 250, thickness: 30, font: .title)
+            ProgressView(size: 250, thickness: 30, font: .title, value: 88)
             Spacer()
         }
         Spacer()

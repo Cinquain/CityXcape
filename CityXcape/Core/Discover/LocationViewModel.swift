@@ -27,6 +27,7 @@ final class LocationViewModel: ObservableObject {
 
     @Published var stampImageUrl: String = ""
     @Published var showOnboarding: Bool = false
+    @Published var showRapSheet: Bool = false 
     @Published var isSent: Bool = false
     
     @Published var showLounge: Bool = false 
@@ -34,7 +35,7 @@ final class LocationViewModel: ObservableObject {
     @Published var currentSpot: Location?
 
     
-    @Published var users: [User] = [User.demo, User.demo2, User.demo3]
+    @Published var users: [User] = []
     @Published var currentUser: User?
     @Published var user: User?
     @Published var spot: Location?
@@ -126,23 +127,25 @@ final class LocationViewModel: ObservableObject {
         }
     }
     
-    func compare(worlds: [World]) -> (String, String) {
-        var result: String = "No World in Common"
+    func compare(user: User) -> (String, String, Double) {
+        var result: String = "View \(user.username)'s Worlds"
         var percentage: String = "0% Match"
         let total: Double = 3
-        guard let user = user else {return (result, percentage) }
+        guard let selfUser = self.user else {return (result, percentage, 0) }
         var count: Double = 0
-        for world in worlds {
-            if user.worlds.contains(world) {
+        for world in user.worlds {
+            if selfUser.worlds.contains(world) {
                 count += 1
             }
         }
-        if count == 0 {return (result, percentage)}
+        if count == 0 {return (result, percentage, 0)}
         
-        result = count > 1 ? "\(count.clean) Worlds in Common" : "\(count.clean) World in Common"
+        result = count > 1 ? "You and \(user.username) have \n \(count.clean) Worlds in Common"
+                         : "You and \(user.username) have \n \(count.clean) World in Common"
+        
         let percent: Double = (count / total) * 100
         percentage = "\(percent.clean)% Match"
-        return (result, percentage)
+        return (result, percentage, percent)
     }
     
     

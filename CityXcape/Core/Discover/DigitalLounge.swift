@@ -98,7 +98,7 @@ struct DigitalLounge: View {
                             .background(.orange.opacity(0.8))
                             .clipShape(Capsule())
                         
-                        Text(vm.compare(worlds: user.worlds).1)
+                        Text(vm.compare(user: user).1)
                             .fontWeight(.medium)
                         Divider()
                             .background(.white)

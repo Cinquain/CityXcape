@@ -9,18 +9,14 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ScavengerHunt: View {
-    
-    var spot: Location
-    @StateObject var vm: LocationViewModel
     @Environment(\.dismiss) private var dismiss
 
-    
+    var spot: Location
+    @StateObject var vm: LocationViewModel
+
     @State private var showStamp: Bool = false
     @State private var showPreview: Bool = false
     @State private var showInfo: Bool = false
-    @State private var showLounge: Bool = false
-    @State private var alert: Bool = false
-    @State private var errorMessage: String = ""
     
     var body: some View {
         ZStack {
@@ -29,12 +25,12 @@ struct ScavengerHunt: View {
                 VStack(spacing: 10) {
                     mainImage(size: size)
                     Spacer()
-                    checkinButton()
+                    showStampButton()
                 }
                 .background(.black)
                 .edgesIgnoringSafeArea(.all)
-                .alert(isPresented: $alert, content: {
-                    return Alert(title: Text(errorMessage))
+                .alert(isPresented: $vm.showError, content: {
+                    return Alert(title: Text(vm.errorMessage))
                 })
             }
             
@@ -108,13 +104,11 @@ struct ScavengerHunt: View {
                     titleView()
                         .padding(.bottom, 10)
                         .animation(.easeInOut(duration: 0.5), value: showInfo)
-                     
-                
         }
     }
     
     @ViewBuilder
-    func checkinButton() -> some View {
+    func showStampButton() -> some View {
         Button(action: {
             showPreview.toggle()
         }, label: {

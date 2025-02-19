@@ -22,7 +22,7 @@ struct CreateUsername: View {
                 Image(systemName: "faceid")
                     .font(.system(size: 50))
                     .foregroundStyle(.white)
-                Text("Username")
+                Text("Digital Identity")
                     .font(.title)
                     .foregroundStyle(.white)
                     .fontWeight(.thin)

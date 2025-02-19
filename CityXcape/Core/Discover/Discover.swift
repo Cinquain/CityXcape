@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import VisionKit
 import CodeScanner
 
 struct Discover: View {
@@ -58,10 +57,11 @@ struct Discover: View {
         switch result {
         case .success(let scanned):
             startScanner = false
-            let code = scanned.string
+//            let code = scanned.string
+            let newCode = "27dwRVATDnUYxRsK0XVn"
             Task {
                 do {
-                    let spot = try await vm.checkin(spotId: code)
+                    let spot = try await vm.checkin(spotId: newCode)
                     if !spot.isSocialHub {
                         vm.huntSpot = spot
                         return

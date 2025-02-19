@@ -22,7 +22,7 @@ struct RequestThumb: View {
                 }
             }, label: {
                 VStack {
-                    SelfieBubble(size: 100, url: request.imageUrl, pulse: 2)
+                    UserBubble(size: 100, url: request.imageUrl, pulse: 2)
                     Text(request.username)
                         .fontWeight(.thin)
                         .foregroundStyle(.white)
@@ -38,12 +38,12 @@ struct RequestThumb: View {
                     Spacer()
                     HStack {
                         Text(request.content)
-                            .foregroundStyle(.white)
+                            .foregroundStyle(.black)
                             .lineLimit(1)
                         Spacer()
                     }
                     .padding()
-                    .background(.blue.opacity(0.6))
+                    .background(.orange.opacity(0.6))
                     .cornerRadius(8)
                 }
               
@@ -52,12 +52,15 @@ struct RequestThumb: View {
                     Button {
                         vm.acceptRequest(request: request)
                     } label: {
-                        Image(systemName: "point.3.filled.connected.trianglepath.dotted")
-                            .foregroundStyle(.green)
-                            .frame(height: 30)
+                        Image("honeycomb")
+                            .renderingMode(.template)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 25)
                         
-                        Text("Connect")
-                            .foregroundStyle(.green)
+                        Text("CONNECT")
+                            .foregroundStyle(.white)
+                            .tracking(2)
                             .fontWeight(.light)
                     }
                     
@@ -68,7 +71,7 @@ struct RequestThumb: View {
                     } label: {
                         HStack {
                             Image(systemName: "trash.fill")
-                                .foregroundStyle(.red)
+                                .foregroundStyle(.white)
                                 .frame(height: 30)
                            
                         }
@@ -99,5 +102,5 @@ struct RequestThumb: View {
 }
 
 #Preview {
-    RequestThumb(request: Request.demo2, vm: LocationViewModel())
+    RequestThumb(request: Request.demo, vm: LocationViewModel())
 }

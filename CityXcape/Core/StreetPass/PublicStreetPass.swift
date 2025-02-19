@@ -33,7 +33,27 @@ struct PublicStreetPass: View {
                     .font(.title)
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
-                worldList()
+                    .padding(.top, -5)
+                
+                
+                VStack(spacing: 10) {
+                    ProgressView(size: 100, thickness: 15, font: .callout, value: Int(vm.compare(user: user).2))
+                    Button {
+                        vm.showRapSheet.toggle()
+                    } label: {
+                        Text(vm.compare(user: user).0)
+                            .foregroundStyle(.white)
+                            .font(.callout)
+                            .fontWeight(.light)
+                    }
+                    .sheet(isPresented: $vm.showRapSheet) {
+                        RapSheet(vm: vm, user: user)
+                            .presentationDetents([.height(330)])
+                    }
+
+                }
+                .padding(.top, 50)
+                
                 messageField()
                 Spacer()
                 ctaButton()

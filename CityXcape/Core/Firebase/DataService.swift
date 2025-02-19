@@ -175,6 +175,7 @@ final class DataService {
                              }
                              guard let snapshot = snapshot else {return}
                              
+                             
                              for change in snapshot.documentChanges {
                                  
                                  if change.document.documentID == uid {

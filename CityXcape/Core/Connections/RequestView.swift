@@ -80,7 +80,6 @@ struct RequestView: View {
                     .clipShape(Capsule())
                 
             }
-
             Spacer()
         }
     }
@@ -91,9 +90,11 @@ struct RequestView: View {
         VStack {
             HStack {
                 Image("honeycomb")
+                    .renderingMode(.template)
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 25)
+                    .frame(height: 30)
+                
                 Text(calculateTitle())
                     .font(.title2)
                     .foregroundStyle(.white)
@@ -113,9 +114,9 @@ struct RequestView: View {
         if vm.requests.isEmpty {
             return "No Pending Connections"
         } else if vm.requests.count == 1 {
-            return "\(vm.requests.count) Connection Pending "
+            return "\(vm.requests.count) Request"
         } else {
-            return "\(vm.requests.count) Connections Pending"
+            return "\(vm.requests.count) Requests"
         }
     }
     

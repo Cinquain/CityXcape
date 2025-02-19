@@ -31,7 +31,6 @@
 		21D302932CA7430900111D6E /* UploadImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D302922CA7430900111D6E /* UploadImageView.swift */; };
 		21D302952CA7485A00111D6E /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D302942CA7485A00111D6E /* LocationService.swift */; };
 		21D302982CA74EBB00111D6E /* MapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D302972CA74EBB00111D6E /* MapViewRepresentable.swift */; };
-		21D45FDC2C8F9606001B12FA /* DataScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D45FDB2C8F9606001B12FA /* DataScanner.swift */; };
 		21D4FA292C67A07300CD4F58 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D4FA282C67A07300CD4F58 /* BlurView.swift */; };
 		21D6E1C92CA894FD00ED9918 /* FindCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D6E1C82CA894FD00ED9918 /* FindCityView.swift */; };
 		21D772E42C5D0F1C004BEF31 /* PublicStreetPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D772E32C5D0F1C004BEF31 /* PublicStreetPass.swift */; };
@@ -43,7 +42,7 @@
 		21D983C12C6640EE003FC4A6 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D983C02C6640EE003FC4A6 /* LaunchView.swift */; };
 		21DA45C62C6A41B200A16832 /* DigitalLounge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA45C52C6A41B200A16832 /* DigitalLounge.swift */; };
 		21DA45C92C6A499D00A16832 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 21DA45C82C6A499D00A16832 /* Shimmer */; };
-		21DC252D2C6F95970046FFB8 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DC252C2C6F95970046FFB8 /* TimerView.swift */; };
+		21DC252D2C6F95970046FFB8 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DC252C2C6F95970046FFB8 /* ProgressView.swift */; };
 		21DC25302C6FD2200046FFB8 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DC252F2C6FD2200046FFB8 /* TimerViewModel.swift */; };
 		21DCDEC92C70E21800F5A468 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DCDEC82C70E21800F5A468 /* Connection.swift */; };
 		21DCDECB2C71269600F5A468 /* MatchAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DCDECA2C71269600F5A468 /* MatchAnimation.swift */; };
@@ -69,6 +68,7 @@
 		21ED15022D136F3D009D9215 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED15012D136F3D009D9215 /* NotificationView.swift */; };
 		21ED577D2C9A11B70029505B /* ScavengerHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED577C2C9A11B70029505B /* ScavengerHunt.swift */; };
 		21F010392CC865AD00651C36 /* Apple.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 21F010382CC865AD00651C36 /* Apple.mp3 */; };
+		21F57FF32D6558B30008FF74 /* RapSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F57FF22D6558B30008FF74 /* RapSheet.swift */; };
 		21F5C0FF2C98D01D0078684E /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5C0FE2C98D01D0078684E /* ChatBubble.swift */; };
 		21F5C1012C98D4D80078684E /* ChatPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5C1002C98D4D80078684E /* ChatPreview.swift */; };
 		21F5C1032C990AAE0078684E /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5C1022C990AAE0078684E /* MessagesView.swift */; };
@@ -120,7 +120,6 @@
 		21D302922CA7430900111D6E /* UploadImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageView.swift; sourceTree = "<group>"; };
 		21D302942CA7485A00111D6E /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		21D302972CA74EBB00111D6E /* MapViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewRepresentable.swift; sourceTree = "<group>"; };
-		21D45FDB2C8F9606001B12FA /* DataScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataScanner.swift; sourceTree = "<group>"; };
 		21D4FA282C67A07300CD4F58 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		21D6E1C82CA894FD00ED9918 /* FindCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindCityView.swift; sourceTree = "<group>"; };
 		21D772E32C5D0F1C004BEF31 /* PublicStreetPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicStreetPass.swift; sourceTree = "<group>"; };
@@ -131,7 +130,7 @@
 		21D8C8442CEBAA19001B16CF /* RequestThumb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestThumb.swift; sourceTree = "<group>"; };
 		21D983C02C6640EE003FC4A6 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		21DA45C52C6A41B200A16832 /* DigitalLounge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalLounge.swift; sourceTree = "<group>"; };
-		21DC252C2C6F95970046FFB8 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		21DC252C2C6F95970046FFB8 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		21DC252F2C6FD2200046FFB8 /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
 		21DCDEC82C70E21800F5A468 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		21DCDECA2C71269600F5A468 /* MatchAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchAnimation.swift; sourceTree = "<group>"; };
@@ -157,6 +156,7 @@
 		21ED15012D136F3D009D9215 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		21ED577C2C9A11B70029505B /* ScavengerHunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScavengerHunt.swift; sourceTree = "<group>"; };
 		21F010382CC865AD00651C36 /* Apple.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Apple.mp3; sourceTree = "<group>"; };
+		21F57FF22D6558B30008FF74 /* RapSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RapSheet.swift; sourceTree = "<group>"; };
 		21F5C0FE2C98D01D0078684E /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
 		21F5C1002C98D4D80078684E /* ChatPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPreview.swift; sourceTree = "<group>"; };
 		21F5C1022C990AAE0078684E /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
@@ -259,10 +259,10 @@
 		21DC252E2C6FD2040046FFB8 /* Connections */ = {
 			isa = PBXGroup;
 			children = (
-				21DC252F2C6FD2200046FFB8 /* TimerViewModel.swift */,
-				21DCDECA2C71269600F5A468 /* MatchAnimation.swift */,
 				21C635382C77B58800D15DB2 /* RequestView.swift */,
 				21D8C8442CEBAA19001B16CF /* RequestThumb.swift */,
+				21DCDECA2C71269600F5A468 /* MatchAnimation.swift */,
+				21DC252F2C6FD2200046FFB8 /* TimerViewModel.swift */,
 			);
 			path = Connections;
 			sourceTree = "<group>";
@@ -306,8 +306,8 @@
 				21F91D842C63A87D0024A991 /* Discover.swift */,
 				21DA45C52C6A41B200A16832 /* DigitalLounge.swift */,
 				212E5E0A2CE42F60001BC98B /* LocationViewModel.swift */,
-				21D45FDB2C8F9606001B12FA /* DataScanner.swift */,
 				21ED577C2C9A11B70029505B /* ScavengerHunt.swift */,
+				21F57FF22D6558B30008FF74 /* RapSheet.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -415,7 +415,7 @@
 				21D4FA282C67A07300CD4F58 /* BlurView.swift */,
 				21E50E8A2C6CE0B000FACFCB /* BuySTC.swift */,
 				21E50E8C2C6CE3B900FACFCB /* CoinCapsule.swift */,
-				21DC252C2C6F95970046FFB8 /* TimerView.swift */,
+				21DC252C2C6F95970046FFB8 /* ProgressView.swift */,
 				21E487142C862889005ADB06 /* StampPage.swift */,
 				21E487162C867778005ADB06 /* PassPortReceipt.swift */,
 				21C896522CDBAF3800F148D0 /* SPBackground.swift */,
@@ -522,7 +522,6 @@
 			files = (
 				21D772E82C5D1741004BEF31 /* Particle.swift in Sources */,
 				21F5C1052C990FA10078684E /* Chatroom.swift in Sources */,
-				21D45FDC2C8F9606001B12FA /* DataScanner.swift in Sources */,
 				21E50E8B2C6CE0B000FACFCB /* BuySTC.swift in Sources */,
 				21E487152C862889005ADB06 /* StampPage.swift in Sources */,
 				21FCE5992C5AD4B7006A86CE /* ContentView.swift in Sources */,
@@ -547,9 +546,10 @@
 				21D772EA2C5D1F8D004BEF31 /* SoundManager.swift in Sources */,
 				21DA45C62C6A41B200A16832 /* DigitalLounge.swift in Sources */,
 				21C896512CDBAE2400F148D0 /* StreePassViewModel.swift in Sources */,
-				21DC252D2C6F95970046FFB8 /* TimerView.swift in Sources */,
+				21DC252D2C6F95970046FFB8 /* ProgressView.swift in Sources */,
 				21CF8D872C5E7081006339A9 /* PassportPage.swift in Sources */,
 				21F91D822C63A0200024A991 /* SpotView.swift in Sources */,
+				21F57FF32D6558B30008FF74 /* RapSheet.swift in Sources */,
 				21DE09092C8893B500A2D526 /* ImageManager.swift in Sources */,
 				21EC5AD82C5C3FD600B88812 /* StampView.swift in Sources */,
 				21FC27D82C7CB9680055CDCF /* DataService.swift in Sources */,
@@ -743,9 +743,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cityXcape.CityXcape8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -778,9 +782,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cityXcape.CityXcape8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

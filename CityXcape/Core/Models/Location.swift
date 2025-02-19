@@ -121,7 +121,7 @@ struct Location: Identifiable, Equatable, Codable {
     static let data: [String: Any] = [
         Location.CodingKeys.id.rawValue: "abcxyz",
         Location.CodingKeys.name.rawValue: "Graffiti Pier",
-        Location.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2Fmaxresdefault.jpg?alt=media&token=c29d351b-b204-426d-a7f2-e71cba4396d3",
+        Location.CodingKeys.imageUrl.rawValue: "https://i.ytimg.com/vi/KM2rRv8b8aU/maxresdefault.jpg",
         Location.CodingKeys.ownerId.rawValue: "sdpojon",
         Location.CodingKeys.city.rawValue: "Philadelphia",
         Location.CodingKeys.worldId.rawValue: "oedfoijsdofjeofsd",

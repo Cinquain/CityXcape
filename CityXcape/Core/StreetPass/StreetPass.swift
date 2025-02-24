@@ -126,7 +126,7 @@ struct StreetPass: View {
                 vm.showPicker.toggle()
             }, label: {
                     SelfieBubble(
-                        size: 350,
+                        size: 320,
                         url: vm.user?.imageUrl ?? "",
                     pulse: 1.2)
             })

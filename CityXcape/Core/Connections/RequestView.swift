@@ -16,37 +16,43 @@ struct RequestView: View {
     @GestureState private var dragState: DragState = .inactive
     @State private var currentRequest: Request?
     var body: some View {
+        ZStack {
             VStack {
-                    header()
-                    if vm.requests.isEmpty {
-                        emptyState()
-                            
-                    } else {
-                        ScrollView {
-                            ForEach(vm.requests) { request in
-                                Button {
-                                    currentRequest = request
-                                } label: {
-                                    RequestThumb(request: request, vm: vm)
-                                       
-                                }
-                                .alert(isPresented: $vm.showError, content: {
-                                    return Alert(title: Text(vm.errorMessage))
-                                })
-
-                            }
-                        }
-                        .refreshable {
-                            vm.fetchPendingRequest()
+                header()
+                if vm.requests.isEmpty {
+                    emptyState()
+                    
+                } else {
+                    ScrollView {
+                        ForEach(vm.requests) { request in
+                            RequestThumb(request: request, vm: vm)
+                            .alert(isPresented: $vm.showError, content: {
+                                return Alert(title: Text(vm.errorMessage))
+                            })
                         }
                     }
-                 
+                    .refreshable {
+                        vm.fetchPendingRequest()
+                    }
                 }
-                .background(HexBackground())
-                .onAppear(perform: {
-                    AnalyticService.shared.viewedRequest()
-                })
+                
+            }
+            .opacity(vm.showPage ? 0 : 1)
+            .background(HexBackground())
+            .onAppear(perform: {
+                AnalyticService.shared.viewedRequest()
+            })
             
+            if vm.showPage {
+                
+                MatchAnimation(vm: vm)
+            }
+            
+            //End of Zstack
+        }
+        
+        
+        
     }
     
   

@@ -66,9 +66,8 @@ struct Request: Identifiable, Codable, Equatable {
     
     static let demo2 = Request(id: "abc1dldkkfn23", username: "Allan", imageUrl: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FJAv8CbZcZDUKNQx0PeGusp8cINC2%2FprofileImage?alt=media&token=eb587fbc-3461-4060-b6fb-73c0d10b7749", content: "Come to my table", spotId: "abfuygugghgitiejf", spotName: "Parlour Bar", worlds: [World.demo4, World.demo5, World.demo6])
     
-    static let demo3 = Request(id: "abc1dlduwuhdhsdhjhdskkfn23", username: "James", imageUrl: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FzuCiRbMq8EXbQmzJwP92OjjVeBZ2%2FprofileImage?alt=media&token=462898db-8a12-4296-a132-77f362763dfa", content: "Where the weed @", spotId: "abfiuguuygugghgitiejf", spotName: "Hope Breakfast Bar", worlds: [World.demo, World.demo2, World.demo3])
+    static let demo3 = Request(id: "abc1dlduwuhdhsdhjhdskkfn23", username: "James", imageUrl: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FJAv8CbZcZDUKNQx0PeGusp8cINC2%2FprofileImage?alt=media&token=eb587fbc-3461-4060-b6fb-73c0d10b7749", content: "dfbfjgjjgggggg", spotId: "fhjfjfjgggj", spotName: "Hope Breakfast Bar", worlds: [World.demo, World.demo2, World.demo3])
     
-
     
    
     

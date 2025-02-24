@@ -16,6 +16,7 @@ struct ProgressView: View {
     let value: Int
     
     @State private var color: Color = .orange
+    @State private var fontColor: Color = .white
     
     @State private var finalValue: CGFloat = 0
     var body: some View {
@@ -37,7 +38,7 @@ struct ProgressView: View {
                     .font(font)
                     .fontWeight(.light)
                     .multilineTextAlignment(.center)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(fontColor)
                     
                     
             }
@@ -51,6 +52,11 @@ struct ProgressView: View {
                 if value >= 50 {
                     color = .green
                 }
+                
+                if value == 100 {
+                    fontColor = .green
+                }
+                
             }
         }
     }
@@ -63,7 +69,7 @@ struct ProgressView: View {
         Spacer()
         HStack {
             Spacer()
-            ProgressView(size: 250, thickness: 30, font: .title, value: 88)
+            ProgressView(size: 250, thickness: 30, font: .title, value: 100)
             Spacer()
         }
         Spacer()

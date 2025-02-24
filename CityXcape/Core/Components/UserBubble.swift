@@ -41,6 +41,7 @@ struct UserBubble: View {
                 .scaledToFit()
                 .clipShape(Circle())
                 .frame(width: size  * 0.75)
+                .shadow(color: .gray, radius: 2)
             
             
         }
@@ -51,5 +52,5 @@ struct UserBubble: View {
 }
 
 #Preview {
-    UserBubble(size: 300, url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-8888.appspot.com/o/Users%2FybA5qTaUH3OIMj1qPFACBRzbPnb2%2Fman.png?alt=media&token=7b2a24de-49ce-4d40-a9a6-26325ee45371", pulse: 1.5)
+    UserBubble(size: 300, url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FBRjH3puxwIZueyIqvlEn%2FJay.png?alt=media&token=7e0fec7d-9e99-4c1e-a8d6-e1303482f43e", pulse: 1.5)
 }

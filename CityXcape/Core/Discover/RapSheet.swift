@@ -23,7 +23,7 @@ struct RapSheet: View {
                         .resizable()
                         .scaledToFit()
                         .frame(height: 30)
-                    Text("\(user.username)'s World")
+                    Text("\(user.username)'s Rap Sheet")
                         .font(.title2)
                         .foregroundStyle(.white)
                         .fontWeight(.thin)
@@ -68,12 +68,16 @@ struct RapSheet: View {
     func background() -> some View {
         GeometryReader {
             let size = $0.size
-            ZStack {
+            ZStack(alignment: .top) {
                 Color.black
 
-                Image("black-paths")
+                Image("Great Seal")
                     .resizable()
-                    .scaledToFill()
+                    .scaledToFit()
+                    .frame(height: 300)
+                    .opacity(0.12)
+                    .rotationEffect(Angle(degrees: -45))
+                    .padding(.top, 10)
                 
                 
             }
@@ -84,15 +88,20 @@ struct RapSheet: View {
     
     @ViewBuilder
     func worldItem(world: World) -> some View {
-        VStack(spacing: 5) {
-            WebImage(url: URL(string: world.imageUrl))
-                .resizable()
-                .scaledToFit()
-                .frame(height: 50)
-            Text(world.name)
-                .font(.callout)
-                .foregroundStyle(.white)
-                .fontWeight(.thin)
+        HStack(spacing: 5) {
+            VStack {
+                WebImage(url: URL(string: world.imageUrl))
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 55)
+                Text(world.name)
+                    .font(.callout)
+                    .foregroundStyle(.white)
+                    .fontWeight(.thin)
+            }
+            
+            
+            
             
         }
         .contentMargins(10)

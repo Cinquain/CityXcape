@@ -100,6 +100,7 @@ struct DigitalLounge: View {
                         
                         Text(vm.compare(user: user).1)
                             .fontWeight(.medium)
+                            
                         Divider()
                             .background(.white)
                             .frame(height: 0.5)
@@ -125,13 +126,15 @@ struct DigitalLounge: View {
                 dismiss()
             }
         } label: {
-            Text("Check Out")
-                .foregroundStyle(.black)
-                .fontWeight(.thin)
-                .frame(width: 120, height: 35)
-                .background(.orange)
-                .clipShape(Capsule())
-                .padding(.bottom, 12)
+            VStack {
+                Image(systemName: "bell.badge.fill")
+                    .font(.title)
+                    .foregroundStyle(.white)
+                Text("Check Out")
+                    .foregroundStyle(.white)
+                    .fontWeight(.thin)
+            }
+                
             
         }
     }

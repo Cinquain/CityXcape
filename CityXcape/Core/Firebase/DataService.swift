@@ -59,14 +59,17 @@ final class DataService {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let reference = userRef.document(uid)
         var values: [String: [String: Any]] = [:]
+        
         for world in user.worlds {
             values[world.id] = [
                 World.CodingKeys.id.rawValue: world.id,
                 World.CodingKeys.name.rawValue: world.name,
                 World.CodingKeys.memberName.rawValue: world.memberName,
-                World.CodingKeys.imageUrl.rawValue: world.imageUrl
+                World.CodingKeys.imageUrl.rawValue: world.imageUrl,
+                World.CodingKeys.memberSince.rawValue: Timestamp()
             ]
         }
+        
         let data: [String: Any] = [
             User.CodingKeys.id.rawValue: uid,
             User.CodingKeys.username.rawValue: user.username,
@@ -231,7 +234,7 @@ final class DataService {
         UserDefaults.standard.setValue(count, forKey: CXUserDefaults.streetcred)
     }
     
-    func purchaseStreetCred(count: Int, price: Int, user: User) {
+    func purchaseStreetCred(count: Int, price: Int) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         updateStreetCred(count: count)
         let spotId = lastSpotId ?? ""
@@ -239,9 +242,8 @@ final class DataService {
         
         let record: [String: Any] = [
             User.CodingKeys.id.rawValue: uid,
-            User.CodingKeys.username.rawValue: user.username,
+            User.CodingKeys.username.rawValue: username ?? "",
             User.CodingKeys.streetcred.rawValue: price,
-            User.CodingKeys.city.rawValue: user.city,
             Server.timestamp: FieldValue.serverTimestamp()
         ]
         reference.setData(record)

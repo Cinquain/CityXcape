@@ -70,8 +70,8 @@ struct BuySTC: View {
             HStack {
                 Spacer()
                 VStack {
-                    Text("Get StreetCred to Connect")
-                        .fontWeight(.semibold)
+                    Text("Get StreetCred \n to Connect with \(user.username)")
+                        .multilineTextAlignment(.center)
                     
                     Text("1 STC Per Connection")
                         .foregroundStyle(.white)
@@ -95,7 +95,7 @@ struct BuySTC: View {
                             case .success(_):
                             print("Successfully Bought StreetCred")
                             //Update Streetcred on backend
-                            DataService.shared.purchaseStreetCred(count: Product.streetcred.count, price: 10, user: user)
+                            DataService.shared.purchaseStreetCred(count: Product.streetcred.count, price: 10)
                             AnalyticService.shared.ordered3STC()
                             case .failure(let error):
                             message = error.localizedDescription
@@ -114,7 +114,7 @@ struct BuySTC: View {
                             case .success(_):
                             print("Successfully Bought StreetCred")
                             //Update Streetcred on backend
-                            DataService.shared.purchaseStreetCred(count: Product.streetcred_15.count, price: 30, user: user)
+                            DataService.shared.purchaseStreetCred(count: Product.streetcred_15.count, price: 30)
                             AnalyticService.shared.ordered15STC()
                             case .failure(let error):
                             message = error.localizedDescription
@@ -133,7 +133,7 @@ struct BuySTC: View {
                             case .success(_):
                             print("Successfully Bought StreetCred")
                             //Update Streetcred on backend
-                            DataService.shared.purchaseStreetCred(count: Product.streetcred_50.count, price: 50, user: user)
+                            DataService.shared.purchaseStreetCred(count: Product.streetcred_50.count, price: 50)
                             AnalyticService.shared.ordered50STC()
                             case .failure(let error):
                             message = error.localizedDescription

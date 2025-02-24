@@ -19,18 +19,14 @@ struct ChooseWorldView: View {
             OnboardingHeader()
             Spacer()
             VStack {
-                Text("Choose Up to 3 Worlds")
-                    .font(.title)
+                Text("Which Communities are You Part of?")
+                    .font(.title3)
                     .fontWeight(.light)
                     .foregroundStyle(.white)
                     .alert(isPresented: $vm.showError, content: {
                         Alert(title: Text(vm.errorMessage))
                     })
-                Text("Worlds are communities people belong to")
-                    .font(.callout)
-                    .fontWeight(.light)
-                    .foregroundStyle(.white)
-                  
+                
                 
                     ScrollView {
                         ForEach(vm.worlds.sorted(by: {$0.name < $1.name})) { world in

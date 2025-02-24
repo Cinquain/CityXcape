@@ -137,11 +137,12 @@ struct PublicStreetPass: View {
             
             VStack {
                 Image("StreetCred")
+                    .resizable()
                     .scaledToFit()
-                    .opacity(0.8)
-                    .frame(width: 60, height: 60)
+                    .frame(width: 50, height: 50)
                     .clipShape(Circle())
-                Text("\(vm.stcValue) StreetCred")
+                
+                Text("\(vm.stcValue - 1) StreetCred")
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
             }
@@ -164,7 +165,7 @@ struct PublicStreetPass: View {
                     .clipShape(Capsule())
             })
             .sheet(isPresented: $buySTC, content: {
-                BuySTC(user: vm.user ?? User.demo)
+                BuySTC(user: user)
                     .presentationDetents([.height(370)])
             })
     }

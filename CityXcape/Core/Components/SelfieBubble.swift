@@ -39,6 +39,8 @@ struct SelfieBubble: View {
                 .scaledToFit()
                 .frame(width: size  * 5.5/7)
                 .clipShape(Circle())
+                .shadow(color: .gray, radius: 2)
+
             
             
         }

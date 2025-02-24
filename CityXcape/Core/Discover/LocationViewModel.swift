@@ -30,12 +30,12 @@ final class LocationViewModel: ObservableObject {
     @Published var showRapSheet: Bool = false 
     @Published var isSent: Bool = false
     
-    @Published var showLounge: Bool = false 
+    @Published var showLounge: Bool = false
     @Published var huntSpot: Location?
     @Published var currentSpot: Location?
 
     
-    @Published var users: [User] = []
+    @Published var users: [User] = [User.demo, User.demo2, User.demo3]
     @Published var currentUser: User?
     @Published var user: User?
     @Published var spot: Location?
@@ -43,6 +43,7 @@ final class LocationViewModel: ObservableObject {
     
     
     @Published var requests: [Request] = [Request.demo, Request.demo2, Request.demo3]
+    @Published var requestImage: String = ""
     @Published var showPage: Bool = false
     @Published var stcValue: Int = 0
     
@@ -128,7 +129,7 @@ final class LocationViewModel: ObservableObject {
     }
     
     func compare(user: User) -> (String, String, Double) {
-        var result: String = "View \(user.username)'s Worlds"
+        var result: String = "View \(user.username)'s Rap Sheet"
         var percentage: String = "0% Match"
         let total: Double = 3
         guard let selfUser = self.user else {return (result, percentage, 0) }
@@ -144,6 +145,9 @@ final class LocationViewModel: ObservableObject {
                          : "You and \(user.username) have \n \(count.clean) World in Common"
         
         let percent: Double = (count / total) * 100
+        if percent == 100 {
+            result = "You and \(user.username) \n should connect "
+        }
         percentage = "\(percent.clean)% Match"
         return (result, percentage, percent)
     }
@@ -228,14 +232,14 @@ final class LocationViewModel: ObservableObject {
     }
     
     func acceptRequest(request: Request) {
+        requestImage = request.imageUrl
         Task {
             do {
                 try await DataService.shared.acceptRequest(content: message, request: request)
+                showPage = true
                 if let index = requests.firstIndex(of: request) {
                     requests.remove(at: index)
                 }
-                errorMessage = "You and \(request.username) are now connected and can chat"
-                showError.toggle()
             } catch {
                 errorMessage = error.localizedDescription
                 showError.toggle()

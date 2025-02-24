@@ -11,7 +11,6 @@ struct MatchAnimation: View {
     @Environment(\.dismiss) private var dismiss
     @AppStorage(CXUserDefaults.profileUrl) var profileUrl: String?
 
-    var request: Request
     @StateObject var vm: LocationViewModel
     
     @State private var length: CGFloat = 120
@@ -57,7 +56,7 @@ struct MatchAnimation: View {
                 .background(.orange)
                 .animation(.easeOut(duration: 0.5), value: length)
 
-            UserBubble(size: 125, url: request.imageUrl, pulse: 2)
+            UserBubble(size: 125, url: vm.requestImage, pulse: 2)
                 .rotationEffect(Angle(degrees: rotation))
                 .animation(.easeOut(duration: 0.5), value: rotation)
 
@@ -99,6 +98,6 @@ struct MatchAnimation: View {
     
 }
 
-//#Preview {
-//    MatchAnimation(request: Request.demo)
-//}
+#Preview {
+    MatchAnimation(vm: LocationViewModel())
+}

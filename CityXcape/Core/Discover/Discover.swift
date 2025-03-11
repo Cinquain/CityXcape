@@ -98,13 +98,17 @@ struct Discover: View {
         Button(action: {
           handleCheckin()
         }, label: {
-            Text("Check-In")
-                .font(.title3)
-                .foregroundStyle(.black)
-                .fontWeight(.thin)
-                .frame(width: 200, height: 40)
-                .background(.orange)
-                .clipShape(Capsule())
+            HStack {
+                Image(systemName: "bell.badge.fill")
+                Text("Check-In")
+                    .font(.title3)
+                    .fontWeight(.thin)
+            }
+            .foregroundStyle(.black)
+            .frame(width: 200, height: 40)
+            .background(.orange)
+            .clipShape(Capsule())
+                
         })
         .fullScreenCover(item: $vm.huntSpot) { spot in
             ScavengerHunt(spot: spot, vm: vm)
@@ -127,7 +131,7 @@ struct Discover: View {
                 
                 
             }
-            .padding(.bottom, 4)
+            .padding(.bottom, 7)
             
             Divider()
                 .background(.white)
@@ -155,7 +159,7 @@ struct Discover: View {
                 .fontWeight(.thin)
                 .alert(isPresented: $vm.showError, content: {
                     if vm.showOnboarding {
-                        return Alert(title: Text("You need a user profile to check-in"), primaryButton: .default(Text("Ok")){
+                        return Alert(title: Text("You need a StreetPass to check-in"), primaryButton: .default(Text("Get One")){
                             startOnboarding = true
                         } , secondaryButton: .cancel())
                     } else {

@@ -37,7 +37,7 @@ struct PublicStreetPass: View {
                 
                 
                 VStack(spacing: 10) {
-                    ProgressView(size: 100, thickness: 15, font: .callout, value: Int(vm.compare(user: user).2))
+                    CircularProgressView(size: 100, thickness: 15, font: .callout, value: Int(vm.compare(user: user).2))
                     Button {
                         vm.showRapSheet.toggle()
                     } label: {
@@ -139,7 +139,7 @@ struct PublicStreetPass: View {
                 Image("StreetCred")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 50, height: 50)
+                    .frame(height: 50)
                     .clipShape(Circle())
                 
                 Text("\(vm.stcValue - 1) StreetCred")
@@ -156,7 +156,7 @@ struct PublicStreetPass: View {
             Button(action: {
                 checkForStreetCred()
             }, label: {
-                Text(vm.showTextField ? "Send Request" : "CONNECT")
+                (Text(vm.showTextField ? "Send Request" : "CONNECT ") + Text(Image(systemName: "powerplug.fill")))
                     .font(.callout)
                     .fontWeight(.light)
                     .foregroundStyle(.black)
@@ -165,7 +165,7 @@ struct PublicStreetPass: View {
                     .clipShape(Capsule())
             })
             .sheet(isPresented: $buySTC, content: {
-                BuySTC(user: user)
+                BuySTC(user: user, vm: vm)
                     .presentationDetents([.height(370)])
             })
     }

@@ -1,11 +1,21 @@
 {
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
   "identifier" : "FDEA4091",
   "nonRenewingSubscriptions" : [
 
   ],
   "products" : [
     {
-      "displayPrice" : "9.99",
+      "displayPrice" : "4.99",
       "familyShareable" : false,
       "internalID" : "6F225CCB",
       "localizations" : [
@@ -20,7 +30,7 @@
       "type" : "Consumable"
     },
     {
-      "displayPrice" : "29.99",
+      "displayPrice" : "9.99",
       "familyShareable" : false,
       "internalID" : "837914DB",
       "localizations" : [
@@ -40,7 +50,7 @@
       "type" : "Consumable"
     },
     {
-      "displayPrice" : "49.99",
+      "displayPrice" : "24.99",
       "familyShareable" : false,
       "internalID" : "F918599A",
       "localizations" : [
@@ -109,7 +119,7 @@
 
   ],
   "version" : {
-    "major" : 3,
+    "major" : 4,
     "minor" : 0
   }
 }

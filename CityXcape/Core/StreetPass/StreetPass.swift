@@ -9,7 +9,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct StreetPass: View {
-    
+    @AppStorage(CXUserDefaults.uid) var uid: String?
     @StateObject var vm : StreetPassViewModel
     var body: some View {
         VStack {
@@ -19,9 +19,16 @@ struct StreetPass: View {
                 .frame(maxHeight: 40)
             worldList()
             passport()
+            showStats()
             Spacer()
+            if uid == nil {
+                getSPButton()
+            }
         }
         .background(SPBackground())
+        .onAppear {
+            vm.getUser()
+        }
     }
     
     
@@ -56,9 +63,6 @@ struct StreetPass: View {
             Spacer()
             
             Menu{
-                Button(action: {vm.showAuth.toggle()}) {
-                                     Label("Signup", systemImage: "person.crop.circle.fill.badge.checkmark")
-                                 }
                 
                 Button {
                     vm.openCustomUrl(link: "https://www.cityxcape.com/privacy_policy")
@@ -66,13 +70,15 @@ struct StreetPass: View {
                                     Label("Privacy Policy", systemImage: "hand.raised.circle.fill")
                                 }
                                 
-                                Button {
-                                    vm.openCustomUrl(link: "https://www.cityxcape.com/terms")
-                                } label: {
-                                    Label("Terms & Conditions", systemImage: "doc.text.magnifyingglass")
-                                }
+                Button {
+                    vm.openCustomUrl(link: "https://www.cityxcape.com/terms")
+                } label: {
+                    Label("Terms & Conditions", systemImage: "doc.text.magnifyingglass")
+                }
+
+                
                 Button(action: vm.signout) {
-                Label("Signout", systemImage: "point.filled.topleft.down.curvedto.point.bottomright.up")
+                Label("Signout", systemImage: "power.circle.fill")
                                  }
                 
                 Button(action: vm.deleteAccount) {
@@ -117,7 +123,6 @@ struct StreetPass: View {
         
     }
     
-    
     @ViewBuilder
     func userView() -> some View {
         VStack {
@@ -127,7 +132,7 @@ struct StreetPass: View {
             }, label: {
                     SelfieBubble(
                         size: 320,
-                        url: vm.user?.imageUrl ?? "",
+                        url: vm.user?.imageUrl ?? "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FJohn%20Doe%2FJane%20Doe.png?alt=media&token=475bdf1b-21f3-4335-afb5-50c4a4170632",
                     pulse: 1.2)
             })
             
@@ -174,13 +179,66 @@ struct StreetPass: View {
            
         }
         .padding(.top, 20)
+        .opacity(uid != nil ? 1 : 0)
+
     }
+    
+    @ViewBuilder
+    func showStats() -> some View {
+        VStack(alignment: .leading, spacing: 20) {
+            Button(action: {
+                vm.showStats.toggle()
+            }, label: {
+                HStack {
+                    Image(systemName: "chart.xyaxis.line")
+                        .font(.title2)
+                    
+                    Text("Analytics")
+                        .font(.title)
+                        .fontWeight(.thin)
+                    
+                }
+                .foregroundStyle(.white)
+            })
+            .fullScreenCover(isPresented: $vm.showStats) {
+                AnalyticsView(vm: vm)
+            }
+           
+            
+           
+        }
+        .padding(.top, 5)
+        .opacity(uid != nil ? 1 : 0)
+
+    }
+    
+   
     
     func openCustom(url: String) {
         guard let url = URL(string: url) else {return}
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
+    }
+    
+    @ViewBuilder
+    func getSPButton() -> some View {
+        Button {
+            vm.showOnboarding.toggle()
+        } label: {
+            Text("Get StreetPass")
+                .fontWeight(.thin)
+                .font(.title3)
+                .foregroundStyle(.white)
+                .frame(width: 200, height: 40)
+                .background(.blue)
+                .clipShape(Capsule())
+                .fullScreenCover(isPresented: $vm.showOnboarding) {
+                    Onboarding()
+                }
+        }
+        .padding(.bottom, 10)
+
     }
     
 }

@@ -11,6 +11,7 @@ struct MessagesView: View {
     
     @StateObject var vm : ChatViewModel
     @State var currentMessage : Message?
+    
     var body: some View {
         
             VStack {
@@ -32,6 +33,11 @@ struct MessagesView: View {
                 Spacer()
             }
             .navigationBarHidden(true)
+            .overlay(content: {
+                if vm.recents.isEmpty {
+                    emptyState()
+                }
+            })
             .toolbar(.visible, for: .tabBar)
             .background(HexBackground())
            
@@ -41,21 +47,35 @@ struct MessagesView: View {
     
     @ViewBuilder
     func header() -> some View {
-        HStack(spacing: 5) {
-            Spacer()
-            Image("dot")
-                .resizable()
-                .scaledToFit()
-                .frame(height: 25)
-            Text("MESSAGES")
-                .fontWeight(.thin)
-                .tracking(3)
-            Spacer()
+        VStack {
+            HStack(spacing: 5) {
+                Spacer()
+                Text("MESSAGES")
+                    .fontWeight(.thin)
+                    .foregroundStyle(.white)
+                    .tracking(3)
+                Spacer()
+            }
+            .background(.black)
+            
+            Divider()
+                .frame(height: 0.5)
+                .background(.white)
+                .padding(.horizontal)
         }
-        .background(.black)
-        .padding(.bottom, 25)
-        
     }
+    
+    @ViewBuilder
+    func emptyState() -> some View {
+        ContentUnavailableView(
+            "No Conversations",
+            systemImage: "message.circle.fill",
+            description: Text("You don't have any messages")
+        )
+        .foregroundStyle(.white)
+        .font(.title)
+    }
+    
 }
 
 #Preview {

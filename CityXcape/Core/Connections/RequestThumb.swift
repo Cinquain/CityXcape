@@ -70,7 +70,9 @@ struct RequestThumb: View {
                         vm.removeRequest(request: request)
                     } label: {
                         HStack {
-                            Image(systemName: "trash.fill")
+                            Image("trash")
+                                .resizable()
+                                .scaledToFit()
                                 .foregroundStyle(.white)
                                 .frame(height: 30)
                            

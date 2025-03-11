@@ -42,7 +42,7 @@ struct ChooseWorldView: View {
                             }
                         }
                     }
-                    .frame(height: 400)
+                    .frame(height: 500)
                     .searchable(text: $searchText)
                 
                 
@@ -94,11 +94,36 @@ struct ChooseWorldView: View {
 
     }
     
-    func submitWorlds() {
+    @ViewBuilder
+    func header() -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(vm.city)
+                    .font(.caption)
+                    .fontWeight(.thin)
+                    .foregroundStyle(.white)
+                    .tracking(4)
+                
+                Text("STREETPASS")
+                    .font(.system(size: 24))
+                    .fontWeight(.thin)
+                    .tracking(4)
+                    .opacity(0.7)
+                
+            }
+            .foregroundStyle(.white)
+            Spacer()
+            
+        }
+        .padding(.horizontal, 20)
+    }
+    
+    fileprivate func submitWorlds() {
         if vm.selectedWorlds.isEmpty {
             vm.errorMessage = "Please choose at least one world"
             vm.showError.toggle()
         }
+        vm.subbmitWorlds()
         withAnimation {
             index = 6
         }

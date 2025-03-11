@@ -35,14 +35,14 @@ final class LocationViewModel: ObservableObject {
     @Published var currentSpot: Location?
 
     
-    @Published var users: [User] = [User.demo, User.demo2, User.demo3]
+    @Published var users: [User] = []
     @Published var currentUser: User?
     @Published var user: User?
     @Published var spot: Location?
     @Published var worlds: [World] = []
     
     
-    @Published var requests: [Request] = [Request.demo, Request.demo2, Request.demo3]
+    @Published var requests: [Request] = []
     @Published var requestImage: String = ""
     @Published var showPage: Bool = false
     @Published var stcValue: Int = 0
@@ -72,11 +72,9 @@ final class LocationViewModel: ObservableObject {
         UserDefaults.standard.setValue(currentspot.id, forKey: CXUserDefaults.lastSpotId)
         fetchCheckedInUsers(spotId: spotId)
         let user = try await DataService.shared.getUserCredentials()
-        self.user = User(id: user.id, username: user.username, imageUrl: user.imageUrl, gender: user.gender, city: currentspot.name, streetcred: user.streetcred, worlds: user.worlds, fcmToken: user.fcmToken)
+        self.user = User(id: user.id, username: user.username, imageUrl: user.imageUrl, gender: user.gender, city: user.city, streetcred: user.streetcred, worlds: user.worlds, fcmToken: user.fcmToken)
         self.spot = currentspot
         try await DataService.shared.checkin(spotId: spotId, user: self.user!)
-        NotificationManager.shared.scheduleGeoNotification(spot: currentspot)
-        NotificationManager.shared.scheduleTimeNotification(spot: currentspot)
         AnalyticService.shared.checkedIn()
         return currentspot
     }
@@ -153,6 +151,32 @@ final class LocationViewModel: ObservableObject {
     }
     
     
+   //MARK: PURCHASE FUNCTIONALITIES
+    
+    func purchaseStreetCred(count: Int, price: Double) {
+        guard let spot else {return}
+        DataService.shared.purchaseStreetCred(spot: spot, count: count, price: price)
+    }
+    
+    
+    
+    //MARK: REQUEST FUNCTIONALITIES
+        
+    func fetchPendingRequest() {
+        Task {
+            do {
+                let loadedRequest = try await DataService.shared.fetchAllRequests()
+                DispatchQueue.main.async {
+                    self.requests = loadedRequest
+                }
+               
+            } catch {
+                errorMessage = error.localizedDescription
+                showError.toggle()
+            }
+        }
+    }
+    
     func sendRequest(uid: String) {
         if message.isEmpty {
             errorMessage = "Please enter a message"
@@ -184,25 +208,6 @@ final class LocationViewModel: ObservableObject {
         }
     }
     
-    
-    
-    //MARK: REQUEST FUNCTIONALITIES
-        
-    func fetchPendingRequest() {
-        Task {
-            do {
-                let loadedRequest = try await DataService.shared.fetchAllRequests()
-                DispatchQueue.main.async {
-                    self.requests = loadedRequest
-                }
-               
-            } catch {
-                errorMessage = error.localizedDescription
-                showError.toggle()
-            }
-        }
-    }
-    
     func startListeningForRequest() {
         DataService.shared.startListeningtoRequest { result in
             switch result {
@@ -213,6 +218,10 @@ final class LocationViewModel: ObservableObject {
                 self.showError.toggle()
             }
         }
+    }
+    
+    func removeRequestListener() {
+        DataService.shared.removeRequestListener()
     }
     
     func removeRequest(request: Request) {

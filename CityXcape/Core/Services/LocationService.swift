@@ -27,36 +27,40 @@ class LocationService: NSObject, ObservableObject {
     
     @Published var userCoordinates: CLLocationCoordinate2D?
     @Published var region: MKCoordinateRegion = MKCoordinateRegion()
-    
     @Published var city: String = ""
+    @Published var status: CLAuthorizationStatus = .authorizedWhenInUse
     
     
     func checkAuthorizationStatus() {
         switch manager.authorizationStatus {
             case .authorizedAlways:
             manager.startUpdatingLocation()
+            status = .authorizedAlways
             getCity()
         case .notDetermined:
             manager.requestWhenInUseAuthorization()
+            status = .notDetermined
         case .restricted:
             break
         case .denied:
             manager.requestWhenInUseAuthorization()
+            status = .denied
         case .authorizedWhenInUse:
             manager.startUpdatingLocation()
+            status = .authorizedWhenInUse
             getCity()
         @unknown default:
             break
         }
     }
     
-    func getCity() {
+    func getCity()  {
         if let coordinates = userCoordinates {
-            coordinates.getCity { placemark in
+            self.city = coordinates.getCity { placemark in
                 let newCity = placemark?.locality ?? ""
+                DataService.shared.saveUserCity(city: newCity)
                 print("The new city is: \(newCity)")
-                self.city = newCity
-            }
+            } ?? ""
         }
     }
     

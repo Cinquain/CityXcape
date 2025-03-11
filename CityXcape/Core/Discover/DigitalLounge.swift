@@ -24,9 +24,17 @@ struct DigitalLounge: View {
             checkoutButton()
         }
         .background(background())
-     
-     
-      
+        .overlay {
+            if vm.users.isEmpty {
+                emptyState()
+            }
+        }
+        .onAppear {
+            vm.startListeningForRequest()
+        }
+        .onDisappear {
+            vm.removeRequestListener()
+        }
      
     }
     
@@ -57,6 +65,24 @@ struct DigitalLounge: View {
                 .frame(height: 1)
                 .padding(.horizontal, 10)
         }
+    }
+    
+    @ViewBuilder
+    func emptyState() -> some View {
+        VStack {
+            Spacer()
+            SelfieBubble(size: 200, url: vm.user?.imageUrl ?? "", pulse: 2)
+            Text("First One Here!")
+                .font(.title)
+            
+            Text("Please wait for more \n people to check in")
+                .font(.title2)
+                .multilineTextAlignment(.center)
+                
+            Spacer()
+        }
+        .foregroundStyle(.white)
+        .fontWeight(.thin)
     }
     
     @ViewBuilder
@@ -134,8 +160,6 @@ struct DigitalLounge: View {
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
             }
-                
-            
         }
     }
     

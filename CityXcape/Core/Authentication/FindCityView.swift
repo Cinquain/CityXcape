@@ -11,15 +11,14 @@ struct FindCityView: View {
     
     @Binding var index: Int
     @StateObject var vm: UploadViewModel
-    @StateObject var manager = LocationService.shared
+    var manager = LocationService.shared
     @State private var isDone: Bool = false
     @State private var errorMessage: String = ""
     @State private var showError: Bool = false
-    @State private var city: String = ""
 
     var body: some View {
         VStack {
-            OnboardingHeader()
+            header()
             
             Spacer()
             HStack {
@@ -39,7 +38,7 @@ struct FindCityView: View {
                 .cornerRadius(12)
             
             Button(action: {
-                manager.manager.requestWhenInUseAuthorization()
+                manager.checkAuthorizationStatus()
                 
             }, label: {
                 Text("Find Me")
@@ -59,7 +58,7 @@ struct FindCityView: View {
                     .foregroundStyle(.white)
                     .fontWeight(.light)
                     .frame(width: 125, height: 35)
-                    .background(vm.city == "" ? .gray : .green)
+                    .background(manager.status == .authorizedWhenInUse ? .green : .gray)
                     .animation(.easeIn, value: isDone)
                     .clipShape(Capsule())
             })
@@ -72,16 +71,38 @@ struct FindCityView: View {
         .onAppear {
             manager.getCity()
         }
+        
     }
-
+    
+    @ViewBuilder
+    func header() -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(manager.city)
+                    .font(.caption)
+                    .fontWeight(.thin)
+                    .foregroundStyle(.white)
+                    .tracking(4)
+                
+                Text("STREETPASS")
+                    .font(.system(size: 24))
+                    .fontWeight(.thin)
+                    .tracking(4)
+                    .opacity(0.7)
+                
+            }
+            .foregroundStyle(.white)
+            Spacer()
+            
+        }
+        .padding(.horizontal, 20)
+    }
     
     fileprivate func submitLocation() {
         
-        if vm.city.isEmpty  {
+        if manager.status == .denied {
             vm.errorMessage = "CityXcape needs location permission"
             vm.showError.toggle()
-            manager.getCity()
-            vm.updateCity()
             return
         }
         

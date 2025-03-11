@@ -110,7 +110,7 @@ struct AuthPage: View {
     func header() -> some View {
             HStack {
                 VStack(alignment: .leading) {
-                    Text(LocationService.shared.city)
+                    Text("")
                         .font(.caption)
                         .fontWeight(.thin)
                         .foregroundStyle(.white)

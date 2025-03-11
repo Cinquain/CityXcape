@@ -10,12 +10,12 @@ import UserNotifications
 import CoreLocation
 
 
-final class NotificationManager {
+final class NotificationManager: ObservableObject {
     
     static let shared = NotificationManager()
     private init() {}
     
-    var granted: Bool = false
+    @Published var granted: Bool = false
     
     func requestAuthorization() {
         let options : UNAuthorizationOptions = [.alert, .badge, .sound]

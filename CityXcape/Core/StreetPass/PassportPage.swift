@@ -70,6 +70,7 @@ struct PassportPage: View {
      
     }
     
+ 
     @ViewBuilder
     func background() -> some View {
         ZStack {
@@ -123,6 +124,7 @@ struct PassportPage: View {
                 .font(.title3)
                 .fontWeight(.thin)
                 .multilineTextAlignment(.center)
+            
             
             Spacer()
             Spacer()

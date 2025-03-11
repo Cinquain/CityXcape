@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import PhotosUI
 
-
+@MainActor
 class StreetPassViewModel: ObservableObject {
     
     @Published var selectedImage: PhotosPickerItem? {
@@ -26,18 +26,23 @@ class StreetPassViewModel: ObservableObject {
     @Published var showError: Bool = false
     
     @Published var showPassport: Bool = false
+    @Published var showStats: Bool = false 
+    @Published var showRanks: Bool = false
+    
     @Published var showPage: Bool = false
     @Published var showAuth: Bool = false
+    @Published var showOnboarding: Bool = false
+    @Published var spotMetric: LocationMetrics = .Checkins
     
+    @Published var data: [(name: String, count: Double)] = [(name: "Parlour Bar", count: 293.485), (name: "Fragment Coffee", count: 983.485), (name: "Hope Breakfast", count: 1023.485), (name: "Blue Bottle", count: 993.485), (name: "Malcolm Yards", count: 683.485) ]
+
     @Published var buySTC: Bool = false
     @Published var showPicker: Bool = false 
     
     @Published var worlds: [World] = []
     @Published var stamps: [Stamp] = []
-    
-    init() {
-        self.getUser()
-    }
+    @Published var ranks: [UserRank] = []
+    @Published var uploads: [Location] = [Location.demo, Location.demo2, Location.demo3, Location.demo4, Location.demo5]
     
     
     func getUser() {
@@ -57,9 +62,7 @@ class StreetPassViewModel: ObservableObject {
         Task {
             do {
                 let stamps = try await DataService.shared.fetchAllStamps()
-                DispatchQueue.main.async {
-                    self.stamps = stamps
-                }
+                self.stamps = stamps
                 AnalyticService.shared.viewedPassport()
                 showPassport.toggle()
             } catch {
@@ -68,8 +71,6 @@ class StreetPassViewModel: ObservableObject {
             }
         }
     }
-    
-
     
     
     func loadProfileImage(from item: PhotosPickerItem?) async {
@@ -90,9 +91,44 @@ class StreetPassViewModel: ObservableObject {
         }
     }
     
+    
+    //MARK: ANALYTICS FUNCTIONS
+    
+    func getLeaderBoard() {
+        Task {
+            do {
+                self.ranks = try await DataService.shared.fetchLeaderBoard().sorted(by: {$0.totalSales > $1.totalSales})
+                self.showRanks.toggle()
+            } catch {
+                errorMessage = error.localizedDescription
+                showError.toggle()
+            }
+        }
+    }
+    
+    func fetchAnalytics() {
+        Task {
+            do {
+                self.uploads = try await DataService.shared.fetchScoutAnalytics()
+                self.data = uploads.map({(name: $0.name, count: $0.totalSales)})
+                showStats.toggle()
+            } catch {
+                errorMessage = error.localizedDescription
+                print(error.localizedDescription)
+                showError.toggle()
+            }
+        }
+    }
+    
 
     
-    //MARK: USER FUNCTIONS
+    
+}
+
+
+extension StreetPassViewModel {
+    
+    //MARK: SETTING FUNCTIONS
     
     func signout() {
         do {
@@ -106,11 +142,11 @@ class StreetPassViewModel: ObservableObject {
         }
     }
     
+    
     func deleteAccount() {
         Task {
             do {
                 try await DataService.shared.deleteUser()
-                try await AuthService.shared.deleteUser()
                 user = nil
                 errorMessage = "Successfully Deleted Account"
                 showError.toggle()
@@ -127,6 +163,4 @@ class StreetPassViewModel: ObservableObject {
             UIApplication.shared.open(url)
         }
     }
-    
-    
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct NotificationView: View {
     
     @StateObject var vm: UploadViewModel
-    var manager = NotificationManager.shared
+    @StateObject var manager = NotificationManager.shared
     @State private var errorMessage: String = ""
     @State private var showError: Bool = false
     
@@ -18,7 +18,7 @@ struct NotificationView: View {
     
     var body: some View {
         VStack {
-            OnboardingHeader()
+            header()
             Spacer()
                 .frame(height: 200)
             
@@ -70,6 +70,30 @@ struct NotificationView: View {
             Spacer()
         }
         .background(SPBackground())
+    }
+    
+    @ViewBuilder
+    func header() -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text("")
+                    .font(.caption)
+                    .fontWeight(.thin)
+                    .foregroundStyle(.white)
+                    .tracking(4)
+                
+                Text("STREETPASS")
+                    .font(.system(size: 24))
+                    .fontWeight(.thin)
+                    .tracking(4)
+                    .opacity(0.7)
+                
+            }
+            .foregroundStyle(.white)
+            Spacer()
+            
+        }
+        .padding(.horizontal, 20)
     }
 }
 

@@ -39,8 +39,14 @@ struct Server {
     static let checkins = "checkins"
     static let timestamp = "timestamp"
     static let fcmToken = "fcmToken"
+    static let uploads = "uploads"
     static let members = "members"
+    static let scoutSale = "scoutSale"
+    static let userId = "userId"
+    static let sale = "sale"
     static let sales = "sales"
+    static let rankings = "rankings"
+    static let commission = "commission"
 }
 
 enum Tab: String, CaseIterable {
@@ -89,6 +95,18 @@ enum Product: String, CaseIterable, Identifiable {
         }
     }
 }
+
+enum LocationMetrics: String, CaseIterable, Identifiable {
+    case Checkins
+    case Sales
+    case Connections
+    
+    var id: Self {
+        return self
+    }
+}
+
+
 
 enum DragState {
     case inactive

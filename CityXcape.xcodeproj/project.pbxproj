@@ -42,7 +42,11 @@
 		21D983C12C6640EE003FC4A6 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D983C02C6640EE003FC4A6 /* LaunchView.swift */; };
 		21DA45C62C6A41B200A16832 /* DigitalLounge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA45C52C6A41B200A16832 /* DigitalLounge.swift */; };
 		21DA45C92C6A499D00A16832 /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 21DA45C82C6A499D00A16832 /* Shimmer */; };
-		21DC252D2C6F95970046FFB8 /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DC252C2C6F95970046FFB8 /* ProgressView.swift */; };
+		21DA79832D7CF05E0087E339 /* UserRank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA79822D7CF05E0087E339 /* UserRank.swift */; };
+		21DA798D2D7CFA8C0087E339 /* RankingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA798C2D7CFA8C0087E339 /* RankingItem.swift */; };
+		21DA798F2D7CFE830087E339 /* Leaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA798E2D7CFE830087E339 /* Leaderboard.swift */; };
+		21DB09C02D7F8988002FC7CF /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DB09BF2D7F8988002FC7CF /* AnalyticsView.swift */; };
+		21DC252D2C6F95970046FFB8 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DC252C2C6F95970046FFB8 /* CircularProgressView.swift */; };
 		21DC25302C6FD2200046FFB8 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DC252F2C6FD2200046FFB8 /* TimerViewModel.swift */; };
 		21DCDEC92C70E21800F5A468 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DCDEC82C70E21800F5A468 /* Connection.swift */; };
 		21DCDECB2C71269600F5A468 /* MatchAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DCDECA2C71269600F5A468 /* MatchAnimation.swift */; };
@@ -130,7 +134,11 @@
 		21D8C8442CEBAA19001B16CF /* RequestThumb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestThumb.swift; sourceTree = "<group>"; };
 		21D983C02C6640EE003FC4A6 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		21DA45C52C6A41B200A16832 /* DigitalLounge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalLounge.swift; sourceTree = "<group>"; };
-		21DC252C2C6F95970046FFB8 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		21DA79822D7CF05E0087E339 /* UserRank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRank.swift; sourceTree = "<group>"; };
+		21DA798C2D7CFA8C0087E339 /* RankingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingItem.swift; sourceTree = "<group>"; };
+		21DA798E2D7CFE830087E339 /* Leaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leaderboard.swift; sourceTree = "<group>"; };
+		21DB09BF2D7F8988002FC7CF /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
+		21DC252C2C6F95970046FFB8 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		21DC252F2C6FD2200046FFB8 /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
 		21DCDEC82C70E21800F5A468 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		21DCDECA2C71269600F5A468 /* MatchAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchAnimation.swift; sourceTree = "<group>"; };
@@ -244,6 +252,8 @@
 				21D772E32C5D0F1C004BEF31 /* PublicStreetPass.swift */,
 				21CF8D862C5E7081006339A9 /* PassportPage.swift */,
 				21C896502CDBAE2400F148D0 /* StreePassViewModel.swift */,
+				21DA798E2D7CFE830087E339 /* Leaderboard.swift */,
+				21DB09BF2D7F8988002FC7CF /* AnalyticsView.swift */,
 			);
 			path = StreetPass;
 			sourceTree = "<group>";
@@ -394,6 +404,7 @@
 				21F91D8E2C63C1310024A991 /* Message.swift */,
 				21D772E72C5D1741004BEF31 /* Particle.swift */,
 				21D240AB2C6EEBE50054D048 /* Request.swift */,
+				21DA79822D7CF05E0087E339 /* UserRank.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -415,12 +426,13 @@
 				21D4FA282C67A07300CD4F58 /* BlurView.swift */,
 				21E50E8A2C6CE0B000FACFCB /* BuySTC.swift */,
 				21E50E8C2C6CE3B900FACFCB /* CoinCapsule.swift */,
-				21DC252C2C6F95970046FFB8 /* ProgressView.swift */,
+				21DC252C2C6F95970046FFB8 /* CircularProgressView.swift */,
 				21E487142C862889005ADB06 /* StampPage.swift */,
 				21E487162C867778005ADB06 /* PassPortReceipt.swift */,
 				21C896522CDBAF3800F148D0 /* SPBackground.swift */,
 				21D1C53F2CDD9A370045CE79 /* OnboardingHeader.swift */,
 				21DE57692CE9145200466C6A /* HexBackground.swift */,
+				21DA798C2D7CFA8C0087E339 /* RankingItem.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -525,6 +537,7 @@
 				21E50E8B2C6CE0B000FACFCB /* BuySTC.swift in Sources */,
 				21E487152C862889005ADB06 /* StampPage.swift in Sources */,
 				21FCE5992C5AD4B7006A86CE /* ContentView.swift in Sources */,
+				21DA798D2D7CFA8C0087E339 /* RankingItem.swift in Sources */,
 				21EC5ADA2C5C40BA00B88812 /* Extensions.swift in Sources */,
 				21EC5ACC2C5C2A1700B88812 /* UserDot.swift in Sources */,
 				21CF8D842C5E6B92006339A9 /* PostalStamp.swift in Sources */,
@@ -542,12 +555,14 @@
 				21D302912CA738B200111D6E /* CreateUsername.swift in Sources */,
 				21DCDECB2C71269600F5A468 /* MatchAnimation.swift in Sources */,
 				21F91D892C63BD3C0024A991 /* Location.swift in Sources */,
+				21DB09C02D7F8988002FC7CF /* AnalyticsView.swift in Sources */,
 				21E50E8D2C6CE3B900FACFCB /* CoinCapsule.swift in Sources */,
 				21D772EA2C5D1F8D004BEF31 /* SoundManager.swift in Sources */,
 				21DA45C62C6A41B200A16832 /* DigitalLounge.swift in Sources */,
 				21C896512CDBAE2400F148D0 /* StreePassViewModel.swift in Sources */,
-				21DC252D2C6F95970046FFB8 /* ProgressView.swift in Sources */,
+				21DC252D2C6F95970046FFB8 /* CircularProgressView.swift in Sources */,
 				21CF8D872C5E7081006339A9 /* PassportPage.swift in Sources */,
+				21DA798F2D7CFE830087E339 /* Leaderboard.swift in Sources */,
 				21F91D822C63A0200024A991 /* SpotView.swift in Sources */,
 				21F57FF32D6558B30008FF74 /* RapSheet.swift in Sources */,
 				21DE09092C8893B500A2D526 /* ImageManager.swift in Sources */,
@@ -586,6 +601,7 @@
 				21D238B32CA36490002242F8 /* ChooseWorldView.swift in Sources */,
 				21DE576A2CE9145200466C6A /* HexBackground.swift in Sources */,
 				21D1C53E2CDD95C00045CE79 /* AuthPage.swift in Sources */,
+				21DA79832D7CF05E0087E339 /* UserRank.swift in Sources */,
 				21E487172C867778005ADB06 /* PassPortReceipt.swift in Sources */,
 				21F91D8B2C63BF660024A991 /* World.swift in Sources */,
 				212E5E0B2CE42F60001BC98B /* LocationViewModel.swift in Sources */,

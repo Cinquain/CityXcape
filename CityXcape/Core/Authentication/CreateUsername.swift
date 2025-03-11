@@ -15,7 +15,7 @@ struct CreateUsername: View {
     
     var body: some View {
         VStack {
-            OnboardingHeader()
+            header()
             Spacer()
 
             VStack {
@@ -92,9 +92,35 @@ struct CreateUsername: View {
             vm.showError.toggle()
             return
         }
+        vm.submitNameGender()
         withAnimation {
             index = 2
         }
+    }
+    
+    
+    @ViewBuilder
+    func header() -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text("")
+                    .font(.caption)
+                    .fontWeight(.thin)
+                    .foregroundStyle(.white)
+                    .tracking(4)
+                
+                Text("STREETPASS")
+                    .font(.system(size: 24))
+                    .fontWeight(.thin)
+                    .tracking(4)
+                    .opacity(0.7)
+                
+            }
+            .foregroundStyle(.white)
+            Spacer()
+            
+        }
+        .padding(.horizontal, 20)
     }
 }
 

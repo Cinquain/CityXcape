@@ -18,7 +18,7 @@ struct StreetIDCard: View {
     
     var body: some View {
         VStack {
-            OnboardingHeader()
+            header()
             userView()
             
             worldList()
@@ -26,27 +26,7 @@ struct StreetIDCard: View {
             Spacer()
             
     
-            
-            Button {
-                Task {
-                    do {
-                        try await vm.submitStreetPass()
-                        dismiss()
-                    } catch {
-                        errorMessage = error.localizedDescription
-                        showError.toggle()
-                    }
-                }
-            } label: {
-                Text("Create StreetPass")
-                    .fontWeight(.thin)
-                    .font(.title3)
-                    .foregroundStyle(.white)
-                    .frame(width: 200, height: 40)
-                    .background(.blue)
-                    .clipShape(Capsule())
-                    .photosPicker(isPresented: $vm.showPicker, selection: $vm.selectedImage, matching: .images)
-            }
+            createSPButton()
 
         }
         .background(SPBackground())
@@ -64,7 +44,52 @@ struct StreetIDCard: View {
             }
         }
         .padding(.top, 25)
+        .alert(isPresented: $vm.showError) {
+            return Alert(title: Text(vm.errorMessage))
+        }
         
+    }
+    
+    @ViewBuilder
+    func header() -> some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(vm.city)
+                    .font(.caption)
+                    .fontWeight(.thin)
+                    .foregroundStyle(.white)
+                    .tracking(4)
+                
+                Text("STREETPASS")
+                    .font(.system(size: 24))
+                    .fontWeight(.thin)
+                    .tracking(4)
+                    .opacity(0.7)
+                
+            }
+            .foregroundStyle(.white)
+            Spacer()
+            
+        }
+        .padding(.horizontal, 20)
+    }
+    
+    @ViewBuilder
+    func createSPButton() -> some View {
+        Button {
+            guard vm.checkAllFields() else {return}
+            dismiss()
+        } label: {
+            Text("Create StreetPass")
+                .fontWeight(.thin)
+                .font(.title3)
+                .foregroundStyle(.white)
+                .frame(width: 200, height: 40)
+                .background(.blue)
+                .clipShape(Capsule())
+                .photosPicker(isPresented: $vm.showPicker, selection: $vm.selectedImage, matching: .images)
+        }
+
     }
     
     @ViewBuilder
@@ -115,7 +140,7 @@ struct StreetIDCard: View {
                     .font(.title)
                 .fontWeight(.thin)
                 
-                Text("2 StreetCred")
+                Text("5 StreetCred")
                     .fontWeight(.thin)
                     .font(.callout)
 

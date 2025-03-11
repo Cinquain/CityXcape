@@ -13,7 +13,9 @@ struct BuySTC: View {
     @State private var message: String = ""
     @State private var showError: Bool = false
     @State private var rotation: Double = 0
+    
     @State var user: User
+    @StateObject var vm: LocationViewModel
     
     @AppStorage(CXUserDefaults.streetcred) var wallet: Int?
     @EnvironmentObject private var store: Store
@@ -93,9 +95,7 @@ struct BuySTC: View {
                     store.purchaseProduct(product) { result in
                         switch result {
                             case .success(_):
-                            print("Successfully Bought StreetCred")
-                            //Update Streetcred on backend
-                            DataService.shared.purchaseStreetCred(count: Product.streetcred.count, price: 10)
+                            vm.purchaseStreetCred(count: Product.streetcred.count, price: 4.99)
                             AnalyticService.shared.ordered3STC()
                             case .failure(let error):
                             message = error.localizedDescription
@@ -104,7 +104,7 @@ struct BuySTC: View {
                     }
                 }
             }, label: {
-                CoinCapsule(count: 3, price: 9.99)
+                CoinCapsule(count: 3, price: 4.99)
             })
             
             Button(action: {
@@ -112,9 +112,7 @@ struct BuySTC: View {
                     store.purchaseProduct(product) { result in
                         switch result {
                             case .success(_):
-                            print("Successfully Bought StreetCred")
-                            //Update Streetcred on backend
-                            DataService.shared.purchaseStreetCred(count: Product.streetcred_15.count, price: 30)
+                            vm.purchaseStreetCred(count: Product.streetcred_15.count, price: 9.99)
                             AnalyticService.shared.ordered15STC()
                             case .failure(let error):
                             message = error.localizedDescription
@@ -123,7 +121,7 @@ struct BuySTC: View {
                     }
                 }
             }, label: {
-                CoinCapsule(count: 15, price: 29.99)
+                CoinCapsule(count: 15, price: 9.99)
             })
             
             Button(action: {
@@ -131,9 +129,7 @@ struct BuySTC: View {
                     store.purchaseProduct(product) { result in
                         switch result {
                             case .success(_):
-                            print("Successfully Bought StreetCred")
-                            //Update Streetcred on backend
-                            DataService.shared.purchaseStreetCred(count: Product.streetcred_50.count, price: 50)
+                            vm.purchaseStreetCred(count: Product.streetcred_50.count, price: 24.99)
                             AnalyticService.shared.ordered50STC()
                             case .failure(let error):
                             message = error.localizedDescription
@@ -142,7 +138,7 @@ struct BuySTC: View {
                     }
                 }
             }, label: {
-                CoinCapsule(count: 50, price: 49.99)
+                CoinCapsule(count: 50, price: 24.99)
             })
         }
         .padding(.bottom, 40)
@@ -152,5 +148,5 @@ struct BuySTC: View {
 }
 
 #Preview {
-    BuySTC(user: User.demo)
+    BuySTC(user: User.demo, vm: LocationViewModel())
 }

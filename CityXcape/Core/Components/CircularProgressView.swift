@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProgressView: View {
+struct CircularProgressView: View {
     
     
     let size: CGFloat
@@ -69,7 +69,7 @@ struct ProgressView: View {
         Spacer()
         HStack {
             Spacer()
-            ProgressView(size: 250, thickness: 30, font: .title, value: 100)
+            CircularProgressView(size: 250, thickness: 30, font: .title, value: 100)
             Spacer()
         }
         Spacer()

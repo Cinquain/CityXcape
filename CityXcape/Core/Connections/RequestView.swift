@@ -19,29 +19,29 @@ struct RequestView: View {
         ZStack {
             VStack {
                 header()
-                if vm.requests.isEmpty {
-                    emptyState()
-                    
-                } else {
-                    ScrollView {
-                        ForEach(vm.requests) { request in
-                            RequestThumb(request: request, vm: vm)
-                            .alert(isPresented: $vm.showError, content: {
-                                return Alert(title: Text(vm.errorMessage))
-                            })
-                        }
-                    }
-                    .refreshable {
-                        vm.fetchPendingRequest()
+            
+                ScrollView {
+                    ForEach(vm.requests) { request in
+                        RequestThumb(request: request, vm: vm)
+                        .alert(isPresented: $vm.showError, content: {
+                            return Alert(title: Text(vm.errorMessage))
+                        })
                     }
                 }
+                .refreshable {
+                    vm.fetchPendingRequest()
+                }
+                
                 
             }
             .opacity(vm.showPage ? 0 : 1)
             .background(HexBackground())
-            .onAppear(perform: {
-                AnalyticService.shared.viewedRequest()
+            .overlay(content: {
+                if vm.requests.isEmpty {
+                    emptyState()
+                }
             })
+          
             
             if vm.showPage {
                 
@@ -49,6 +49,13 @@ struct RequestView: View {
             }
             
             //End of Zstack
+        }
+        .onAppear(perform: {
+            AnalyticService.shared.viewedRequest()
+        })
+        .onDisappear {
+            //Remive request listener
+            
         }
         
         
@@ -63,15 +70,16 @@ struct RequestView: View {
     func emptyState() -> some View {
         VStack {
             Spacer()
-                .frame(height: 150)
+                .frame(height: 200)
             Image("honeycomb")
                 .resizable()
                 .scaledToFit()
                 .frame(height: 250)
                 
             
-            Text("No Connections")
+            Text("No Pending Connections")
                 .foregroundStyle(.white)
+                .font(.title3)
                 .fontWeight(.thin)
                 .multilineTextAlignment(.center)
             
@@ -117,9 +125,7 @@ struct RequestView: View {
     }
     
     fileprivate func calculateTitle() -> String {
-        if vm.requests.isEmpty {
-            return "No Pending Connections"
-        } else if vm.requests.count == 1 {
+        if vm.requests.count <= 1 {
             return "\(vm.requests.count) Request"
         } else {
             return "\(vm.requests.count) Requests"

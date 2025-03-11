@@ -9,7 +9,6 @@ import SwiftUI
 
 struct OnboardingHeader: View {
     var body: some View {
-        
             HStack {
                 VStack(alignment: .leading) {
                     Text(LocationService.shared.city)

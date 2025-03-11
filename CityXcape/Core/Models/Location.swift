@@ -17,7 +17,8 @@ struct Location: Identifiable, Equatable, Codable {
     let imageUrl: String
     let ownerId: String
     let worldId: String
-    
+    let checkinCount: Int
+    let totalSales: Double
     let longitude: Double
     let latitude: Double
     let isSocialHub: Bool
@@ -36,11 +37,49 @@ struct Location: Identifiable, Equatable, Codable {
         case imageUrl
         case ownerId
         case isSocialHub
+        case checkinCount
+        case totalSales
         case worldId
         case longitude
         case city
         case latitude
     }
+    
+  
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extension Location {
+    
+
+    
     
     var distanceString: String {
               let manager = LocationService.shared.manager
@@ -105,6 +144,8 @@ struct Location: Identifiable, Equatable, Codable {
         return nil
     }
     
+    
+    
     init(data: [String: Any]) {
         self.id = data[Location.CodingKeys.id.rawValue] as? String ?? ""
         self.name = data[Location.CodingKeys.name.rawValue] as? String ?? ""
@@ -115,12 +156,14 @@ struct Location: Identifiable, Equatable, Codable {
         self.latitude = data[Location.CodingKeys.latitude.rawValue] as? Double ?? 0
         self.isSocialHub = data[Location.CodingKeys.isSocialHub.rawValue] as? Bool ?? true
         self.city = data[Location.CodingKeys.city.rawValue] as? String ?? ""
+        self.checkinCount = data[Location.CodingKeys.checkinCount.rawValue] as? Int ?? 0
+        self.totalSales = data[Location.CodingKeys.totalSales.rawValue] as? Double ?? 0
     }
     
     
     static let data: [String: Any] = [
         Location.CodingKeys.id.rawValue: "abcxyz",
-        Location.CodingKeys.name.rawValue: "Graffiti Pier",
+        Location.CodingKeys.name.rawValue: "Blue Bottle Coffee",
         Location.CodingKeys.imageUrl.rawValue: "https://i.ytimg.com/vi/KM2rRv8b8aU/maxresdefault.jpg",
         Location.CodingKeys.ownerId.rawValue: "sdpojon",
         Location.CodingKeys.city.rawValue: "Philadelphia",
@@ -128,8 +171,76 @@ struct Location: Identifiable, Equatable, Codable {
         Location.CodingKeys.isSocialHub.rawValue: false,
         Location.CodingKeys.longitude.rawValue: 13845556,
         Location.CodingKeys.latitude.rawValue: 8585988,
+        Location.CodingKeys.checkinCount.rawValue: 4240,
+        Location.CodingKeys.totalSales.rawValue: 993.485
+    ]
+    
+    
+    static let data2: [String: Any] = [
+        Location.CodingKeys.id.rawValue: "ab0948756224cxyz",
+        Location.CodingKeys.name.rawValue: "Hope Breakfast Bar",
+        Location.CodingKeys.imageUrl.rawValue: "https://i.ytimg.com/vi/KM2rRv8b8aU/maxresdefault.jpg",
+        Location.CodingKeys.ownerId.rawValue: "sdpojon",
+        Location.CodingKeys.city.rawValue: "Philadelphia",
+        Location.CodingKeys.worldId.rawValue: "oedfoijsdofjeofsd",
+        Location.CodingKeys.isSocialHub.rawValue: false,
+        Location.CodingKeys.longitude.rawValue: 13845556,
+        Location.CodingKeys.latitude.rawValue: 8585988,
+        Location.CodingKeys.checkinCount.rawValue: 7726,
+        Location.CodingKeys.totalSales.rawValue: 1023.485
+    ]
+    
+    
+    static let data3: [String: Any] = [
+        Location.CodingKeys.id.rawValue: "abc4664839200465638xyz",
+        Location.CodingKeys.name.rawValue: "Malcolm Yards",
+        Location.CodingKeys.imageUrl.rawValue: "https://i.ytimg.com/vi/KM2rRv8b8aU/maxresdefault.jpg",
+        Location.CodingKeys.ownerId.rawValue: "sdpojon",
+        Location.CodingKeys.city.rawValue: "Philadelphia",
+        Location.CodingKeys.worldId.rawValue: "oedfoijsdofjeofsd",
+        Location.CodingKeys.isSocialHub.rawValue: false,
+        Location.CodingKeys.longitude.rawValue: 13845556,
+        Location.CodingKeys.latitude.rawValue: 8585988,
+        Location.CodingKeys.checkinCount.rawValue: 1743,
+        Location.CodingKeys.totalSales.rawValue: 683.385
+
+    ]
+    
+    
+    static let data4: [String: Any] = [
+        Location.CodingKeys.id.rawValue: "aberrrrxyz",
+        Location.CodingKeys.name.rawValue: "Fragment Cofee",
+        Location.CodingKeys.imageUrl.rawValue: "https://i.ytimg.com/vi/KM2rRv8b8aU/maxresdefault.jpg",
+        Location.CodingKeys.ownerId.rawValue: "sdpojon",
+        Location.CodingKeys.city.rawValue: "Philadelphia",
+        Location.CodingKeys.worldId.rawValue: "oerdfoijsdofjeofsd",
+        Location.CodingKeys.isSocialHub.rawValue: false,
+        Location.CodingKeys.longitude.rawValue: 13845556,
+        Location.CodingKeys.latitude.rawValue: 8585988,
+        Location.CodingKeys.checkinCount.rawValue: 2171,
+        Location.CodingKeys.totalSales.rawValue: 983.485
+    ]
+    
+    
+    static let data5: [String: Any] = [
+        Location.CodingKeys.id.rawValue: "a444bcx7487yz",
+        Location.CodingKeys.name.rawValue: "Palour Bar",
+        Location.CodingKeys.imageUrl.rawValue: "https://i.ytimg.com/vi/KM2rRv8b8aU/maxresdefault.jpg",
+        Location.CodingKeys.ownerId.rawValue: "sdpojon",
+        Location.CodingKeys.city.rawValue: "Philadelphia",
+        Location.CodingKeys.worldId.rawValue: "oedfoijsdofjeofsd",
+        Location.CodingKeys.isSocialHub.rawValue: false,
+        Location.CodingKeys.longitude.rawValue: 13845556,
+        Location.CodingKeys.latitude.rawValue: 8585988,
+        Location.CodingKeys.checkinCount.rawValue: 749,
+        Location.CodingKeys.totalSales.rawValue: 293.485
     ]
     
     
     static let demo = Location(data: data)
+    static let demo2 = Location(data: data2)
+    static let demo3 = Location(data: data3)
+    static let demo4 = Location(data: data4)
+    static let demo5 = Location(data: data5)
+
 }

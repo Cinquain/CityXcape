@@ -232,16 +232,15 @@ final class DataService {
         UserDefaults.standard.setValue(count, forKey: CXUserDefaults.streetcred)
     }
     
-    func purchaseStreetCred(spot: Location, count: Int, price: Double) {
+    func purchaseStreetCredForHub(spot: Location, count: Int, price: Double) {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        
-        //Decrement User StreetCred
+        //Update User StreetCred
         updateStreetCred(count: count)
         
-        let locationSale: Double = price * 0.30
         //Update location sales
         let reference = locationsBranch.document(spot.id).collection(Server.sales).document()
-        
+        let locationSale: Double = price * 0.30
+
         let updateSales: [String: Any] = [
             Location.CodingKeys.totalSales.rawValue: FieldValue.increment(price)
         ]
@@ -262,6 +261,39 @@ final class DataService {
         //Update Scoutstats
         updateScoutSales(spot: spot, count: count, price: price)
         AnalyticService.shared.purchasedSTC()
+    }
+    
+    func purchaseStreetCredForHunt(spot: Location, count:  Int, price: Double) {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        
+        updateStreetCred(count: count)
+        let scoutSale: Double = price * 0.50
+        let locationReference = locationsBranch.document(spot.id).collection(Server.sale).document()
+        let scoutReference = salesBranch.document(spot.ownerId).collection(spot.id).document()
+        
+        let updateLocationSales: [String: Any] = [
+            Location.CodingKeys.totalSales.rawValue: FieldValue.increment(price)
+        ]
+        
+        let updateScoutSales: [String: Any] = [
+            UserRank.CodingKeys.totalSales.rawValue: FieldValue.increment(scoutSale)
+        ]
+        
+        let locationRecord: [String: Any] = [
+            User.CodingKeys.id.rawValue: locationReference.documentID,
+            Server.userId: uid,
+            User.CodingKeys.username.rawValue: username ?? "",
+            User.CodingKeys.imageUrl.rawValue: profileUrl ?? "",
+            User.CodingKeys.streetcred.rawValue: count,
+            Server.sale: price,
+            Server.scoutSale: scoutSale,
+            Server.timestamp: FieldValue.serverTimestamp()
+        ]
+        locationsBranch.document(spot.id).updateData(updateLocationSales)
+        salesBranch.document(spot.ownerId).updateData(updateScoutSales)
+        scoutReference.setData(locationRecord)
+        locationReference.setData(locationRecord)
+        
     }
     
     func updateScoutSales(spot: Location, count: Int, price: Double) {
@@ -289,6 +321,8 @@ final class DataService {
         reference.updateData(updateRecord)
         salesreference.setData(scoutRecord)
     }
+    
+    
     
     func getStreetCred() async throws -> Int  {
         guard let uid = Auth.auth().currentUser?.uid else {throw CustomError.authFailure}

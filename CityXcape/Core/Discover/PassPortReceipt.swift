@@ -65,50 +65,51 @@ struct PassPortReceipt: View {
     @ViewBuilder
     func PostalStamp() -> some View {
         HStack {
-            Button(action: {
-                vm.showPicker.toggle()
-            }, label: {
-                VStack {
-                    Image("postal")
+            VStack {
+                Image("postal")
+                    .renderingMode(.template)
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundStyle(.white)
+                    .frame(height: 200)
+                    .overlay(
+                        WebImage(url: URL(string: vm.stampImageUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(maxWidth: 180, maxHeight: 180)
+                            .clipped()
+                    )
+
+                HStack(spacing: 0) {
+                    Image("Pin")
                         .renderingMode(.template)
                         .resizable()
                         .scaledToFit()
-                        .foregroundStyle(.white)
-                        .frame(height: 200)
-                        .overlay(
-                            WebImage(url: URL(string: vm.stampImageUrl))
-                                .resizable()
-                                .scaledToFill()
-                                .frame(maxWidth: 180, maxHeight: 180)
-                                .clipped()
-                        )
-   
-                    HStack(spacing: 0) {
-                        Image("Pin")
-                            .renderingMode(.template)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 20)
-                            .foregroundColor(.white)
-                        
-                        Text(spot.name)
-                            .foregroundStyle(.white)
-                            .fontWeight(.thin)
-                            .font(.title3)
-                            .lineLimit(1)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 10)
-                    }
+                        .frame(height: 20)
+                        .foregroundColor(.white)
+                        .sheet(isPresented: $vm.buySTC, content: {
+                            BuySTC(usecase: .customStamp, vm: vm)
+                                .presentationDetents([.height(370)])
+                        })
+
                     
+                    Text(spot.name)
+                        .foregroundStyle(.white)
+                        .fontWeight(.thin)
+                        .font(.title3)
+                        .lineLimit(1)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 10)
                 }
-            })
-            
+                
+                customizeStamp()
+                
+            }
             Spacer()
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 10)
     }
-    
     
     @ViewBuilder
     func Background() -> some View {
@@ -119,6 +120,29 @@ struct PassPortReceipt: View {
                 .scaledToFill()
                 .opacity(0.6)
         }
+    }
+    
+    @ViewBuilder
+    func customizeStamp() -> some View {
+            Button {
+                vm.checkStreetCredforStamp()
+            } label: {
+                HStack(spacing: 2) {
+                    Image(systemName: "camera.circle.fill")
+                        .font(.title2)
+                        .foregroundStyle(.black)
+                    
+                    Text("Customize Stamp")
+                        .font(.callout)
+                        .foregroundStyle(.black)
+                        .fontWeight(.thin)
+                }
+                .frame(width: 200, height: 40)
+                .background(.white)
+                .clipShape(Capsule())
+            }
+    
+
     }
 }
 

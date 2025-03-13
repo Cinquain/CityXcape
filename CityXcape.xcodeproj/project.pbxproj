@@ -317,6 +317,7 @@
 				21DA45C52C6A41B200A16832 /* DigitalLounge.swift */,
 				212E5E0A2CE42F60001BC98B /* LocationViewModel.swift */,
 				21ED577C2C9A11B70029505B /* ScavengerHunt.swift */,
+				21E487162C867778005ADB06 /* PassPortReceipt.swift */,
 				21F57FF22D6558B30008FF74 /* RapSheet.swift */,
 			);
 			path = Discover;
@@ -415,10 +416,10 @@
 				21D983C02C6640EE003FC4A6 /* LaunchView.swift */,
 				21EC5AD52C5C3CDC00B88812 /* PinView.swift */,
 				210A04402C61939800CA1078 /* Stc.swift */,
-				21EC5AD72C5C3FD600B88812 /* StampView.swift */,
 				21EC5ADB2C5C440A00B88812 /* BubbleAnimation.swift */,
 				21F91D812C63A0200024A991 /* SpotView.swift */,
 				21EC5AD32C5C3BBE00B88812 /* UserBubble.swift */,
+				21EC5AD72C5C3FD600B88812 /* StampView.swift */,
 				21EC5AD12C5C305D00B88812 /* SelfieBubble.swift */,
 				21EC5ACB2C5C2A1700B88812 /* UserDot.swift */,
 				21D772E52C5D1518004BEF31 /* CircleButton.swift */,
@@ -428,7 +429,6 @@
 				21E50E8C2C6CE3B900FACFCB /* CoinCapsule.swift */,
 				21DC252C2C6F95970046FFB8 /* CircularProgressView.swift */,
 				21E487142C862889005ADB06 /* StampPage.swift */,
-				21E487162C867778005ADB06 /* PassPortReceipt.swift */,
 				21C896522CDBAF3800F148D0 /* SPBackground.swift */,
 				21D1C53F2CDD9A370045CE79 /* OnboardingHeader.swift */,
 				21DE57692CE9145200466C6A /* HexBackground.swift */,

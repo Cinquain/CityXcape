@@ -69,6 +69,13 @@ enum Tab: String, CaseIterable {
     }
 }
 
+enum StreetCredUseCase: String, CaseIterable {
+    case customStamp
+    case connect
+}
+
+
+
 struct swipeModifier: ViewModifier {
     func body(content: Content) -> some View {
         content

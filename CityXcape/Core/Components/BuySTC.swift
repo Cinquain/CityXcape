@@ -14,7 +14,7 @@ struct BuySTC: View {
     @State private var showError: Bool = false
     @State private var rotation: Double = 0
     
-    @State var user: User
+    var usecase: StreetCredUseCase
     @StateObject var vm: LocationViewModel
     
     @AppStorage(CXUserDefaults.streetcred) var wallet: Int?
@@ -72,7 +72,7 @@ struct BuySTC: View {
             HStack {
                 Spacer()
                 VStack {
-                    Text("Get StreetCred \n to Connect with \(user.username)")
+                    Text(generateTitle())
                         .multilineTextAlignment(.center)
                     
                     Text("1 STC Per Connection")
@@ -144,9 +144,19 @@ struct BuySTC: View {
         .padding(.bottom, 40)
     }
     
+    fileprivate func generateTitle() -> String {
+        switch usecase {
+        case .customStamp:
+            return "Get StreetCred to \n Customize Your Stamp"
+        case .connect:
+            return "Get StreetCred to \n Connect with People"
+
+        }
+    }
+    
     
 }
 
 #Preview {
-    BuySTC(user: User.demo, vm: LocationViewModel())
+    BuySTC(usecase: .connect, vm: LocationViewModel())
 }

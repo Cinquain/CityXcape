@@ -165,7 +165,7 @@ struct PublicStreetPass: View {
                     .clipShape(Capsule())
             })
             .sheet(isPresented: $buySTC, content: {
-                BuySTC(user: user, vm: vm)
+                BuySTC(usecase: .connect, vm: vm)
                     .presentationDetents([.height(370)])
             })
     }

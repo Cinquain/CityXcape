@@ -46,6 +46,7 @@ final class LocationViewModel: ObservableObject {
     @Published var requestImage: String = ""
     @Published var showPage: Bool = false
     @Published var stcValue: Int = 0
+    @Published var buySTC: Bool = false
     
     
     
@@ -94,37 +95,6 @@ final class LocationViewModel: ObservableObject {
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.lastSpotId)
     }
     
-    fileprivate func uploadStampImage(item: PhotosPickerItem?) async {
-        guard let item = item else {return}
-        guard let data = try? await item.loadTransferable(type: Data.self) else {return}
-        guard let uiImage = UIImage(data: data) else {return}
-        guard let spot = spot else {return}
-        guard let user = user else {return}
-        
-        Task {
-            do {
-                let imageUrl = try await ImageManager.shared.uploadStampImage(uid: user.id, spotId: spot.id, image: uiImage)
-                DispatchQueue.main.async {
-                    self.stampImageUrl = imageUrl
-                }
-            } catch {
-                errorMessage = error.localizedDescription
-                showError.toggle()
-            }
-        }
-    }
-    
-    func createStamp(spot: Location) {
-        Task {
-            do {
-                let user = try await DataService.shared.getUserCredentials()
-                try await DataService.shared.createStamp(spot: spot, username: user.username)
-            } catch {
-                errorMessage = error.localizedDescription
-                print(errorMessage)
-            }
-        }
-    }
     
     func compare(user: User) -> (String, String, Double) {
         var result: String = "View \(user.username)'s Rap Sheet"
@@ -151,15 +121,24 @@ final class LocationViewModel: ObservableObject {
     }
     
     
-   //MARK: PURCHASE FUNCTIONALITIES
-    
-    func purchaseStreetCred(count: Int, price: Double) {
-        guard let spot else {return}
-        DataService.shared.purchaseStreetCred(spot: spot, count: count, price: price)
+    func loadUserStreetPass(request: Request) async throws -> User {
+        if let user = users.first(where: {$0.id == request.id}) {
+            print("Found user from checkins")
+            return user
+        } else {
+            let user = try await DataService.shared.getUserFrom(uid: request.id)
+            return user
+        }
     }
+        
     
+   
+ 
     
-    
+}
+
+//MARK: REQUEST FUNCTIONALITIES
+extension LocationViewModel {
     //MARK: REQUEST FUNCTIONALITIES
         
     func fetchPendingRequest() {
@@ -257,16 +236,98 @@ final class LocationViewModel: ObservableObject {
     }
     
     
-    func loadUserStreetPass(request: Request) async throws -> User {
-        if let user = users.first(where: {$0.id == request.id}) {
-            print("Found user from checkins")
-            return user
+    
+    
+}
+
+
+//MARK: STREETCRED FUNCTIONALITIES
+extension LocationViewModel {
+    
+    func purchaseStreetCred(count: Int, price: Double) {
+        guard let spot else {return}
+        if spot.isSocialHub {
+            DataService.shared.purchaseStreetCredForHub(spot: spot, count: count, price: price)
         } else {
-            let user = try await DataService.shared.getUserFrom(uid: request.id)
-            return user
+            DataService.shared.purchaseStreetCredForHunt(spot: spot, count: count, price: price)
         }
     }
- 
     
+    
+    func checkStreetCredforStamp() {
+        Task {
+            do {
+                stcValue = try await DataService.shared.getStreetCred()
+                if stcValue > 0 {
+                    DataService.shared.updateStreetCred(count: -1)
+                    showPicker.toggle()
+                } else {
+                    buySTC.toggle()
+                    return
+                }
+            } catch {
+                errorMessage = error.localizedDescription
+                showError.toggle()
+            }
+        }
+    }
+    
+    func checkStreetCredforRequest(user: User) {
+        if showTextField {
+            sendRequest(uid: user.id)
+            return
+        }
+        Task {
+            do {
+                stcValue = try await DataService.shared.getStreetCred()
+                if stcValue > 0 {
+                    showTextField = true
+                } else {
+                    buySTC.toggle()
+                    return
+                }
+            } catch {
+                errorMessage = error.localizedDescription
+                showError.toggle()
+            }
+        }
+    }
+    
+}
+
+
+//MARK: STAMP FUNCTIONALITIES
+extension LocationViewModel {
+    fileprivate func uploadStampImage(item: PhotosPickerItem?) async {
+        guard let item = item else {return}
+        guard let data = try? await item.loadTransferable(type: Data.self) else {return}
+        guard let uiImage = UIImage(data: data) else {return}
+        guard let spot = spot else {return}
+        guard let user = user else {return}
+        
+        Task {
+            do {
+                let imageUrl = try await ImageManager.shared.uploadStampImage(uid: user.id, spotId: spot.id, image: uiImage)
+                DispatchQueue.main.async {
+                    self.stampImageUrl = imageUrl
+                }
+            } catch {
+                errorMessage = error.localizedDescription
+                showError.toggle()
+            }
+        }
+    }
+    
+    func createStamp(spot: Location) {
+        Task {
+            do {
+                let user = try await DataService.shared.getUserCredentials()
+                try await DataService.shared.createStamp(spot: spot, username: user.username)
+            } catch {
+                errorMessage = error.localizedDescription
+                print(errorMessage)
+            }
+        }
+    }
 }
 

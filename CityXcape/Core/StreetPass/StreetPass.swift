@@ -9,8 +9,8 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct StreetPass: View {
-    @AppStorage(CXUserDefaults.uid) var uid: String?
     @StateObject var vm : StreetPassViewModel
+    @State private var showAuth: Bool = false
     var body: some View {
         VStack {
             header()
@@ -21,7 +21,7 @@ struct StreetPass: View {
             passport()
             showStats()
             Spacer()
-            if uid == nil {
+            if vm.user == nil {
                 getSPButton()
             }
         }
@@ -57,21 +57,24 @@ struct StreetPass: View {
                 
             }
             .foregroundStyle(.white)
-            .fullScreenCover(isPresented: $vm.showAuth, content: {
+            .fullScreenCover(isPresented: $vm.showOnboarding, onDismiss: {
+                vm.getUser()
+            }, content: {
                 Onboarding()
             })
+            
             Spacer()
             
             Menu{
                 
                 Button {
-                    vm.openCustomUrl(link: "https://www.cityxcape.com/privacy_policy")
+                    vm.openCustomUrl(link: "https://cityxcape.com/privacy_policy")
                                 } label: {
                                     Label("Privacy Policy", systemImage: "hand.raised.circle.fill")
                                 }
                                 
                 Button {
-                    vm.openCustomUrl(link: "https://www.cityxcape.com/terms")
+                    vm.openCustomUrl(link: "https://cityxcape.com/terms.html")
                 } label: {
                     Label("Terms & Conditions", systemImage: "doc.text.magnifyingglass")
                 }
@@ -179,7 +182,7 @@ struct StreetPass: View {
            
         }
         .padding(.top, 20)
-        .opacity(uid != nil ? 1 : 0)
+        .opacity(vm.user != nil ? 1 : 0)
 
     }
     
@@ -187,7 +190,7 @@ struct StreetPass: View {
     func showStats() -> some View {
         VStack(alignment: .leading, spacing: 20) {
             Button(action: {
-                vm.showStats.toggle()
+                vm.fetchAnalytics()
             }, label: {
                 HStack {
                     Image(systemName: "chart.xyaxis.line")
@@ -208,7 +211,7 @@ struct StreetPass: View {
            
         }
         .padding(.top, 5)
-        .opacity(uid != nil ? 1 : 0)
+        .opacity(vm.user != nil ? 1 : 0)
 
     }
     

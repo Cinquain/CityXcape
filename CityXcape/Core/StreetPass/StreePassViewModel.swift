@@ -34,7 +34,6 @@ class StreetPassViewModel: ObservableObject {
     @Published var showOnboarding: Bool = false
     @Published var spotMetric: LocationMetrics = .Checkins
     
-    @Published var data: [(name: String, count: Double)] = [(name: "Parlour Bar", count: 293.485), (name: "Fragment Coffee", count: 983.485), (name: "Hope Breakfast", count: 1023.485), (name: "Blue Bottle", count: 993.485), (name: "Malcolm Yards", count: 683.485) ]
 
     @Published var buySTC: Bool = false
     @Published var showPicker: Bool = false 
@@ -42,7 +41,7 @@ class StreetPassViewModel: ObservableObject {
     @Published var worlds: [World] = []
     @Published var stamps: [Stamp] = []
     @Published var ranks: [UserRank] = []
-    @Published var uploads: [Location] = [Location.demo, Location.demo2, Location.demo3, Location.demo4, Location.demo5]
+    @Published var uploads: [Location] = []
     
     
     func getUser() {
@@ -81,7 +80,7 @@ class StreetPassViewModel: ObservableObject {
         
         Task {
             do {
-                let url = try await ImageManager.shared.uploadProfileImage(uid: uid, image: uiImage)
+                _ = try await ImageManager.shared.uploadProfileImage(uid: uid, image: uiImage)
                 getUser()
             } catch {
                 errorMessage = error.localizedDescription
@@ -110,7 +109,6 @@ class StreetPassViewModel: ObservableObject {
         Task {
             do {
                 self.uploads = try await DataService.shared.fetchScoutAnalytics()
-                self.data = uploads.map({(name: $0.name, count: $0.totalSales)})
                 showStats.toggle()
             } catch {
                 errorMessage = error.localizedDescription

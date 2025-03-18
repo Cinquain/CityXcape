@@ -130,15 +130,15 @@ struct PassPortReceipt: View {
                 HStack(spacing: 2) {
                     Image(systemName: "camera.circle.fill")
                         .font(.title2)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.white)
                     
                     Text("Customize Stamp")
                         .font(.callout)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.white)
                         .fontWeight(.thin)
                 }
                 .frame(width: 200, height: 40)
-                .background(.white)
+                .background(.black)
                 .clipShape(Capsule())
             }
     

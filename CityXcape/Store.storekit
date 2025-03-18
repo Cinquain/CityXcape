@@ -15,21 +15,6 @@
   ],
   "products" : [
     {
-      "displayPrice" : "4.99",
-      "familyShareable" : false,
-      "internalID" : "6F225CCB",
-      "localizations" : [
-        {
-          "description" : "The currency of the streets",
-          "displayName" : "StreetCred",
-          "locale" : "en_US"
-        }
-      ],
-      "productID" : "com.cityXcape.CityXcape8.streetcred",
-      "referenceName" : "StreetCred3",
-      "type" : "Consumable"
-    },
-    {
       "displayPrice" : "9.99",
       "familyShareable" : false,
       "internalID" : "837914DB",
@@ -63,10 +48,27 @@
       "productID" : "com.cityXcape.CityXcape8.streetcred50",
       "referenceName" : "StreetCred50",
       "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "F74C5F2B",
+      "localizations" : [
+        {
+          "description" : "The currency of the streets",
+          "displayName" : "StreetCred",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.cityXcape.CityXcape8.streetcred3",
+      "referenceName" : "StreetCred3",
+      "type" : "Consumable"
     }
   ],
   "settings" : {
     "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
     "_storeKitErrors" : [
       {
         "current" : null,

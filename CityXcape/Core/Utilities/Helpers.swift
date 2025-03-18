@@ -41,7 +41,6 @@ struct Server {
     static let fcmToken = "fcmToken"
     static let uploads = "uploads"
     static let members = "members"
-    static let scoutSale = "scoutSale"
     static let userId = "userId"
     static let sale = "sale"
     static let sales = "sales"

@@ -147,10 +147,10 @@ final class DataService {
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.firstOpen)
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.username)
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.lastSpotId)
+      
         //Sign out
-        try AuthService.shared.signOut()
         try await Auth.auth().currentUser?.delete()
-
+        try AuthService.shared.signOut()       
     }
     
     
@@ -268,7 +268,7 @@ final class DataService {
         
         updateStreetCred(count: count)
         let scoutSale: Double = price * 0.50
-        let locationReference = locationsBranch.document(spot.id).collection(Server.sale).document()
+        let locationReference = locationsBranch.document(spot.id).collection(Server.sales).document()
         let scoutReference = salesBranch.document(spot.ownerId).collection(spot.id).document()
         
         let updateLocationSales: [String: Any] = [
@@ -286,7 +286,7 @@ final class DataService {
             User.CodingKeys.imageUrl.rawValue: profileUrl ?? "",
             User.CodingKeys.streetcred.rawValue: count,
             Server.sale: price,
-            Server.scoutSale: scoutSale,
+            Server.commission: scoutSale,
             Server.timestamp: FieldValue.serverTimestamp()
         ]
         locationsBranch.document(spot.id).updateData(updateLocationSales)
@@ -314,7 +314,7 @@ final class DataService {
             User.CodingKeys.imageUrl.rawValue: profileUrl ?? "",
             User.CodingKeys.streetcred.rawValue: count,
             Server.commission: scoutSale,
-            Server.scoutSale: price,
+            Server.sale: price,
             Server.timestamp: FieldValue.serverTimestamp()
         ]
         

@@ -17,10 +17,10 @@ struct AnalyticsView: View {
         VStack {
             header()
             
-            Chart(vm.data, id: \.name) {
+            Chart(vm.uploads, id: \.name) {
                       BarMark(
                           x: .value("Impact", $0.name),
-                          y: .value("Total", $0.count))
+                          y: .value("Total", $0.totalSales))
                   
 
                   }

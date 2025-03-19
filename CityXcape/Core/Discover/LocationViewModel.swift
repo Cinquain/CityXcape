@@ -32,7 +32,7 @@ final class LocationViewModel: ObservableObject {
     
     @Published var showLounge: Bool = false
     @Published var huntSpot: Location?
-    @Published var currentSpot: Location?
+    @Published var socialHubSpot: Location?
 
     
     @Published var users: [User] = []

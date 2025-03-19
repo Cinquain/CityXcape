@@ -26,7 +26,7 @@ struct NotificationView: View {
                 Image(systemName: "antenna.radiowaves.left.and.right")
                     .foregroundStyle(.white)
                     .font(.system(size: 70))
-                Text("Get Notified when users \n send you a messgae")
+                Text("Get Notified when a user \n sends a messgae")
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
                 
@@ -46,6 +46,11 @@ struct NotificationView: View {
             .alert(isPresented: $showError, content: {
                 return Alert(title: Text(errorMessage))
             })
+            
+            Text("Optional but recommended")
+                .font(.caption)
+                .fontWeight(.thin)
+                .foregroundStyle(.white)
             
             Button(action: {
                 if manager.granted {

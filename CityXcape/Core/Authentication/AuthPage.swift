@@ -26,10 +26,10 @@ struct AuthPage: View {
             Spacer()
                 .frame(height: 200)
             VStack {
-                Image("dot person")
+                Image("dot")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 150)
+                    .frame(height: 100)
                   
                 HStack {
                     Spacer()

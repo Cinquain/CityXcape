@@ -41,7 +41,7 @@ struct Discover: View {
             
             
             if vm.showLounge {
-                if let spot = vm.currentSpot {
+                if let spot = vm.socialHubSpot {
                     withAnimation(.easeIn) {
                         DigitalLounge(spot: spot, vm: vm)
                     }
@@ -57,16 +57,15 @@ struct Discover: View {
         switch result {
         case .success(let scanned):
             startScanner = false
-//            let code = scanned.string
-            let newCode = "27dwRVATDnUYxRsK0XVn"
+            let code = scanned.string
             Task {
                 do {
-                    let spot = try await vm.checkin(spotId: newCode)
+                    let spot = try await vm.checkin(spotId: code)
                     if !spot.isSocialHub {
                         vm.huntSpot = spot
                         return
                     }
-                    vm.currentSpot = spot
+                    vm.socialHubSpot = spot
 
                     vm.showLounge.toggle()
 

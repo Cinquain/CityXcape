@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct AnalyticsView: View {
+struct StreetReportCard: View {
     
     @Environment(\.dismiss) private var dismiss
     @StateObject var vm: StreetPassViewModel
@@ -17,6 +17,64 @@ struct AnalyticsView: View {
         VStack {
             header()
             
+            if vm.uploads.isEmpty {
+                emptyState()
+            } else {
+                locationData()
+            }
+       
+            
+            
+        }
+        .background(SPBackground())
+    }
+    
+    @ViewBuilder
+    func background() -> some View {
+        ZStack {
+            Color.black
+            Image("orange-paths")
+                .resizable()
+                .scaledToFill()
+                .rotationEffect(Angle(degrees: 180))
+                .opacity(0.8)
+               
+        }
+        .edgesIgnoringSafeArea(.all)
+    }
+    
+    @ViewBuilder
+    func emptyState() -> some View {
+        VStack(spacing: 20) {
+            Spacer()
+            Image(systemName: "chart.bar.xaxis")
+                .resizable()
+                .frame(width: 200, height: 200)
+                .foregroundStyle(.white)
+                .opacity(0.8)
+            
+            Text("Earn Revenues for Finding Locations")
+                .foregroundStyle(.white)
+                .fontWeight(.thin)
+            
+            Button {
+                vm.openCustomUrl(link: "https://www.youtube.com/watch?v=O00hUivajRU")
+            } label: {
+                Text("Become a Scout")
+                    .foregroundStyle(.white)
+                    .fontWeight(.thin)
+                    .frame(width: 180, height: 35)
+                    .background(.blue)
+                    .clipShape(Capsule())
+            }
+            Spacer()
+            Spacer()
+        }
+    }
+    
+    @ViewBuilder
+    func locationData() -> some View {
+        VStack {
             Chart(vm.uploads, id: \.name) {
                       BarMark(
                           x: .value("Impact", $0.name),
@@ -38,25 +96,9 @@ struct AnalyticsView: View {
             }
             checkinCount()
             
-            
             Spacer()
             showRanksButton()
         }
-        .background(SPBackground())
-    }
-    
-    @ViewBuilder
-    func background() -> some View {
-        ZStack {
-            Color.black
-            Image("orange-paths")
-                .resizable()
-                .scaledToFill()
-                .rotationEffect(Angle(degrees: 180))
-                .opacity(0.8)
-               
-        }
-        .edgesIgnoringSafeArea(.all)
     }
     
     @ViewBuilder
@@ -133,8 +175,10 @@ struct AnalyticsView: View {
         }
     }
     
+
+    
 }
 
 #Preview {
-    AnalyticsView(vm: StreetPassViewModel())
+    StreetReportCard(vm: StreetPassViewModel())
 }

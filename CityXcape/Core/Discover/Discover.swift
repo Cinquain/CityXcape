@@ -57,7 +57,8 @@ struct Discover: View {
         switch result {
         case .success(let scanned):
             startScanner = false
-            let code = scanned.string
+//            let code = scanned.string
+            let code = "27dwRVATDnUYxRsK0XVn"
             Task {
                 do {
                     let spot = try await vm.checkin(spotId: code)
@@ -158,7 +159,7 @@ struct Discover: View {
                 .fontWeight(.thin)
                 .alert(isPresented: $vm.showError, content: {
                     if vm.showOnboarding {
-                        return Alert(title: Text("You need a StreetPass to check-in"), primaryButton: .default(Text("Get One")){
+                        return Alert(title: Text("You need an account to check-in"), primaryButton: .default(Text("Get One")){
                             startOnboarding = true
                         } , secondaryButton: .cancel())
                     } else {

@@ -45,7 +45,7 @@
 		21DA79832D7CF05E0087E339 /* UserRank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA79822D7CF05E0087E339 /* UserRank.swift */; };
 		21DA798D2D7CFA8C0087E339 /* RankingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA798C2D7CFA8C0087E339 /* RankingItem.swift */; };
 		21DA798F2D7CFE830087E339 /* Leaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA798E2D7CFE830087E339 /* Leaderboard.swift */; };
-		21DB09C02D7F8988002FC7CF /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DB09BF2D7F8988002FC7CF /* AnalyticsView.swift */; };
+		21DB09C02D7F8988002FC7CF /* StreetReportCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DB09BF2D7F8988002FC7CF /* StreetReportCard.swift */; };
 		21DC252D2C6F95970046FFB8 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DC252C2C6F95970046FFB8 /* CircularProgressView.swift */; };
 		21DC25302C6FD2200046FFB8 /* TimerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DC252F2C6FD2200046FFB8 /* TimerViewModel.swift */; };
 		21DCDEC92C70E21800F5A468 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DCDEC82C70E21800F5A468 /* Connection.swift */; };
@@ -137,7 +137,7 @@
 		21DA79822D7CF05E0087E339 /* UserRank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRank.swift; sourceTree = "<group>"; };
 		21DA798C2D7CFA8C0087E339 /* RankingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingItem.swift; sourceTree = "<group>"; };
 		21DA798E2D7CFE830087E339 /* Leaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leaderboard.swift; sourceTree = "<group>"; };
-		21DB09BF2D7F8988002FC7CF /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
+		21DB09BF2D7F8988002FC7CF /* StreetReportCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetReportCard.swift; sourceTree = "<group>"; };
 		21DC252C2C6F95970046FFB8 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		21DC252F2C6FD2200046FFB8 /* TimerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewModel.swift; sourceTree = "<group>"; };
 		21DCDEC82C70E21800F5A468 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
@@ -253,7 +253,7 @@
 				21CF8D862C5E7081006339A9 /* PassportPage.swift */,
 				21C896502CDBAE2400F148D0 /* StreePassViewModel.swift */,
 				21DA798E2D7CFE830087E339 /* Leaderboard.swift */,
-				21DB09BF2D7F8988002FC7CF /* AnalyticsView.swift */,
+				21DB09BF2D7F8988002FC7CF /* StreetReportCard.swift */,
 			);
 			path = StreetPass;
 			sourceTree = "<group>";
@@ -555,7 +555,7 @@
 				21D302912CA738B200111D6E /* CreateUsername.swift in Sources */,
 				21DCDECB2C71269600F5A468 /* MatchAnimation.swift in Sources */,
 				21F91D892C63BD3C0024A991 /* Location.swift in Sources */,
-				21DB09C02D7F8988002FC7CF /* AnalyticsView.swift in Sources */,
+				21DB09C02D7F8988002FC7CF /* StreetReportCard.swift in Sources */,
 				21E50E8D2C6CE3B900FACFCB /* CoinCapsule.swift in Sources */,
 				21D772EA2C5D1F8D004BEF31 /* SoundManager.swift in Sources */,
 				21DA45C62C6A41B200A16832 /* DigitalLounge.swift in Sources */,
@@ -745,9 +745,9 @@
 				INFOPLIST_FILE = CityXcape/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSCameraUsageDescription = "CityXcape needs to scan QR codes";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "CityXcape needs to find your city";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "CityXcape needs location permissions to check you in venues";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "CityXcape needs to save QR codes";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CityXcape needs to access photo library";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CityXcape needs to access photo library for your profile image";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -756,7 +756,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.41;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cityXcape.CityXcape8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -784,9 +784,9 @@
 				INFOPLIST_FILE = CityXcape/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSCameraUsageDescription = "CityXcape needs to scan QR codes";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "CityXcape needs to find your city";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "CityXcape needs location permissions to check you in venues";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "CityXcape needs to save QR codes";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CityXcape needs to access photo library";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CityXcape needs to access photo library for your profile image";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -795,7 +795,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.41;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cityXcape.CityXcape8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

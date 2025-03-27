@@ -365,7 +365,7 @@ final class DataService {
     func saveUserWorlds(worlds: [World]) async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         var values: [String: [String: Any]] = [:]
-        let value: Double = 3
+        let value: Double = 1
         let reference = usersBranch.document(uid)
         for world in worlds {
             values[world.id] = [

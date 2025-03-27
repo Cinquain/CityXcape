@@ -43,17 +43,19 @@ struct UploadImageView: View {
             
             Spacer()
                 .frame(height: 60)
-            Text("Upload a Selfie")
+            Text("Face Pic Only!")
                 .font(.title3)
-                .foregroundStyle(.white)
+                .fontWeight(.thin)
+                .foregroundStyle(.red)
                 .fontWeight(.light)
                 .photosPicker(isPresented: $vm.showPicker, selection: $vm.selectedImage, matching: .images)
-                
+            
+        
             
             Button(action: {
                 vm.showPicker.toggle()
             }, label: {
-                Text("Choose")
+                Text("Upload a Selfie")
                     .frame(width: 150, height: 40)
                     .background(Color.white)
                     .clipShape(Capsule())

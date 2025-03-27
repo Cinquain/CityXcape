@@ -80,7 +80,7 @@ struct MatchAnimation: View {
             Button(action: {
                 withAnimation {
                     dismiss()
-                    vm.showPage = false
+                    vm.showMatch = false
                 }
             }, label: {
                 Text("Start Chatting")

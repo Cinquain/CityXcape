@@ -22,7 +22,6 @@ struct StreetIDCard: View {
             userView()
             
             worldList()
-            passport()
             Spacer()
             
     
@@ -76,47 +75,44 @@ struct StreetIDCard: View {
     
     @ViewBuilder
     func createSPButton() -> some View {
-        Button {
-            guard vm.checkAllFields() else {return}
-            dismiss()
-        } label: {
-            Text("Create StreetPass")
-                .fontWeight(.thin)
-                .font(.title3)
-                .foregroundStyle(.white)
-                .frame(width: 200, height: 40)
-                .background(.blue)
-                .clipShape(Capsule())
-                .photosPicker(isPresented: $vm.showPicker, selection: $vm.selectedImage, matching: .images)
+        VStack {
+            agreeToTerms()
+            
+            Button {
+                guard vm.checkAllFields() else {return}
+                dismiss()
+            } label: {
+                Text("Create StreetPass")
+                    .fontWeight(.thin)
+                    .font(.title3)
+                    .foregroundStyle(.white)
+                    .frame(width: 200, height: 40)
+                    .background(.blue)
+                    .clipShape(Capsule())
+                    .photosPicker(isPresented: $vm.showPicker, selection: $vm.selectedImage, matching: .images)
+            }
         }
 
     }
     
     @ViewBuilder
-    func passport() -> some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Button(action: {
-                vm.showPassport.toggle()
-            }, label: {
-                HStack {
-                    Image(systemName: "menucard.fill")
-                        .font(.title)
-                    
-                    Text("Passport")
-                        .font(.title)
-                        .fontWeight(.thin)
-                        
-                    
-                }
-                .foregroundStyle(.white)
-            })
-            .sheet(isPresented: $vm.showPassport, content: {
-                PassportPage(stamps: [])
-            })
+    func agreeToTerms() -> some View {
+        HStack {
             
-         
+            Image(systemName: vm.isChecked ? "checkmark.square.fill" : "square")
+                .foregroundStyle(.white)
+                .onTapGesture {
+                    vm.isChecked.toggle()
+                }
+            
+
+            Text("I agree to [terms and conditions](https://cityxcape.com/terms)")
+                .fontWeight(.thin)
+                .foregroundStyle(.white)
+                    
+
         }
-        .padding(.top, 20)
+        .padding(.bottom, 20)
         
     }
   
@@ -151,6 +147,15 @@ struct StreetIDCard: View {
           
         }
     }
+    
+    func openCustom(url: String) {
+        guard let url = URL(string: url) else {return}
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
+
+
 }
 
 #Preview {

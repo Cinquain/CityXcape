@@ -34,7 +34,7 @@ struct RequestView: View {
                 
                 
             }
-            .opacity(vm.showPage ? 0 : 1)
+            .opacity(vm.showMatch ? 0 : 1)
             .background(HexBackground())
             .overlay(content: {
                 if vm.requests.isEmpty {
@@ -43,7 +43,7 @@ struct RequestView: View {
             })
           
             
-            if vm.showPage {
+            if vm.showMatch {
                 
                 MatchAnimation(vm: vm)
             }
@@ -74,7 +74,7 @@ struct RequestView: View {
             Image("honeycomb")
                 .resizable()
                 .scaledToFit()
-                .frame(height: 250)
+                .frame(height: 150)
                 
             
             Text("No Pending Connections")

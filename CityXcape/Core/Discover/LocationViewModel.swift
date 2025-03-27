@@ -44,8 +44,8 @@ final class LocationViewModel: ObservableObject {
     
     @Published var requests: [Request] = []
     @Published var requestImage: String = ""
-    @Published var showPage: Bool = false
-    @Published var stcValue: Int = 0
+    @Published var showMatch: Bool = false
+    @Published var walletValue: Int = 0
     @Published var buySTC: Bool = false
     
     
@@ -177,7 +177,7 @@ extension LocationViewModel {
                 AnalyticService.shared.sentRequest()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                     self.isSent = false
-                    self.stcValue -= 1
+                    self.walletValue -= 1
                 })
                
             } catch {
@@ -224,7 +224,7 @@ extension LocationViewModel {
         Task {
             do {
                 try await DataService.shared.acceptRequest(content: message, request: request)
-                showPage = true
+                showMatch = true
                 if let index = requests.firstIndex(of: request) {
                     requests.remove(at: index)
                 }
@@ -257,8 +257,8 @@ extension LocationViewModel {
     func checkStreetCredforStamp() {
         Task {
             do {
-                stcValue = try await DataService.shared.getStreetCred()
-                if stcValue > 0 {
+                walletValue = try await DataService.shared.getStreetCred()
+                if walletValue > 0 {
                     DataService.shared.updateStreetCred(count: -1)
                     showPicker.toggle()
                 } else {
@@ -279,8 +279,8 @@ extension LocationViewModel {
         }
         Task {
             do {
-                stcValue = try await DataService.shared.getStreetCred()
-                if stcValue > 0 {
+                walletValue = try await DataService.shared.getStreetCred()
+                if walletValue > 0 {
                     showTextField = true
                 } else {
                     buySTC.toggle()

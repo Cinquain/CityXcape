@@ -34,25 +34,30 @@ struct PublicStreetPass: View {
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
                     .padding(.top, -5)
+                    
                 
                 
-                VStack(spacing: 10) {
-                    CircularProgressView(size: 100, thickness: 15, font: .callout, value: Int(vm.compare(user: user).2))
-                    Button {
-                        vm.showRapSheet.toggle()
-                    } label: {
-                        Text(vm.compare(user: user).0)
-                            .foregroundStyle(.white)
-                            .font(.callout)
-                            .fontWeight(.light)
+                    VStack(spacing: 10) {
+                        if vm.compare(user: user).2 > 0 {
+                            CircularProgressView(size: 100, thickness: 15, font: .callout, value: Int(vm.compare(user: user).2))
+                        }
+                        
+                        Button {
+                            vm.showRapSheet.toggle()
+                        } label: {
+                            Text(vm.compare(user: user).0)
+                                .foregroundStyle(.white)
+                                .font(.callout)
+                                .fontWeight(.light)
+                                .sheet(isPresented: $vm.showRapSheet) {
+                                    RapSheet(vm: vm, user: user)
+                                        .presentationDetents([.height(330)])
+                                }
+                        }
                     }
-                    .sheet(isPresented: $vm.showRapSheet) {
-                        RapSheet(vm: vm, user: user)
-                            .presentationDetents([.height(330)])
-                    }
-
-                }
-                .padding(.top, 50)
+                    .padding(.top, 50)
+                
+             
                 
                 messageField()
                 Spacer()
@@ -142,7 +147,7 @@ struct PublicStreetPass: View {
                     .frame(height: 50)
                     .clipShape(Circle())
                 
-                Text("\(vm.stcValue - 1) StreetCred")
+                Text("\(vm.walletValue - 1) StreetCred")
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
             }
@@ -211,8 +216,8 @@ struct PublicStreetPass: View {
         
         Task {
             do {
-                vm.stcValue = try await DataService.shared.getStreetCred()
-                if vm.stcValue > 0 {
+                vm.walletValue = try await DataService.shared.getStreetCred()
+                if vm.walletValue > 0 {
                     vm.showTextField = true
                 } else {
                     buySTC.toggle()

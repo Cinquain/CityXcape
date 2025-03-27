@@ -204,7 +204,7 @@ struct StreetPass: View {
                 .foregroundStyle(.white)
             })
             .fullScreenCover(isPresented: $vm.showStats) {
-                AnalyticsView(vm: vm)
+                StreetReportCard(vm: vm)
             }
            
             

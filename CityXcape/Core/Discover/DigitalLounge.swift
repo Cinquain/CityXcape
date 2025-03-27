@@ -48,7 +48,7 @@ struct DigitalLounge: View {
                     .frame(height: 35)
                     
                 
-                Text("\(spot.name)")
+                Text(spot.name)
                     .font(.title2)
                     .foregroundStyle(.white)
                     .fontWeight(.thin)

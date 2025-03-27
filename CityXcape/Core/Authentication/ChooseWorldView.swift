@@ -19,10 +19,11 @@ struct ChooseWorldView: View {
             OnboardingHeader()
             Spacer()
             VStack {
-                Text("Which Communities are You Part of?")
+                Text("What Communities are You Part of?")
                     .font(.title3)
                     .fontWeight(.light)
                     .foregroundStyle(.white)
+                    .padding(.bottom, 5)
                     .alert(isPresented: $vm.showError, content: {
                         Alert(title: Text(vm.errorMessage))
                     })
@@ -42,7 +43,7 @@ struct ChooseWorldView: View {
                             }
                         }
                     }
-                    .frame(height: 500)
+                    .frame(height: 400)
                     .searchable(text: $searchText)
                 
                 
@@ -60,7 +61,7 @@ struct ChooseWorldView: View {
                     .animation(.easeIn, value: isDone)
                     .clipShape(Capsule())
             })
-            .padding(.top, 45)
+            .padding(.top, 25)
             
             Spacer()
 

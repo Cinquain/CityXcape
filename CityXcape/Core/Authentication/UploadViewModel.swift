@@ -10,7 +10,7 @@ import PhotosUI
 import SwiftUI
 
 
-
+@MainActor
 class UploadViewModel: ObservableObject {
     
     @AppStorage(CXUserDefaults.fcmToken) var fcmToken: String?
@@ -37,6 +37,8 @@ class UploadViewModel: ObservableObject {
     
     @Published var showPassport: Bool = false 
     @Published var username: String = ""
+    @Published var isChecked: Bool = false
+
     @Published var gender: Bool = true
     @Published var worlds: [World] = []
     @Published var selectedWorlds: [World] = []
@@ -101,7 +103,7 @@ class UploadViewModel: ObservableObject {
         Task {
             do {
                 let data = try await DataService.shared.fetchAllWorlds()
-                worlds = data
+                self.worlds = data
             } catch {
                 errorMessage = error.localizedDescription
                 print(error.localizedDescription)
@@ -123,6 +125,12 @@ class UploadViewModel: ObservableObject {
     func checkAllFields() -> Bool {
         guard let uid = AuthService.shared.uid else {
             errorMessage = "Please sign up using Apple or Google"
+            showError.toggle()
+            return false
+        }
+        
+        if isChecked == false {
+            errorMessage = "Please agree to user terms and agreements"
             showError.toggle()
             return false
         }

@@ -18,17 +18,20 @@ struct Leaderboard: View {
         VStack {
             header()
             
-            ScrollView {
-                
-                ForEach(vm.ranks) { rank in
-                    RankingItem(rank: rank, max: max, number: (vm.ranks.firstIndex(of: rank) ?? 0) + 1)
-                    Divider()
-                        .frame(height: 0.5)
-                        .foregroundStyle(.white)
+       
+                ScrollView {
+                    
+                    ForEach(vm.ranks) { rank in
+                        RankingItem(rank: rank, max: max, number: (vm.ranks.firstIndex(of: rank) ?? 0) + 1)
+                        Divider()
+                            .frame(height: 0.5)
+                            .foregroundStyle(.white)
+                    }
+                    
+                   
                 }
-                
-               
-            }
+            
+
             Spacer()
             closeButton()
             

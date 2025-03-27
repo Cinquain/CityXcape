@@ -52,5 +52,5 @@ struct UserBubble: View {
 }
 
 #Preview {
-    UserBubble(size: 300, url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FBRjH3puxwIZueyIqvlEn%2FJay.png?alt=media&token=7e0fec7d-9e99-4c1e-a8d6-e1303482f43e", pulse: 1.5)
+    UserBubble(size: 300, url: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FEVTU961bfeCZBEBzrBL0%2FSandra.png?alt=media&token=07058b02-642b-44e4-a0ef-3548b250787e", pulse: 1.5)
 }

@@ -61,6 +61,7 @@ extension AuthService {
         if try await DataService.shared.checkIfUserExist(uid: uid) {
             try await DataService.shared.loginUser(uid: uid)
             self.signupView.isAuth = true
+            self.signupView.dismiss()
             return true
         } else {
             DataService.shared.createUser(auth: authResult)
@@ -131,6 +132,7 @@ extension AuthService {
         let uid = authResult.user.uid
         if try await DataService.shared.checkIfUserExist(uid: uid) {
             try await DataService.shared.loginUser(uid: uid)
+            self.signupView.dismiss()
             return true
         } else {
             DataService.shared.createUser(auth: authResult)

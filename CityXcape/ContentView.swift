@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     @AppStorage(CXUserDefaults.firstOpen) var firstOpen: Bool?
+    @EnvironmentObject private var store: Store
     @State var index: Int = 0
     @StateObject var vm = LocationViewModel()
-    @StateObject var sp = StreetPassViewModel()
-    @StateObject var chatVm = ChatViewModel()
-    @EnvironmentObject private var store: Store
 
     
     var body: some View {
     
             TabView(selection: $index) {
+                
                 Discover(vm: vm)
                     .tag(0)
                     .tabItem {
@@ -37,7 +37,7 @@ struct ContentView: View {
                     }
                     .badge(vm.requests.count)
                 
-                MessagesView(vm: chatVm)
+                MessagesView(vm: vm)
                     .tag(2)
                     .tabItem {
                         Image(systemName: Tab.messages.imageTitle)
@@ -45,10 +45,10 @@ struct ContentView: View {
                             .scaledToFit()
                         Text(Tab.messages.rawValue)
                     }
-                    .badge(chatVm.count)
+                    .badge(vm.count)
              
                 
-                StreetPass(vm: sp)
+                StreetPass()
                     .tag(3)
                     .tabItem {
                         Image(Tab.profile.imageTitle)

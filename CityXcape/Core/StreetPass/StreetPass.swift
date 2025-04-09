@@ -9,14 +9,14 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct StreetPass: View {
-    @StateObject var vm : StreetPassViewModel
+
+    @StateObject var vm = StreetPassViewModel()
     @State private var showAuth: Bool = false
+    
     var body: some View {
         VStack {
             header()
             userView()
-            Spacer()
-                .frame(maxHeight: 40)
             worldList()
             passport()
             showStats()
@@ -123,6 +123,7 @@ struct StreetPass: View {
 
             }
         }
+        .padding(.top, 10)
         
     }
     
@@ -155,7 +156,7 @@ struct StreetPass: View {
             
           
         }
-        .padding(.top, 20)
+        .padding(.top, 10)
     }
     
     @ViewBuilder

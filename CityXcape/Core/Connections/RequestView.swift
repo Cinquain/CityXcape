@@ -26,6 +26,10 @@ struct RequestView: View {
                         .alert(isPresented: $vm.showError, content: {
                             return Alert(title: Text(vm.errorMessage))
                         })
+                        
+                        Divider()
+                            .frame(height: 0.1)
+                            .background(.white)
                     }
                 }
                 .refreshable {
@@ -103,16 +107,18 @@ struct RequestView: View {
     func header() -> some View {
         VStack {
             HStack {
-                Image("honeycomb")
-                    .renderingMode(.template)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 30)
+                Spacer()
+                Image(systemName: "powerplug.fill")
+                    .font(.caption)
+                    .foregroundStyle(.white)
+                    .padding(10)
+                    .background(.white.opacity(0.2))
+                    .clipShape(Circle())
                 
-                Text(calculateTitle())
-                    .font(.title2)
+                Text("Connection Request")
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
+                
                 Spacer()
             }
             .padding(.horizontal)

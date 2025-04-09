@@ -92,7 +92,7 @@ struct DigitalLounge: View {
                 userRow(user: user)
             }
         }
-        .padding(.top, 40)
+        .padding(.top, 30)
         .sheet(item: $vm.currentUser) { user in
             PublicStreetPass(user: user, vm: vm)
         }
@@ -129,7 +129,7 @@ struct DigitalLounge: View {
                             
                         Divider()
                             .background(.white)
-                            .frame(height: 0.5)
+                            .frame(height: 0.3)
                     }
                     .foregroundStyle(.white)
 

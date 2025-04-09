@@ -47,8 +47,11 @@ struct PublicStreetPass: View {
                         } label: {
                             Text(vm.compare(user: user).0)
                                 .foregroundStyle(.white)
+                                .padding()
                                 .font(.callout)
+                                .background(.black.opacity(0.8))
                                 .fontWeight(.light)
+                                .clipShape(Capsule())
                                 .sheet(isPresented: $vm.showRapSheet) {
                                     RapSheet(vm: vm, user: user)
                                         .presentationDetents([.height(330)])

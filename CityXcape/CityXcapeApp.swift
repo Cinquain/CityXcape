@@ -80,6 +80,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         appDelegate.registerForRemoteNotifications()
     }
     
+    
+    
 }
 
 extension AppDelegate: MessagingDelegate {

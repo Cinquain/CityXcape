@@ -31,7 +31,6 @@ struct UserBubble: View {
                 .fill(.orange.opacity(0.35))
                 .frame(width: size * 0.85)
                 .shadow(color: .orange.opacity(0.35), radius: 10)
-                .scaleEffect(self.animate ? 1.10 : 1)
                 .shadow(color: .orange.opacity(0.35), radius: 10)
                 
             
@@ -39,8 +38,8 @@ struct UserBubble: View {
             WebImage(url: URL(string: url))
                 .resizable()
                 .scaledToFit()
+                .frame(width: size  * 0.70)
                 .clipShape(Circle())
-                .frame(width: size  * 0.75)
                 .shadow(color: .gray, radius: 2)
             
             

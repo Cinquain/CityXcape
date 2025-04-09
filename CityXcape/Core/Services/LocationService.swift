@@ -11,7 +11,7 @@ import MapKit
 import SwiftUI
 
 
-class LocationService: NSObject, ObservableObject {
+final class LocationService: NSObject, ObservableObject {
     
     static let shared = LocationService()
     
@@ -58,6 +58,7 @@ class LocationService: NSObject, ObservableObject {
         if let coordinates = userCoordinates {
             self.city = coordinates.getCity { placemark in
                 let newCity = placemark?.locality ?? ""
+                UserDefaults.standard.set(newCity, forKey: CXUserDefaults.city)
                 DataService.shared.saveUserCity(city: newCity)
                 print("The new city is: \(newCity)")
             } ?? ""

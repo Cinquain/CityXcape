@@ -52,10 +52,7 @@ final class DataService {
         usersBranch.document(uid).setData(data)
         UserDefaults.standard.setValue(uid, forKey: CXUserDefaults.uid)
     }
-    
-    
- 
-    
+        
     func loginUser(uid: String) async throws {
         let user = try await getUserFrom(uid: uid)
         AnalyticService.shared.loginUser()
@@ -137,8 +134,11 @@ final class DataService {
     
     func deleteUser() async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
-        try await ImageManager.shared.deleteUserProfile(uid: uid)
         try await usersBranch.document(uid).delete()
+        
+        //Sign out
+        try await Auth.auth().currentUser?.delete()
+        try AuthService.shared.signOut()
         
         //Removing user defaults
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.uid)
@@ -147,10 +147,6 @@ final class DataService {
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.firstOpen)
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.username)
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.lastSpotId)
-      
-        //Sign out
-        try await Auth.auth().currentUser?.delete()
-        try AuthService.shared.signOut()       
     }
     
     

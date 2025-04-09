@@ -42,9 +42,11 @@ final class LocationViewModel: ObservableObject {
     @Published var worlds: [World] = []
     
     
+    @Published var recents: [Message] = []
     @Published var requests: [Request] = []
     @Published var requestImage: String = ""
     @Published var showMatch: Bool = false
+    @Published var count: Int = 0
     @Published var walletValue: Int = 0
     @Published var buySTC: Bool = false
     
@@ -52,6 +54,7 @@ final class LocationViewModel: ObservableObject {
     
     init() {
         startListeningForRequest()
+        fetchRecentMessages()
     }
     
     
@@ -326,6 +329,25 @@ extension LocationViewModel {
             } catch {
                 errorMessage = error.localizedDescription
                 print(errorMessage)
+            }
+        }
+    }
+}
+
+
+//MARK: MESSAGES FUNCTIONALITIES
+
+extension LocationViewModel {
+    func fetchRecentMessages() {
+        DataService.shared.fetchRecentMessages { result in
+            switch result {
+            case .success(let messages):
+                DispatchQueue.main.async {
+                    self.recents = messages
+                    self.count = messages.filter({$0.read == false}).count
+                }
+            case .failure(let error):
+                print("Error fetching recent messages", error.localizedDescription)
             }
         }
     }

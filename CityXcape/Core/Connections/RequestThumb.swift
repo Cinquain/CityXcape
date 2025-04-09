@@ -52,16 +52,11 @@ struct RequestThumb: View {
                     Button {
                         vm.acceptRequest(request: request)
                     } label: {
-                        Image("honeycomb")
-                            .renderingMode(.template)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 25)
-                        
-                        Text("CONNECT")
-                            .foregroundStyle(.white)
-                            .tracking(2)
-                            .fontWeight(.light)
+                        Image(systemName: "message.fill")
+                            .foregroundStyle(.green)
+                            .padding()
+                            .background(.green.opacity(0.2))
+                            .clipShape(Circle())
                     }
                     
                     Spacer()
@@ -70,11 +65,11 @@ struct RequestThumb: View {
                         vm.removeRequest(request: request)
                     } label: {
                         HStack {
-                            Image("trash")
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundStyle(.white)
-                                .frame(height: 30)
+                            Image(systemName: "trash.fill")
+                                .foregroundStyle(.orange)
+                                .padding()
+                                .background(.orange.opacity(0.2))
+                                .clipShape(Circle())
                            
                         }
                     }
@@ -86,8 +81,8 @@ struct RequestThumb: View {
             
             Spacer()
         }
-        .padding(10)
-        .background(.black)
+        .padding()
+        .background(.black.opacity(0.6))
     }
     
     @ViewBuilder

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MessagesView: View {
     
-    @StateObject var vm : ChatViewModel
+    @StateObject var vm : LocationViewModel
     @State var currentMessage : Message?
     
     var body: some View {
@@ -25,7 +25,7 @@ struct MessagesView: View {
                             ChatPreview(message: message)
                         }
                         .sheet(item: $currentMessage) { message in
-                            Chatroom(message: message, vm: vm)
+                            Chatroom(message: message)
                         }
 
                     }
@@ -50,6 +50,13 @@ struct MessagesView: View {
         VStack {
             HStack(spacing: 5) {
                 Spacer()
+                Image(systemName: "message.fill")
+                    .font(.caption)
+                    .foregroundStyle(.white)
+                    .padding(10)
+                    .background(.white.opacity(0.2))
+                    .clipShape(Circle())
+                
                 Text("MESSAGES")
                     .fontWeight(.thin)
                     .foregroundStyle(.white)
@@ -79,5 +86,5 @@ struct MessagesView: View {
 }
 
 #Preview {
-    MessagesView(vm: ChatViewModel())
+    MessagesView(vm: LocationViewModel())
 }

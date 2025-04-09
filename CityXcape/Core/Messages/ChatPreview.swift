@@ -34,7 +34,7 @@ struct ChatPreview: View {
             
             
             Divider()
-                .frame(height: 0.5)
+                .frame(height: 0.2)
                 .background(.white)
                 .padding(.leading, 80)
         }

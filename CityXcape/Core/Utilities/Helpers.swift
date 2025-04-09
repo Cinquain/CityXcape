@@ -20,6 +20,7 @@ struct CXUserDefaults {
     static let createdSP = "createdSP"
     static let profileUrl = "profileUrl"
     static let username = "username"
+    static let city = "city"
     static let streetcred = "streetcred"
     static let lastSpotId = "lastSpotId"
     static let lastSpotName = "lastSpotName"

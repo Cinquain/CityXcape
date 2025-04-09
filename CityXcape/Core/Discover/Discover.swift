@@ -14,7 +14,7 @@ struct Discover: View {
     @State private var scannedText: String = "Scan QR Code"
     @State private var startScanner: Bool = false
     
-    @StateObject var vm : LocationViewModel
+    @StateObject var vm = LocationViewModel()
     
     var body: some View {
         ZStack {
@@ -57,7 +57,7 @@ struct Discover: View {
         switch result {
         case .success(let scanned):
             startScanner = false
-//            let code = scanned.string
+            let scannedText = scanned.string
             let code = "27dwRVATDnUYxRsK0XVn"
             Task {
                 do {
@@ -119,7 +119,7 @@ struct Discover: View {
     func headerView() -> some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 2) {
-        
+                Spacer()
                 
                 Image("Logo")
                     .resizable()

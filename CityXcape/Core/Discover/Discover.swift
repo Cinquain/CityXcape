@@ -135,7 +135,7 @@ struct Discover: View {
             
             Divider()
                 .background(.white)
-                .frame(height: 0.5)
+                .frame(height: 0.3)
         }
         .padding(.horizontal, 10)
     }
@@ -171,5 +171,5 @@ struct Discover: View {
 }
 
 #Preview {
-    Discover(vm: LocationViewModel())
+    Discover()
 }

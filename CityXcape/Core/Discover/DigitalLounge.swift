@@ -29,12 +29,7 @@ struct DigitalLounge: View {
                 emptyState()
             }
         }
-        .onAppear {
-            vm.startListeningForRequest()
-        }
-        .onDisappear {
-            vm.removeRequestListener()
-        }
+     
      
     }
     
@@ -94,7 +89,7 @@ struct DigitalLounge: View {
         }
         .padding(.top, 30)
         .sheet(item: $vm.currentUser) { user in
-            PublicStreetPass(user: user, vm: vm)
+            PublicStreetPass(user: user, spot: spot)
         }
     }
     

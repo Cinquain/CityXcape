@@ -11,7 +11,7 @@ struct MatchAnimation: View {
     @Environment(\.dismiss) private var dismiss
     @AppStorage(CXUserDefaults.profileUrl) var profileUrl: String?
 
-    @StateObject var vm: LocationViewModel
+    @State var vm: RequestViewModel
     
     @State private var length: CGFloat = 120
     @State private var rotation: Double = 90
@@ -80,6 +80,7 @@ struct MatchAnimation: View {
             Button(action: {
                 withAnimation {
                     dismiss()
+                    vm.showMessage = true
                     vm.showMatch = false
                 }
             }, label: {
@@ -99,5 +100,5 @@ struct MatchAnimation: View {
 }
 
 #Preview {
-    MatchAnimation(vm: LocationViewModel())
+    MatchAnimation(vm: RequestViewModel())
 }

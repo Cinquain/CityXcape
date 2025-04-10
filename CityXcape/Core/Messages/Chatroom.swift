@@ -11,7 +11,7 @@ struct Chatroom: View {
     @Environment(\.dismiss) private var dismiss
 
     let message: Message
-    @StateObject var vm : ChatViewModel = ChatViewModel()
+    @StateObject var vm : ChatViewModel 
     
     var body: some View {
         ZStack {

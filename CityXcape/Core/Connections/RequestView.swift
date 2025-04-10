@@ -9,12 +9,10 @@ import SwiftUI
 
 struct RequestView: View {
 
-    @StateObject var vm: LocationViewModel
+    @State var vm = RequestViewModel()
     @Binding var index: Int
     
     
-    @GestureState private var dragState: DragState = .inactive
-    @State private var currentRequest: Request?
     var body: some View {
         ZStack {
             VStack {
@@ -108,16 +106,21 @@ struct RequestView: View {
         VStack {
             HStack {
                 Spacer()
-                Image(systemName: "powerplug.fill")
-                    .font(.caption)
+                Image("hexagons-3")
+                    .renderingMode(.template)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 15)
                     .foregroundStyle(.white)
-                    .padding(10)
+                    .padding(9)
                     .background(.white.opacity(0.2))
                     .clipShape(Circle())
                 
-                Text("Connection Request")
+                Text("CONNECTIONS")
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
+                    .tracking(3)
+
                 
                 Spacer()
             }
@@ -129,15 +132,7 @@ struct RequestView: View {
                 .padding(.horizontal)
         }
     }
-    
-    fileprivate func calculateTitle() -> String {
-        if vm.requests.count <= 1 {
-            return "\(vm.requests.count) Request"
-        } else {
-            return "\(vm.requests.count) Requests"
-        }
-    }
-    
+        
 
     
 
@@ -146,5 +141,5 @@ struct RequestView: View {
 }
 
 #Preview {
-    ContentView()
+    HomeView()
 }

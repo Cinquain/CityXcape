@@ -15,7 +15,7 @@ struct BuySTC: View {
     @State private var rotation: Double = 0
     
     var usecase: StreetCredUseCase
-    @StateObject var vm: LocationViewModel
+    var spot: Location
     
     @AppStorage(CXUserDefaults.streetcred) var wallet: Int?
     @EnvironmentObject private var store: Store
@@ -95,7 +95,7 @@ struct BuySTC: View {
                     store.purchaseProduct(product) { result in
                         switch result {
                             case .success(_):
-                            vm.purchaseStreetCred(count: Product.streetcred.count, price: 4.99)
+                            purchaseStreetCred(count: Product.streetcred.count, price: 4.99)
                             AnalyticService.shared.ordered3STC()
                             case .failure(let error):
                             message = error.localizedDescription
@@ -112,7 +112,7 @@ struct BuySTC: View {
                     store.purchaseProduct(product) { result in
                         switch result {
                             case .success(_):
-                            vm.purchaseStreetCred(count: Product.streetcred_15.count, price: 9.99)
+                            purchaseStreetCred(count: Product.streetcred_15.count, price: 9.99)
                             AnalyticService.shared.ordered15STC()
                             case .failure(let error):
                             message = error.localizedDescription
@@ -129,7 +129,7 @@ struct BuySTC: View {
                     store.purchaseProduct(product) { result in
                         switch result {
                             case .success(_):
-                            vm.purchaseStreetCred(count: Product.streetcred_50.count, price: 24.99)
+                            purchaseStreetCred(count: Product.streetcred_50.count, price: 24.99)
                             AnalyticService.shared.ordered50STC()
                             case .failure(let error):
                             message = error.localizedDescription
@@ -154,9 +154,17 @@ struct BuySTC: View {
         }
     }
     
+    func purchaseStreetCred(count: Int, price: Double) {
+        if spot.isSocialHub {
+            DataService.shared.purchaseStreetCredForHub(spot: spot, count: count, price: price)
+        } else {
+            DataService.shared.purchaseStreetCredForHunt(spot: spot, count: count, price: price)
+        }
+    }
+    
     
 }
 
 #Preview {
-    BuySTC(usecase: .connect, vm: LocationViewModel())
+    BuySTC(usecase: .connect, spot: Location.demo)
 }

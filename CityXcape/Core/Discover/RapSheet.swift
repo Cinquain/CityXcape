@@ -10,10 +10,11 @@ import SDWebImageSwiftUI
 
 struct RapSheet: View {
     
-    @StateObject var vm: LocationViewModel
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
+    
     var user: User
+    
     var body: some View {
                 
             VStack {
@@ -116,5 +117,5 @@ struct RapSheet: View {
  
 
 #Preview {
-    RapSheet(vm: LocationViewModel(), user: User.demo)
+    RapSheet(user: User.demo)
 }

@@ -18,6 +18,7 @@ struct CircularProgressView: View {
     @State private var color: Color = .orange
     @State private var fontColor: Color = .white
     
+    @State private var strokeColor: Color = .gray
     @State private var finalValue: CGFloat = 0
     var body: some View {
         
@@ -25,7 +26,7 @@ struct CircularProgressView: View {
             ZStack {
                 Circle()
                     .trim(from: 0, to: 1)
-                    .stroke(Color.gray.opacity(0.2), style: StrokeStyle(lineWidth: thickness, lineCap: .round))
+                    .stroke(strokeColor.opacity(0.2), style: StrokeStyle(lineWidth: thickness, lineCap: .round))
                     .frame(width: size, height: size)
                 
                 Circle()
@@ -49,6 +50,9 @@ struct CircularProgressView: View {
         .onAppear {
             withAnimation(.easeInOut(duration: 0.5)) {
                 finalValue = CGFloat(value) / 100.0
+                if value == 0 {
+                    strokeColor = .red
+                }
                 if value >= 50 {
                     color = .green
                 }
@@ -69,7 +73,7 @@ struct CircularProgressView: View {
         Spacer()
         HStack {
             Spacer()
-            CircularProgressView(size: 250, thickness: 30, font: .title, value: 100)
+            CircularProgressView(size: 250, thickness: 30, font: .title, value: 0)
             Spacer()
         }
         Spacer()

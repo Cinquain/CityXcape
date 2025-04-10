@@ -11,73 +11,33 @@ import SDWebImageSwiftUI
 
 struct PublicStreetPass: View {
     
-    @AppStorage(CXUserDefaults.lastSpotId) var lastSpot : String?
     @Environment(\.dismiss) private var dismiss
-
-    @State var user: User
-    @StateObject var vm: LocationViewModel
+    @State var vm = PublicSPViewModel()
     
-    @State private var showError: Bool = false
-    @State private var errorMessage: String = ""
-    @State private var isShimmering: Bool = false
-    @State private var buySTC: Bool = false
+    @State var user: User
+    var spot: Location?
+    
     
     var body: some View {
         
-        GeometryReader { geo in
-            VStack {
-                header()
-                UserBubble(size: geo.size.width * 0.75, url: user.imageUrl, pulse: 1.3)
-                
-                Text(user.username)
-                    .font(.title)
-                    .foregroundStyle(.white)
-                    .fontWeight(.thin)
-                    .padding(.top, -5)
-                    
-                
-                
-                    VStack(spacing: 10) {
-                        if vm.compare(user: user).2 > 0 {
-                            CircularProgressView(size: 100, thickness: 15, font: .callout, value: Int(vm.compare(user: user).2))
-                        }
-                        
-                        Button {
-                            vm.showRapSheet.toggle()
-                        } label: {
-                            Text(vm.compare(user: user).0)
-                                .foregroundStyle(.white)
-                                .padding()
-                                .font(.callout)
-                                .background(.black.opacity(0.8))
-                                .fontWeight(.light)
-                                .clipShape(Capsule())
-                                .sheet(isPresented: $vm.showRapSheet) {
-                                    RapSheet(vm: vm, user: user)
-                                        .presentationDetents([.height(330)])
-                                }
-                        }
-                    }
-                    .padding(.top, 50)
-                
-             
-                
-                messageField()
-                Spacer()
+        VStack {
+            header()
+            userView()
+            matchPercentage()
+            messageField()
+            Spacer()
+            if spot != nil {
                 ctaButton()
             }
-            .onAppear {
-               showAnimation()
-               AnalyticService.shared.viewStreetPass()
-            }
-            .onDisappear {
-                vm.showTextField = false
-            }
-        
         }
         .background(background())
-
-       
+        .onAppear {
+           AnalyticService.shared.viewStreetPass()
+        }
+        .onDisappear {
+            vm.showTextField = false
+        }
+        
       
     }
     
@@ -94,16 +54,7 @@ struct PublicStreetPass: View {
         }
         .edgesIgnoringSafeArea(.all)
     }
-    
-    func showAnimation() {
-        isShimmering = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8, execute: {
-            withAnimation {
-                isShimmering = false
-            }
-        })
-    }
-    
+        
     @ViewBuilder
     func header() -> some View {
         HStack {
@@ -118,8 +69,8 @@ struct PublicStreetPass: View {
                     .fontWeight(.thin)
                     .foregroundStyle(.white)
                     .tracking(4)
-                    .alert(isPresented: $showError, content: {
-                        return Alert(title: Text(errorMessage))
+                    .alert(isPresented: $vm.showError, content: {
+                        return Alert(title: Text(vm.errorMessage))
                 })
             }
             
@@ -129,6 +80,42 @@ struct PublicStreetPass: View {
         }
         .padding(.horizontal, 22)
         .padding(.top, 10)
+    }
+    
+    @ViewBuilder
+    func userView() -> some View {
+        UserBubble(size: 320, url: user.imageUrl, pulse: 1.3)
+        
+        Text(user.username)
+            .font(.title)
+            .foregroundStyle(.white)
+            .fontWeight(.thin)
+            .padding(.top, -5)
+    }
+    
+    @ViewBuilder
+    func matchPercentage() -> some View {
+        VStack(spacing: 10) {
+            CircularProgressView(size: 100, thickness: 15, font: .callout, value: Int(vm.compare(user: user).2))
+            
+            
+            Button {
+                vm.showRapSheet.toggle()
+            } label: {
+                Text("View Rap Sheet")
+                    .foregroundStyle(.white)
+                    .padding()
+                    .font(.callout)
+                    .background(.black.opacity(0.8))
+                    .fontWeight(.light)
+                    .clipShape(Capsule())
+                    .sheet(isPresented: $vm.showRapSheet) {
+                        RapSheet(user: user)
+                            .presentationDetents([.height(330)])
+                    }
+            }
+        }
+        .padding(.top, 50)
     }
     
     @ViewBuilder
@@ -162,7 +149,7 @@ struct PublicStreetPass: View {
     func ctaButton() -> some View {
                 
             Button(action: {
-                checkForStreetCred()
+                vm.checkForStreetCred(uid: user.id)
             }, label: {
                 (Text(vm.showTextField ? "Send Request" : "CONNECT ") + Text(Image(systemName: "powerplug.fill")))
                     .font(.callout)
@@ -172,65 +159,17 @@ struct PublicStreetPass: View {
                     .background(vm.showTextField ? .green : .orange)
                     .clipShape(Capsule())
             })
-            .sheet(isPresented: $buySTC, content: {
-                BuySTC(usecase: .connect, vm: vm)
+            .sheet(isPresented: $vm.buySTC, content: {
+                BuySTC(usecase: .connect, spot: spot!)
                     .presentationDetents([.height(370)])
             })
     }
     
+
+    
   
     
-    @ViewBuilder
-    func worldList() -> some View {
-        HStack {
-            ForEach(user.worlds) { world in
-                Button {
-                    AnalyticService.shared.viewedWorld()
-                    errorMessage = "\(user.username) is \(world.memberName)"
-                    showError.toggle()
-                } label: {
-                    VStack {
-                        WebImage(url: URL(string: world.imageUrl))
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 65)
-                        
-                        Text(world.name)
-                            .font(.callout)
-                            .foregroundStyle(.white)
-                            .lineLimit(1)
-                            .fontWeight(.light)
-                            .frame(width: 55)
-                    }
-                    .shimmering(active: isShimmering, duration: 0.7, bounce: true)
-                }
-
-            }
-        }
-        .padding(.top, 10)
-    }
-
     
-    fileprivate func checkForStreetCred() {
-        if vm.showTextField {
-            vm.sendRequest(uid: user.id)
-            return
-        }
-        
-        Task {
-            do {
-                vm.walletValue = try await DataService.shared.getStreetCred()
-                if vm.walletValue > 0 {
-                    vm.showTextField = true
-                } else {
-                    buySTC.toggle()
-                    return
-                }
-            } catch {
-                print("Error fetching STC", error.localizedDescription)
-            }
-        }
-    }
     
 
   
@@ -238,5 +177,5 @@ struct PublicStreetPass: View {
 }
 
 #Preview {
-    PublicStreetPass(user: User.demo, vm: LocationViewModel())
+    PublicStreetPass(user: User.demo)
 }

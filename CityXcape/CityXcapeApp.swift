@@ -24,7 +24,7 @@ struct CityXcapeApp: App {
         WindowGroup {
             
             ZStack {
-                ContentView()
+                HomeView()
                     .environmentObject(store)
                 
                 ZStack {

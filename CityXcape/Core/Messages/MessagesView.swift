@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MessagesView: View {
     
-    @StateObject var vm : LocationViewModel
+    @StateObject var vm = ChatViewModel()
     @State var currentMessage : Message?
     
     var body: some View {
@@ -25,7 +25,7 @@ struct MessagesView: View {
                             ChatPreview(message: message)
                         }
                         .sheet(item: $currentMessage) { message in
-                            Chatroom(message: message)
+                            Chatroom(message: message, vm: vm)
                         }
 
                     }
@@ -33,6 +33,9 @@ struct MessagesView: View {
                 Spacer()
             }
             .navigationBarHidden(true)
+            .onAppear(perform: {
+                vm.fetchRecentMessages()
+            })
             .overlay(content: {
                 if vm.recents.isEmpty {
                     emptyState()
@@ -86,5 +89,5 @@ struct MessagesView: View {
 }
 
 #Preview {
-    MessagesView(vm: LocationViewModel())
+    MessagesView(vm: ChatViewModel())
 }

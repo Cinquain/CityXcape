@@ -88,7 +88,7 @@ struct PassPortReceipt: View {
                         .frame(height: 20)
                         .foregroundColor(.white)
                         .sheet(isPresented: $vm.buySTC, content: {
-                            BuySTC(usecase: .customStamp, vm: vm)
+                            BuySTC(usecase: .customStamp, spot: spot)
                                 .presentationDetents([.height(370)])
                         })
 

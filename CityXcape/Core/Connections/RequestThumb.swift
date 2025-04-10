@@ -10,7 +10,7 @@ import SwiftUI
 struct RequestThumb: View {
     
     var request: Request
-    var vm: LocationViewModel
+    var vm: RequestViewModel
     @State var currentUser: User?
     
     var body: some View {
@@ -29,7 +29,7 @@ struct RequestThumb: View {
                 }
             })
             .sheet(item: $currentUser) { user in
-                PublicStreetPass(user: user, vm: vm)
+                PublicStreetPass(user: user)
             }
           
             
@@ -99,5 +99,5 @@ struct RequestThumb: View {
 }
 
 #Preview {
-    RequestThumb(request: Request.demo, vm: LocationViewModel())
+    RequestThumb(request: Request.demo, vm: RequestViewModel())
 }

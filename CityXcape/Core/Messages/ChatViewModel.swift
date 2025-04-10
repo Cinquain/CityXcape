@@ -20,7 +20,8 @@ class ChatViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     
     
-    
+    @Published var recents: [Message] = []
+
     
  
     
@@ -61,5 +62,19 @@ class ChatViewModel: ObservableObject {
         messages.removeAll(where: {$0.fromId == uid})
         DataService.shared.deleteRecentMessage(userId: uid)
     }
+    
+    func fetchRecentMessages() {
+          DataService.shared.fetchRecentMessages { result in
+              switch result {
+              case .success(let messages):
+                  DispatchQueue.main.async {
+                      self.recents = messages
+                      self.count = messages.filter({$0.read == false}).count
+                  }
+              case .failure(let error):
+                  print("Error fetching recent messages", error.localizedDescription)
+              }
+          }
+      }
     
 }

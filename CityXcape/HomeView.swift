@@ -7,19 +7,19 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
     
     @AppStorage(CXUserDefaults.firstOpen) var firstOpen: Bool?
     @EnvironmentObject private var store: Store
     @State var index: Int = 0
-    @StateObject var vm = LocationViewModel()
+    @State var vm = HomeViewModel()
 
     
     var body: some View {
     
             TabView(selection: $index) {
                 
-                Discover(vm: vm)
+                Discover()
                     .tag(0)
                     .tabItem {
                         Image(Tab.locations.imageTitle)
@@ -27,7 +27,7 @@ struct ContentView: View {
                         Text(Tab.locations.rawValue)
                     }
                 
-                RequestView(vm: vm, index: $index)
+                RequestView(index: $index)
                     .tag(1)
                     .tabItem {
                         Image(Tab.connections.imageTitle)
@@ -37,7 +37,7 @@ struct ContentView: View {
                     }
                     .badge(vm.requests.count)
                 
-                MessagesView(vm: vm)
+                MessagesView()
                     .tag(2)
                     .tabItem {
                         Image(systemName: Tab.messages.imageTitle)
@@ -52,6 +52,7 @@ struct ContentView: View {
                     .tag(3)
                     .tabItem {
                         Image(Tab.profile.imageTitle)
+                            .renderingMode(.template)
                         Text(Tab.profile.rawValue)
                     }
                 
@@ -64,5 +65,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    HomeView()
 }

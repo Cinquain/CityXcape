@@ -22,18 +22,15 @@ final class LocationViewModel: ObservableObject {
     @Published var showError: Bool = false
     @Published var errorMessage: String = ""
 
-    @Published var message: String = ""
     @Published var showTextField: Bool = false
 
     @Published var stampImageUrl: String = ""
     @Published var showOnboarding: Bool = false
-    @Published var showRapSheet: Bool = false 
-    @Published var isSent: Bool = false
+  
     
     @Published var showLounge: Bool = false
     @Published var huntSpot: Location?
     @Published var socialHubSpot: Location?
-
     
     @Published var users: [User] = []
     @Published var currentUser: User?
@@ -43,19 +40,12 @@ final class LocationViewModel: ObservableObject {
     
     
     @Published var recents: [Message] = []
-    @Published var requests: [Request] = []
-    @Published var requestImage: String = ""
-    @Published var showMatch: Bool = false
+ 
     @Published var count: Int = 0
     @Published var walletValue: Int = 0
     @Published var buySTC: Bool = false
     
     
-    
-    init() {
-        startListeningForRequest()
-        fetchRecentMessages()
-    }
     
     
     
@@ -99,6 +89,17 @@ final class LocationViewModel: ObservableObject {
     }
     
     
+    
+    func loadUserStreetPass(request: Request) async throws -> User {
+        if let user = users.first(where: {$0.id == request.id}) {
+            print("Found user from checkins")
+            return user
+        } else {
+            let user = try await DataService.shared.getUserFrom(uid: request.id)
+            return user
+        }
+    }
+    
     func compare(user: User) -> (String, String, Double) {
         var result: String = "View \(user.username)'s Rap Sheet"
         var percentage: String = "0% Match"
@@ -124,183 +125,16 @@ final class LocationViewModel: ObservableObject {
     }
     
     
-    func loadUserStreetPass(request: Request) async throws -> User {
-        if let user = users.first(where: {$0.id == request.id}) {
-            print("Found user from checkins")
-            return user
-        } else {
-            let user = try await DataService.shared.getUserFrom(uid: request.id)
-            return user
-        }
-    }
-        
-    
    
  
     
 }
 
-//MARK: REQUEST FUNCTIONALITIES
-extension LocationViewModel {
-    //MARK: REQUEST FUNCTIONALITIES
-        
-    func fetchPendingRequest() {
-        Task {
-            do {
-                let loadedRequest = try await DataService.shared.fetchAllRequests()
-                DispatchQueue.main.async {
-                    self.requests = loadedRequest
-                }
-               
-            } catch {
-                errorMessage = error.localizedDescription
-                showError.toggle()
-            }
-        }
-    }
-    
-    func sendRequest(uid: String) {
-        if message.isEmpty {
-            errorMessage = "Please enter a message"
-            showError.toggle()
-            return
-        }
-        
-        guard let user = user else {return}
-        guard let spot = spot else {return}
-        
-        let request = Request(id: user.id, username: user.username, imageUrl: user.imageUrl, content: message, spotId: spot.id, spotName: spot.name, worlds: user.worlds)
-        Task {
-            do {
-                try await DataService.shared.sendRequest(userId: uid, request: request)
-                message = ""
-                showTextField = false
-                isSent = true
-                SoundManager.shared.playBeep()
-                AnalyticService.shared.sentRequest()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                    self.isSent = false
-                    self.walletValue -= 1
-                })
-               
-            } catch {
-                errorMessage = error.localizedDescription
-                showError.toggle()
-            }
-        }
-    }
-    
-    func startListeningForRequest() {
-        DataService.shared.startListeningtoRequest { result in
-            switch result {
-            case .success(let newRequest):
-                self.requests = newRequest
-            case .failure(let error):
-                self.errorMessage = error.localizedDescription
-                self.showError.toggle()
-            }
-        }
-    }
-    
-    func removeRequestListener() {
-        DataService.shared.removeRequestListener()
-    }
-    
-    func removeRequest(request: Request) {
-   
-        Task {
-            do {
-                try await DataService.shared.removeRequest(request: request)
-                if let index = requests.firstIndex(of: request) {
-                    requests.remove(at: index)
-                    
-                }
-            } catch {
-                errorMessage = error.localizedDescription
-                showError.toggle()
-            }
-        }
-    }
-    
-    func acceptRequest(request: Request) {
-        requestImage = request.imageUrl
-        Task {
-            do {
-                try await DataService.shared.acceptRequest(content: message, request: request)
-                showMatch = true
-                if let index = requests.firstIndex(of: request) {
-                    requests.remove(at: index)
-                }
-            } catch {
-                errorMessage = error.localizedDescription
-                showError.toggle()
-            }
-        }
-    }
-    
-    
-    
-    
-}
 
 
-//MARK: STREETCRED FUNCTIONALITIES
+//MARK: SCAVENGER HUNT FUNCTIONALITIES
 extension LocationViewModel {
     
-    func purchaseStreetCred(count: Int, price: Double) {
-        guard let spot else {return}
-        if spot.isSocialHub {
-            DataService.shared.purchaseStreetCredForHub(spot: spot, count: count, price: price)
-        } else {
-            DataService.shared.purchaseStreetCredForHunt(spot: spot, count: count, price: price)
-        }
-    }
-    
-    
-    func checkStreetCredforStamp() {
-        Task {
-            do {
-                walletValue = try await DataService.shared.getStreetCred()
-                if walletValue > 0 {
-                    DataService.shared.updateStreetCred(count: -1)
-                    showPicker.toggle()
-                } else {
-                    buySTC.toggle()
-                    return
-                }
-            } catch {
-                errorMessage = error.localizedDescription
-                showError.toggle()
-            }
-        }
-    }
-    
-    func checkStreetCredforRequest(user: User) {
-        if showTextField {
-            sendRequest(uid: user.id)
-            return
-        }
-        Task {
-            do {
-                walletValue = try await DataService.shared.getStreetCred()
-                if walletValue > 0 {
-                    showTextField = true
-                } else {
-                    buySTC.toggle()
-                    return
-                }
-            } catch {
-                errorMessage = error.localizedDescription
-                showError.toggle()
-            }
-        }
-    }
-    
-}
-
-
-//MARK: STAMP FUNCTIONALITIES
-extension LocationViewModel {
     fileprivate func uploadStampImage(item: PhotosPickerItem?) async {
         guard let item = item else {return}
         guard let data = try? await item.loadTransferable(type: Data.self) else {return}
@@ -332,24 +166,25 @@ extension LocationViewModel {
             }
         }
     }
-}
-
-
-//MARK: MESSAGES FUNCTIONALITIES
-
-extension LocationViewModel {
-    func fetchRecentMessages() {
-        DataService.shared.fetchRecentMessages { result in
-            switch result {
-            case .success(let messages):
-                DispatchQueue.main.async {
-                    self.recents = messages
-                    self.count = messages.filter({$0.read == false}).count
+    
+    func checkStreetCredforStamp() {
+        Task {
+            do {
+                walletValue = try await DataService.shared.getStreetCred()
+                if walletValue > 0 {
+                    DataService.shared.updateStreetCred(count: -1)
+                    showPicker.toggle()
+                } else {
+                    buySTC.toggle()
+                    return
                 }
-            case .failure(let error):
-                print("Error fetching recent messages", error.localizedDescription)
+            } catch {
+                errorMessage = error.localizedDescription
+                showError.toggle()
             }
         }
     }
 }
+
+
 

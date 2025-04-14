@@ -12,7 +12,7 @@ import SwiftUI
 @Observable
 final class RequestViewModel: Sendable {
     
-    var requests: [Request] = []
+    var requests: [Request] = [Request.demo, Request.demo2]
     var requestImage: String = ""
     
     var message: String = ""

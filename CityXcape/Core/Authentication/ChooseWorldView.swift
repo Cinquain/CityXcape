@@ -19,18 +19,19 @@ struct ChooseWorldView: View {
             OnboardingHeader()
             Spacer()
             VStack {
-                Text("What Communities are You Part of?")
+                Text("What World are You Part of?")
                     .font(.title3)
-                    .fontWeight(.light)
+                    .fontWeight(.thin)
                     .foregroundStyle(.white)
                     .padding(.bottom, 5)
                     .alert(isPresented: $vm.showError, content: {
                         Alert(title: Text(vm.errorMessage))
                     })
                 
-                
+                searchBar()
                     ScrollView {
-                        ForEach(vm.worlds.sorted(by: {$0.name < $1.name})) { world in
+                        ForEach(vm.searchQuery.isEmpty ?
+                                vm.worlds.sorted(by: {$0.name < $1.name}) : vm.worlds.filter({$0.name.lowercased().contains(vm.searchQuery.lowercased())})) { world in
                             Button {
                                 vm.addOrRemove(world: world)
                                 if vm.selectedWorlds.count == 3 {
@@ -73,6 +74,30 @@ struct ChooseWorldView: View {
 
     }
     
+    @ViewBuilder
+    func searchBar() -> some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: 23, weight: .bold))
+                .foregroundStyle(.gray)
+            
+            TextField("Find a Community", text: $vm.searchQuery)
+                .foregroundStyle(.white)
+                .fontWeight(.light)
+        }
+        .placeholder(when: vm.searchQuery.isEmpty, placeholder: {
+            Text("        Find a community")
+                .foregroundStyle(.white)
+                .fontWeight(.thin)
+        })
+        .padding(.vertical, 10)
+        .padding(.horizontal)
+        .background(Color.white.opacity(0.25))
+        .clipShape(Capsule())
+        .padding(.horizontal)
+        .padding(.bottom, 10)
+        
+    }
     
     @ViewBuilder
     func worldItem(world: World) -> some View {
@@ -92,7 +117,6 @@ struct ChooseWorldView: View {
         }
         .contentMargins(10)
         .cornerRadius(12)
-
     }
     
     @ViewBuilder
@@ -137,5 +161,6 @@ struct ChooseWorldView: View {
 }
 
 #Preview {
-   Onboarding()
+  @Previewable @State var value: Int = 0
+    ChooseWorldView(vm: UploadViewModel(), index: $value)
 }

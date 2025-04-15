@@ -19,7 +19,7 @@ struct ChooseWorldView: View {
             OnboardingHeader()
             Spacer()
             VStack {
-                Text("What World are You Part of?")
+                Text("What Worlds are You Part of?")
                     .font(.title3)
                     .fontWeight(.thin)
                     .foregroundStyle(.white)

@@ -20,10 +20,7 @@ struct RapSheet: View {
             VStack {
                 HStack {
                     Spacer()
-                    Image("honeycomb")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 30)
+                   
                     Text("\(user.username)'s Rap Sheet")
                         .font(.title2)
                         .foregroundStyle(.white)
@@ -31,6 +28,10 @@ struct RapSheet: View {
                         .alert(isPresented: $showError) {
                             return Alert(title: Text(errorMessage))
                         }
+                    Image("files")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 22)
                     Spacer()
                 }
                 .padding(.top, 10)

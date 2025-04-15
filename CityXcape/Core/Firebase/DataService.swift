@@ -428,15 +428,14 @@ final class DataService {
         let messageRef = messagesBranch.document(uid).collection(request.id).document()
         let messageRefII = messagesBranch.document(request.id).collection(uid).document()
         let requestRef = usersBranch.document(uid).collection(Server.request).document(request.id)
-        let username = username ?? ""
         //Create recent message references
         let recentRefII = messagesBranch.document(Server.recentMessage).collection(request.id).document(uid)
         
         let message: [String: Any] = [
             Message.CodingKeys.id.rawValue: messageRef.documentID,
             Message.CodingKeys.imageUrl.rawValue: profileUrl ?? "",
-            Message.CodingKeys.username.rawValue: username,
-            Message.CodingKeys.content.rawValue: "\(username) accepted your connection request",
+            Message.CodingKeys.username.rawValue: username ?? "",
+            Message.CodingKeys.content.rawValue: content,
             Message.CodingKeys.toId.rawValue: request.id,
             Message.CodingKeys.fromId.rawValue: uid
         ]

@@ -10,7 +10,7 @@ import SwiftUI
 struct RequestThumb: View {
     
     var request: Request
-    var vm: RequestViewModel
+    var vm: ConnectionsVM
     @State var currentUser: User?
     
     var body: some View {
@@ -22,10 +22,11 @@ struct RequestThumb: View {
                 }
             }, label: {
                 VStack {
-                    UserBubble(size: 100, url: request.imageUrl, pulse: 2)
+                    SelfieBubble(size: 100, url: request.imageUrl, pulse: 2)
                     Text(request.username)
-                        .fontWeight(.thin)
+                        .fontWeight(.light)
                         .foregroundStyle(.white)
+                        .fontWeight(.thin)
                 }
             })
             .sheet(item: $currentUser) { user in
@@ -38,24 +39,28 @@ struct RequestThumb: View {
                     Spacer()
                     HStack {
                         Text(request.content)
-                            .foregroundStyle(.black)
+                            .foregroundStyle(.white)
                             .lineLimit(1)
                         Spacer()
                     }
                     .padding()
-                    .background(.orange.opacity(0.6))
+                    .background(.blue.opacity(0.6))
                     .cornerRadius(8)
                 }
               
                 
                 HStack {
                     Button {
-                        vm.acceptRequest(request: request)
+                        vm.currentRequest = request
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+                            vm.showDrodown = true
+                            vm.offset = 0
+                        })
                     } label: {
                         Image(systemName: "message.fill")
-                            .foregroundStyle(.green)
+                            .foregroundStyle(.blue)
                             .padding()
-                            .background(.green.opacity(0.2))
+                            .background(.blue.opacity(0.2))
                             .clipShape(Circle())
                     }
                     
@@ -65,10 +70,10 @@ struct RequestThumb: View {
                         vm.removeRequest(request: request)
                     } label: {
                         HStack {
-                            Image(systemName: "trash.fill")
-                                .foregroundStyle(.orange)
+                            Image(systemName: "trash.circle.fill")
+                                .foregroundStyle(.red)
                                 .padding()
-                                .background(.orange.opacity(0.2))
+                                .background(.red.opacity(0.2))
                                 .clipShape(Circle())
                            
                         }
@@ -99,5 +104,5 @@ struct RequestThumb: View {
 }
 
 #Preview {
-    RequestThumb(request: Request.demo, vm: RequestViewModel())
+    RequestThumb(request: Request.demo, vm: ConnectionsVM())
 }

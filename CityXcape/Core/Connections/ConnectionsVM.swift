@@ -10,17 +10,21 @@ import SwiftUI
 
 
 @Observable
-final class RequestViewModel: Sendable {
+final class ConnectionsVM: Sendable {
     
     var requests: [Request] = [Request.demo, Request.demo2]
     var requestImage: String = ""
+    var currentRequest: Request?
+    
     
     var message: String = ""
     var showMatch: Bool = false
+    var isSent: Bool = false
+    var showDrodown: Bool = false
     
     var showError: Bool = false
     var errorMessage: String = ""
-    
+    var offset: CGFloat = -900
     var showMessage: Bool = false
 
     
@@ -30,8 +34,7 @@ final class RequestViewModel: Sendable {
             case .success(let newRequest):
                 self.requests = newRequest
             case .failure(let error):
-                self.errorMessage = error.localizedDescription
-                self.showError.toggle()
+                print("Error finding request", error.localizedDescription)
             }
         }
     }
@@ -71,15 +74,26 @@ final class RequestViewModel: Sendable {
         }
     }
     
-    func acceptRequest(request: Request) {
-        requestImage = request.imageUrl
+    func acceptRequest(request: Request?) {
+        guard let request = request else {return}
+        if message.isEmpty {
+            errorMessage = "Please respond to \(request.username)"
+            showError.toggle()
+            return
+        }
         Task {
             do {
                 try await DataService.shared.acceptRequest(content: message, request: request)
-                showMatch = true
-                if let index = requests.firstIndex(of: request) {
-                    requests.remove(at: index)
-                }
+                isSent = true
+                message = ""
+                SoundManager.shared.playBeep()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                    self.offset = -900
+                    self.showDrodown = false
+                    if let index = self.requests.firstIndex(of: request) {
+                        self.requests.remove(at: index)
+                    }
+                })
             } catch {
                 errorMessage = error.localizedDescription
                 showError.toggle()

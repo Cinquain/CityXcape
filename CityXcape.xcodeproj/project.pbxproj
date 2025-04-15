@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		21005EC62C9B81C30033D674 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21005EC52C9B81C30033D674 /* ChatViewModel.swift */; };
 		210A04412C61939800CA1078 /* Stc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210A04402C61939800CA1078 /* Stc.swift */; };
+		210D3C6F2DAE74C800F9D5D2 /* ResponseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210D3C6E2DAE74C800F9D5D2 /* ResponseView.swift */; };
 		210DA00C2C5BBCC100913890 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 210DA00B2C5BBCC100913890 /* SDWebImageSwiftUI */; };
 		210DA00F2C5BBD4000913890 /* Stamp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 210DA00E2C5BBD4000913890 /* Stamp.mp3 */; };
 		211090FC2CC18963006F83B3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211090FB2CC18963006F83B3 /* StoreKit.framework */; };
@@ -17,7 +18,7 @@
 		212E5E0B2CE42F60001BC98B /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E5E0A2CE42F60001BC98B /* LocationViewModel.swift */; };
 		216F72A92CAC88A30040B8AC /* StreetIDCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216F72A82CAC88A30040B8AC /* StreetIDCard.swift */; };
 		217134E52CFCF27E00FD684F /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 217134E42CFCF27E00FD684F /* FirebaseCore */; };
-		21C635392C77B58800D15DB2 /* RequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C635382C77B58800D15DB2 /* RequestView.swift */; };
+		21C635392C77B58800D15DB2 /* ConnectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C635382C77B58800D15DB2 /* ConnectionsView.swift */; };
 		21C896512CDBAE2400F148D0 /* StreePassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C896502CDBAE2400F148D0 /* StreePassViewModel.swift */; };
 		21C896532CDBAF3800F148D0 /* SPBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C896522CDBAF3800F148D0 /* SPBackground.swift */; };
 		21CF8D842C5E6B92006339A9 /* PostalStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF8D832C5E6B92006339A9 /* PostalStamp.swift */; };
@@ -55,7 +56,7 @@
 		21DE09092C8893B500A2D526 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DE09082C8893B500A2D526 /* ImageManager.swift */; };
 		21DE576A2CE9145200466C6A /* HexBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DE57692CE9145200466C6A /* HexBackground.swift */; };
 		21E366252DA7D22D002BFE02 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E366242DA7D22D002BFE02 /* HomeViewModel.swift */; };
-		21E366292DA7D487002BFE02 /* RequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E366282DA7D487002BFE02 /* RequestViewModel.swift */; };
+		21E366292DA7D487002BFE02 /* ConnectionsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E366282DA7D487002BFE02 /* ConnectionsVM.swift */; };
 		21E3662B2DA7DF89002BFE02 /* PublicSPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E3662A2DA7DF89002BFE02 /* PublicSPViewModel.swift */; };
 		21E487152C862889005ADB06 /* StampPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E487142C862889005ADB06 /* StampPage.swift */; };
 		21E487172C867778005ADB06 /* PassPortReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E487162C867778005ADB06 /* PassPortReceipt.swift */; };
@@ -107,13 +108,14 @@
 /* Begin PBXFileReference section */
 		21005EC52C9B81C30033D674 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		210A04402C61939800CA1078 /* Stc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stc.swift; sourceTree = "<group>"; };
+		210D3C6E2DAE74C800F9D5D2 /* ResponseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseView.swift; sourceTree = "<group>"; };
 		210DA00E2C5BBD4000913890 /* Stamp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Stamp.mp3; sourceTree = "<group>"; };
 		211090FB2CC18963006F83B3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		211090FD2CC18A74006F83B3 /* Store.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Store.storekit; sourceTree = "<group>"; };
 		211090FF2CC18D81006F83B3 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		212E5E0A2CE42F60001BC98B /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		216F72A82CAC88A30040B8AC /* StreetIDCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetIDCard.swift; sourceTree = "<group>"; };
-		21C635382C77B58800D15DB2 /* RequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestView.swift; sourceTree = "<group>"; };
+		21C635382C77B58800D15DB2 /* ConnectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsView.swift; sourceTree = "<group>"; };
 		21C896502CDBAE2400F148D0 /* StreePassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreePassViewModel.swift; sourceTree = "<group>"; };
 		21C896522CDBAF3800F148D0 /* SPBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPBackground.swift; sourceTree = "<group>"; };
 		21CF8D832C5E6B92006339A9 /* PostalStamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostalStamp.swift; sourceTree = "<group>"; };
@@ -151,7 +153,7 @@
 		21DE57692CE9145200466C6A /* HexBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexBackground.swift; sourceTree = "<group>"; };
 		21DF5C8F2C82620600449D96 /* CityXcape.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CityXcape.entitlements; sourceTree = "<group>"; };
 		21E366242DA7D22D002BFE02 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		21E366282DA7D487002BFE02 /* RequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestViewModel.swift; sourceTree = "<group>"; };
+		21E366282DA7D487002BFE02 /* ConnectionsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsVM.swift; sourceTree = "<group>"; };
 		21E3662A2DA7DF89002BFE02 /* PublicSPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicSPViewModel.swift; sourceTree = "<group>"; };
 		21E487142C862889005ADB06 /* StampPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampPage.swift; sourceTree = "<group>"; };
 		21E487162C867778005ADB06 /* PassPortReceipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassPortReceipt.swift; sourceTree = "<group>"; };
@@ -276,11 +278,12 @@
 		21DC252E2C6FD2040046FFB8 /* Connections */ = {
 			isa = PBXGroup;
 			children = (
-				21C635382C77B58800D15DB2 /* RequestView.swift */,
+				21C635382C77B58800D15DB2 /* ConnectionsView.swift */,
 				21D8C8442CEBAA19001B16CF /* RequestThumb.swift */,
 				21DCDECA2C71269600F5A468 /* MatchAnimation.swift */,
 				21DC252F2C6FD2200046FFB8 /* TimerViewModel.swift */,
-				21E366282DA7D487002BFE02 /* RequestViewModel.swift */,
+				21E366282DA7D487002BFE02 /* ConnectionsVM.swift */,
+				210D3C6E2DAE74C800F9D5D2 /* ResponseView.swift */,
 			);
 			path = Connections;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21D772E82C5D1741004BEF31 /* Particle.swift in Sources */,
+				210D3C6F2DAE74C800F9D5D2 /* ResponseView.swift in Sources */,
 				21F5C1052C990FA10078684E /* Chatroom.swift in Sources */,
 				21E50E8B2C6CE0B000FACFCB /* BuySTC.swift in Sources */,
 				21E487152C862889005ADB06 /* StampPage.swift in Sources */,
@@ -558,7 +562,7 @@
 				21ED14FD2D1333F7009D9215 /* AnalyticService.swift in Sources */,
 				210A04412C61939800CA1078 /* Stc.swift in Sources */,
 				21D772E62C5D1518004BEF31 /* CircleButton.swift in Sources */,
-				21C635392C77B58800D15DB2 /* RequestView.swift in Sources */,
+				21C635392C77B58800D15DB2 /* ConnectionsView.swift in Sources */,
 				21ED15002D13395D009D9215 /* NotificationManager.swift in Sources */,
 				21F5C0FF2C98D01D0078684E /* ChatBubble.swift in Sources */,
 				21D302912CA738B200111D6E /* CreateUsername.swift in Sources */,
@@ -601,7 +605,7 @@
 				21F91D8F2C63C1310024A991 /* Message.swift in Sources */,
 				21F91D8D2C63C0800024A991 /* Stamp.swift in Sources */,
 				21EC5AD02C5C2F9D00B88812 /* Helpers.swift in Sources */,
-				21E366292DA7D487002BFE02 /* RequestViewModel.swift in Sources */,
+				21E366292DA7D487002BFE02 /* ConnectionsVM.swift in Sources */,
 				21D1C5402CDD9A370045CE79 /* OnboardingHeader.swift in Sources */,
 				21F5C1012C98D4D80078684E /* ChatPreview.swift in Sources */,
 				21005EC62C9B81C30033D674 /* ChatViewModel.swift in Sources */,

@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct RequestView: View {
+struct ConnectionsView: View {
 
-    @State var vm = RequestViewModel()
+    @State var vm = ConnectionsVM()
     @Binding var index: Int
     
     
     var body: some View {
-        ZStack {
+        
             VStack {
                 header()
             
@@ -30,35 +30,33 @@ struct RequestView: View {
                             .background(.white)
                     }
                 }
+                .opacity(vm.showDrodown ? 0 : 1)
                 .refreshable {
                     vm.fetchPendingRequest()
                 }
                 
                 
             }
-            .opacity(vm.showMatch ? 0 : 1)
+            .opacity(vm.showDrodown ? 0 : 1)
+            .animation(.easeOut, value: vm.showDrodown)
             .background(HexBackground())
             .overlay(content: {
                 if vm.requests.isEmpty {
                     emptyState()
                 }
-            })
-          
-            
-            if vm.showMatch {
                 
-                MatchAnimation(vm: vm)
+                ResponseView(request: vm.currentRequest, vm: vm)
+                    .offset(y: vm.offset)
+                    .animation(.easeIn(duration: 0.3), value: vm.offset)
+                                    
+            })
+            .onAppear(perform: {
+                AnalyticService.shared.viewedRequest()
+                vm.startListeningForRequest()
+            })
+            .onDisappear {
+                vm.removeRequestListener()
             }
-            
-            //End of Zstack
-        }
-        .onAppear(perform: {
-            AnalyticService.shared.viewedRequest()
-        })
-        .onDisappear {
-            //Remive request listener
-            
-        }
         
         
         
@@ -141,5 +139,6 @@ struct RequestView: View {
 }
 
 #Preview {
-    HomeView()
+    @Previewable @State var value: Int = 0
+    ConnectionsView(vm: ConnectionsVM(), index: $value)
 }

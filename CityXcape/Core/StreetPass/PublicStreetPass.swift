@@ -96,7 +96,11 @@ struct PublicStreetPass: View {
     @ViewBuilder
     func matchPercentage() -> some View {
         VStack(spacing: 10) {
-            CircularProgressView(size: 100, thickness: 15, font: .callout, value: Int(vm.compare(user: user).2))
+            
+            if vm.compare(user: user).2 > 0 {
+                CircularProgressView(size: 100, thickness: 15, font: .callout, value: Int(vm.compare(user: user).2))
+            }
+            
             
             
             Button {

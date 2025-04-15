@@ -27,7 +27,7 @@ struct HomeView: View {
                         Text(Tab.locations.rawValue)
                     }
                 
-                RequestView(index: $index)
+                ConnectionsView(index: $index)
                     .tag(1)
                     .tabItem {
                         Image(Tab.connections.imageTitle)

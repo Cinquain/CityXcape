@@ -41,6 +41,7 @@ class ChatViewModel: ObservableObject {
     }
     
     func sendMessage(uid: String) async {
+        guard !message.isEmpty else {return}
         do {
             try await DataService.shared.sendMessage(userId: uid, content: message)
             self.message = ""

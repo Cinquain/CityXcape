@@ -56,8 +56,42 @@ struct Request: Identifiable, Codable, Equatable {
         }
         self.worlds = fetchedworlds
     }
-  
-    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extension Request {
     static let demo = Request(id: "abc123", username: "Allison", imageUrl: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FNwE1WVJY83RcQw4tttAkZ0Vg53Y2%2FprofileImage?alt=media&token=f1a4fd4d-f255-46a3-9d9a-89e7500b9cd1", content: "Hello handsome, want to buy me a drink", spotId: "fihohhg",  worlds: [World.demo3, World.demo, World.demo5])
     
     static let demo2 = Request(id: "abc1dldkkfn23", username: "Allan", imageUrl: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FJAv8CbZcZDUKNQx0PeGusp8cINC2%2FprofileImage?alt=media&token=eb587fbc-3461-4060-b6fb-73c0d10b7749", content: "Come to my table", spotId: "abfuygugghgitiejf", worlds: [World.demo4, World.demo5, World.demo6])
@@ -65,8 +99,4 @@ struct Request: Identifiable, Codable, Equatable {
     static let demo3 = Request(id: "abc1dlduwuhdhsdhjhdskkfn23", username: "James", imageUrl: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FJAv8CbZcZDUKNQx0PeGusp8cINC2%2FprofileImage?alt=media&token=eb587fbc-3461-4060-b6fb-73c0d10b7749", content: "dfbfjgjjgggggg", spotId: "fhjfjfjgggj", worlds: [World.demo, World.demo2, World.demo3])
     
     
-   
-    
-    
-
 }

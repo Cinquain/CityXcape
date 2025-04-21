@@ -35,17 +35,13 @@ struct StampView: View {
     @ViewBuilder
     func timestamp() -> some View {
         VStack(alignment: .center, spacing: 0) {
+           
+            
             Text(name)
-                .font(.caption)
-                .fontWeight(.medium)
+                .font(.title)
+                .fontWeight(.light)
             
-            Text(date.formattedDate())
-                .font(.title3)
-                .fontWeight(.medium)
-            
-            Text(date.timeFormatter())
-                .font(.caption)
-                .fontWeight(.medium)
+           
         }
         .foregroundColor(.red)
         .rotationEffect(Angle(degrees: -32))

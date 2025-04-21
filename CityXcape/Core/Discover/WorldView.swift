@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct RapSheet: View {
+struct WorldView: View {
     
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
@@ -21,14 +21,14 @@ struct RapSheet: View {
                 HStack {
                     Spacer()
                    
-                    Text("\(user.username)'s Rap Sheet")
+                    Text("\(user.username)'s World")
                         .font(.title2)
                         .foregroundStyle(.white)
                         .fontWeight(.thin)
                         .alert(isPresented: $showError) {
                             return Alert(title: Text(errorMessage))
                         }
-                    Image("files")
+                    Image("honeycomb")
                         .resizable()
                         .scaledToFit()
                         .frame(height: 22)
@@ -73,13 +73,11 @@ struct RapSheet: View {
             ZStack(alignment: .top) {
                 Color.black
 
-                Image("Great Seal")
+                Image("honeycombwave")
                     .resizable()
-                    .scaledToFit()
-                    .frame(height: 300)
-                    .opacity(0.12)
-                    .rotationEffect(Angle(degrees: -45))
-                    .padding(.top, 10)
+                    .scaledToFill()
+                    .opacity(0.5)
+                  
                 
                 
             }
@@ -118,5 +116,5 @@ struct RapSheet: View {
  
 
 #Preview {
-    RapSheet(user: User.demo)
+    WorldView(user: User.demo)
 }

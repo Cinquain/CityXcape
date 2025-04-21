@@ -42,6 +42,39 @@ struct Message: Identifiable, Codable {
         self.date = timestamp.dateValue()
     }
     
+  
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extension Message {
     static let data: [String: Any] = [
         Message.CodingKeys.id.rawValue: "ekjhuhshksfhf",
         Message.CodingKeys.fromId.rawValue: "kdhhfhfdoijofj",
@@ -64,5 +97,4 @@ struct Message: Identifiable, Codable {
     
     static let demo = Message(data: data)
     static let demoII = Message(data: dataII)
-    
 }

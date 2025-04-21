@@ -35,7 +35,7 @@ struct HomeView: View {
                             .scaledToFit()
                         Text(Tab.connections.rawValue)
                     }
-                    .badge(vm.requests.count)
+                    .badge(vm.reqCount)
                 
                 MessagesView()
                     .tag(2)

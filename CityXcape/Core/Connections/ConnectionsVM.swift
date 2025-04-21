@@ -12,7 +12,7 @@ import SwiftUI
 @Observable
 final class ConnectionsVM: Sendable {
     
-    var requests: [Request] = [Request.demo, Request.demo2]
+    var requests: [Request] = []
     var requestImage: String = ""
     var currentRequest: Request?
     
@@ -99,6 +99,12 @@ final class ConnectionsVM: Sendable {
                 showError.toggle()
             }
         }
+    }
+    
+    func returnOverlay() {
+        offset = -900
+        showDrodown = false
+        message = ""
     }
     
     func loadUserStreetPass(request: Request) async throws -> User {

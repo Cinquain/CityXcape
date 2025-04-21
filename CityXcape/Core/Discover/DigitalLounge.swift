@@ -37,7 +37,7 @@ struct DigitalLounge: View {
     func header() -> some View {
         VStack {
             HStack(spacing: 2) {
-                Image("dot person")
+                Image(CXStrings.dotPerson)
                     .resizable()
                     .scaledToFit()
                     .frame(height: 35)
@@ -67,10 +67,10 @@ struct DigitalLounge: View {
         VStack {
             Spacer()
             SelfieBubble(size: 200, url: vm.user?.imageUrl ?? "", pulse: 2)
-            Text("First One Here!")
+            Text(CXStrings.firstOne)
                 .font(.title)
             
-            Text("Please wait for more \n people to check in")
+            Text(CXStrings.waitMessage)
                 .font(.title2)
                 .multilineTextAlignment(.center)
                 
@@ -111,7 +111,7 @@ struct DigitalLounge: View {
                     
                     VStack(alignment: .center) {
                     
-                        Text("View StreetPass")
+                        Text(CXStrings.viewSP)
                             .font(.callout)
                             .fontWeight(.light)
                             .foregroundStyle(.black)
@@ -151,7 +151,7 @@ struct DigitalLounge: View {
                 Image(systemName: "bell.badge.fill")
                     .font(.title)
                     .foregroundStyle(.white)
-                Text("Check Out")
+                Text(CXStrings.checkout)
                     .foregroundStyle(.white)
                     .fontWeight(.thin)
             }
@@ -163,7 +163,7 @@ struct DigitalLounge: View {
         ZStack {
             Color.black
             
-            Image("chrome honey")
+            Image(CXStrings.loungeBackground)
                 .resizable()
                 .scaledToFill()
                 .opacity(0.3)

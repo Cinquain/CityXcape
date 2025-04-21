@@ -15,7 +15,7 @@ struct HexBackground: View {
                 Image("hex-background")
                     .resizable()
                     .scaledToFill()
-                    .opacity(0.3)
+                    .opacity(0.5)
                   
             }
             .edgesIgnoringSafeArea(.all)

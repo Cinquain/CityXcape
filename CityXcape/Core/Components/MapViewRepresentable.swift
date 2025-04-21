@@ -2,8 +2,11 @@
 //  MapViewRepresentable.swift
 //  CityXcape
 //
-//  Created by James Allan on 9/27/24.
+//  Created by James Allan on 4/18/25.
 //
+
+import Foundation
+
 
 import UIKit
 import MapKit

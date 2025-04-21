@@ -51,6 +51,38 @@ struct Stamp: Identifiable, Equatable, Codable {
         self.city = data[Stamp.CodingKeys.city.rawValue] as? String ?? ""
     }
     
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extension Stamp {
     static let data: [String: Any] = [
         Stamp.CodingKeys.id.rawValue : "dkjfjgjgjkojojg",
         Stamp.CodingKeys.spotName.rawValue: "Graffiti Pier",

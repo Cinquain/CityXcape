@@ -10,9 +10,7 @@ import SwiftUI
 
 
 
-enum Names: String {
-    case STREETPASS
-}
+
 
 struct CXUserDefaults {
     static let uid = "uid"
@@ -25,6 +23,23 @@ struct CXUserDefaults {
     static let lastSpotId = "lastSpotId"
     static let lastSpotName = "lastSpotName"
     static let fcmToken = "fcmToken"
+}
+
+
+struct CXStrings {
+    static let dotPerson = "dot person"
+    static let streetpass = "StreetPass"
+    static let firstOne = "First One Here!"
+    static let viewSP = "View Streetpass"
+    static let waitMessage = "Please wait for more \n people to check in"
+    static let loungeBackground = "chrome honey"
+    static let checkin = "Check-In"
+    static let checkout = "Check Out"
+    static let scanQrCode = "Scan QR Code"
+    static let privacyLink = "https://cityxcape.com/privacy_policy"
+    static let termsLink = "https://cityxcape.com/terms.html"
+    static let terms = "Terms & Conditions"
+    static let privacy = "Privacy Policy"
 }
 
 struct Server {

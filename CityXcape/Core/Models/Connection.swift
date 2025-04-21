@@ -9,7 +9,7 @@ import Foundation
 
 
 
-struct Connection: Identifiable {
+struct Connection: Identifiable, Codable {
     let id: String
     let user1Id: String
     let user2Id: String

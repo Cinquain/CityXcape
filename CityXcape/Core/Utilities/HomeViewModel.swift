@@ -16,7 +16,7 @@ final class HomeViewModel {
     var messages: [Message] = []
     var requests: [Request] = []
     var count: Int = 0
-    
+    var reqCount: Int = 0
     var errorMessage: String = ""
     var showError: Bool = false
     
@@ -31,9 +31,9 @@ final class HomeViewModel {
             switch result {
             case .success(let newRequest):
                 self.requests = newRequest
+                self.reqCount = self.requests.count
             case .failure(let error):
-                self.errorMessage = error.localizedDescription
-                self.showError.toggle()
+                print("Error listening for request", error.localizedDescription)
             }
         }
     }

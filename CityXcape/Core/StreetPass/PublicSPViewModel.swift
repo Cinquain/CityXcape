@@ -14,7 +14,7 @@ final class PublicSPViewModel: Sendable {
 
     
     var user: User?
-    var showRapSheet: Bool = false
+    var showWorlds: Bool = false
     var isSent: Bool = false
     
     var message: String = ""

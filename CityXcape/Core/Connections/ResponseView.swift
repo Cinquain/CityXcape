@@ -53,7 +53,11 @@ struct ResponseView: View {
     @ViewBuilder
     func submitButtons() -> some View {
         VStack(spacing: 10) {
-            TextField("Write an answer", text: $vm.message)
+            TextField("", text: $vm.message)
+                .foregroundStyle(.black)
+                .placeholder(when: vm.message.isEmpty, placeholder: {
+                    Text("Write an answer").foregroundStyle(.gray)
+                })
                 .padding()
                 .background(.white)
                 .frame(width: 250, height: 40)
@@ -77,8 +81,7 @@ struct ResponseView: View {
                 }
                 
                 Button {
-                    vm.offset = -900
-                    vm.showDrodown = false
+                    vm.returnOverlay()
                 } label: {
                     Image(systemName: "arrow.uturn.backward.circle.fill")
                         .font(.system(size: 35))

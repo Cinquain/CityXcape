@@ -41,6 +41,31 @@ struct UserRank: Identifiable, Equatable, Codable {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//MARK: STATIC DATA
 extension UserRank {
     static let demo = UserRank(id: "BRjH3puxwIZueyIqvlEn", username: "Jay", imageUrl: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FBRjH3puxwIZueyIqvlEn%2FJay.png?alt=media&token=7e0fec7d-9e99-4c1e-a8d6-e1303482f43e", totalSales: 8570, totalSpots: 5)
     

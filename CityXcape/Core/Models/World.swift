@@ -41,6 +41,32 @@ struct World: Identifiable, Equatable, Codable {
         self.memberName = data[World.CodingKeys.memberName.rawValue] as? String ?? ""
     }
     
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extension World {
+    
+    
     static let data: [String: Any] = [
         World.CodingKeys.id.rawValue: "Z16DY5JPhBbIq15bG2LK",
         World.CodingKeys.name.rawValue: "Tech",

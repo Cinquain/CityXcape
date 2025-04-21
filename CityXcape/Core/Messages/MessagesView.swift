@@ -20,6 +20,7 @@ struct MessagesView: View {
                     ForEach(vm.recents) { message in
                        
                         Button {
+                            vm.messages = []
                             currentMessage = message
                         } label: {
                             ChatPreview(message: message)

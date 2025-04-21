@@ -64,7 +64,7 @@ struct PublicStreetPass: View {
                     .font(.caption)
                     .fontWeight(.thin)
                     .tracking(4)
-                Text(Names.STREETPASS.rawValue)
+                Text(CXStrings.streetpass)
                     .font(.system(size: 24))
                     .fontWeight(.thin)
                     .foregroundStyle(.white)
@@ -91,6 +91,8 @@ struct PublicStreetPass: View {
             .foregroundStyle(.white)
             .fontWeight(.thin)
             .padding(.top, -5)
+            .opacity(vm.showWorlds ? 0 : 1)
+            .animation(.easeIn, value: vm.showWorlds)
     }
     
     @ViewBuilder
@@ -104,19 +106,30 @@ struct PublicStreetPass: View {
             
             
             Button {
-                vm.showRapSheet.toggle()
+                vm.showWorlds.toggle()
             } label: {
-                Text("View Rap Sheet")
-                    .foregroundStyle(.white)
-                    .padding()
-                    .font(.callout)
-                    .background(.black.opacity(0.8))
-                    .fontWeight(.light)
-                    .clipShape(Capsule())
-                    .sheet(isPresented: $vm.showRapSheet) {
-                        RapSheet(user: user)
-                            .presentationDetents([.height(330)])
-                    }
+                
+                HStack(spacing: 4) {
+                    
+                    
+                    Text("Social Circle")
+                        .foregroundStyle(.orange)
+                        .font(.callout)
+                        .fontWeight(.thin)
+                    
+                    Image("honeycomb")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 15)
+                       
+                }
+                .frame(width: 150, height: 50)
+                .background(Color.black.opacity(0.9))
+                .clipShape(Capsule())
+                .sheet(isPresented: $vm.showWorlds) {
+                    WorldView(user: user)
+                        .presentationDetents([.height(330)])
+                }
             }
         }
         .padding(.top, 50)

@@ -47,7 +47,7 @@ struct StreetPass: View {
                         return Alert(title: Text(vm.errorMessage))
                     })
                 
-                Text(Names.STREETPASS.rawValue)
+                Text(CXStrings.streetpass)
                     .font(.system(size: 24))
                     .fontWeight(.thin)
                     .tracking(4)
@@ -68,15 +68,15 @@ struct StreetPass: View {
             Menu{
                 
                 Button {
-                    vm.openCustomUrl(link: "https://cityxcape.com/privacy_policy")
+                    vm.openCustomUrl(link: CXStrings.privacyLink)
                                 } label: {
-                                    Label("Privacy Policy", systemImage: "hand.raised.circle.fill")
+                                    Label(CXStrings.privacy, systemImage: "hand.raised.circle.fill")
                                 }
                                 
                 Button {
-                    vm.openCustomUrl(link: "https://cityxcape.com/terms.html")
+                    vm.openCustomUrl(link: CXStrings.termsLink)
                 } label: {
-                    Label("Terms & Conditions", systemImage: "doc.text.magnifyingglass")
+                    Label(CXStrings.terms, systemImage: "doc.text.magnifyingglass")
                 }
 
                 

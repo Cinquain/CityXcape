@@ -11,7 +11,6 @@ import CodeScanner
 struct Discover: View {
     @AppStorage(CXUserDefaults.uid) var uid: String?
     @State private var startOnboarding: Bool = false
-    @State private var scannedText: String = "Scan QR Code"
     @State private var startScanner: Bool = false
     
     @StateObject var vm = LocationViewModel()
@@ -100,7 +99,7 @@ struct Discover: View {
         }, label: {
             HStack {
                 Image(systemName: "bell.badge.fill")
-                Text("Check-In")
+                Text(CXStrings.checkin)
                     .font(.title3)
                     .fontWeight(.thin)
             }
@@ -153,13 +152,13 @@ struct Discover: View {
                 }
               
             
-            Text(scannedText)
+            Text(CXStrings.scanQrCode)
                 .font(.title3)
                 .foregroundStyle(.white)
                 .fontWeight(.thin)
                 .alert(isPresented: $vm.showError, content: {
                     if vm.showOnboarding {
-                        return Alert(title: Text("You need an account to check-in"), primaryButton: .default(Text("Get One")){
+                        return Alert(title: Text("You need a profile to check-in"), primaryButton: .default(Text("Get One")){
                             startOnboarding = true
                         } , secondaryButton: .cancel())
                     } else {

@@ -12,7 +12,7 @@ struct ScavengerHunt: View {
     @Environment(\.dismiss) private var dismiss
 
     var spot: Location
-    @StateObject var vm: LocationViewModel
+    @StateObject var vm: CheckinViewModel
 
     @State private var showStamp: Bool = false
     @State private var showPreview: Bool = false
@@ -139,5 +139,5 @@ struct ScavengerHunt: View {
 }
 
 #Preview {
-    ScavengerHunt(spot: Location.demo, vm: LocationViewModel())
+    ScavengerHunt(spot: Location.demo, vm: CheckinViewModel())
 }

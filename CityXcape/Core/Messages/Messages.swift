@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MessagesView: View {
+struct Messages: View {
     
     @StateObject var vm = ChatViewModel()
     @State var currentMessage : Message?
@@ -90,5 +90,5 @@ struct MessagesView: View {
 }
 
 #Preview {
-    MessagesView(vm: ChatViewModel())
+    Messages(vm: ChatViewModel())
 }

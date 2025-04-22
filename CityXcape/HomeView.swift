@@ -19,15 +19,16 @@ struct HomeView: View {
     
             TabView(selection: $index) {
                 
-                Discover()
+                Checkin()
                     .tag(0)
                     .tabItem {
-                        Image(Tab.locations.imageTitle)
+                        Image(systemName: Tab.checkin.imageTitle)
                             .renderingMode(.template)
-                        Text(Tab.locations.rawValue)
+                            .scaledToFit()
+                        Text(Tab.checkin.rawValue)
                     }
                 
-                ConnectionsView(index: $index)
+                Connections(index: $index)
                     .tag(1)
                     .tabItem {
                         Image(Tab.connections.imageTitle)
@@ -37,7 +38,7 @@ struct HomeView: View {
                     }
                     .badge(vm.reqCount)
                 
-                MessagesView()
+                Messages()
                     .tag(2)
                     .tabItem {
                         Image(systemName: Tab.messages.imageTitle)

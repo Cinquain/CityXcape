@@ -125,7 +125,7 @@ struct PublicStreetPass: View {
                 .background(Color.black.opacity(0.9))
                 .clipShape(Capsule())
                 .sheet(isPresented: $vm.showWorlds) {
-                    WorldView(user: user)
+                    SocialWorld(user: user)
                         .presentationDetents([.height(330)])
                 }
             }

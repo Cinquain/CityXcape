@@ -12,7 +12,7 @@ import PhotosUI
 struct PassPortReceipt: View {
     
     var spot: Location
-    @StateObject var vm: LocationViewModel
+    @StateObject var vm: CheckinViewModel
     
     @State private var message: String = ""
     @State private var showSeal: Bool = false
@@ -147,5 +147,5 @@ struct PassPortReceipt: View {
 }
 
 #Preview {
-    PassPortReceipt(spot: Location.demo, vm: LocationViewModel())
+    PassPortReceipt(spot: Location.demo, vm: CheckinViewModel())
 }

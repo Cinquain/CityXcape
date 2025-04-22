@@ -8,12 +8,12 @@
 import SwiftUI
 import CodeScanner
 
-struct Discover: View {
+struct Checkin: View {
     @AppStorage(CXUserDefaults.uid) var uid: String?
     @State private var startOnboarding: Bool = false
     @State private var startScanner: Bool = false
     
-    @StateObject var vm = LocationViewModel()
+    @StateObject var vm = CheckinViewModel()
     
     var body: some View {
         ZStack {
@@ -170,5 +170,5 @@ struct Discover: View {
 }
 
 #Preview {
-    Discover()
+    Checkin()
 }

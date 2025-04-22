@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ConnectionsView: View {
+struct Connections: View {
 
     @State var vm = ConnectionsVM()
     @Binding var index: Int
@@ -140,5 +140,5 @@ struct ConnectionsView: View {
 
 #Preview {
     @Previewable @State var value: Int = 0
-    ConnectionsView(vm: ConnectionsVM(), index: $value)
+    Connections(vm: ConnectionsVM(), index: $value)
 }

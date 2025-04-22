@@ -13,7 +13,7 @@ struct DigitalLounge: View {
     @Environment(\.dismiss) private var dismiss
     
     var spot: Location
-    @StateObject var vm: LocationViewModel
+    @StateObject var vm: CheckinViewModel
  
     
     var body: some View {
@@ -96,44 +96,55 @@ struct DigitalLounge: View {
     @ViewBuilder
     func userRow(user: User) -> some View {
         
-            Button(action: {
-                vm.currentUser = user
-            }, label: {
-                HStack(spacing: 30) {
-                    VStack(spacing: 2) {
-                        UserBubble(size: 100, url: user.imageUrl, pulse: 1)
-                        Text(user.username)
-                            .foregroundStyle(.white)
-                            .fontWeight(.light)
-                            .font(.title3)
-                    }
-                    .padding(.top, 3)
-                    
-                    VStack(alignment: .center) {
-                    
-                        Text(CXStrings.viewSP)
-                            .font(.callout)
-                            .fontWeight(.light)
-                            .foregroundStyle(.black)
-                            .frame(width: 140, height: 30)
-                            .background(.orange.opacity(0.8))
-                            .clipShape(Capsule())
-                        Spacer()
-                            .frame(height: 35)
-                            
-                        Divider()
-                            .background(.white)
-                            .frame(height: 0.3)
-                    }
+        HStack(spacing: 30) {
+       
+            VStack(spacing: 2) {
+                
+                Button(action: {
+                    vm.currentUser = user
+                }, label: {
+                    UserBubble(size: 100, url: user.imageUrl, pulse: 1)
+                })
+                
+                Text(user.username)
                     .foregroundStyle(.white)
+                    .fontWeight(.light)
+                    .font(.title3)
+            }
+            .padding(.top, 3)
 
-                  
-                    
-                    Spacer()
+           
+            
+            VStack(alignment: .center) {
+            
+                Button {
+                    vm.currentUser = user
+                } label: {
+                    Text(CXStrings.viewSP)
+                        .font(.callout)
+                        .fontWeight(.light)
+                        .foregroundStyle(.black)
+                        .frame(width: 150, height: 35)
+                        .background(.orange.opacity(0.8))
+                        .clipShape(Capsule())
                 }
-                .padding(.horizontal, 10)
 
-            })
+               
+                Spacer()
+                    .frame(height: 25)
+                    
+                Divider()
+                    .background(.white)
+                    .frame(height: 0.3)
+            }
+            .foregroundStyle(.white)
+
+          
+            
+            Spacer()
+        }
+        .padding(.horizontal, 10)
+
         
     }
     
@@ -176,5 +187,5 @@ struct DigitalLounge: View {
 }
 
 #Preview {
-    DigitalLounge(spot: Location.demo, vm: LocationViewModel())
+    DigitalLounge(spot: Location.demo, vm: CheckinViewModel())
 }

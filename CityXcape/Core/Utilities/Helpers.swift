@@ -65,15 +65,15 @@ struct Server {
 }
 
 enum Tab: String, CaseIterable {
-    case locations = "Check-In"
+    case checkin = "Check-In"
     case profile = "StreetPass"
     case connections = "Connections"
     case messages = "Messages"
     
     var imageTitle: String {
         switch self {
-        case .locations:
-            return "Checkin"
+        case .checkin:
+            return "qrcode.viewfinder"
         case .connections:
             return "hexagons-3"
         case .profile:

@@ -15,10 +15,10 @@
 		211090FC2CC18963006F83B3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211090FB2CC18963006F83B3 /* StoreKit.framework */; };
 		211090FE2CC18A74006F83B3 /* Store.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 211090FD2CC18A74006F83B3 /* Store.storekit */; };
 		211091002CC18D81006F83B3 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211090FF2CC18D81006F83B3 /* Store.swift */; };
-		212E5E0B2CE42F60001BC98B /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E5E0A2CE42F60001BC98B /* LocationViewModel.swift */; };
+		212E5E0B2CE42F60001BC98B /* CheckinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E5E0A2CE42F60001BC98B /* CheckinViewModel.swift */; };
 		216F72A92CAC88A30040B8AC /* StreetIDCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216F72A82CAC88A30040B8AC /* StreetIDCard.swift */; };
 		217134E52CFCF27E00FD684F /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 217134E42CFCF27E00FD684F /* FirebaseCore */; };
-		21C635392C77B58800D15DB2 /* ConnectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C635382C77B58800D15DB2 /* ConnectionsView.swift */; };
+		21C635392C77B58800D15DB2 /* Connections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C635382C77B58800D15DB2 /* Connections.swift */; };
 		21C896512CDBAE2400F148D0 /* StreePassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C896502CDBAE2400F148D0 /* StreePassViewModel.swift */; };
 		21C896532CDBAF3800F148D0 /* SPBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C896522CDBAF3800F148D0 /* SPBackground.swift */; };
 		21CF8D842C5E6B92006339A9 /* PostalStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CF8D832C5E6B92006339A9 /* PostalStamp.swift */; };
@@ -75,14 +75,14 @@
 		21ED15022D136F3D009D9215 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED15012D136F3D009D9215 /* NotificationView.swift */; };
 		21ED577D2C9A11B70029505B /* ScavengerHunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED577C2C9A11B70029505B /* ScavengerHunt.swift */; };
 		21F010392CC865AD00651C36 /* Apple.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 21F010382CC865AD00651C36 /* Apple.mp3 */; };
-		21F57FF32D6558B30008FF74 /* WorldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F57FF22D6558B30008FF74 /* WorldView.swift */; };
+		21F57FF32D6558B30008FF74 /* SocialWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F57FF22D6558B30008FF74 /* SocialWorld.swift */; };
 		21F5C0FF2C98D01D0078684E /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5C0FE2C98D01D0078684E /* ChatBubble.swift */; };
 		21F5C1012C98D4D80078684E /* ChatPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5C1002C98D4D80078684E /* ChatPreview.swift */; };
-		21F5C1032C990AAE0078684E /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5C1022C990AAE0078684E /* MessagesView.swift */; };
+		21F5C1032C990AAE0078684E /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5C1022C990AAE0078684E /* Messages.swift */; };
 		21F5C1052C990FA10078684E /* Chatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5C1042C990FA10078684E /* Chatroom.swift */; };
 		21F5CBE22DB2B3ED00681768 /* MapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F5CBE12DB2B3ED00681768 /* MapViewRepresentable.swift */; };
 		21F91D822C63A0200024A991 /* SpotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F91D812C63A0200024A991 /* SpotView.swift */; };
-		21F91D852C63A87D0024A991 /* Discover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F91D842C63A87D0024A991 /* Discover.swift */; };
+		21F91D852C63A87D0024A991 /* Checkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F91D842C63A87D0024A991 /* Checkin.swift */; };
 		21F91D872C63BB270024A991 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F91D862C63BB270024A991 /* User.swift */; };
 		21F91D892C63BD3C0024A991 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F91D882C63BD3C0024A991 /* Location.swift */; };
 		21F91D8B2C63BF660024A991 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F91D8A2C63BF660024A991 /* World.swift */; };
@@ -113,9 +113,9 @@
 		211090FB2CC18963006F83B3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		211090FD2CC18A74006F83B3 /* Store.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Store.storekit; sourceTree = "<group>"; };
 		211090FF2CC18D81006F83B3 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
-		212E5E0A2CE42F60001BC98B /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		212E5E0A2CE42F60001BC98B /* CheckinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinViewModel.swift; sourceTree = "<group>"; };
 		216F72A82CAC88A30040B8AC /* StreetIDCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetIDCard.swift; sourceTree = "<group>"; };
-		21C635382C77B58800D15DB2 /* ConnectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsView.swift; sourceTree = "<group>"; };
+		21C635382C77B58800D15DB2 /* Connections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connections.swift; sourceTree = "<group>"; };
 		21C896502CDBAE2400F148D0 /* StreePassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreePassViewModel.swift; sourceTree = "<group>"; };
 		21C896522CDBAF3800F148D0 /* SPBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPBackground.swift; sourceTree = "<group>"; };
 		21CF8D832C5E6B92006339A9 /* PostalStamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostalStamp.swift; sourceTree = "<group>"; };
@@ -171,14 +171,14 @@
 		21ED15012D136F3D009D9215 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		21ED577C2C9A11B70029505B /* ScavengerHunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScavengerHunt.swift; sourceTree = "<group>"; };
 		21F010382CC865AD00651C36 /* Apple.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Apple.mp3; sourceTree = "<group>"; };
-		21F57FF22D6558B30008FF74 /* WorldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldView.swift; sourceTree = "<group>"; };
+		21F57FF22D6558B30008FF74 /* SocialWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialWorld.swift; sourceTree = "<group>"; };
 		21F5C0FE2C98D01D0078684E /* ChatBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubble.swift; sourceTree = "<group>"; };
 		21F5C1002C98D4D80078684E /* ChatPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPreview.swift; sourceTree = "<group>"; };
-		21F5C1022C990AAE0078684E /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
+		21F5C1022C990AAE0078684E /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		21F5C1042C990FA10078684E /* Chatroom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chatroom.swift; sourceTree = "<group>"; };
 		21F5CBE12DB2B3ED00681768 /* MapViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewRepresentable.swift; sourceTree = "<group>"; };
 		21F91D812C63A0200024A991 /* SpotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotView.swift; sourceTree = "<group>"; };
-		21F91D842C63A87D0024A991 /* Discover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Discover.swift; sourceTree = "<group>"; };
+		21F91D842C63A87D0024A991 /* Checkin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkin.swift; sourceTree = "<group>"; };
 		21F91D862C63BB270024A991 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		21F91D882C63BD3C0024A991 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		21F91D8A2C63BF660024A991 /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
@@ -270,7 +270,7 @@
 		21DC252E2C6FD2040046FFB8 /* Connections */ = {
 			isa = PBXGroup;
 			children = (
-				21C635382C77B58800D15DB2 /* ConnectionsView.swift */,
+				21C635382C77B58800D15DB2 /* Connections.swift */,
 				21D8C8442CEBAA19001B16CF /* RequestThumb.swift */,
 				21DCDECA2C71269600F5A468 /* MatchAnimation.swift */,
 				21DC252F2C6FD2200046FFB8 /* TimerViewModel.swift */,
@@ -307,24 +307,23 @@
 			children = (
 				21F5C0FE2C98D01D0078684E /* ChatBubble.swift */,
 				21F5C1002C98D4D80078684E /* ChatPreview.swift */,
-				21F5C1022C990AAE0078684E /* MessagesView.swift */,
+				21F5C1022C990AAE0078684E /* Messages.swift */,
 				21F5C1042C990FA10078684E /* Chatroom.swift */,
 				21005EC52C9B81C30033D674 /* ChatViewModel.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
 		};
-		21F91D832C63A8610024A991 /* Discover */ = {
+		21F91D832C63A8610024A991 /* Checkin */ = {
 			isa = PBXGroup;
 			children = (
-				21F91D842C63A87D0024A991 /* Discover.swift */,
+				21F91D842C63A87D0024A991 /* Checkin.swift */,
 				21DA45C52C6A41B200A16832 /* DigitalLounge.swift */,
-				212E5E0A2CE42F60001BC98B /* LocationViewModel.swift */,
+				212E5E0A2CE42F60001BC98B /* CheckinViewModel.swift */,
 				21ED577C2C9A11B70029505B /* ScavengerHunt.swift */,
 				21E487162C867778005ADB06 /* PassPortReceipt.swift */,
-				21F57FF22D6558B30008FF74 /* WorldView.swift */,
 			);
-			path = Discover;
+			path = Checkin;
 			sourceTree = "<group>";
 		};
 		21FC27D42C7CB3310055CDCF /* Firebase */ = {
@@ -385,7 +384,7 @@
 				21F5C0FD2C98D0050078684E /* Messages */,
 				21FC27D42C7CB3310055CDCF /* Firebase */,
 				21DC252E2C6FD2040046FFB8 /* Connections */,
-				21F91D832C63A8610024A991 /* Discover */,
+				21F91D832C63A8610024A991 /* Checkin */,
 				210A043B2C61515100CA1078 /* Authentication */,
 				21CF8D852C5E7062006339A9 /* StreetPass */,
 				21ED14FE2D133901009D9215 /* Services */,
@@ -417,6 +416,7 @@
 			isa = PBXGroup;
 			children = (
 				21D983C02C6640EE003FC4A6 /* LaunchView.swift */,
+				21F57FF22D6558B30008FF74 /* SocialWorld.swift */,
 				21EC5AD52C5C3CDC00B88812 /* PinView.swift */,
 				210A04402C61939800CA1078 /* Stc.swift */,
 				21EC5ADB2C5C440A00B88812 /* BubbleAnimation.swift */,
@@ -549,13 +549,13 @@
 				21CF8D842C5E6B92006339A9 /* PostalStamp.swift in Sources */,
 				21D772EC2C5D27F0004BEF31 /* StreetPass.swift in Sources */,
 				21D240AC2C6EEBE50054D048 /* Request.swift in Sources */,
-				21F91D852C63A87D0024A991 /* Discover.swift in Sources */,
+				21F91D852C63A87D0024A991 /* Checkin.swift in Sources */,
 				21FC27D62C7CB3C80055CDCF /* AuthService.swift in Sources */,
 				21DCDEC92C70E21800F5A468 /* Connection.swift in Sources */,
 				21ED14FD2D1333F7009D9215 /* AnalyticService.swift in Sources */,
 				210A04412C61939800CA1078 /* Stc.swift in Sources */,
 				21D772E62C5D1518004BEF31 /* CircleButton.swift in Sources */,
-				21C635392C77B58800D15DB2 /* ConnectionsView.swift in Sources */,
+				21C635392C77B58800D15DB2 /* Connections.swift in Sources */,
 				21ED15002D13395D009D9215 /* NotificationManager.swift in Sources */,
 				21F5C0FF2C98D01D0078684E /* ChatBubble.swift in Sources */,
 				21D302912CA738B200111D6E /* CreateUsername.swift in Sources */,
@@ -570,7 +570,7 @@
 				21CF8D872C5E7081006339A9 /* PassportPage.swift in Sources */,
 				21DA798F2D7CFE830087E339 /* Leaderboard.swift in Sources */,
 				21F91D822C63A0200024A991 /* SpotView.swift in Sources */,
-				21F57FF32D6558B30008FF74 /* WorldView.swift in Sources */,
+				21F57FF32D6558B30008FF74 /* SocialWorld.swift in Sources */,
 				21DE09092C8893B500A2D526 /* ImageManager.swift in Sources */,
 				21EC5AD82C5C3FD600B88812 /* StampView.swift in Sources */,
 				21FC27D82C7CB9680055CDCF /* DataService.swift in Sources */,
@@ -586,7 +586,7 @@
 				21FCE5972C5AD4B7006A86CE /* CityXcapeApp.swift in Sources */,
 				21EC5ADC2C5C440A00B88812 /* BubbleAnimation.swift in Sources */,
 				21E366252DA7D22D002BFE02 /* HomeViewModel.swift in Sources */,
-				21F5C1032C990AAE0078684E /* MessagesView.swift in Sources */,
+				21F5C1032C990AAE0078684E /* Messages.swift in Sources */,
 				21D6E1C92CA894FD00ED9918 /* FindCityView.swift in Sources */,
 				21EC5AD42C5C3BBE00B88812 /* UserBubble.swift in Sources */,
 				21D302932CA7430900111D6E /* UploadImageView.swift in Sources */,
@@ -612,7 +612,7 @@
 				21DA79832D7CF05E0087E339 /* UserRank.swift in Sources */,
 				21E487172C867778005ADB06 /* PassPortReceipt.swift in Sources */,
 				21F91D8B2C63BF660024A991 /* World.swift in Sources */,
-				212E5E0B2CE42F60001BC98B /* LocationViewModel.swift in Sources */,
+				212E5E0B2CE42F60001BC98B /* CheckinViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

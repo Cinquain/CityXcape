@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct WorldView: View {
+struct SocialWorld: View {
     
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
@@ -116,5 +116,5 @@ struct WorldView: View {
  
 
 #Preview {
-    WorldView(user: User.demo)
+    SocialWorld(user: User.demo)
 }

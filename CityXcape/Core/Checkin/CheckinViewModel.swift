@@ -10,7 +10,7 @@ import SwiftUI
 import PhotosUI
 
 @MainActor
-final class LocationViewModel: ObservableObject {
+final class CheckinViewModel: ObservableObject {
     
     @Published var selectedImage: PhotosPickerItem? {
         didSet {
@@ -102,7 +102,7 @@ final class LocationViewModel: ObservableObject {
 
 
 //MARK: SCAVENGER HUNT FUNCTIONALITIES
-extension LocationViewModel {
+extension CheckinViewModel {
     
     fileprivate func uploadStampImage(item: PhotosPickerItem?) async {
         guard let item = item else {return}

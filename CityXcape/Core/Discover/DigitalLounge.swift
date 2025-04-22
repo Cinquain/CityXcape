@@ -118,9 +118,8 @@ struct DigitalLounge: View {
                             .frame(width: 140, height: 30)
                             .background(.orange.opacity(0.8))
                             .clipShape(Capsule())
-                        
-                        Text(vm.compare(user: user).1)
-                            .fontWeight(.medium)
+                        Spacer()
+                            .frame(height: 35)
                             
                         Divider()
                             .background(.white)

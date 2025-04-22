@@ -84,7 +84,7 @@ struct PublicStreetPass: View {
     
     @ViewBuilder
     func userView() -> some View {
-        UserBubble(size: 320, url: user.imageUrl, pulse: 1.3)
+        UserBubble(size: 300, url: user.imageUrl, pulse: 1.3)
         
         Text(user.username)
             .font(.title)
@@ -97,14 +97,12 @@ struct PublicStreetPass: View {
     
     @ViewBuilder
     func matchPercentage() -> some View {
-        VStack(spacing: 10) {
-            
-            if vm.compare(user: user).2 > 0 {
-                CircularProgressView(size: 100, thickness: 15, font: .callout, value: Int(vm.compare(user: user).2))
-            }
+        VStack(spacing: 20) {
             
             
+            CircularProgressView(size: 100, thickness: 15, font: .callout, value: Int(vm.compare(user: user).2))
             
+                        
             Button {
                 vm.showWorlds.toggle()
             } label: {
@@ -112,7 +110,7 @@ struct PublicStreetPass: View {
                 HStack(spacing: 4) {
                     
                     
-                    Text("Social Circle")
+                    Text("Social World")
                         .foregroundStyle(.orange)
                         .font(.callout)
                         .fontWeight(.thin)
@@ -168,7 +166,7 @@ struct PublicStreetPass: View {
             Button(action: {
                 vm.checkForStreetCred(uid: user.id)
             }, label: {
-                (Text(vm.showTextField ? "Send Request" : "CONNECT ") + Text(Image(systemName: "powerplug.fill")))
+                (Text(vm.showTextField ? "Send Request" : "CONNECT ") + Text(Image(systemName: "message.fill")))
                     .font(.callout)
                     .fontWeight(.light)
                     .foregroundStyle(.black)

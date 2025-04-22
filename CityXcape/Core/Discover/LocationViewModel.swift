@@ -32,7 +32,7 @@ final class LocationViewModel: ObservableObject {
     @Published var huntSpot: Location?
     @Published var socialHubSpot: Location?
     
-    @Published var users: [User] = []
+    @Published var users: [User] = [User.demo, User.demo2, User.demo3]
     @Published var currentUser: User?
     @Published var user: User?
     @Published var spot: Location?
@@ -90,39 +90,8 @@ final class LocationViewModel: ObservableObject {
     
     
     
-    func loadUserStreetPass(request: Request) async throws -> User {
-        if let user = users.first(where: {$0.id == request.id}) {
-            print("Found user from checkins")
-            return user
-        } else {
-            let user = try await DataService.shared.getUserFrom(uid: request.id)
-            return user
-        }
-    }
     
-    func compare(user: User) -> (String, String, Double) {
-        var result: String = "View \(user.username)'s Rap Sheet"
-        var percentage: String = "0% Match"
-        let total: Double = 3
-        guard let selfUser = self.user else {return (result, percentage, 0) }
-        var count: Double = 0
-        for world in user.worlds {
-            if selfUser.worlds.contains(world) {
-                count += 1
-            }
-        }
-        if count == 0 {return (result, percentage, 0)}
-        
-        result = count > 1 ? "You and \(user.username) have \n \(count.clean) Worlds in Common"
-                         : "You and \(user.username) have \n \(count.clean) World in Common"
-        
-        let percent: Double = (count / total) * 100
-        if percent == 100 {
-            result = "You and \(user.username) \n should connect "
-        }
-        percentage = "\(percent.clean)% Match"
-        return (result, percentage, percent)
-    }
+    
     
     
    

@@ -111,4 +111,6 @@ final class ConnectionsVM: Sendable {
         let user = try await DataService.shared.getUserFrom(uid: request.id)
         return user
     }
+    
+ 
 }

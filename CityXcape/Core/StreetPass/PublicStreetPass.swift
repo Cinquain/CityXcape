@@ -87,11 +87,10 @@ struct PublicStreetPass: View {
         UserBubble(size: 300, url: user.imageUrl, pulse: 1.3)
         
         Text(user.username)
-            .font(.title)
+            .font(.title2)
             .foregroundStyle(.white)
             .fontWeight(.thin)
             .padding(.top, -5)
-            .opacity(vm.showWorlds ? 0 : 1)
             .animation(.easeIn, value: vm.showWorlds)
     }
     
@@ -99,9 +98,10 @@ struct PublicStreetPass: View {
     func matchPercentage() -> some View {
         VStack(spacing: 20) {
             
-            
-            CircularProgressView(size: 100, thickness: 15, font: .callout, value: Int(vm.compare(user: user).2))
-            
+            if vm.compare(user: user).2 > 0 {
+                CircularProgressView(size: 100, thickness: 15, font: .callout, value: Int(vm.compare(user: user).2))
+            }
+           
                         
             Button {
                 vm.showWorlds.toggle()
@@ -110,9 +110,9 @@ struct PublicStreetPass: View {
                 HStack(spacing: 4) {
                     
                     
-                    Text("Social World")
+                    Text("\(user.username)'s World")
                         .foregroundStyle(.orange)
-                        .font(.callout)
+                        .font(.title3)
                         .fontWeight(.thin)
                     
                     Image("honeycomb")
@@ -121,7 +121,7 @@ struct PublicStreetPass: View {
                         .frame(height: 15)
                        
                 }
-                .frame(width: 150, height: 50)
+                .frame(width: 180, height: 55)
                 .background(Color.black.opacity(0.9))
                 .clipShape(Capsule())
                 .sheet(isPresented: $vm.showWorlds) {

@@ -90,7 +90,7 @@ extension User {
     static let data: [String: Any] = [
         User.CodingKeys.id.rawValue: "PlMt3eOkyseQIG9VDct6",
         User.CodingKeys.username.rawValue: "Erica",
-        User.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FNwE1WVJY83RcQw4tttAkZ0Vg53Y2%2FprofileImage?alt=media&token=f1a4fd4d-f255-46a3-9d9a-89e7500b9cd1",
+        User.CodingKeys.imageUrl.rawValue: "le",
         User.CodingKeys.gender.rawValue: false,
         User.CodingKeys.city.rawValue: "Minneapolis",
         User.CodingKeys.fcmToken.rawValue: "",

@@ -35,7 +35,7 @@ struct CircularProgressView: View {
                     .frame(width: size, height: size)
                     .rotationEffect(.init(degrees: -90))
                 
-                Text("\(value)% \n Match")
+                Text("\(value)% \n World Match")
                     .foregroundStyle(fontColor)
                     .font(font)
                     .fontWeight(.thin)
@@ -77,7 +77,7 @@ struct CircularProgressView: View {
         Spacer()
         HStack {
             Spacer()
-            CircularProgressView(size: 250, thickness: 30, font: .title, value: 90)
+            CircularProgressView(size: 250, thickness: 30, font: .title, value: 50)
             Spacer()
         }
         Spacer()

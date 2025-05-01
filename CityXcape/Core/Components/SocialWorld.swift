@@ -21,7 +21,7 @@ struct SocialWorld: View {
                 HStack {
                     Spacer()
                    
-                    Text("\(user.username)'s World")
+                    Text("My World")
                         .font(.title2)
                         .foregroundStyle(.white)
                         .fontWeight(.thin)
@@ -76,7 +76,7 @@ struct SocialWorld: View {
                 Image("honeycombwave")
                     .resizable()
                     .scaledToFill()
-                    .opacity(0.5)
+                    .opacity(0.8)
                   
                 
                 
@@ -94,7 +94,7 @@ struct SocialWorld: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 55)
-                Text(world.name)
+                Text(world.memberName)
                     .font(.callout)
                     .foregroundStyle(.white)
                     .fontWeight(.thin)

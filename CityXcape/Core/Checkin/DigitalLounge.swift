@@ -176,7 +176,7 @@ struct DigitalLounge: View {
             Image(CXStrings.loungeBackground)
                 .resizable()
                 .scaledToFill()
-                .opacity(0.3)
+                .opacity(0.6)
         }
         .edgesIgnoringSafeArea(.all)
     }

@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import PhotosUI
+import Combine
 
 @MainActor
 final class CheckinViewModel: ObservableObject {
@@ -45,7 +46,16 @@ final class CheckinViewModel: ObservableObject {
     @Published var walletValue: Int = 0
     @Published var buySTC: Bool = false
     
+    private var cancellables = Set<AnyCancellable>()
     
+    init() {
+        let isCheckedIn: Bool? = UserDefaults.standard.bool(forKey: CXUserDefaults.isCheckedIn)
+        let spotId: String? = UserDefaults.standard.string(forKey: CXUserDefaults.lastSpotId)
+        if isCheckedIn == true {
+            fetchCheckedInUsers(spotId: spotId ?? "")
+            showLounge = true
+        }
+    }
     
     
     
@@ -64,12 +74,14 @@ final class CheckinViewModel: ObservableObject {
     func checkin(spotId: String) async throws -> Location {
         let currentspot = try await DataService.shared.getSpotFrom(id: spotId)
         UserDefaults.standard.setValue(currentspot.id, forKey: CXUserDefaults.lastSpotId)
+        
         fetchCheckedInUsers(spotId: spotId)
         let user = try await DataService.shared.getUserCredentials()
         self.user = User(id: user.id, username: user.username, imageUrl: user.imageUrl, gender: user.gender, city: user.city, streetcred: user.streetcred, worlds: user.worlds, fcmToken: user.fcmToken)
         self.spot = currentspot
         try await DataService.shared.checkin(spotId: spotId, user: self.user!)
         AnalyticService.shared.checkedIn()
+        listenForCheckOut()
         return currentspot
     }
     
@@ -84,8 +96,14 @@ final class CheckinViewModel: ObservableObject {
     
     func checkout(_ spotId: String) async throws {
         try await DataService.shared.checkout(spotId: spotId)
-        NotificationManager.shared.cancelNotification()
         UserDefaults.standard.removeObject(forKey: CXUserDefaults.lastSpotId)
+    }
+    
+    func listenForCheckOut() {
+        DataService.shared.$isCheckedIn
+            .receive(on: RunLoop.main)
+            .assign(to: \.showLounge, on: self)
+            .store(in: &cancellables)
     }
     
     

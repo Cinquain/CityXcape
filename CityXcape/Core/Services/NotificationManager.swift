@@ -57,22 +57,6 @@ final class NotificationManager: ObservableObject {
         
     }
     
-    func scheduleTimeNotification(spot: Location) {
-        let content = UNMutableNotificationContent()
-        content.title = "Are you still at \(spot.name)?"
-        content.subtitle = "Please check out if you have left"
-        content.sound = .default
-        content.badge = 1
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 7200, repeats: false)
-        
-        let request = UNNotificationRequest(
-            identifier: UUID().uuidString,
-            content: content,
-            trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request)
-    }
     
     
     func cancelNotification() {

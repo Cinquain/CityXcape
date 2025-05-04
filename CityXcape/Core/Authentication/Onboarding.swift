@@ -12,7 +12,7 @@ struct Onboarding: View {
 
     @State private var showPicker: Bool = false
     @State private var index = 0
-    @StateObject var vm = UploadViewModel()
+    @StateObject var vm = AuthViewModel()
     var body: some View {
         TabView(selection: $index) {
             

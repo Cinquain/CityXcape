@@ -12,7 +12,7 @@ import PhotosUI
 struct StreetIDCard: View {
     @Environment(\.dismiss) private var dismiss
 
-    @StateObject var vm: UploadViewModel
+    @StateObject var vm: AuthViewModel
     @State private var errorMessage: String = ""
     @State private var showError: Bool = false
     
@@ -159,5 +159,5 @@ struct StreetIDCard: View {
 }
 
 #Preview {
-    StreetIDCard(vm: UploadViewModel())
+    StreetIDCard(vm: AuthViewModel())
 }

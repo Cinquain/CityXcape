@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import FirebaseFirestore
 struct Chatroom: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -79,7 +79,7 @@ struct Chatroom: View {
         ScrollView {
             ScrollViewReader { proxy in
                 
-                ForEach(vm.messages.sorted(by: {$0.date < $1.date})) {
+                ForEach(vm.messages.sorted(by: {$0.date.dateValue() < $1.date.dateValue()})) {
                     ChatBubble(message: $0)
                 }
                 

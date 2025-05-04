@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UploadImageView: View {
-    @StateObject var vm: UploadViewModel
+    @StateObject var vm: AuthViewModel
     @Binding var index: Int
     @State private var isDone: Bool = false
     

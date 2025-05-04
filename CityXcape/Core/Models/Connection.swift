@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 
 
@@ -14,5 +15,5 @@ struct Connection: Identifiable, Codable {
     let user1Id: String
     let user2Id: String
     let spotId: String
-    let timestamp: Date
+    let timestamp: Timestamp
 }

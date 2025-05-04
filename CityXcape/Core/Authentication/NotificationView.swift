@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NotificationView: View {
     
-    @StateObject var vm: UploadViewModel
+    @StateObject var vm: AuthViewModel
     @StateObject var manager = NotificationManager.shared
     @State private var errorMessage: String = ""
     @State private var showError: Bool = false
@@ -23,10 +23,12 @@ struct NotificationView: View {
                 .frame(height: 200)
             
             VStack {
-                Image(systemName: "antenna.radiowaves.left.and.right")
-                    .foregroundStyle(.white)
-                    .font(.system(size: 70))
-                Text("Get Notified when a user \n sends a messgae")
+                Image("notifications")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 80)
+                
+                Text("Get Notified when a guest \n sends you a messgae")
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
                 

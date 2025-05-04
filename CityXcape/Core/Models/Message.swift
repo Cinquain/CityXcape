@@ -17,7 +17,7 @@ struct Message: Identifiable, Codable {
     let imageUrl: String
     let username: String
     let read: Bool
-    let date: Date
+    let date: Timestamp
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -37,9 +37,8 @@ struct Message: Identifiable, Codable {
         self.content = data[Message.CodingKeys.content.rawValue] as? String ?? ""
         self.imageUrl = data[Message.CodingKeys.imageUrl.rawValue] as? String ?? ""
         self.username = data[Message.CodingKeys.username.rawValue] as? String ?? ""
-        let timestamp = data[Message.CodingKeys.date.rawValue] as? Timestamp ?? Timestamp()
+        self.date = data[Message.CodingKeys.date.rawValue] as? Timestamp ?? Timestamp()
         self.read = data[Message.CodingKeys.read.rawValue] as? Bool ?? false
-        self.date = timestamp.dateValue()
     }
     
   

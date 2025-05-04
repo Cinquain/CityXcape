@@ -23,6 +23,7 @@ struct CXUserDefaults {
     static let lastSpotId = "lastSpotId"
     static let lastSpotName = "lastSpotName"
     static let fcmToken = "fcmToken"
+    static let isCheckedIn = "isCheckedIn"
 }
 
 
@@ -56,6 +57,7 @@ struct Server {
     static let timestamp = "timestamp"
     static let fcmToken = "fcmToken"
     static let uploads = "uploads"
+    static let expiresAt = "expiresAt"
     static let members = "members"
     static let userId = "userId"
     static let sale = "sale"

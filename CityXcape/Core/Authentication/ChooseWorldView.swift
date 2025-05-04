@@ -11,7 +11,7 @@ import SDWebImageSwiftUI
 struct ChooseWorldView: View {
 
     @State private var isDone: Bool = false
-    @StateObject var vm: UploadViewModel
+    @StateObject var vm: AuthViewModel
     @Binding var index: Int
     @State private var searchText: String = ""
     var body: some View {
@@ -162,5 +162,5 @@ struct ChooseWorldView: View {
 
 #Preview {
   @Previewable @State var value: Int = 0
-    ChooseWorldView(vm: UploadViewModel(), index: $value)
+    ChooseWorldView(vm: AuthViewModel(), index: $value)
 }

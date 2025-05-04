@@ -11,7 +11,7 @@ import SwiftUI
 
 
 @MainActor
-class UploadViewModel: ObservableObject {
+class AuthViewModel: ObservableObject {
     
     @AppStorage(CXUserDefaults.fcmToken) var fcmToken: String?
 

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CreateUsername: View {
     
-    @StateObject var vm: UploadViewModel
+    @StateObject var vm: AuthViewModel
     @Binding var index: Int
     @State var isDone : Bool = false
     

@@ -111,13 +111,7 @@ struct StreetPass: View {
                             .scaledToFit()
                             .colorInvert()
                         .frame(height: 65)
-                        Text(world.name)
-                            .foregroundStyle(.white)
-                            .fontWeight(.thin)
-                            .lineLimit(1)
-                            .font(.callout)
-                            .frame(width: 55)
-
+              
                     }
                 }
 

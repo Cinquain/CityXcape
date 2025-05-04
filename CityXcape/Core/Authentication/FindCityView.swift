@@ -10,7 +10,7 @@ import SwiftUI
 struct FindCityView: View {
     
     @Binding var index: Int
-    @StateObject var vm: UploadViewModel
+    @StateObject var vm: AuthViewModel
     var manager = LocationService.shared
     @State private var isDone: Bool = false
     @State private var errorMessage: String = ""

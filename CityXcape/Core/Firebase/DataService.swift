@@ -16,6 +16,7 @@ final class DataService {
     
     static let shared = DataService()
     private init() {}
+    @Published var isCheckedIn = true
     
     var usersBranch = DB.collection(Server.users)
     var locationsBranch = DB.collection(Server.locations)
@@ -199,12 +200,31 @@ final class DataService {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let reference = locationsBranch.document(spotId).collection(Server.checkins)
         try reference.document(uid).setData(from: user.self)
+        let expiresAt = Timestamp(date: Date().addingTimeInterval(1 * 60 * 60))
+        let timeData: [String: Any] = [
+            Server.expiresAt : expiresAt
+        ]
+        try await reference.document(uid).updateData(timeData)
+        listenToCheckOut(spotId: spotId, uid: uid)
         
         let count: Double = 1
         let data: [String: Any] = [
             Location.CodingKeys.checkinCount.rawValue: FieldValue.increment(count)
         ]
+        UserDefaults.standard.set(true, forKey: CXUserDefaults.isCheckedIn)
         try await locationsBranch.document(spotId).updateData(data)
+    }
+    
+    func listenToCheckOut(spotId: String, uid: String) {
+        let reference = locationsBranch
+            .document(spotId)
+            .collection(Server.checkins)
+            .document(uid)
+        
+        reference.addSnapshotListener { snapshot, error in
+            self.isCheckedIn = snapshot?.exists ?? false
+        }
+        
     }
     
     func checkout(spotId: String) async throws  {

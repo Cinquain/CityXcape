@@ -98,10 +98,10 @@ struct Checkin: View {
           handleCheckin()
         }, label: {
             HStack {
-                Image(systemName: "bell.badge.fill")
+                Image(systemName: "qrcode")
                 Text(CXStrings.checkin)
                     .font(.title3)
-                    .fontWeight(.thin)
+                    .fontWeight(.light)
             }
             .foregroundStyle(.black)
             .frame(width: 200, height: 40)

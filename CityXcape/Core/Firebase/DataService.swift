@@ -132,22 +132,35 @@ final class DataService {
         reference.updateData(data)
     }
     
+    func saveUserWorlds(worlds: [World]) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        var values: [String: [String: Any]] = [:]
+        let value: Double = 1
+        let reference = usersBranch.document(uid)
+        for world in worlds {
+            values[world.id] = [
+                World.CodingKeys.id.rawValue: world.id,
+                World.CodingKeys.name.rawValue: world.name,
+                World.CodingKeys.memberName.rawValue: world.memberName,
+                World.CodingKeys.imageUrl.rawValue: world.imageUrl,
+            ]
+           
+            try await saveMemberToWorld(worldId: world.id)
+        }
+        
+        let data: [String: Any] = [
+            User.CodingKeys.worlds.rawValue: values,
+            User.CodingKeys.streetcred.rawValue: FieldValue.increment(value)
+        ]
+        try await reference.updateData(data)
+    }
+    
     
     func deleteUser() async throws {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         try await usersBranch.document(uid).delete()
-        
-        //Sign out
         try await Auth.auth().currentUser?.delete()
         try AuthService.shared.signOut()
-        
-        //Removing user defaults
-        UserDefaults.standard.removeObject(forKey: CXUserDefaults.uid)
-        UserDefaults.standard.removeObject(forKey: CXUserDefaults.profileUrl)
-        UserDefaults.standard.removeObject(forKey: CXUserDefaults.createdSP)
-        UserDefaults.standard.removeObject(forKey: CXUserDefaults.firstOpen)
-        UserDefaults.standard.removeObject(forKey: CXUserDefaults.username)
-        UserDefaults.standard.removeObject(forKey: CXUserDefaults.lastSpotId)
     }
     
     
@@ -200,7 +213,7 @@ final class DataService {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let reference = locationsBranch.document(spotId).collection(Server.checkins)
         try reference.document(uid).setData(from: user.self)
-        let expiresAt = Timestamp(date: Date().addingTimeInterval(1 * 60 * 60))
+        let expiresAt = Timestamp(date: Date().addingTimeInterval(2 * 60 * 60))
         let timeData: [String: Any] = [
             Server.expiresAt : expiresAt
         ]
@@ -223,6 +236,7 @@ final class DataService {
         
         reference.addSnapshotListener { snapshot, error in
             self.isCheckedIn = snapshot?.exists ?? false
+            UserDefaults.standard.removeObject(forKey: CXUserDefaults.lastSpotId)
         }
         
     }
@@ -275,7 +289,6 @@ final class DataService {
         reference.setData(locationRecord)
         
         //Update Scoutstats
-        updateScoutSales(spot: spot, count: count, price: price)
         AnalyticService.shared.purchasedSTC()
     }
     
@@ -291,10 +304,7 @@ final class DataService {
             Location.CodingKeys.totalSales.rawValue: FieldValue.increment(price)
         ]
         
-        let updateScoutSales: [String: Any] = [
-            UserRank.CodingKeys.totalSales.rawValue: FieldValue.increment(scoutSale)
-        ]
-        
+       
         let locationRecord: [String: Any] = [
             User.CodingKeys.id.rawValue: locationReference.documentID,
             Server.userId: uid,
@@ -306,37 +316,12 @@ final class DataService {
             Server.timestamp: FieldValue.serverTimestamp()
         ]
         locationsBranch.document(spot.id).updateData(updateLocationSales)
-        salesBranch.document(spot.ownerId).updateData(updateScoutSales)
         scoutReference.setData(locationRecord)
         locationReference.setData(locationRecord)
         
     }
     
-    func updateScoutSales(spot: Location, count: Int, price: Double) {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        
-        let scoutSale: Double = price * 0.20
-        let reference = salesBranch.document(spot.ownerId)
-        let salesreference = reference.collection(spot.id).document()
-        
-        let updateRecord: [String: Any] = [
-            UserRank.CodingKeys.totalSales.rawValue: FieldValue.increment(scoutSale)
-        ]
-        
-        let scoutRecord: [String: Any] = [
-            User.CodingKeys.id.rawValue: salesreference.documentID,
-            Server.userId: uid,
-            User.CodingKeys.username.rawValue: username ?? "",
-            User.CodingKeys.imageUrl.rawValue: profileUrl ?? "",
-            User.CodingKeys.streetcred.rawValue: count,
-            Server.commission: scoutSale,
-            Server.sale: price,
-            Server.timestamp: FieldValue.serverTimestamp()
-        ]
-        
-        reference.updateData(updateRecord)
-        salesreference.setData(scoutRecord)
-    }
+  
     
     
     
@@ -376,29 +361,6 @@ final class DataService {
         let reference = worldBranch.document(id)
         let world = try await reference.getDocument(as: World.self)
         return world
-    }
-    
-    func saveUserWorlds(worlds: [World]) async throws {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        var values: [String: [String: Any]] = [:]
-        let value: Double = 1
-        let reference = usersBranch.document(uid)
-        for world in worlds {
-            values[world.id] = [
-                World.CodingKeys.id.rawValue: world.id,
-                World.CodingKeys.name.rawValue: world.name,
-                World.CodingKeys.memberName.rawValue: world.memberName,
-                World.CodingKeys.imageUrl.rawValue: world.imageUrl,
-            ]
-           
-            try await saveMemberToWorld(worldId: world.id)
-        }
-        
-        let data: [String: Any] = [
-            User.CodingKeys.worlds.rawValue: values,
-            User.CodingKeys.streetcred.rawValue: FieldValue.increment(value)
-        ]
-        try await reference.updateData(data)
     }
     
     func deleteWorld(worldId: String) async throws {
@@ -753,40 +715,6 @@ final class DataService {
         try await reference.updateData(data)
     }
     
-    //MARK: ANALYTICS FUNCTIONS
-    
-    func fetchLeaderBoard() async throws -> [UserRank] {
-        var users: [UserRank] = []
-        let reference = try await salesBranch.getDocuments()
-        
-        try reference.documents.forEach { document in
-            let user = try document.data(as: UserRank.self)
-            users.append(user)
-        }
-        return users
-    }
-    
-    
-    func fetchScoutAnalytics() async throws -> [Location] {
-        guard let uid = Auth.auth().currentUser?.uid else {return []}
-        var ids: [String] = []
-        var locations: [Location] = []
-        let reference = usersBranch.document(uid).collection(Server.uploads)
-        let documents = try await reference.getDocuments()
-        
-        documents.documents.forEach { document in
-            let spotId = document.documentID
-            ids.append(spotId)
-            print(ids)
-        }
-        
-        for id in ids {
-            let location = try await getSpotFrom(id: id)
-            locations.append(location)
-            print(location)
-        }
-        
-        return locations
-    }
+   
     
 }

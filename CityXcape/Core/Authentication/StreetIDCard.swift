@@ -51,26 +51,17 @@ struct StreetIDCard: View {
     
     @ViewBuilder
     func header() -> some View {
+        Spacer()
+            .frame(height: 100)
         HStack {
-            VStack(alignment: .leading) {
-                Text(vm.city)
-                    .font(.caption)
-                    .fontWeight(.thin)
-                    .foregroundStyle(.white)
-                    .tracking(4)
-                
-                Text("STREETPASS")
-                    .font(.system(size: 24))
-                    .fontWeight(.thin)
-                    .tracking(4)
-                    .opacity(0.7)
-                
-            }
-            .foregroundStyle(.white)
             Spacer()
-            
+            Text("Welcome to CityXcape")
+                .foregroundStyle(.white)
+                .fontWeight(.thin)
+                .font(.title2)
+            Spacer()
         }
-        .padding(.horizontal, 20)
+
     }
     
     @ViewBuilder
@@ -82,7 +73,7 @@ struct StreetIDCard: View {
                 guard vm.checkAllFields() else {return}
                 dismiss()
             } label: {
-                Text("Create StreetPass")
+                Text("Create Account")
                     .fontWeight(.thin)
                     .font(.title3)
                     .foregroundStyle(.white)
@@ -129,21 +120,19 @@ struct StreetIDCard: View {
                         url: vm.imageUrl,
                     pulse: 1.2)
             })
-            
-            
+                    
             VStack {
                 Text(vm.username)
-                    .font(.title)
-                .fontWeight(.thin)
+                    .font(.title2)
+                    .fontWeight(.thin)
+                    .foregroundStyle(.white)
                 
-                Text("5 StreetCred")
+                Text("3 StreetCred")
                     .fontWeight(.thin)
                     .font(.callout)
-
+                    .foregroundStyle(.white)
+                    .padding(.top, 10)
             }
-            .foregroundStyle(.white)
-
-            
           
         }
     }

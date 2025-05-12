@@ -49,12 +49,7 @@ final class CheckinViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        let isCheckedIn: Bool? = UserDefaults.standard.bool(forKey: CXUserDefaults.isCheckedIn)
-        let spotId: String? = UserDefaults.standard.string(forKey: CXUserDefaults.lastSpotId)
-        if isCheckedIn == true {
-            fetchCheckedInUsers(spotId: spotId ?? "")
-            showLounge = true
-        }
+       
     }
     
     
@@ -68,6 +63,15 @@ final class CheckinViewModel: ObservableObject {
                 self.errorMessage = error.localizedDescription
                 self.showError.toggle()
             }
+        }
+    }
+    
+    func checkIfStillCheckedIn() {
+        let isCheckedIn: Bool? = UserDefaults.standard.bool(forKey: CXUserDefaults.isCheckedIn)
+        let spotId: String? = UserDefaults.standard.string(forKey: CXUserDefaults.lastSpotId)
+        if isCheckedIn == true {
+            fetchCheckedInUsers(spotId: spotId ?? "")
+            showLounge = true
         }
     }
     

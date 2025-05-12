@@ -29,6 +29,9 @@ struct DigitalLounge: View {
                 emptyState()
             }
         }
+        .onAppear {
+            vm.checkIfStillCheckedIn()
+        }
      
      
     }

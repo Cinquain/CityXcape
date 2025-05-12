@@ -19,7 +19,6 @@ struct StreetPass: View {
             userView()
             worldList()
             passport()
-            showStats()
             Spacer()
             if vm.user == nil {
                 getSPButton()
@@ -181,34 +180,7 @@ struct StreetPass: View {
 
     }
     
-    @ViewBuilder
-    func showStats() -> some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Button(action: {
-                vm.fetchAnalytics()
-            }, label: {
-                HStack {
-                    Image(systemName: "chart.xyaxis.line")
-                        .font(.title2)
-                    
-                    Text("Analytics")
-                        .font(.title)
-                        .fontWeight(.thin)
-                    
-                }
-                .foregroundStyle(.white)
-            })
-            .fullScreenCover(isPresented: $vm.showStats) {
-                StreetReportCard(vm: vm)
-            }
-           
-            
-           
-        }
-        .padding(.top, 5)
-        .opacity(vm.user != nil ? 1 : 0)
-
-    }
+  
     
    
     

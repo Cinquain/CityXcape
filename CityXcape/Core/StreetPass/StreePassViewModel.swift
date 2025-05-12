@@ -26,13 +26,10 @@ class StreetPassViewModel: ObservableObject {
     @Published var showError: Bool = false
     
     @Published var showPassport: Bool = false
-    @Published var showStats: Bool = false 
-    @Published var showRanks: Bool = false
     
     @Published var showPage: Bool = false
     @Published var showAuth: Bool = false
     @Published var showOnboarding: Bool = false
-    @Published var spotMetric: LocationMetrics = .Checkins
     
 
     @Published var buySTC: Bool = false
@@ -40,8 +37,6 @@ class StreetPassViewModel: ObservableObject {
     
     @Published var worlds: [World] = []
     @Published var stamps: [Stamp] = []
-    @Published var ranks: [UserRank] = []
-    @Published var uploads: [Location] = []
     
     
     func getUser() {
@@ -92,31 +87,7 @@ class StreetPassViewModel: ObservableObject {
     
     
     //MARK: ANALYTICS FUNCTIONS
-    
-    func getLeaderBoard() {
-        Task {
-            do {
-                self.ranks = try await DataService.shared.fetchLeaderBoard().sorted(by: {$0.totalSales > $1.totalSales})
-                self.showRanks.toggle()
-            } catch {
-                errorMessage = error.localizedDescription
-                showError.toggle()
-            }
-        }
-    }
-    
-    func fetchAnalytics() {
-        Task {
-            do {
-                self.uploads = try await DataService.shared.fetchScoutAnalytics()
-                showStats.toggle()
-            } catch {
-                errorMessage = error.localizedDescription
-                print(error.localizedDescription)
-                showError.toggle()
-            }
-        }
-    }
+   
     
 
     

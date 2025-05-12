@@ -34,12 +34,10 @@ final class AuthService: NSObject, ObservableObject {
     }
     
     func removeUserDefaults() {
-        UserDefaults.standard.removeObject(forKey: CXUserDefaults.uid)
-        UserDefaults.standard.removeObject(forKey: CXUserDefaults.profileUrl)
-        UserDefaults.standard.removeObject(forKey: CXUserDefaults.createdSP)
-        UserDefaults.standard.removeObject(forKey: CXUserDefaults.firstOpen)
-        UserDefaults.standard.removeObject(forKey: CXUserDefaults.username)
-        UserDefaults.standard.removeObject(forKey: CXUserDefaults.lastSpotId)
+        let defaults = UserDefaults.standard
+        for key in defaults.dictionaryRepresentation().keys {
+            defaults.removeObject(forKey: key)
+        }
     }
     
     func deleteUser() async throws {

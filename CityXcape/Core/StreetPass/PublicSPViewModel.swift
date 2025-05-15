@@ -132,7 +132,7 @@ final class PublicSPViewModel: ObservableObject {
                 if walletValue > 0 {
                     showTextField = true
                 } else {
-                    buySTC.toggle()
+                    buySTC = true
                     return
                 }
             } catch {

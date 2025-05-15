@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @EnvironmentObject var store: Store
     @State var index: Int = 0
     @EnvironmentObject var connectionVM: ConnectionsVM
     @EnvironmentObject var chatVM: ChatViewModel

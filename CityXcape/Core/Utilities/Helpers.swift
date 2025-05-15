@@ -102,7 +102,7 @@ struct swipeModifier: ViewModifier {
 }
 
 enum Product: String, CaseIterable, Identifiable {
-    case streetcred = "com.cityXcape.CityXcape8.streetcred"
+    case streetcred = "com.cityXcape.CityXcape8.streetcred3"
     case streetcred_15 = "com.cityXcape.CityXcape8.streetcred15"
     case streetcred_50 = "com.cityXcape.CityXcape8.streetcred50"
 

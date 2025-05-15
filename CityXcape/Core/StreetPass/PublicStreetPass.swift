@@ -12,7 +12,7 @@ import SDWebImageSwiftUI
 struct PublicStreetPass: View {
     
     @Environment(\.dismiss) private var dismiss
-    @State var vm = PublicSPViewModel()
+    @EnvironmentObject var vm: PublicSPViewModel
     
     @State var user: User
     var spot: Location?

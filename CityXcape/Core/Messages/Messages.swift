@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Messages: View {
     
-    @StateObject var vm = ChatViewModel()
+    @EnvironmentObject var vm: ChatViewModel
     @State var currentMessage : Message?
     
     var body: some View {
@@ -51,7 +51,6 @@ struct Messages: View {
     
     @ViewBuilder
     func header() -> some View {
-        VStack {
             HStack(spacing: 5) {
                 Spacer()
                 Image(systemName: "message.fill")
@@ -67,13 +66,8 @@ struct Messages: View {
                     .tracking(3)
                 Spacer()
             }
-            .background(.black)
-            
-            Divider()
-                .frame(height: 0.5)
-                .background(.white)
-                .padding(.horizontal)
-        }
+            .padding(.bottom, 10)
+         
     }
     
     @ViewBuilder
@@ -90,5 +84,6 @@ struct Messages: View {
 }
 
 #Preview {
-    Messages(vm: ChatViewModel())
+    Messages()
+        .environmentObject(ChatViewModel())
 }

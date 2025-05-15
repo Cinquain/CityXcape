@@ -9,23 +9,27 @@ import Foundation
 import SwiftUI
 
 
-@Observable
-final class ConnectionsVM: Sendable {
+
+final class ConnectionsVM: ObservableObject {
     
-    var requests: [Request] = []
-    var requestImage: String = ""
-    var currentRequest: Request?
+    @Published var requests: [Request] = []
+    @Published var requestImage: String = ""
+    @Published var currentRequest: Request?
+    @Published var count: Int = 0
     
+    @Published var message: String = ""
+    @Published var showMatch: Bool = false
+    @Published var isSent: Bool = false
+    @Published var showDrodown: Bool = false
     
-    var message: String = ""
-    var showMatch: Bool = false
-    var isSent: Bool = false
-    var showDrodown: Bool = false
+    @Published var showError: Bool = false
+    @Published var errorMessage: String = ""
+    @Published var offset: CGFloat = -900
+    @Published var showMessage: Bool = false
     
-    var showError: Bool = false
-    var errorMessage: String = ""
-    var offset: CGFloat = -900
-    var showMessage: Bool = false
+    init() {
+
+    }
 
     
     func startListeningForRequest() {
@@ -33,6 +37,7 @@ final class ConnectionsVM: Sendable {
             switch result {
             case .success(let newRequest):
                 self.requests = newRequest
+                self.count = newRequest.count
             case .failure(let error):
                 print("Error finding request", error.localizedDescription)
             }

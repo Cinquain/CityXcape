@@ -210,15 +210,14 @@ final class DataService {
     }
     
     func checkin(spotId: String, user: User) async throws {
-        guard let uid = Auth.auth().currentUser?.uid else {return}
         let reference = locationsBranch.document(spotId).collection(Server.checkins)
-        try reference.document(uid).setData(from: user.self)
+        print("User id is \(user.id)")
+        try reference.document(user.id).setData(from: user.self)
         let expiresAt = Timestamp(date: Date().addingTimeInterval(2 * 60 * 60))
         let timeData: [String: Any] = [
             Server.expiresAt : expiresAt
         ]
-        try await reference.document(uid).updateData(timeData)
-        listenToCheckOut(spotId: spotId, uid: uid)
+        try await reference.document(user.id).updateData(timeData)
         
         let count: Double = 1
         let data: [String: Any] = [
@@ -228,18 +227,7 @@ final class DataService {
         try await locationsBranch.document(spotId).updateData(data)
     }
     
-    func listenToCheckOut(spotId: String, uid: String) {
-        let reference = locationsBranch
-            .document(spotId)
-            .collection(Server.checkins)
-            .document(uid)
-        
-        reference.addSnapshotListener { snapshot, error in
-            self.isCheckedIn = snapshot?.exists ?? false
-            UserDefaults.standard.removeObject(forKey: CXUserDefaults.lastSpotId)
-        }
-        
-    }
+   
     
     func checkout(spotId: String) async throws  {
         guard let uid = Auth.auth().currentUser?.uid else {return}
@@ -271,9 +259,7 @@ final class DataService {
         let reference = locationsBranch.document(spot.id).collection(Server.sales).document()
         let locationSale: Double = price * 0.30
 
-        let updateSales: [String: Any] = [
-            Location.CodingKeys.totalSales.rawValue: FieldValue.increment(price)
-        ]
+      
         
         let locationRecord: [String: Any] = [
             User.CodingKeys.id.rawValue: reference.documentID,
@@ -285,7 +271,6 @@ final class DataService {
             Server.sale: price,
             Server.timestamp: FieldValue.serverTimestamp()
         ]
-        locationsBranch.document(spot.id).updateData(updateSales)
         reference.setData(locationRecord)
         
         //Update Scoutstats
@@ -300,9 +285,7 @@ final class DataService {
         let locationReference = locationsBranch.document(spot.id).collection(Server.sales).document()
         let scoutReference = salesBranch.document(spot.ownerId).collection(spot.id).document()
         
-        let updateLocationSales: [String: Any] = [
-            Location.CodingKeys.totalSales.rawValue: FieldValue.increment(price)
-        ]
+       
         
        
         let locationRecord: [String: Any] = [
@@ -315,7 +298,7 @@ final class DataService {
             Server.commission: scoutSale,
             Server.timestamp: FieldValue.serverTimestamp()
         ]
-        locationsBranch.document(spot.id).updateData(updateLocationSales)
+        
         scoutReference.setData(locationRecord)
         locationReference.setData(locationRecord)
         
@@ -340,6 +323,7 @@ final class DataService {
     func getSpotFrom(id: String) async throws -> Location {
         let snapshot = try await locationsBranch.document(id).getDocument()
         let location = try snapshot.data(as: Location.self)
+        print("Got Location Successfully")
         return location
     }
     

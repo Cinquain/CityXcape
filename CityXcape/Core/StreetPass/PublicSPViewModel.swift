@@ -9,22 +9,22 @@ import Foundation
 import SwiftUI
 
 
-@Observable
-final class PublicSPViewModel: Sendable {
+
+final class PublicSPViewModel: ObservableObject {
 
     
-    var user: User?
-    var showWorlds: Bool = false
-    var isSent: Bool = false
+    @Published var user: User?
+    @Published var showWorlds: Bool = false
+    @Published var isSent: Bool = false
     
-    var message: String = ""
-    var showTextField: Bool = false
+    @Published var message: String = ""
+    @Published var showTextField: Bool = false
     
-    var showError: Bool = false
-    var errorMessage: String = ""
+    @Published var showError: Bool = false
+    @Published var errorMessage: String = ""
     
-    var walletValue: Int = 0
-    var buySTC: Bool = false
+    @Published var walletValue: Int = 0
+    @Published var buySTC: Bool = false
     
     init() {
         getUser()

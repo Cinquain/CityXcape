@@ -9,10 +9,10 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @AppStorage(CXUserDefaults.firstOpen) var firstOpen: Bool?
-    @EnvironmentObject private var store: Store
     @State var index: Int = 0
-    @State var vm = HomeViewModel()
+    @EnvironmentObject var connectionVM: ConnectionsVM
+    @EnvironmentObject var chatVM: ChatViewModel
+
 
     
     var body: some View {
@@ -36,7 +36,7 @@ struct HomeView: View {
                             .scaledToFit()
                         Text(Tab.connections.rawValue)
                     }
-                    .badge(vm.reqCount)
+                    .badge(connectionVM.count)
                 
                 Messages()
                     .tag(2)
@@ -46,7 +46,7 @@ struct HomeView: View {
                             .scaledToFit()
                         Text(Tab.messages.rawValue)
                     }
-                    .badge(vm.count)
+                    .badge(chatVM.count)
              
                 
                 StreetPass()

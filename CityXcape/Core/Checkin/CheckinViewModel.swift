@@ -58,6 +58,7 @@ final class CheckinViewModel: ObservableObject {
         DataService.shared.fetchUsersCheckedIn(spotId: spotId) { result in
             switch result {
             case .success(let checkedInUsers):
+                print("Got users successfully")
                 self.users = checkedInUsers
             case .failure(let error):
                 self.errorMessage = error.localizedDescription
@@ -83,7 +84,7 @@ final class CheckinViewModel: ObservableObject {
         let user = try await DataService.shared.getUserCredentials()
         self.user = User(id: user.id, username: user.username, imageUrl: user.imageUrl, gender: user.gender, city: user.city, streetcred: user.streetcred, worlds: user.worlds, fcmToken: user.fcmToken)
         self.spot = currentspot
-        try await DataService.shared.checkin(spotId: spotId, user: self.user!)
+        try await DataService.shared.checkin(spotId: spotId, user: user)
         AnalyticService.shared.checkedIn()
         listenForCheckOut()
         return currentspot

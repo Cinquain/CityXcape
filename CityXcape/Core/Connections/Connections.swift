@@ -9,9 +9,8 @@ import SwiftUI
 
 struct Connections: View {
 
-    @State var vm = ConnectionsVM()
     @Binding var index: Int
-    
+    @EnvironmentObject var vm: ConnectionsVM
     
     var body: some View {
         
@@ -101,14 +100,14 @@ struct Connections: View {
 
     @ViewBuilder
     func header() -> some View {
-        VStack {
+        
             HStack {
                 Spacer()
                 Image("hexagons-3")
                     .renderingMode(.template)
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 15)
+                    .frame(height: 17)
                     .foregroundStyle(.white)
                     .padding(9)
                     .background(.white.opacity(0.2))
@@ -123,12 +122,7 @@ struct Connections: View {
                 Spacer()
             }
             .padding(.horizontal)
-            
-            Divider()
-                .frame(height: 0.5)
-                .background(.white)
-                .padding(.horizontal)
-        }
+                    
     }
         
 
@@ -140,5 +134,6 @@ struct Connections: View {
 
 #Preview {
     @Previewable @State var value: Int = 0
-    Connections(vm: ConnectionsVM(), index: $value)
+    Connections(index: $value)
+        .environmentObject(ConnectionsVM())
 }

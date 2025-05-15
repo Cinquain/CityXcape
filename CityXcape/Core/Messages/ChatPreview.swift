@@ -33,13 +33,10 @@ struct ChatPreview: View {
             }
             
             
-            Divider()
-                .frame(height: 0.2)
-                .background(.white)
-                .padding(.leading, 80)
+        
         }
         .padding(.horizontal)
-        .background(.black)
+        .background(.black.opacity(0.5))
         
     }
     

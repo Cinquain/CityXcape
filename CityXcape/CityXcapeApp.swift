@@ -18,14 +18,26 @@ import FirebaseMessaging
 struct CityXcapeApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @State private var showLaunchView: Bool = true
+    
     @ObservedObject var store = Store()
+    @StateObject var checkinVM = CheckinViewModel()
+    @StateObject var connectionVM = ConnectionsVM()
+    @StateObject var chatVM = ChatViewModel()
+    @StateObject var streetPassVM = StreetPassViewModel()
+    @StateObject var publicPassVM = PublicSPViewModel()
     
     var body: some Scene {
         WindowGroup {
             
             ZStack {
+                
                 HomeView()
                     .environmentObject(store)
+                    .environmentObject(checkinVM)
+                    .environmentObject(connectionVM)
+                    .environmentObject(chatVM)
+                    .environmentObject(streetPassVM)
+                    .environmentObject(publicPassVM)
                 
                 ZStack {
                     if showLaunchView {

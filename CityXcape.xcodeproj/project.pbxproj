@@ -51,7 +51,6 @@
 		21DE09072C88922000A2D526 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DE09062C88922000A2D526 /* AuthViewModel.swift */; };
 		21DE09092C8893B500A2D526 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DE09082C8893B500A2D526 /* ImageManager.swift */; };
 		21DE576A2CE9145200466C6A /* HexBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DE57692CE9145200466C6A /* HexBackground.swift */; };
-		21E366252DA7D22D002BFE02 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E366242DA7D22D002BFE02 /* HomeViewModel.swift */; };
 		21E366292DA7D487002BFE02 /* ConnectionsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E366282DA7D487002BFE02 /* ConnectionsVM.swift */; };
 		21E3662B2DA7DF89002BFE02 /* PublicSPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E3662A2DA7DF89002BFE02 /* PublicSPViewModel.swift */; };
 		21E487152C862889005ADB06 /* StampPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E487142C862889005ADB06 /* StampPage.swift */; };
@@ -145,7 +144,6 @@
 		21DE09082C8893B500A2D526 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		21DE57692CE9145200466C6A /* HexBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexBackground.swift; sourceTree = "<group>"; };
 		21DF5C8F2C82620600449D96 /* CityXcape.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CityXcape.entitlements; sourceTree = "<group>"; };
-		21E366242DA7D22D002BFE02 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		21E366282DA7D487002BFE02 /* ConnectionsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsVM.swift; sourceTree = "<group>"; };
 		21E3662A2DA7DF89002BFE02 /* PublicSPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicSPViewModel.swift; sourceTree = "<group>"; };
 		21E487142C862889005ADB06 /* StampPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StampPage.swift; sourceTree = "<group>"; };
@@ -278,7 +276,6 @@
 				21EC5ACF2C5C2F9D00B88812 /* Helpers.swift */,
 				21EC5AD92C5C40BA00B88812 /* Extensions.swift */,
 				21FC27D22C7CB0A30055CDCF /* Utilities.swift */,
-				21E366242DA7D22D002BFE02 /* HomeViewModel.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -574,7 +571,6 @@
 				21FC27D32C7CB0A30055CDCF /* Utilities.swift in Sources */,
 				21FCE5972C5AD4B7006A86CE /* CityXcapeApp.swift in Sources */,
 				21EC5ADC2C5C440A00B88812 /* BubbleAnimation.swift in Sources */,
-				21E366252DA7D22D002BFE02 /* HomeViewModel.swift in Sources */,
 				21F5C1032C990AAE0078684E /* Messages.swift in Sources */,
 				21D6E1C92CA894FD00ED9918 /* FindCityView.swift in Sources */,
 				21EC5AD42C5C3BBE00B88812 /* UserBubble.swift in Sources */,

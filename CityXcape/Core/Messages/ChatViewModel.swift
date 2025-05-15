@@ -11,7 +11,6 @@ import SwiftUI
 class ChatViewModel: ObservableObject {
     
     @Published var messages: [Message] = []
-    @Published var unviewed: [Message] = []
     @Published var count: Int = 0
 
     
@@ -23,6 +22,9 @@ class ChatViewModel: ObservableObject {
     @Published var recents: [Message] = []
 
     
+    init() {
+        fetchRecentMessages()
+    }
  
     
     func fetchMessageFor(uid: String) {

@@ -13,7 +13,7 @@ struct Checkin: View {
     @State private var startOnboarding: Bool = false
     @State private var startScanner: Bool = false
     
-    @StateObject var vm = CheckinViewModel()
+    @EnvironmentObject var vm: CheckinViewModel
     
     var body: some View {
         ZStack {
@@ -56,7 +56,6 @@ struct Checkin: View {
         switch result {
         case .success(let scanned):
             startScanner = false
-            let scannedText = scanned.string
             let code = "27dwRVATDnUYxRsK0XVn"
             Task {
                 do {
@@ -116,14 +115,13 @@ struct Checkin: View {
     
     @ViewBuilder
     func headerView() -> some View {
-        VStack(alignment: .leading, spacing: 0) {
             HStack(spacing: 2) {
                 Spacer()
                 
                 Image("Logo")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 25)
+                    .frame(height: 30)
                     .padding(.leading, 5)
                 
                 Spacer()
@@ -132,11 +130,7 @@ struct Checkin: View {
             }
             .padding(.bottom, 7)
             
-            Divider()
-                .background(.white)
-                .frame(height: 0.3)
-        }
-        .padding(.horizontal, 10)
+        
     }
     
     @ViewBuilder
@@ -171,4 +165,5 @@ struct Checkin: View {
 
 #Preview {
     Checkin()
+        .environmentObject(CheckinViewModel())
 }

@@ -18,7 +18,6 @@ struct Location: Identifiable, Equatable, Codable {
     let ownerId: String
     let worldId: String
     let checkinCount: Int
-    let totalSales: Double
     let longitude: Double
     let latitude: Double
     let isSocialHub: Bool
@@ -38,7 +37,6 @@ struct Location: Identifiable, Equatable, Codable {
         case ownerId
         case isSocialHub
         case checkinCount
-        case totalSales
         case worldId
         case longitude
         case city
@@ -157,7 +155,6 @@ extension Location {
         self.isSocialHub = data[Location.CodingKeys.isSocialHub.rawValue] as? Bool ?? true
         self.city = data[Location.CodingKeys.city.rawValue] as? String ?? ""
         self.checkinCount = data[Location.CodingKeys.checkinCount.rawValue] as? Int ?? 0
-        self.totalSales = data[Location.CodingKeys.totalSales.rawValue] as? Double ?? 0
     }
     
     
@@ -172,7 +169,6 @@ extension Location {
         Location.CodingKeys.longitude.rawValue: 13845556,
         Location.CodingKeys.latitude.rawValue: 8585988,
         Location.CodingKeys.checkinCount.rawValue: 4240,
-        Location.CodingKeys.totalSales.rawValue: 993.485
     ]
     
     
@@ -187,7 +183,6 @@ extension Location {
         Location.CodingKeys.longitude.rawValue: 13845556,
         Location.CodingKeys.latitude.rawValue: 8585988,
         Location.CodingKeys.checkinCount.rawValue: 7726,
-        Location.CodingKeys.totalSales.rawValue: 1023.485
     ]
     
     
@@ -202,7 +197,6 @@ extension Location {
         Location.CodingKeys.longitude.rawValue: 13845556,
         Location.CodingKeys.latitude.rawValue: 8585988,
         Location.CodingKeys.checkinCount.rawValue: 1743,
-        Location.CodingKeys.totalSales.rawValue: 683.385
 
     ]
     
@@ -218,7 +212,6 @@ extension Location {
         Location.CodingKeys.longitude.rawValue: 13845556,
         Location.CodingKeys.latitude.rawValue: 8585988,
         Location.CodingKeys.checkinCount.rawValue: 2171,
-        Location.CodingKeys.totalSales.rawValue: 983.485
     ]
     
     
@@ -233,7 +226,6 @@ extension Location {
         Location.CodingKeys.longitude.rawValue: 13845556,
         Location.CodingKeys.latitude.rawValue: 8585988,
         Location.CodingKeys.checkinCount.rawValue: 749,
-        Location.CodingKeys.totalSales.rawValue: 293.485
     ]
     
     

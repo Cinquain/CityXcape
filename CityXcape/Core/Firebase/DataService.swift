@@ -211,20 +211,14 @@ final class DataService {
     
     func checkin(spotId: String, user: User) async throws {
         let reference = locationsBranch.document(spotId).collection(Server.checkins)
-        print("User id is \(user.id)")
         try reference.document(user.id).setData(from: user.self)
+        
+        //Set a time to live property
         let expiresAt = Timestamp(date: Date().addingTimeInterval(2 * 60 * 60))
-        let timeData: [String: Any] = [
+        let ttlData: [String: Any] = [
             Server.expiresAt : expiresAt
         ]
-        try await reference.document(user.id).updateData(timeData)
-        
-        let count: Double = 1
-        let data: [String: Any] = [
-            Location.CodingKeys.checkinCount.rawValue: FieldValue.increment(count)
-        ]
-        UserDefaults.standard.set(true, forKey: CXUserDefaults.isCheckedIn)
-        try await locationsBranch.document(spotId).updateData(data)
+        try await reference.document(user.id).updateData(ttlData)
     }
     
    

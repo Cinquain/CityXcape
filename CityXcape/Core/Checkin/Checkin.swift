@@ -10,8 +10,6 @@ import CodeScanner
 
 struct Checkin: View {
     @AppStorage(CXUserDefaults.uid) var uid: String?
-    @State private var startOnboarding: Bool = false
-    @State private var startScanner: Bool = false
     
     @EnvironmentObject var vm: CheckinViewModel
     
@@ -22,13 +20,13 @@ struct Checkin: View {
                 Spacer()
                
                 Button(action: {
-                    handleCheckin()
+                    vm.handleCheckin()
                 }, label: {
                        qrCodeVisual()
                 })
                 .opacity(0.9)
-                .sheet(isPresented: $startScanner, content: {
-                    CodeScannerView(codeTypes: [.qr], completion: handleScan)
+                .sheet(isPresented: $vm.startScanner, content: {
+                    CodeScannerView(codeTypes: [.qr], completion: vm.handleScan)
                 })
                 
                 ctaButton()
@@ -40,7 +38,7 @@ struct Checkin: View {
             
             
             if vm.showLounge {
-                if let spot = vm.socialHubSpot {
+                if let spot = vm.socialHub {
                     withAnimation(.easeIn) {
                         DigitalLounge(spot: spot, vm: vm)
                     }
@@ -52,49 +50,14 @@ struct Checkin: View {
         //End of body
     }
     
-    fileprivate func handleScan(result: Result<ScanResult, ScanError>) {
-        switch result {
-        case .success(let scanned):
-            startScanner = false
-            let code = "27dwRVATDnUYxRsK0XVn"
-            Task {
-                do {
-                    let spot = try await vm.checkin(spotId: code)
-                    if !spot.isSocialHub {
-                        vm.huntSpot = spot
-                        return
-                    }
-                    vm.socialHubSpot = spot
-
-                    vm.showLounge.toggle()
-
-                } catch {
-                    print("Error fetching location", error.localizedDescription)
-                    vm.errorMessage =  error.localizedDescription
-                    vm.showError.toggle()
-                }
-            }
-        case .failure(let error):
-            vm.errorMessage =  error.localizedDescription
-            vm.showError.toggle()
-            print(error.localizedDescription)
-        }
-    }
     
-    fileprivate func handleCheckin() {
-        AnalyticService.shared.pressedCheckin()
-        if AuthService.shared.uid == nil {
-            vm.showOnboarding.toggle()
-            vm.showError.toggle()
-            return
-        }
-        startScanner.toggle()
-    }
+    
+   
     
     @ViewBuilder
     func ctaButton() -> some View {
         Button(action: {
-          handleCheckin()
+            vm.handleCheckin()
         }, label: {
             HStack {
                 Image(systemName: "qrcode")
@@ -108,7 +71,7 @@ struct Checkin: View {
             .clipShape(Capsule())
                 
         })
-        .fullScreenCover(item: $vm.huntSpot) { spot in
+        .fullScreenCover(item: $vm.scavengerHunt) { spot in
             ScavengerHunt(spot: spot, vm: vm)
         }
     }
@@ -129,8 +92,6 @@ struct Checkin: View {
                 
             }
             .padding(.bottom, 7)
-            
-        
     }
     
     @ViewBuilder
@@ -141,7 +102,7 @@ struct Checkin: View {
                 .foregroundStyle(.white)
                 .scaledToFit()
                 .frame(height: 220)
-                .fullScreenCover(isPresented: $startOnboarding) {
+                .fullScreenCover(isPresented: $vm.startOnboarding) {
                    Onboarding()
                 }
               
@@ -151,9 +112,9 @@ struct Checkin: View {
                 .foregroundStyle(.white)
                 .fontWeight(.thin)
                 .alert(isPresented: $vm.showError, content: {
-                    if vm.showOnboarding {
+                    if vm.showOnboardAlert {
                         return Alert(title: Text("You need a profile to check-in"), primaryButton: .default(Text("Get One")){
-                            startOnboarding = true
+                            vm.startOnboarding = true
                         } , secondaryButton: .cancel())
                     } else {
                         return Alert(title: Text(vm.errorMessage))

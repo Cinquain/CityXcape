@@ -38,9 +38,10 @@ final class SessionManager: ObservableObject {
         }
     }
     
-    func startSession(spotId: String) {
+    func startSession(spotId: String, spotName: String  ) {
         self.lastSpotId = spotId
         self.isCheckedIn = true
+        AnalyticService.shared.checkedIn(id: spotId, name: spotName)
     }
     
     func clearSession() {

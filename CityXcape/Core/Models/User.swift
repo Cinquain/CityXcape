@@ -90,7 +90,7 @@ extension User {
     static let data: [String: Any] = [
         User.CodingKeys.id.rawValue: "PlMt3eOkyseQIG9VDct6",
         User.CodingKeys.username.rawValue: "Erica",
-        User.CodingKeys.imageUrl.rawValue: "le",
+        User.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com:443/v0/b/cityxcape-70313.appspot.com/o/Users%2FNwE1WVJY83RcQw4tttAkZ0Vg53Y2%2FprofileImage?alt=media&token=f1a4fd4d-f255-46a3-9d9a-89e7500b9cd1",
         User.CodingKeys.gender.rawValue: false,
         User.CodingKeys.city.rawValue: "Minneapolis",
         User.CodingKeys.fcmToken.rawValue: "",
@@ -100,7 +100,7 @@ extension User {
     
     static let data2: [String: Any] = [
         User.CodingKeys.id.rawValue: "orjoifhohd984308240984098uihffo",
-        User.CodingKeys.username.rawValue: "Adam",
+        User.CodingKeys.username.rawValue: "James",
         User.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FJAv8CbZcZDUKNQx0PeGusp8cINC2%2FprofileImage?alt=media&token=eb587fbc-3461-4060-b6fb-73c0d10b7749",
         User.CodingKeys.gender.rawValue: false,
         User.CodingKeys.city.rawValue: "Minneapolis",
@@ -111,8 +111,8 @@ extension User {
     
     static let data3: [String: Any] = [
         User.CodingKeys.id.rawValue: "orjoif83797947hohduihffo",
-        User.CodingKeys.username.rawValue: "James",
-        User.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FzuCiRbMq8EXbQmzJwP92OjjVeBZ2%2FprofileImage?alt=media&token=462898db-8a12-4296-a132-77f362763dfa",
+        User.CodingKeys.username.rawValue: "Sandra",
+        User.CodingKeys.imageUrl.rawValue: "https://firebasestorage.googleapis.com/v0/b/cityxcape-70313.appspot.com/o/Users%2FEVTU961bfeCZBEBzrBL0%2FSandra.png?alt=media&token=07058b02-642b-44e4-a0ef-3548b250787e",
         User.CodingKeys.gender.rawValue: false,
         User.CodingKeys.city.rawValue: "Minneapolis",
         User.CodingKeys.fcmToken.rawValue: "",

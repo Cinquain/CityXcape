@@ -69,7 +69,7 @@ struct DigitalLounge: View {
     func emptyState() -> some View {
         VStack {
             Spacer()
-            SelfieBubble(size: 200, url: vm.user?.imageUrl ?? "", pulse: 2)
+            SelfieBubble(size: 250, url: vm.user?.imageUrl ?? "", pulse: 2)
             Text(CXStrings.firstOne)
                 .font(.title)
             

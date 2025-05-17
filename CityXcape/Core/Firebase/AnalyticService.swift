@@ -15,6 +15,10 @@ final class AnalyticService {
     static let shared = AnalyticService()
     private init() {}
     
+    enum AnalyticsEvent {
+        static let checkin = "checkin"
+    }
+    
     func pressedCheckin() {
         Analytics.logEvent("pressed_checkin", parameters: nil)
     }
@@ -39,8 +43,12 @@ final class AnalyticService {
         Analytics.logEvent("new_user", parameters: nil)
     }
     
-    func checkedIn() {
-        Analytics.logEvent("checkin", parameters: nil)
+    func checkedIn(id: String, name: String) {
+        let params: [String: Any] = [
+            "spot_id": id,
+            "spot_name": name
+        ]
+        Analytics.logEvent(AnalyticsEvent.checkin, parameters: params)
     }
     
     func checkout() {
